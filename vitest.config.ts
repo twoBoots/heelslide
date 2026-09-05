@@ -1,8 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), svelte()],
   test: {
     globals: true,
     environment: 'node',
@@ -16,7 +17,7 @@ export default defineConfig({
         branches: 80,
         statements: 80
       },
-      include: ['{packages,apps}/*/src/**/*.{ts,tsx,vue}'],
+      include: ['{packages,apps}/*/src/**/*.{ts,tsx,vue,svelte}'],
       exclude: [
         'packages/*/src/index.ts',
         'packages/*/src/types.ts',
