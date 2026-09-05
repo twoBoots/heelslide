@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: React Component Adapter & Headless Hook**
+- [x] **Track: React Component Adapter & Headless Hook**
   - Worktree: `.worktrees/react-component`
   - Link: [.cooper/active/react-component/index.md](.cooper/active/react-component/index.md)
 

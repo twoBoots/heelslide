@@ -1,7 +1,7 @@
 # Track: React Component Adapter & Headless Hook
 
 - **Track ID:** `react-component`
-- **Status:** `new`
+- **Status:** `completed`
 - **Capability:** `react-adapter`
 
 ## Artifacts
