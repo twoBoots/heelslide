@@ -40,7 +40,7 @@ Track ID: `core-engine-foundation`
 
 ## Phase 3: Gesture State Machine & Engine Orchestration
 
-- [ ] **Task 7: Gesture State Machine**
+- [~] **Task 7: Gesture State Machine**
   - [ ] Sub-task: Unit tests for states (`idle`, `active`, `unlocked`, `reset`) and tolerance checks (Red)
   - [ ] Sub-task: Implement `packages/core/src/machine.ts` (Green)
   - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
