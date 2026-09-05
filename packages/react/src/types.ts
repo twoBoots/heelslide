@@ -44,6 +44,7 @@ export interface HeelslideProps {
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;
+  onStateChange?: (state: GestureState) => void;
   className?: string;
   style?: React.CSSProperties;
   width?: number;
