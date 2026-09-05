@@ -40,10 +40,10 @@ Track ID: `core-engine-foundation`
 
 ## Phase 3: Gesture State Machine & Engine Orchestration
 
-- [~] **Task 7: Gesture State Machine**
-  - [ ] Sub-task: Unit tests for states (`idle`, `active`, `unlocked`, `reset`) and tolerance checks (Red)
-  - [ ] Sub-task: Implement `packages/core/src/machine.ts` (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] **Task 7: Gesture State Machine** (2fe8575)
+  - [x] Sub-task: Unit tests for states (`idle`, `active`, `unlocked`, `reset`) and tolerance checks (Red)
+  - [x] Sub-task: Implement `packages/core/src/machine.ts` (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 - [ ] **Task 8: HeelslideEngine Orchestrator & Public API**
   - [ ] Sub-task: Integration tests for gesture tracing, heel navigation, early release, and unlock events (Red)
   - [ ] Sub-task: Implement `packages/core/src/engine.ts` and `packages/core/src/index.ts` (Green)
