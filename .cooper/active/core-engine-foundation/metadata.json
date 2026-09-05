@@ -1,0 +1,8 @@
+{
+  "track_id": "core-engine-foundation",
+  "title": "Monorepo Scaffolding & Core Gesture Engine",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-09-05T08:28:30Z",
+  "capabilities": ["gesture-engine"]
+}
