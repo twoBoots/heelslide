@@ -28,8 +28,19 @@ export {
   segmentsIntersect
 } from './geometry.js';
 
+// Accessibility
+export {
+  getAccessibleDescription,
+  getAccessibleSteps,
+  getStepDirection
+} from './accessibility.js';
+
 // Types & Interfaces
 export type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  AccessibleStep,
   Bounds,
   Direction,
   EngineOptions,

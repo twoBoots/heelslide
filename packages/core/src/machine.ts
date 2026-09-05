@@ -18,6 +18,9 @@ export interface GestureStateMachine {
   end: () => void;
   cancel: () => void;
   reset: () => void;
+  stepForward: (amount?: number) => number;
+  stepBackward: (amount?: number) => number;
+  stepToNextHeel: () => number;
 }
 
 export function createGestureStateMachine(
@@ -144,6 +147,100 @@ export function createGestureStateMachine(
     }
   }
 
+  function updateSegmentFromProgress(): void {
+    if (track.segments.length === 0 || track.totalLength === 0) {
+      currentSegmentIndex = 0;
+      return;
+    }
+    const currentDistance = progress * track.totalLength;
+    let cum = 0;
+    for (let i = 0; i < track.segments.length; i++) {
+      cum += track.segments[i]!.length;
+      if (cum >= currentDistance || i === track.segments.length - 1) {
+        currentSegmentIndex = i;
+        break;
+      }
+    }
+  }
+
+  function stepForward(amount = 0.1): number {
+    if (state === 'unlocked') {
+      return 1.0;
+    }
+    if (state === 'idle' || state === 'reset') {
+      setState('active');
+    }
+    const newProgress = Math.min(1.0, progress + amount);
+    if (newProgress >= 0.95 || currentSegmentIndex >= track.segments.length) {
+      progress = 1.0;
+      currentSegmentIndex = Math.max(0, track.segments.length - 1);
+      setState('unlocked');
+      onProgress?.(1.0);
+      onUnlock?.();
+      return 1.0;
+    }
+    progress = newProgress;
+    updateSegmentFromProgress();
+    onProgress?.(progress);
+    return progress;
+  }
+
+  function stepBackward(amount = 0.1): number {
+    if (state !== 'active') {
+      return progress;
+    }
+    const newProgress = Math.max(0, progress - amount);
+    progress = newProgress;
+    updateSegmentFromProgress();
+    onProgress?.(progress);
+    return progress;
+  }
+
+  function stepToNextHeel(): number {
+    if (state === 'unlocked') {
+      return 1.0;
+    }
+    if (state === 'idle' || state === 'reset') {
+      setState('active');
+    }
+    if (track.segments.length === 0) {
+      progress = 1.0;
+      setState('unlocked');
+      onProgress?.(1.0);
+      onUnlock?.();
+      return 1.0;
+    }
+
+    if (currentSegmentIndex >= track.segments.length - 1) {
+      progress = 1.0;
+      currentSegmentIndex = track.segments.length - 1;
+      setState('unlocked');
+      onProgress?.(1.0);
+      onUnlock?.();
+      return 1.0;
+    }
+
+    let cum = 0;
+    for (let i = 0; i <= currentSegmentIndex; i++) {
+      cum += track.segments[i]!.length;
+    }
+
+    currentSegmentIndex = Math.min(track.segments.length - 1, currentSegmentIndex + 1);
+    const newProgress = track.totalLength > 0 ? Math.min(1.0, cum / track.totalLength) : 1.0;
+    progress = newProgress;
+
+    if (progress >= 0.95) {
+      progress = 1.0;
+      setState('unlocked');
+      onProgress?.(1.0);
+      onUnlock?.();
+      return 1.0;
+    }
+
+    onProgress?.(progress);
+    return progress;
+  }
+
   return {
     getState: () => state,
     getProgress: () => progress,
@@ -152,6 +249,9 @@ export function createGestureStateMachine(
     update,
     end,
     cancel,
-    reset: resetState
+    reset: resetState,
+    stepForward,
+    stepBackward,
+    stepToNextHeel
   };
 }

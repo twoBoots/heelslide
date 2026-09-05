@@ -1,6 +1,8 @@
+import { getAccessibleDescription, getAccessibleSteps } from './accessibility.js';
 import { generateTrackPath } from './generator.js';
 import { createGestureStateMachine, type GestureStateMachine } from './machine.js';
 import type {
+  AccessibleStep,
   EngineOptions,
   GeneratorOptions,
   GestureState,
@@ -79,6 +81,26 @@ export class HeelslideEngine {
 
   public reset(): void {
     this.machine.reset();
+  }
+
+  public getAccessibleSteps(): AccessibleStep[] {
+    return getAccessibleSteps(this.track);
+  }
+
+  public getAccessibleDescription(): string {
+    return getAccessibleDescription(this.track);
+  }
+
+  public stepForward(amount?: number): number {
+    return this.machine.stepForward(amount ?? this.options.accessible?.stepIncrement);
+  }
+
+  public stepBackward(amount?: number): number {
+    return this.machine.stepBackward(amount ?? this.options.accessible?.stepIncrement);
+  }
+
+  public stepToNextHeel(): number {
+    return this.machine.stepToNextHeel();
   }
 
   public regeneratePath(overrideOptions?: Partial<GeneratorOptions>): TrackPath {
