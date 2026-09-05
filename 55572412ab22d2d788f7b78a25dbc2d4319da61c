@@ -1,0 +1,3 @@
+Task: Task 1: Deterministic Visual Fixture in apps/docs
+Scope: apps/docs/src/fixtures/VisualFixture.tsx, apps/docs/src/App.tsx, apps/docs/tests/VisualFixture.test.tsx, packages/core, packages/react
+Summary: Implemented deterministic VisualFixture harness with seed pinning (4242), animation suppression, state/theme query parameter parsing, and React/Core initialState support. Verified with 11 new unit tests at 96.5% coverage.
