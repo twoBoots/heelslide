@@ -1,0 +1,3 @@
+Task: Root Workspace & Monorepo Tooling
+Scope: package.json, tsconfig.base.json, tsconfig.json, .oxlintrc.json
+Summary: Scaffolded npm workspaces, root TypeScript ES2022 strict configurations, and Oxc linter configuration.
