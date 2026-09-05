@@ -11,10 +11,10 @@
 - [x] Task: Phase 1 Verification & Checkpoint [checkpoint: 462759d]
 
 ## Phase 2: Presentation Component (`<Heelslide />`) & Styling
-- [~] Task: Procedural SVG Track Rendering & Styling
-  - [ ] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
-  - [ ] Sub-task: Implement Heelslide.vue SVG structure and style.css variables (Green)
-  - [ ] Sub-task: Refactor SVG track path calculation and styling (Refactor)
+- [x] Task: Procedural SVG Track Rendering & Styling (10d9858)
+  - [x] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
+  - [x] Sub-task: Implement Heelslide.vue SVG structure and style.css variables (Green)
+  - [x] Sub-task: Refactor SVG track path calculation and styling (Refactor)
 - [ ] Task: Pointer Event Tracking, Capture & Teardown
   - [ ] Sub-task: Write component tests for pointer interaction, drag tracking, dual emits/callbacks, and unmount teardown (Red)
   - [ ] Sub-task: Implement pointer event listeners with pointer capture and unmount cleanup (Green)
