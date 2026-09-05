@@ -13,18 +13,18 @@
 ---
 
 ## Phase 2: Interactive Playground & Configurator UI
-- [~] **Task 3: Live Configurator & Dynamic Preview**
-  - [ ] Sub-task: Write unit tests for playground state management and snippet generation (Red)
-  - [ ] Sub-task: Implement `Playground`, `ConfigPanel`, and `SimulationCard` (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 4: Framework Tabs & Code Generator**
-  - [ ] Sub-task: Write component tests for `FrameworkTabs` and code generator (Red)
-  - [ ] Sub-task: Implement dynamic code snippets for Vanilla, React, and Vue (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 5: Phase 2 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest test suite and typecheck
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 3: Live Configurator & Dynamic Preview** (4345fc8)
+  - [x] Sub-task: Write unit tests for playground state management and snippet generation (Red)
+  - [x] Sub-task: Implement `Playground`, `ConfigPanel`, and `SimulationCard` (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 4: Framework Tabs & Code Generator** (4345fc8)
+  - [x] Sub-task: Write component tests for `FrameworkTabs` and code generator (Red)
+  - [x] Sub-task: Implement dynamic code snippets for Vanilla, React, and Vue (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 5: Phase 2 Verification & Checkpoint** (aaf21d0) [checkpoint: aaf21d0]
+  - [x] Sub-task: Run Vitest test suite and typecheck
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
