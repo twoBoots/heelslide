@@ -26,7 +26,7 @@
 - **Coverage Mandate**: Strict **>80% line, branch, and function coverage** enforced across all modules (per Cooper SDD standard)
 
 ## CI/CD, Deployment & GitHub Governance
-- **Continuous Integration (`ci.yml`)**: Triggered on all branches and Pull Requests:
+- **Continuous Integration (`ci.yml`)**: Triggered exclusively on open Pull Requests (targeting `main`), and invoked as a mandatory gate for release workflow runs on `main`:
   - Lint and format verification via `oxlint` and `oxc`
   - Strict type checking via `tsc --noEmit`
   - Vitest unit test suite with >80% coverage gate

@@ -156,7 +156,7 @@ Once all phases are complete:
 - **Linear History:** Merges to `main` must use Squash and Merge or Rebase Merge to keep history clean.
 
 ### 2. Continuous Integration Gates (`ci.yml`)
-Runs automatically on all branch pushes and pull requests:
+Runs automatically on open Pull Requests (targeting `main`), and is invoked as a mandatory gate for release workflow runs:
 1. **Linting & Formatting:** Oxc (`oxlint` checks and `oxc` formatting verification).
 2. **Type Checking:** Strict `tsc --noEmit` across all workspace packages.
 3. **Unit & Component Testing:** Vitest execution enforcing >80% line, branch, and function coverage threshold.
