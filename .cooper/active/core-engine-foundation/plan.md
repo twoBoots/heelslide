@@ -14,7 +14,7 @@ Track ID: `core-engine-foundation`
   - [x] Sub-task: Initialise `packages/core/package.json` and `packages/core/tsconfig.json`
   - [x] Sub-task: Configure `vitest.config.ts` with >80% coverage threshold
   - [x] Sub-task: Setup Vite build pipeline for ESM/CJS/.d.ts bundling in `packages/core`
-- [ ] **Task 3: Phase 1 Verification & Checkpoint**
+- [~] **Task 3: Phase 1 Verification & Checkpoint**
   - [ ] Sub-task: Execute root lint, typecheck, and test runner
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
   - [ ] Sub-task: Checkpoint commit & attach Git Note
