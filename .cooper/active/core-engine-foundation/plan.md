@@ -48,7 +48,7 @@ Track ID: `core-engine-foundation`
   - [x] Sub-task: Integration tests for gesture tracing, heel navigation, early release, and unlock events (Red)
   - [x] Sub-task: Implement `packages/core/src/engine.ts` and `packages/core/src/index.ts` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
-- [~] **Task 9: Phase 3 Verification & Track Checkpoint**
-  - [ ] Sub-task: Run full workspace lint, typecheck, and Vitest coverage
-  - [ ] Sub-task: Build `@heelslide/core` and verify ESM, CJS, and `.d.ts` outputs
-  - [ ] Sub-task: Final phase checkpoint commit, Git Note, and push branch
+- [x] **Task 9: Phase 3 Verification & Track Checkpoint** (c27a7c5) [checkpoint: c27a7c5]
+  - [x] Sub-task: Run full workspace lint, typecheck, and Vitest coverage
+  - [x] Sub-task: Build `@heelslide/core` and verify ESM, CJS, and `.d.ts` outputs
+  - [x] Sub-task: Final phase checkpoint commit, Git Note, and push branch
