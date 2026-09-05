@@ -29,11 +29,11 @@
 ---
 
 ## Phase 3: Integration, GitHub Pages Build & Quality Gates
-- [ ] **Task 6: Static Deployment & Full Build Verification**
-  - [ ] Sub-task: Build `apps/docs` for production and verify output in `apps/docs/dist/`
-  - [ ] Sub-task: Run full workspace test suite (`vitest run --coverage >80%`), `tsc -b`, and `oxlint .`
-  - [ ] Sub-task: Verify asset URLs and GitHub Pages subpath compatibility
-- [ ] **Task 7: Phase 3 Verification & Track Finalization**
-  - [ ] Sub-task: Complete track metadata and tracks registry
-  - [ ] Sub-task: Final checkpoint commit, Git Note, and remote push
-  - [ ] Sub-task: Open GitHub Pull Request
+- [x] **Task 6: Static Deployment & Full Build Verification**
+  - [x] Sub-task: Build `apps/docs` for production and verify output in `apps/docs/dist/`
+  - [x] Sub-task: Run full workspace test suite (`vitest run --coverage >80%`), `tsc -b`, and `oxlint .`
+  - [x] Sub-task: Verify asset URLs and GitHub Pages subpath compatibility
+- [x] **Task 7: Phase 3 Verification & Track Finalization** (75cb224) [checkpoint: 75cb224]
+  - [x] Sub-task: Complete track metadata and tracks registry
+  - [x] Sub-task: Final checkpoint commit, Git Note, and remote push
+  - [x] Sub-task: Open GitHub Pull Request
