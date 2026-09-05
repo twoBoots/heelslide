@@ -6,10 +6,10 @@ Track ID: `core-engine-foundation`
 
 ## Phase 1: Monorepo Tooling & Workspace Infrastructure
 
-- [~] **Task 1: Root Workspace & Monorepo Tooling**
-  - [ ] Sub-task: Create root `package.json` with npm workspaces (`packages/*`, `apps/*`) and root scripts
-  - [ ] Sub-task: Configure TypeScript root configuration (`tsconfig.base.json`, `tsconfig.json`)
-  - [ ] Sub-task: Configure Oxc (`.oxlintrc.json`) and formatting verification
+- [x] **Task 1: Root Workspace & Monorepo Tooling** (bf27e72)
+  - [x] Sub-task: Create root `package.json` with npm workspaces (`packages/*`, `apps/*`) and root scripts
+  - [x] Sub-task: Configure TypeScript root configuration (`tsconfig.base.json`, `tsconfig.json`)
+  - [x] Sub-task: Configure Oxc (`.oxlintrc.json`) and formatting verification
 - [ ] **Task 2: Core Package Skeleton & Vitest Suite**
   - [ ] Sub-task: Initialise `packages/core/package.json` and `packages/core/tsconfig.json`
   - [ ] Sub-task: Configure `vitest.config.ts` with >80% coverage threshold
