@@ -23,10 +23,10 @@ Track ID: `react-component`
   - [x] Sub-task: Unit tests for `useHeelslide` lifecycle, reactive states, and pointer handlers (Red)
   - [x] Sub-task: Implement `packages/react/src/useHeelslide.ts` and `packages/react/src/types.ts` (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 4: Phase 2 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest test suite and verify hook coverage
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 4: Phase 2 Verification & Checkpoint** (933d0ee) [checkpoint: 933d0ee]
+  - [x] Sub-task: Run Vitest test suite and verify hook coverage
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
