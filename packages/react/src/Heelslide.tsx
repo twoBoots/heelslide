@@ -10,6 +10,8 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     heels = 2,
     tolerance = 24,
     disabled = false,
+    initialState,
+    initialProgress,
     onUnlock,
     onReset,
     onProgress,
@@ -46,6 +48,8 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
   } = useHeelslide({
     tolerance,
     disabled,
+    initialState,
+    initialProgress,
     generator: generatorOptions,
     onUnlock,
     onReset,

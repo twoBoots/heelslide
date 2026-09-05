@@ -41,6 +41,8 @@ export interface HeelslideProps {
   heels?: HeelCountConfig;
   tolerance?: number;
   disabled?: boolean;
+  initialState?: GestureState;
+  initialProgress?: number;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

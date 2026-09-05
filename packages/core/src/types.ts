@@ -49,6 +49,8 @@ export interface IntersectOptions {
 export interface EngineOptions {
   tolerance?: number;
   generator?: GeneratorOptions;
+  initialState?: GestureState;
+  initialProgress?: number;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

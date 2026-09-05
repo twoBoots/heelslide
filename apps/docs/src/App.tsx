@@ -5,10 +5,17 @@ import { Playground } from './components/Playground.js';
 import { ConfigPanel } from './components/ConfigPanel.js';
 import { SimulationCard } from './components/SimulationCard.js';
 import { FrameworkTabs } from './components/FrameworkTabs.js';
+import { VisualFixture } from './fixtures/VisualFixture.js';
 import type { PlaygroundConfig } from './utils/snippets.js';
 import './styles.css';
 
 export function App() {
+  const isVisualFixture = typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('fixture') === 'visual';
+
+  if (isVisualFixture) {
+    return <VisualFixture />;
+  }
   const [config, setConfig] = useState<PlaygroundConfig>({
     heels: 2,
     tolerance: 24,

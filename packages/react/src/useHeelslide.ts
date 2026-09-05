@@ -49,14 +49,18 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     callbacksRef.current = { onUnlock, onReset, onProgress, onStateChange };
   });
 
-  const [state, setState] = useState<GestureState>('idle');
-  const [progress, setProgress] = useState<number>(0);
+  const [state, setState] = useState<GestureState>(() => options.initialState ?? 'idle');
+  const [progress, setProgress] = useState<number>(() =>
+    options.initialProgress ?? (options.initialState === 'unlocked' ? 1 : options.initialState === 'active' ? 0.5 : 0)
+  );
 
   const engine = useMemo(() => {
     return new HeelslideEngine({
       tolerance,
       generator,
       track: initialTrack,
+      initialState: options.initialState,
+      initialProgress: options.initialProgress,
       onProgress: (p) => {
         setProgress(p);
         callbacksRef.current.onProgress?.(p);
@@ -75,7 +79,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
         callbacksRef.current.onStateChange?.(s);
       }
     });
-  }, [tolerance, generator, initialTrack]);
+  }, [tolerance, generator, initialTrack, options.initialState, options.initialProgress]);
 
   const [track, setTrack] = useState<TrackPath>(() => engine.getPath());
 
