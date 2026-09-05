@@ -10,7 +10,7 @@ Track ID: `haptic-audio-feedback`
   - [x] Sub-task: Write unit tests for vibration triggers, Web Audio tone synthesis, fallback safety, and options (Red)
   - [x] Sub-task: Implement `packages/core/src/feedback.ts` and update `packages/core/src/types.ts` (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 2: Machine & Engine Event Wiring (`onTurn`, `onReset`, `onUnlock`)**
+- [~] **Task 2: Machine & Engine Event Wiring (`onTurn`, `onReset`, `onUnlock`)**
   - [ ] Sub-task: Write unit tests for `onTurn` emission and feedback triggers in `machine.ts` and `engine.ts` (Red)
   - [ ] Sub-task: Wire `onTurn` and feedback integration into `machine.ts`, `engine.ts`, and barrel export `index.ts` (Green)
   - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
