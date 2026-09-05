@@ -145,3 +145,30 @@ Once all phases are complete:
    - Move active track to `.cooper/archive/`.
 5. **Teardown Worktree (`git agent-stop <track_id>`)**:
    - Execute `git agent-stop <track_id>` to delete the `.worktrees/<track_id>` directory and local branch.
+
+---
+
+## GitHub Governance & CI/CD Pipeline
+
+### 1. Branch Protection (`main`)
+- **Direct Commits Blocked:** No direct pushes allowed to `main`. All changes must arrive via isolated [Troop](https://github.com/twoBoots/troop) worktree branches and GitHub Pull Requests.
+- **Mandatory CI Status Checks:** Every PR must pass all required checks in `ci.yml` before merging.
+- **Linear History:** Merges to `main` must use Squash and Merge or Rebase Merge to keep history clean.
+
+### 2. Continuous Integration Gates (`ci.yml`)
+Runs automatically on all branch pushes and pull requests:
+1. **Linting & Formatting:** Oxc (`oxlint` checks and `oxc` formatting verification).
+2. **Type Checking:** Strict `tsc --noEmit` across all workspace packages.
+3. **Unit & Component Testing:** Vitest execution enforcing >80% line, branch, and function coverage threshold.
+4. **Visual Regression:** Playwright visual snapshot suite validating rendering and gesture interactions across browsers.
+
+### 3. Automated SemVer Releases (`release.yml`)
+Triggered automatically upon PR merge to `main`:
+- Evaluates conventional commit history to calculate the next Semantic Version (major, minor, patch).
+- Generates release notes and tags the repository.
+- Publishes npm packages (`@heelslide/core`, `@heelslide/react`, `@heelslide/vue`).
+
+### 4. Live Documentation & Demo (`deploy-pages.yml`)
+Triggered automatically upon PR merge to `main`:
+- Builds `apps/docs` (interactive playground for live testing, track heel configuration, and CSS variable styling).
+- Deploys static build artifact to **GitHub Pages**.
