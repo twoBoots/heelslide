@@ -19,7 +19,7 @@
   - [x] Sub-task: Write component tests for pointer interaction, drag tracking, dual emits/callbacks, and unmount teardown (Red)
   - [x] Sub-task: Implement pointer event listeners with pointer capture and unmount cleanup (Green)
   - [x] Sub-task: Refactor pointer handling and verify test coverage >80% (Refactor)
-- [~] Task: Phase 2 Verification & Checkpoint
+- [x] Task: Phase 2 Verification & Checkpoint [checkpoint: b4e64ea]
 
 ## Phase 3: Integration, Public API Packaging & Final Quality Gates
 - [ ] Task: Public API & End-to-End Integration
