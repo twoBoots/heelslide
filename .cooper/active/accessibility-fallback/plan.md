@@ -6,10 +6,10 @@ Track ID: `accessibility-fallback`
 
 ## Phase 1: Core Engine Accessibility & Stepping API (`@heelslide/core`)
 
-- [~] **Task 1: Core Accessible Step Calculations & Directional Navigation**
-  - [ ] Sub-task: Unit tests for `getAccessibleSteps()`, `getAccessibleDescription()`, `stepForward()`, `stepBackward()`, and `stepToNextHeel()` (Red)
-  - [ ] Sub-task: Implement accessible stepping and description generators in `packages/core/src/accessibility.ts`, `types.ts`, and `engine.ts` (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 1: Core Accessible Step Calculations & Directional Navigation** (4e994ec)
+  - [x] Sub-task: Unit tests for `getAccessibleSteps()`, `getAccessibleDescription()`, `stepForward()`, `stepBackward()`, and `stepToNextHeel()` (Red)
+  - [x] Sub-task: Implement accessible stepping and description generators in `packages/core/src/accessibility.ts`, `types.ts`, and `engine.ts` (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
 - [ ] **Task 2: Core Accessibility Announcements & Event Lifecycle**
   - [ ] Sub-task: Unit tests for `onAnnouncement` events across gesture states, heel arrivals, and resets (Red)
   - [ ] Sub-task: Implement `AccessibleAnnouncement` dispatcher and integrate with `HeelslideEngine` and `machine.ts` (Green)
