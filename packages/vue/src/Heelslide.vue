@@ -47,19 +47,15 @@ const {
   containerRef,
   onUnlock: () => {
     emit('unlock');
-    props.onUnlock?.();
   },
   onReset: () => {
     emit('reset');
-    props.onReset?.();
   },
   onProgress: (p) => {
     emit('progress', p);
-    props.onProgress?.(p);
   },
   onStateChange: (s) => {
     emit('stateChange', s);
-    props.onStateChange?.(s);
   }
 });
 
