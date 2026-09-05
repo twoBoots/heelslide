@@ -4,3 +4,28 @@
  */
 
 export const VERSION = '0.1.0';
+
+// Presentation Component
+export { Heelslide } from './Heelslide';
+
+// Headless Hook & Helpers
+export { useHeelslide, getPointAtProgress } from './useHeelslide';
+
+// Types & Interfaces
+export type {
+  ContainerProps,
+  HandleProps,
+  HeelslideProps,
+  UseHeelslideOptions,
+  UseHeelslideReturn
+} from './types';
+
+// Re-export key core types for convenience
+export type {
+  GestureState,
+  Point2D,
+  Segment,
+  TrackPath,
+  GeneratorOptions,
+  HeelCountConfig
+} from '@heelslide/core';

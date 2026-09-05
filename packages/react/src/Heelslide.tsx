@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from 'react';
-import type { HeelslideProps } from './types.js';
-import { useHeelslide } from './useHeelslide.js';
+import type { HeelslideProps } from './types';
+import { useHeelslide } from './useHeelslide';
 
 export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Heelslide(
   props,

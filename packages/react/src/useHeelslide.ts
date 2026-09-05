@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { HeelslideEngine, type Point2D, type TrackPath, type GestureState, type GeneratorOptions } from '@heelslide/core';
-import type { ContainerProps, HandleProps, UseHeelslideOptions, UseHeelslideReturn } from './types.js';
+import type { ContainerProps, HandleProps, UseHeelslideOptions, UseHeelslideReturn } from './types';
 
 export function getPointAtProgress(track: TrackPath, progress: number): Point2D {
   if (!track.points || track.points.length === 0) {
