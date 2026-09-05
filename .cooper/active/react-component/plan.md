@@ -32,10 +32,10 @@ Track ID: `react-component`
 
 ## Phase 3: Presentation Component (`<Heelslide />`) & SVG Rendering
 
-- [~] **Task 5: Presentation Component Implementation**
-  - [ ] Sub-task: Component tests for SVG rendering, pointer capture, CSS vars, and forwardRef (Red)
-  - [ ] Sub-task: Implement `packages/react/src/Heelslide.tsx` with procedural SVG and CSS vars (Green)
-  - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
+- [x] **Task 5: Presentation Component Implementation** (8493d07)
+  - [x] Sub-task: Component tests for SVG rendering, pointer capture, CSS vars, and forwardRef (Red)
+  - [x] Sub-task: Implement `packages/react/src/Heelslide.tsx` with procedural SVG and CSS vars (Green)
+  - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
 - [ ] **Task 6: Phase 3 Verification & Checkpoint**
   - [ ] Sub-task: Run full Vitest suite with >80% coverage on statements, branches, and functions
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
