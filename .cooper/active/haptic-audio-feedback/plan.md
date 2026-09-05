@@ -6,7 +6,7 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 1: Core Engine Feedback Infrastructure & Synthesis (`@heelslide/core`)
 
-- [ ] **Task 1: Web Vibration & Web Audio Synthesis Controller**
+- [~] **Task 1: Web Vibration & Web Audio Synthesis Controller**
   - [ ] Sub-task: Write unit tests for vibration triggers, Web Audio tone synthesis, fallback safety, and options (Red)
   - [ ] Sub-task: Implement `packages/core/src/feedback.ts` and update `packages/core/src/types.ts` (Green)
   - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
