@@ -5,7 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-<!-- Active tracks live here -->
+- [ ] **Track: Interactive Documentation & Demo Playground**
+  - Worktree: `.worktrees/docs-playground`
+  - Link: [.cooper/active/docs-playground/index.md](.cooper/active/docs-playground/index.md)
 
 ## Completed Archive
 - [x] **Track: Vue 3 Component & Composable Adapter**
