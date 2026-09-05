@@ -1,0 +1,3 @@
+Task: Task 1: Core Accessible Step Calculations & Directional Navigation
+Scope: packages/core/src/accessibility.ts, packages/core/src/types.ts, packages/core/src/engine.ts, packages/core/src/machine.ts, packages/core/src/index.ts, packages/core/tests/accessibility.test.ts, packages/core/tests/index.test.ts
+Summary: Implemented getAccessibleSteps(), getAccessibleDescription(), stepForward(), stepBackward(), and stepToNextHeel() with >93% core test coverage.
