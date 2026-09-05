@@ -1,10 +1,10 @@
 # Implementation Plan: Playwright Visual Regression Testing Suite
 
 ## Phase 1: Visual Fixture Harness & Playwright Setup
-- [~] **Task 1: Deterministic Visual Fixture in `apps/docs`**
-  - [ ] Sub-task: Write unit tests for `VisualFixture` query parameter parsing and state rendering (Red)
-  - [ ] Sub-task: Implement `VisualFixture` component with deterministic seed pinning and animation suppression in `apps/docs` (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 1: Deterministic Visual Fixture in `apps/docs`** (5557241)
+  - [x] Sub-task: Write unit tests for `VisualFixture` query parameter parsing and state rendering (Red)
+  - [x] Sub-task: Implement `VisualFixture` component with deterministic seed pinning and animation suppression in `apps/docs` (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
 - [ ] **Task 2: Playwright Tooling & Workspace Configuration**
   - [ ] Sub-task: Configure `@playwright/test` devDependencies in monorepo root
   - [ ] Sub-task: Create `playwright.config.ts` with desktop/mobile viewports, webServer configuration, and snapshot tolerances
