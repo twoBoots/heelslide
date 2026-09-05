@@ -36,10 +36,10 @@ Track ID: `react-component`
   - [x] Sub-task: Component tests for SVG rendering, pointer capture, CSS vars, and forwardRef (Red)
   - [x] Sub-task: Implement `packages/react/src/Heelslide.tsx` with procedural SVG and CSS vars (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 6: Phase 3 Verification & Checkpoint**
-  - [ ] Sub-task: Run full Vitest suite with >80% coverage on statements, branches, and functions
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 6: Phase 3 Verification & Checkpoint** (3fc8116) [checkpoint: 3fc8116]
+  - [x] Sub-task: Run full Vitest suite with >80% coverage on statements, branches, and functions
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
