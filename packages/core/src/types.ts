@@ -45,3 +45,12 @@ export interface ProjectedPoint {
 export interface IntersectOptions {
   excludeEndpoints?: boolean;
 }
+
+export interface EngineOptions {
+  tolerance?: number;
+  generator?: GeneratorOptions;
+  onUnlock?: () => void;
+  onReset?: () => void;
+  onProgress?: (progress: number) => void;
+  onStateChange?: (state: GestureState) => void;
+}
