@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitest/config';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+  plugins: [vue()],
   test: {
     globals: true,
     environment: 'node',
@@ -14,7 +16,7 @@ export default defineConfig({
         branches: 80,
         statements: 80
       },
-      include: ['packages/*/src/**/*.ts'],
+      include: ['packages/*/src/**/*.{ts,vue}'],
       exclude: ['packages/*/src/index.ts', 'packages/*/src/types.ts', '**/*.d.ts']
     }
   }

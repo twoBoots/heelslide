@@ -1,0 +1,85 @@
+.heelslide-container {
+  --heelslide-width: 300px;
+  --heelslide-height: 150px;
+  --heelslide-track-bg: #e2e8f0;
+  --heelslide-track-progress: #3b82f6;
+  --heelslide-track-width: 12px;
+  --heelslide-track-cap: round;
+  --heelslide-handle-radius: 18px;
+  --heelslide-handle-color: #ffffff;
+  --heelslide-handle-border-color: #3b82f6;
+  --heelslide-handle-border-width: 2px;
+  --heelslide-heel-color: #94a3b8;
+  --heelslide-heel-radius: 4px;
+  --heelslide-end-color: #10b981;
+  --heelslide-end-radius: 6px;
+  --heelslide-cursor: grab;
+  --heelslide-cursor-active: grabbing;
+
+  position: relative;
+  display: inline-block;
+  width: var(--heelslide-width);
+  height: var(--heelslide-height);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.heelslide-container.heelslide-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.heelslide-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.heelslide-track-bg {
+  stroke: var(--heelslide-track-bg);
+  stroke-width: var(--heelslide-track-width);
+  stroke-linecap: var(--heelslide-track-cap);
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.heelslide-track-progress {
+  stroke: var(--heelslide-track-progress);
+  stroke-width: var(--heelslide-track-width);
+  stroke-linecap: var(--heelslide-track-cap);
+  stroke-linejoin: round;
+  fill: none;
+  transition: stroke 0.15s ease;
+}
+
+.heelslide-heel-marker {
+  fill: var(--heelslide-heel-color);
+  r: var(--heelslide-heel-radius);
+  pointer-events: none;
+}
+
+.heelslide-end-marker {
+  fill: var(--heelslide-end-color);
+  r: var(--heelslide-end-radius);
+  pointer-events: none;
+}
+
+.heelslide-handle {
+  cursor: var(--heelslide-cursor);
+  outline: none;
+}
+
+.heelslide-handle:active,
+.heelslide-container.heelslide-active .heelslide-handle {
+  cursor: var(--heelslide-cursor-active);
+}
+
+.heelslide-handle-circle {
+  r: var(--heelslide-handle-radius);
+  fill: var(--heelslide-handle-color);
+  stroke: var(--heelslide-handle-border-color);
+  stroke-width: var(--heelslide-handle-border-width);
+}
