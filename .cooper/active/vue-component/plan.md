@@ -1,7 +1,8 @@
 # Implementation Plan: Vue 3 Component & Composable Adapter (`vue-component`)
 
 ## Phase 1: Package Scaffolding & Headless Composable (`useHeelslide`)
-- [ ] Task: Vue Package Skeleton & Build Configuration
+- [~] Task: Vue Package Skeleton & Build Configuration
+
   - [ ] Sub-task: Configure packages/vue/package.json, tsconfig.json, vite.config.ts, and workspace linking
   - [ ] Sub-task: Verify build pipeline emits ESM, CJS, and .d.ts definitions
 - [ ] Task: Headless Composable (`useHeelslide`)
