@@ -10,7 +10,7 @@ Track ID: `core-engine-foundation`
   - [x] Sub-task: Create root `package.json` with npm workspaces (`packages/*`, `apps/*`) and root scripts
   - [x] Sub-task: Configure TypeScript root configuration (`tsconfig.base.json`, `tsconfig.json`)
   - [x] Sub-task: Configure Oxc (`.oxlintrc.json`) and formatting verification
-- [ ] **Task 2: Core Package Skeleton & Vitest Suite**
+- [~] **Task 2: Core Package Skeleton & Vitest Suite**
   - [ ] Sub-task: Initialise `packages/core/package.json` and `packages/core/tsconfig.json`
   - [ ] Sub-task: Configure `vitest.config.ts` with >80% coverage threshold
   - [ ] Sub-task: Setup Vite build pipeline for ESM/CJS/.d.ts bundling in `packages/core`
