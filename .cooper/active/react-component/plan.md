@@ -32,7 +32,7 @@ Track ID: `react-component`
 
 ## Phase 3: Presentation Component (`<Heelslide />`) & SVG Rendering
 
-- [ ] **Task 5: Presentation Component Implementation**
+- [~] **Task 5: Presentation Component Implementation**
   - [ ] Sub-task: Component tests for SVG rendering, pointer capture, CSS vars, and forwardRef (Red)
   - [ ] Sub-task: Implement `packages/react/src/Heelslide.tsx` with procedural SVG and CSS vars (Green)
   - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
