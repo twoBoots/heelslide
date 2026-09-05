@@ -10,10 +10,10 @@ Track ID: `react-component`
   - [x] Sub-task: Create `packages/react/package.json` with `@heelslide/core` workspace dependency and `react` / `react-dom` peerDependencies
   - [x] Sub-task: Configure `packages/react/tsconfig.json` and update root references
   - [x] Sub-task: Setup `packages/react/vite.config.ts` for library mode bundling ESM, CJS, and `.d.ts`
-- [ ] **Task 2: Phase 1 Verification & Checkpoint**
-  - [ ] Sub-task: Verify workspace setup, typecheck, and build
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 2: Phase 1 Verification & Checkpoint** (a32d4cb) [checkpoint: a32d4cb]
+  - [x] Sub-task: Verify workspace setup, typecheck, and build
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
