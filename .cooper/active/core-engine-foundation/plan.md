@@ -44,7 +44,7 @@ Track ID: `core-engine-foundation`
   - [x] Sub-task: Unit tests for states (`idle`, `active`, `unlocked`, `reset`) and tolerance checks (Red)
   - [x] Sub-task: Implement `packages/core/src/machine.ts` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
-- [ ] **Task 8: HeelslideEngine Orchestrator & Public API**
+- [~] **Task 8: HeelslideEngine Orchestrator & Public API**
   - [ ] Sub-task: Integration tests for gesture tracing, heel navigation, early release, and unlock events (Red)
   - [ ] Sub-task: Implement `packages/core/src/engine.ts` and `packages/core/src/index.ts` (Green)
   - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
