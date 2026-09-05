@@ -1,0 +1,24 @@
+# Troop Worktree Canopy
+.worktrees/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Testing and Coverage
+coverage/
+playwright-report/
+test-results/
+
+# Logs & Environment
+*.log
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
