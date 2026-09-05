@@ -5,11 +5,12 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Interactive Documentation & Demo Playground**
-  - Worktree: `.worktrees/docs-playground`
-  - Link: [.cooper/active/docs-playground/index.md](.cooper/active/docs-playground/index.md)
+*(No active tracks)*
 
 ## Completed Archive
+- [x] **Track: Interactive Documentation & Demo Playground**
+  - Completed: 2026-09-05
+  - Archive: [.cooper/archive/docs-playground/index.md](.cooper/archive/docs-playground/index.md)
 - [x] **Track: Vue 3 Component & Composable Adapter**
   - Completed: 2026-09-05
   - Archive: [.cooper/archive/vue-component/index.md](.cooper/archive/vue-component/index.md)
