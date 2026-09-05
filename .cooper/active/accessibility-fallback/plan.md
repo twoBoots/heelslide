@@ -6,7 +6,7 @@ Track ID: `accessibility-fallback`
 
 ## Phase 1: Core Engine Accessibility & Stepping API (`@heelslide/core`)
 
-- [ ] **Task 1: Core Accessible Step Calculations & Directional Navigation**
+- [~] **Task 1: Core Accessible Step Calculations & Directional Navigation**
   - [ ] Sub-task: Unit tests for `getAccessibleSteps()`, `getAccessibleDescription()`, `stepForward()`, `stepBackward()`, and `stepToNextHeel()` (Red)
   - [ ] Sub-task: Implement accessible stepping and description generators in `packages/core/src/accessibility.ts`, `types.ts`, and `engine.ts` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
