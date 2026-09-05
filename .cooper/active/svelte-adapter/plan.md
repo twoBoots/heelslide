@@ -1,7 +1,7 @@
 # Implementation Plan: Svelte 5 Component Adapter (`svelte-adapter`)
 
 ## Phase 1: Package Scaffolding & Headless Rune Composable (`createHeelslide`)
-- [ ] Task: Svelte Package Skeleton & Build Configuration
+- [~] Task: Svelte Package Skeleton & Build Configuration
   - [ ] Sub-task: Configure `packages/svelte/package.json`, `tsconfig.json`, `vite.config.ts`, and monorepo workspace linking
   - [ ] Sub-task: Verify build pipeline emits ESM (`dist/index.js`), CJS (`dist/index.cjs`), and declaration maps (`dist/index.d.ts`)
 - [ ] Task: Headless Rune Composable (`createHeelslide`)
