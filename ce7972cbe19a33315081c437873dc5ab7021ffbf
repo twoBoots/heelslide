@@ -1,0 +1,3 @@
+Task: Task 1: Web Vibration & Web Audio Synthesis Controller
+Scope: packages/core/src/feedback.ts, packages/core/src/types.ts, packages/core/src/index.ts, packages/core/tests/feedback.test.ts, packages/core/tests/index.test.ts
+Summary: Implemented FeedbackController handling navigator.vibrate haptics and procedural Web Audio synthesis (turn tick, reset buzz, unlock chime) with fallback safety and customizable options.
