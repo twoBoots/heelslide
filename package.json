@@ -17,6 +17,8 @@
     "lint": "oxlint .",
     "format": "npx oxlint --fix .",
     "format:check": "oxlint .",
+    "docs:dev": "npm run --workspace=@heelslide/docs dev",
+    "docs:build": "npm run --workspace=@heelslide/docs build",
     "postinstall": "termux-fix-shebang node_modules/.bin/* 2>/dev/null || true"
   },
   "devDependencies": {
