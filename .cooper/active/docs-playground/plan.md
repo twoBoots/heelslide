@@ -1,14 +1,14 @@
 # Implementation Plan: Interactive Documentation & Demo Playground
 
 ## Phase 1: Workspace Scaffolding & Tooling Setup
-- [~] **Task 1: Apps Workspace Configuration**
-  - [ ] Sub-task: Create `apps/docs/package.json` with `@heelslide/core` and `@heelslide/react` dependencies
-  - [ ] Sub-task: Configure `apps/docs/tsconfig.json` and root `tsconfig.json` references
-  - [ ] Sub-task: Configure `apps/docs/vite.config.ts` and `apps/docs/index.html`
-- [ ] **Task 2: Phase 1 Verification & Checkpoint**
-  - [ ] Sub-task: Verify workspace dependency resolution and build command
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 1: Apps Workspace Configuration** (f69fb77)
+  - [x] Sub-task: Create `apps/docs/package.json` with `@heelslide/core` and `@heelslide/react` dependencies
+  - [x] Sub-task: Configure `apps/docs/tsconfig.json` and root `tsconfig.json` references
+  - [x] Sub-task: Configure `apps/docs/vite.config.ts` and `apps/docs/index.html`
+- [x] **Task 2: Phase 1 Verification & Checkpoint** (055cdd2) [checkpoint: 055cdd2]
+  - [x] Sub-task: Verify workspace dependency resolution and build command
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
