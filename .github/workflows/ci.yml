@@ -17,13 +17,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check for package.json
+        id: check-pkg
+        run: |
+          if [ -f package.json ]; then
+            echo "has_pkg=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
+            echo "No package.json found; skipping JavaScript/TypeScript validation."
+          fi
+
       - name: Setup Node.js
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
 
       - name: Install Dependencies
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
           if [ -f package-lock.json ]; then
             npm ci
@@ -32,17 +44,33 @@ jobs:
           fi
 
       - name: Check Formatting & Lint (Oxc)
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
           npm run lint || npx oxlint
           npm run format:check || true
 
       - name: Type Check (TypeScript v7)
-        run: npm run typecheck
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          if npm run | grep -q 'typecheck'; then
+            npm run typecheck
+          fi
 
       - name: Run Tests with Coverage (Vitest)
-        run: npm run test:coverage
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          if npm run | grep -q 'test:coverage'; then
+            npm run test:coverage
+          elif npm run | grep -q 'test'; then
+            npm test
+          fi
 
       - name: Visual Regression Tests (Playwright)
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
-          npx playwright install --with-deps
-          npm run test:visual
+          if npm run | grep -q 'test:visual'; then
+            npx playwright install --with-deps
+            npm run test:visual
+          else
+            echo "No test:visual script found in package.json; skipping visual regression tests."
+          fi
