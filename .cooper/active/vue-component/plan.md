@@ -22,7 +22,7 @@
 - [x] Task: Phase 2 Verification & Checkpoint [checkpoint: b4e64ea]
 
 ## Phase 3: Integration, Public API Packaging & Final Quality Gates
-- [ ] Task: Public API & End-to-End Integration
+- [~] Task: Public API & End-to-End Integration
   - [ ] Sub-task: Write integration tests verifying library exports and full unlock/reset workflows (Red)
   - [ ] Sub-task: Export public types, components, and composable in packages/vue/src/index.ts (Green)
   - [ ] Sub-task: Refactor package exports and verify barrel cleanliness (Refactor)
