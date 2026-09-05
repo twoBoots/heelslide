@@ -1,10 +1,9 @@
 # Implementation Plan: Vue 3 Component & Composable Adapter (`vue-component`)
 
 ## Phase 1: Package Scaffolding & Headless Composable (`useHeelslide`)
-- [~] Task: Vue Package Skeleton & Build Configuration
-
-  - [ ] Sub-task: Configure packages/vue/package.json, tsconfig.json, vite.config.ts, and workspace linking
-  - [ ] Sub-task: Verify build pipeline emits ESM, CJS, and .d.ts definitions
+- [x] Task: Vue Package Skeleton & Build Configuration (7b33023)
+  - [x] Sub-task: Configure packages/vue/package.json, tsconfig.json, vite.config.ts, and workspace linking
+  - [x] Sub-task: Verify build pipeline emits ESM, CJS, and .d.ts definitions
 - [ ] Task: Headless Composable (`useHeelslide`)
   - [ ] Sub-task: Write unit tests for useHeelslide reactive state, coordinate extraction, and engine lifecycle (Red)
   - [ ] Sub-task: Implement useHeelslide composable wrapping HeelslideEngine (Green)
