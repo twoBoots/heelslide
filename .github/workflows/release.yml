@@ -25,13 +25,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check for package.json
+        id: check-pkg
+        run: |
+          if [ -f package.json ]; then
+            echo "has_pkg=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
+            echo "No package.json found; skipping package build and release."
+          fi
+
       - name: Setup Node.js
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
           if [ -f package-lock.json ]; then
             npm ci
@@ -40,9 +52,11 @@ jobs:
           fi
 
       - name: Build Packages
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         run: npm run build
 
       - name: Release & Publish Packages
+        if: steps.check-pkg.outputs.has_pkg == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
