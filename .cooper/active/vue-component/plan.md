@@ -26,7 +26,7 @@
   - [x] Sub-task: Write integration tests verifying library exports and full unlock/reset workflows (Red)
   - [x] Sub-task: Export public types, components, and composable in packages/vue/src/index.ts (Green)
   - [x] Sub-task: Refactor package exports and verify barrel cleanliness (Refactor)
-- [ ] Task: Full Workspace Quality Gates & Build Verification
+- [~] Task: Full Workspace Quality Gates & Build Verification
   - [ ] Sub-task: Run full test suite with coverage report (vitest run --coverage >80%)
   - [ ] Sub-task: Run clean monorepo typecheck (tsc -b) and linting (oxlint .)
   - [ ] Sub-task: Verify production build output in packages/vue/dist/
