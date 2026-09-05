@@ -19,10 +19,10 @@ Track ID: `react-component`
 
 ## Phase 2: Headless Hook (`useHeelslide`)
 
-- [~] **Task 3: Headless Hook Implementation**
-  - [ ] Sub-task: Unit tests for `useHeelslide` lifecycle, reactive states, and pointer handlers (Red)
-  - [ ] Sub-task: Implement `packages/react/src/useHeelslide.ts` and `packages/react/src/types.ts` (Green)
-  - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
+- [x] **Task 3: Headless Hook Implementation** (d0eebe0)
+  - [x] Sub-task: Unit tests for `useHeelslide` lifecycle, reactive states, and pointer handlers (Red)
+  - [x] Sub-task: Implement `packages/react/src/useHeelslide.ts` and `packages/react/src/types.ts` (Green)
+  - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
 - [ ] **Task 4: Phase 2 Verification & Checkpoint**
   - [ ] Sub-task: Run Vitest test suite and verify hook coverage
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
