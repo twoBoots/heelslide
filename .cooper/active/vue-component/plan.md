@@ -8,7 +8,7 @@
   - [x] Sub-task: Write unit tests for useHeelslide reactive state, coordinate extraction, and engine lifecycle (Red)
   - [x] Sub-task: Implement useHeelslide composable wrapping HeelslideEngine (Green)
   - [x] Sub-task: Refactor composable and verify test coverage >80% (Refactor)
-- [ ] Task: Phase 1 Verification & Checkpoint
+- [~] Task: Phase 1 Verification & Checkpoint
 
 ## Phase 2: Presentation Component (`<Heelslide />`) & Styling
 - [ ] Task: Procedural SVG Track Rendering & Styling
