@@ -5,7 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-*(No active tracks)*
+- [ ] **Track: Svelte 5 Component Adapter**
+  - Worktree: `.worktrees/svelte-adapter`
+  - Link: [.cooper/active/svelte-adapter/index.md](.cooper/active/svelte-adapter/index.md)
 
 ## Completed Archive
 - [x] **Track: Interactive Documentation & Demo Playground**
