@@ -6,7 +6,7 @@ Track ID: `react-component`
 
 ## Phase 1: Package Scaffolding & Tooling Infrastructure
 
-- [ ] **Task 1: Package Structure & Build Configuration**
+- [~] **Task 1: Package Structure & Build Configuration**
   - [ ] Sub-task: Create `packages/react/package.json` with `@heelslide/core` workspace dependency and `react` / `react-dom` peerDependencies
   - [ ] Sub-task: Configure `packages/react/tsconfig.json` and update root references
   - [ ] Sub-task: Setup `packages/react/vite.config.ts` for library mode bundling ESM, CJS, and `.d.ts`
