@@ -1,0 +1,3 @@
+Task: HeelslideEngine Orchestrator & Public API
+Scope: packages/core/src/engine.ts, packages/core/src/index.ts, packages/core/src/types.ts, packages/core/tests/engine.test.ts
+Summary: Implemented HeelslideEngine orchestrator coordinating procedural track generation, state machine transitions, dynamic track regeneration, and public API exports with >86% line coverage on engine.
