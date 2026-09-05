@@ -45,10 +45,10 @@ Track ID: `react-component`
 
 ## Phase 4: Integration, Build, and Review
 
-- [~] **Task 7: Export Barrel & Full Workspace Verification**
-  - [ ] Sub-task: Configure `packages/react/src/index.ts` public exports
-  - [ ] Sub-task: Run full workspace build, typecheck (`tsc -b`), and lint (`oxlint .`)
-  - [ ] Sub-task: Verify emitted ESM, CJS, and `.d.ts` bundles in `packages/react/dist/`
+- [x] **Task 7: Export Barrel & Full Workspace Verification** (aace56c)
+  - [x] Sub-task: Configure `packages/react/src/index.ts` public exports
+  - [x] Sub-task: Run full workspace build, typecheck (`tsc -b`), and lint (`oxlint .`)
+  - [x] Sub-task: Verify emitted ESM, CJS, and `.d.ts` bundles in `packages/react/dist/`
 - [ ] **Task 8: Phase 4 Verification & Track Finalization**
   - [ ] Sub-task: Run full workspace validation
   - [ ] Sub-task: Final phase checkpoint commit, Git Note, and push branch
