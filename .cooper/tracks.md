@@ -5,7 +5,10 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-<!-- Active tracks live here -->
+- [ ] **Track: Vue 3 Component & Composable Adapter**
+  - Worktree: `.worktrees/vue-component`
+  - Link: [.cooper/active/vue-component/index.md](.cooper/active/vue-component/index.md)
+
 
 ## Completed Archive
 - [x] **Track: Monorepo Scaffolding & Core Gesture Engine**
