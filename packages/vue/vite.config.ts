@@ -21,6 +21,7 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue', '@heelslide/core'],
       output: {
+        assetFileNames: 'style.[ext]',
         globals: {
           vue: 'Vue',
           '@heelslide/core': 'HeelslideCore'
