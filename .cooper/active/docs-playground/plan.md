@@ -1,7 +1,7 @@
 # Implementation Plan: Interactive Documentation & Demo Playground
 
 ## Phase 1: Workspace Scaffolding & Tooling Setup
-- [ ] **Task 1: Apps Workspace Configuration**
+- [~] **Task 1: Apps Workspace Configuration**
   - [ ] Sub-task: Create `apps/docs/package.json` with `@heelslide/core` and `@heelslide/react` dependencies
   - [ ] Sub-task: Configure `apps/docs/tsconfig.json` and root `tsconfig.json` references
   - [ ] Sub-task: Configure `apps/docs/vite.config.ts` and `apps/docs/index.html`
