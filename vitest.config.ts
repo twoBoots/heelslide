@@ -6,7 +6,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['packages/*/tests/**/*.test.{ts,tsx}'],
+    include: ['{packages,apps}/*/tests/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -16,8 +16,13 @@ export default defineConfig({
         branches: 80,
         statements: 80
       },
-      include: ['packages/*/src/**/*.{ts,tsx,vue}'],
-      exclude: ['packages/*/src/index.ts', 'packages/*/src/types.ts', '**/*.d.ts']
+      include: ['{packages,apps}/*/src/**/*.{ts,tsx,vue}'],
+      exclude: [
+        'packages/*/src/index.ts',
+        'packages/*/src/types.ts',
+        'apps/*/src/main.tsx',
+        '**/*.d.ts'
+      ]
     }
   }
 });

@@ -13,6 +13,7 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     onUnlock,
     onReset,
     onProgress,
+    onStateChange,
     className,
     style,
     width = 300,
@@ -48,7 +49,8 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     generator: generatorOptions,
     onUnlock,
     onReset,
-    onProgress
+    onProgress,
+    onStateChange
   });
 
   const containerProps = getContainerProps();
