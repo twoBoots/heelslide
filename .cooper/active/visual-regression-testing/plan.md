@@ -5,7 +5,7 @@
   - [x] Sub-task: Write unit tests for `VisualFixture` query parameter parsing and state rendering (Red)
   - [x] Sub-task: Implement `VisualFixture` component with deterministic seed pinning and animation suppression in `apps/docs` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 2: Playwright Tooling & Workspace Configuration**
+- [~] **Task 2: Playwright Tooling & Workspace Configuration**
   - [ ] Sub-task: Configure `@playwright/test` devDependencies in monorepo root
   - [ ] Sub-task: Create `playwright.config.ts` with desktop/mobile viewports, webServer configuration, and snapshot tolerances
   - [ ] Sub-task: Add `test:visual`, `test:visual:update`, and `test:visual:report` scripts to root `package.json`
