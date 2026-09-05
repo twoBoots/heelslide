@@ -45,7 +45,7 @@ Track ID: `react-component`
 
 ## Phase 4: Integration, Build, and Review
 
-- [ ] **Task 7: Export Barrel & Full Workspace Verification**
+- [~] **Task 7: Export Barrel & Full Workspace Verification**
   - [ ] Sub-task: Configure `packages/react/src/index.ts` public exports
   - [ ] Sub-task: Run full workspace build, typecheck (`tsc -b`), and lint (`oxlint .`)
   - [ ] Sub-task: Verify emitted ESM, CJS, and `.d.ts` bundles in `packages/react/dist/`
