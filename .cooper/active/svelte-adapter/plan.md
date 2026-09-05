@@ -4,7 +4,7 @@
 - [x] Task: Svelte Package Skeleton & Build Configuration (f746767)
   - [x] Sub-task: Configure `packages/svelte/package.json`, `tsconfig.json`, `vite.config.ts`, and monorepo workspace linking
   - [x] Sub-task: Verify build pipeline emits ESM (`dist/index.js`), CJS (`dist/index.cjs`), and declaration maps (`dist/index.d.ts`)
-- [ ] Task: Headless Rune Composable (`createHeelslide`)
+- [~] Task: Headless Rune Composable (`createHeelslide`)
   - [ ] Sub-task: Write unit tests for `createHeelslide` rune state, coordinate extraction, and engine lifecycle (Red)
   - [ ] Sub-task: Implement `createHeelslide.svelte.ts` composable wrapping `HeelslideEngine` (Green)
   - [ ] Sub-task: Refactor composable and verify test coverage >80% (Refactor)
