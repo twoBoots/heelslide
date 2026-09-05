@@ -1,0 +1,34 @@
+{
+  "name": "heelslide-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Intentional-gesture security gate UI component for touchscreen web applications.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "npm run --workspaces --if-present build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc -b",
+    "lint": "oxlint .",
+    "format": "npx oxlint --fix .",
+    "format:check": "oxlint .",
+    "postinstall": "termux-fix-shebang node_modules/.bin/* 2>/dev/null || true"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.0.0",
+    "oxlint": "^1.0.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.5.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT"
+}
