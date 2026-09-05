@@ -1,0 +1,3 @@
+Task: Headless Composable (useHeelslide)
+Scope: packages/vue/src/useHeelslide.ts, packages/vue/src/types.ts, packages/vue/tests/useHeelslide.test.ts
+Summary: Implemented headless useHeelslide composable wrapping HeelslideEngine with reactive state (progress, state, track, currentSegmentIndex), PointerEvent coordinate normalization, handle position projection, and lifecycle callbacks.
