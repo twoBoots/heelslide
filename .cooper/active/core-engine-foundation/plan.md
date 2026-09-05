@@ -6,7 +6,7 @@ Track ID: `core-engine-foundation`
 
 ## Phase 1: Monorepo Tooling & Workspace Infrastructure
 
-- [ ] **Task 1: Root Workspace & Monorepo Tooling**
+- [~] **Task 1: Root Workspace & Monorepo Tooling**
   - [ ] Sub-task: Create root `package.json` with npm workspaces (`packages/*`, `apps/*`) and root scripts
   - [ ] Sub-task: Configure TypeScript root configuration (`tsconfig.base.json`, `tsconfig.json`)
   - [ ] Sub-task: Configure Oxc (`.oxlintrc.json`) and formatting verification
