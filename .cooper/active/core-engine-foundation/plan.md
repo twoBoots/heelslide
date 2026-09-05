@@ -23,10 +23,10 @@ Track ID: `core-engine-foundation`
 
 ## Phase 2: Geometry & Procedural Rectilinear Path Generator
 
-- [~] **Task 4: 2D Geometry & Projection Helpers**
-  - [ ] Sub-task: Unit tests for point distance, segment projection, and angle calculation (Red)
-  - [ ] Sub-task: Implement `packages/core/src/geometry.ts` (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] **Task 4: 2D Geometry & Projection Helpers** (b18cf30)
+  - [x] Sub-task: Unit tests for point distance, segment projection, and angle calculation (Red)
+  - [x] Sub-task: Implement `packages/core/src/geometry.ts` (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 - [ ] **Task 5: Procedural Rectilinear Path Generator**
   - [ ] Sub-task: Unit tests for fixed heel counts, `[min, max]` range, non-intersection, and PRNG seeds (Red)
   - [ ] Sub-task: Implement `packages/core/src/generator.ts` (Green)
