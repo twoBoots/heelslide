@@ -13,7 +13,7 @@
 ---
 
 ## Phase 2: Interactive Playground & Configurator UI
-- [ ] **Task 3: Live Configurator & Dynamic Preview**
+- [~] **Task 3: Live Configurator & Dynamic Preview**
   - [ ] Sub-task: Write unit tests for playground state management and snippet generation (Red)
   - [ ] Sub-task: Implement `Playground`, `ConfigPanel`, and `SimulationCard` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
