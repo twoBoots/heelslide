@@ -27,10 +27,10 @@ Track ID: `core-engine-foundation`
   - [x] Sub-task: Unit tests for point distance, segment projection, and angle calculation (Red)
   - [x] Sub-task: Implement `packages/core/src/geometry.ts` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
-- [~] **Task 5: Procedural Rectilinear Path Generator**
-  - [ ] Sub-task: Unit tests for fixed heel counts, `[min, max]` range, non-intersection, and PRNG seeds (Red)
-  - [ ] Sub-task: Implement `packages/core/src/generator.ts` (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] **Task 5: Procedural Rectilinear Path Generator** (6692e72)
+  - [x] Sub-task: Unit tests for fixed heel counts, `[min, max]` range, non-intersection, and PRNG seeds (Red)
+  - [x] Sub-task: Implement `packages/core/src/generator.ts` (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 - [ ] **Task 6: Phase 2 Verification & Checkpoint**
   - [ ] Sub-task: Run Vitest test suite and verify >80% coverage across geometry & generator
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
