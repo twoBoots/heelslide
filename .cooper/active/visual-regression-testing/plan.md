@@ -1,7 +1,7 @@
 # Implementation Plan: Playwright Visual Regression Testing Suite
 
 ## Phase 1: Visual Fixture Harness & Playwright Setup
-- [ ] **Task 1: Deterministic Visual Fixture in `apps/docs`**
+- [~] **Task 1: Deterministic Visual Fixture in `apps/docs`**
   - [ ] Sub-task: Write unit tests for `VisualFixture` query parameter parsing and state rendering (Red)
   - [ ] Sub-task: Implement `VisualFixture` component with deterministic seed pinning and animation suppression in `apps/docs` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
