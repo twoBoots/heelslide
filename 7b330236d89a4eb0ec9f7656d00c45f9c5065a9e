@@ -1,0 +1,3 @@
+Task: Vue Package Skeleton & Build Configuration
+Scope: packages/vue/, tsconfig.json, package-lock.json
+Summary: Configured @heelslide/vue with Vue 3 peerDependencies, @heelslide/core workspace reference, TypeScript composite project references, and Vite library build emitting ESM, CJS, and bundled dts declarations.
