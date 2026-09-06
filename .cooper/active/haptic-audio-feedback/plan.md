@@ -24,7 +24,7 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 2: React Adapter Integration (`@heelslide/react`)
 
-- [ ] **Task 4: React Hook & Component Feedback Props**
+- [~] **Task 4: React Hook & Component Feedback Props**
   - [ ] Sub-task: Write component & hook unit tests for `haptics`, `sound`, and `onTurn` in React (Red)
   - [ ] Sub-task: Implement feedback props in `packages/react/src/useHeelslide.ts`, `types.ts`, and `Heelslide.tsx` (Green)
   - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
