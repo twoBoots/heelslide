@@ -31,6 +31,7 @@ export interface UseHeelslideReturn {
   state: GestureState;
   progress: number;
   track: TrackPath;
+  currentSegmentIndex: number;
   handlePosition: Point2D;
   isDragging: boolean;
   regenerate: (options?: Partial<GeneratorOptions>) => void;
@@ -52,6 +53,7 @@ export interface HeelslideProps {
   onReset?: () => void;
   onProgress?: (progress: number) => void;
   onStateChange?: (state: GestureState) => void;
+  numberedHeels?: boolean;
   className?: string;
   style?: React.CSSProperties;
   width?: number;

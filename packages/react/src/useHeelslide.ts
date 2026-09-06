@@ -56,6 +56,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   const [progress, setProgress] = useState<number>(() =>
     options.initialProgress ?? (options.initialState === 'unlocked' ? 1 : options.initialState === 'active' ? 0.5 : 0)
   );
+  const [currentSegmentIndex, setCurrentSegmentIndex] = useState<number>(0);
 
   const engine = useMemo(() => {
     return new HeelslideEngine({
@@ -71,15 +72,18 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       },
       onProgress: (p) => {
         setProgress(p);
+        setCurrentSegmentIndex(engine.getCurrentSegmentIndex());
         callbacksRef.current.onProgress?.(p);
       },
       onUnlock: () => {
         setState('unlocked');
+        setCurrentSegmentIndex(engine.getCurrentSegmentIndex());
         callbacksRef.current.onUnlock?.();
       },
       onReset: () => {
         setState('idle');
         setProgress(0);
+        setCurrentSegmentIndex(0);
         callbacksRef.current.onReset?.();
       },
       onStateChange: (s) => {
@@ -99,6 +103,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     setTrack(engine.getPath());
     setState(engine.getState());
     setProgress(engine.getProgress());
+    setCurrentSegmentIndex(engine.getCurrentSegmentIndex());
   }, [engine]);
 
   // Handle unmount teardown
@@ -118,6 +123,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     engine.reset();
     setState('idle');
     setProgress(0);
+    setCurrentSegmentIndex(0);
   }, [engine]);
 
   const regenerate = useCallback(
@@ -126,6 +132,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       setTrack(newTrack);
       setState('idle');
       setProgress(0);
+      setCurrentSegmentIndex(0);
     },
     [engine]
   );
@@ -245,6 +252,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     state,
     progress,
     track,
+    currentSegmentIndex,
     handlePosition,
     isDragging,
     regenerate,
