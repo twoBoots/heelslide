@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<HeelslideProps>(), {
   gridStep: 24,
   margin: 16,
   disabled: false,
-  ariaLabel: 'Slide to unlock'
+  ariaLabel: 'Slide to unlock',
+  accessibleFallback: 'stepped',
+  accessibleButtonText: 'Confirm with Accessible Alternative'
 });
 
 const emit = defineEmits<HeelslideEmits>();
@@ -28,12 +30,21 @@ const {
   currentSegmentIndex,
   handlePosition,
   isDragging,
+  announcement,
+  isFallbackOpen,
   startGesture,
   updateGesture,
   endGesture,
   cancelGesture,
   reset,
-  regeneratePath
+  regeneratePath,
+  stepForward,
+  stepBackward,
+  stepToNextHeel,
+  handleKeyDown: hookHandleKeyDown,
+  openFallback,
+  closeFallback,
+  confirmFallback
 } = useHeelslide({
   track: props.track,
   tolerance: props.tolerance,
@@ -44,6 +55,8 @@ const {
     heels: props.heels,
     seed: props.seed
   },
+  disabled: props.disabled,
+  accessibleFallback: props.accessibleFallback,
   containerRef,
   onUnlock: () => {
     emit('unlock');
@@ -56,8 +69,26 @@ const {
   },
   onStateChange: (s) => {
     emit('stateChange', s);
+  },
+  onAnnouncement: (ann) => {
+    emit('announcement', ann);
   }
 });
+
+function handleFallbackOpen(): void {
+  openFallback();
+  emit('fallbackOpen');
+}
+
+function handleFallbackClose(): void {
+  closeFallback();
+  emit('fallbackClose');
+}
+
+function handleKeyDown(event: KeyboardEvent): void {
+  if (props.disabled) return;
+  hookHandleKeyDown(event);
+}
 
 function pointsToSvgPath(points: readonly Point2D[]): string {
   if (points.length === 0) return '';
@@ -161,14 +192,35 @@ defineExpose({
   track,
   currentSegmentIndex,
   handlePosition,
+  announcement,
+  isFallbackOpen,
   reset,
-  regeneratePath
+  regeneratePath,
+  stepForward,
+  stepBackward,
+  stepToNextHeel,
+  openFallback: handleFallbackOpen,
+  closeFallback: handleFallbackClose,
+  confirmFallback
 });
 </script>
 
 <template>
   <div
     ref="containerRef"
+    data-heelslide-container
+    role="slider"
+    :tabindex="disabled ? -1 : 0"
+    :aria-label="ariaLabel"
+    :aria-describedby="ariaDescribedBy"
+    :aria-valuemin="0"
+    :aria-valuemax="100"
+    :aria-valuenow="Math.round(progress * 100)"
+    :aria-valuetext="announcement || `${Math.round(progress * 100)}% complete`"
+    aria-keyshortcuts="ArrowRight ArrowLeft ArrowUp ArrowDown Enter Space Escape Home"
+    :aria-disabled="disabled"
+    :data-disabled="disabled"
+    :data-state="state"
     class="heelslide-container"
     :class="{
       'heelslide-disabled': disabled,
@@ -177,9 +229,24 @@ defineExpose({
     }"
     :style="{
       '--heelslide-width': `${bounds.width}px`,
-      '--heelslide-height': `${bounds.height}px`
+      '--heelslide-height': `${bounds.height}px`,
+      position: 'relative'
     }"
+    @keydown="handleKeyDown"
   >
+    <!-- Screen reader visually-hidden live region -->
+    <div
+      data-heelslide-live-region
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; white-space: nowrap;"
+    >
+      <slot name="announcer" :message="announcement">
+        {{ announcement }}
+      </slot>
+    </div>
+
     <svg
       class="heelslide-svg"
       :viewBox="viewBox"
@@ -241,5 +308,72 @@ defineExpose({
         />
       </g>
     </svg>
+
+    <!-- Fallback trigger button -->
+    <button
+      v-if="accessibleFallback === 'dialog'"
+      type="button"
+      data-heelslide-fallback-button
+      aria-haspopup="dialog"
+      :disabled="disabled"
+      style="position: absolute; bottom: 8px; right: 8px; z-index: 10; font-size: 11px; padding: 4px 8px; border-radius: 6px; background-color: var(--heelslide-fallback-btn-bg, #f1f5f9); color: var(--heelslide-fallback-btn-color, #334155); border: 1px solid var(--heelslide-fallback-btn-border, #cbd5e1); cursor: pointer;"
+      @click="handleFallbackOpen"
+    >
+      {{ accessibleButtonText }}
+    </button>
+
+    <!-- Accessible Dialog Fallback / Slot -->
+    <template v-if="isFallbackOpen">
+      <slot
+        name="fallback"
+        :is-open="isFallbackOpen"
+        :confirm="confirmFallback"
+        :cancel="handleFallbackClose"
+      >
+        <div
+          data-heelslide-dialog
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="heelslide-dialog-title"
+          aria-describedby="heelslide-dialog-desc"
+          style="position: absolute; inset: 0; background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; z-index: 20; box-sizing: border-box;"
+        >
+          <div
+            style="background-color: #ffffff; border-radius: 8px; padding: 16px; max-width: 90%; text-align: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);"
+          >
+            <h3
+              id="heelslide-dialog-title"
+              style="margin: 0 0 8px 0; font-size: 16px; color: #0f172a;"
+            >
+              Accessible Verification
+            </h3>
+            <p
+              id="heelslide-dialog-desc"
+              style="margin: 0 0 16px 0; font-size: 13px; color: #475569;"
+            >
+              Confirm your intention to unlock the security gate.
+            </p>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <button
+                type="button"
+                data-heelslide-dialog-confirm
+                style="padding: 6px 14px; border-radius: 6px; background-color: #2563eb; color: #ffffff; border: none; font-weight: 500; cursor: pointer;"
+                @click="confirmFallback"
+              >
+                Confirm
+              </button>
+              <button
+                type="button"
+                data-heelslide-dialog-cancel
+                style="padding: 6px 14px; border-radius: 6px; background-color: #e2e8f0; color: #334155; border: none; font-weight: 500; cursor: pointer;"
+                @click="handleFallbackClose"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </slot>
+    </template>
   </div>
 </template>
