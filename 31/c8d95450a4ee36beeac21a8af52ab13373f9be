@@ -1,0 +1,3 @@
+Task: Svelte Component Explicit Typing
+Scope: packages/svelte/src/index.ts
+Summary: Replaced unbundled SFC re-export with explicit Svelte 5 Component<HeelslideProps> typing for Heelslide, providing self-contained .d.ts emission without consumer ambient shims.
