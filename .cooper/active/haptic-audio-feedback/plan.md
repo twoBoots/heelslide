@@ -14,11 +14,11 @@ Track ID: `haptic-audio-feedback`
   - [x] Sub-task: Write unit tests for `onTurn` emission and feedback triggers in `machine.ts` and `engine.ts` (Red)
   - [x] Sub-task: Wire `onTurn` and feedback integration into `machine.ts`, `engine.ts`, and barrel export `index.ts` (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 3: Phase 1 Verification & Checkpoint**
-  - [ ] Sub-task: Run full `@heelslide/core` Vitest test suite and coverage check
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
+- [x] **Task 3: Phase 1 Verification & Checkpoint** (3b75f07)
+  - [x] Sub-task: Run full `@heelslide/core` Vitest test suite and coverage check
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
 
 ---
 
