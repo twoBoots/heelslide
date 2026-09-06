@@ -2,9 +2,9 @@
 
 ## Phase 1: Core Engine Implementation (`packages/core`)
 
-- [~] Task 1.1: Core Types & State Extensions
-  - [ ] Sub-task: Define `segmented?: boolean`, `checkpointTimeoutMs?: number`, `onCheckpoint?: (heelIndex: number, progress: number) => void` in `packages/core/src/types.ts`
-  - [ ] Sub-task: Add `'checkpoint'` to `GestureState` union
+- [x] Task 1.1: Core Types & State Extensions (27d014d)
+  - [x] Sub-task: Define `segmented?: boolean`, `checkpointTimeoutMs?: number`, `onCheckpoint?: (heelIndex: number, progress: number) => void` in `packages/core/src/types.ts`
+  - [x] Sub-task: Add `'checkpoint'` to `GestureState` union
 
 - [ ] Task 1.2: Checkpoint Clamping, Resumption & Snapback (`packages/core/src/machine.ts`)
   - [ ] Sub-task: Write unit tests in `packages/core/tests/machine.test.ts` for clamping movement at heel vertex in segmented mode (Red)
