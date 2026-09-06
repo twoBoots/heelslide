@@ -2,6 +2,6 @@
   "id": "automated-release-pipeline",
   "name": "Automated SemVer Release Pipeline & Package Publishing",
   "type": "chore",
-  "status": "new",
+  "status": "completed",
   "createdAt": "2026-09-06T07:07:00Z"
 }

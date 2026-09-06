@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Automated SemVer Release Pipeline & Package Publishing**
+- [x] **Track: Automated SemVer Release Pipeline & Package Publishing**
   - Worktree: `.worktrees/automated-release-pipeline`
   - Link: [.cooper/active/automated-release-pipeline/index.md](.cooper/active/automated-release-pipeline/index.md)
 
