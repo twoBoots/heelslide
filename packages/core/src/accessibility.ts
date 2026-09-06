@@ -74,3 +74,32 @@ export function getAccessibleDescription(track: TrackPath): string {
 
   return `Security gate with ${turnLabel}: move ${directions.join(', then ')} to unlock`;
 }
+
+/**
+ * Generates default screen reader messages for accessibility announcement events.
+ */
+export function createDefaultAnnouncementMessage(
+  type: import('./types.js').AccessibleAnnouncementType,
+  context: { progress: number; currentSegmentIndex?: number }
+): string {
+  const percent = Math.round((context.progress ?? 0) * 100);
+  switch (type) {
+    case 'start':
+      return 'Gesture started. Slide along the track to begin.';
+    case 'step':
+      return `Stepped along track. ${percent}% complete.`;
+    case 'heel_reached': {
+      const heelIndex = context.currentSegmentIndex ?? 1;
+      return `Heel ${heelIndex} reached. Change direction to continue.`;
+    }
+    case 'progress':
+      return `Progress ${percent}%.`;
+    case 'unlock':
+      return 'Security gate unlocked successfully.';
+    case 'reset':
+      return 'Gesture reset to start.';
+    default:
+      return '';
+  }
+}
+

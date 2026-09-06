@@ -1,12 +1,22 @@
+import { createDefaultAnnouncementMessage } from './accessibility.js';
 import { euclideanDistance, projectPointOnSegment } from './geometry.js';
-import type { GestureState, Point2D, TrackPath } from './types.js';
+import type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  GestureState,
+  Point2D,
+  TrackPath
+} from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
+  accessible?: AccessibleOptions;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;
   onStateChange?: (state: GestureState) => void;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
 }
 
 export interface GestureStateMachine {
@@ -27,12 +37,53 @@ export function createGestureStateMachine(
   track: TrackPath,
   options: StateMachineOptions = {}
 ): GestureStateMachine {
-  const { tolerance = 24, onUnlock, onReset, onProgress, onStateChange } = options;
+  const {
+    tolerance = 24,
+    accessible,
+    onUnlock,
+    onReset,
+    onProgress,
+    onStateChange,
+    onAnnouncement
+  } = options;
 
   let state: GestureState = 'idle';
   let progress = 0;
   let currentSegmentIndex = 0;
   let accumulatedDistance = 0;
+
+  function emitAnnouncement(
+    type: AccessibleAnnouncementType,
+    context?: { progress?: number; currentSegmentIndex?: number; [key: string]: unknown }
+  ): void {
+    if (accessible?.enabled === false) return;
+    if (!onAnnouncement) return;
+
+    const currentProgress = context?.progress ?? progress;
+    const segIndex = context?.currentSegmentIndex ?? currentSegmentIndex;
+
+    let message = '';
+    const customGenerator = accessible?.announceMessages?.[type];
+    if (customGenerator) {
+      message = customGenerator({
+        progress: currentProgress,
+        currentSegmentIndex: segIndex,
+        ...context
+      });
+    } else {
+      message = createDefaultAnnouncementMessage(type, {
+        progress: currentProgress,
+        currentSegmentIndex: segIndex
+      });
+    }
+
+    onAnnouncement({
+      type,
+      message,
+      progress: currentProgress,
+      timestamp: Date.now()
+    });
+  }
 
   function setState(newState: GestureState): void {
     if (state !== newState) {
@@ -52,6 +103,7 @@ export function createGestureStateMachine(
 
   function triggerReset(): void {
     resetState();
+    emitAnnouncement('reset', { progress: 0, currentSegmentIndex: 0 });
     onReset?.();
   }
 
@@ -67,6 +119,7 @@ export function createGestureStateMachine(
       progress = 0;
       setState('active');
       onProgress?.(0);
+      emitAnnouncement('start', { progress: 0, currentSegmentIndex: 0 });
       return true;
     }
 
@@ -105,6 +158,7 @@ export function createGestureStateMachine(
         const currentDistance = accumulatedDistance + nextProj.t * nextSegment.length;
         progress = track.totalLength > 0 ? Math.min(1, Math.max(0, currentDistance / track.totalLength)) : 0;
         onProgress?.(progress);
+        emitAnnouncement('heel_reached', { progress, currentSegmentIndex });
         return;
       }
     }
@@ -135,6 +189,7 @@ export function createGestureStateMachine(
       progress = 1.0;
       onProgress?.(1.0);
       setState('unlocked');
+      emitAnnouncement('unlock', { progress: 1.0, currentSegmentIndex });
       onUnlock?.();
     } else {
       triggerReset();
@@ -167,8 +222,10 @@ export function createGestureStateMachine(
     if (state === 'unlocked') {
       return 1.0;
     }
-    if (state === 'idle' || state === 'reset') {
+    const wasIdle = state === 'idle' || state === 'reset';
+    if (wasIdle) {
       setState('active');
+      emitAnnouncement('start', { progress: 0, currentSegmentIndex });
     }
     const newProgress = Math.min(1.0, progress + amount);
     if (newProgress >= 0.95 || currentSegmentIndex >= track.segments.length) {
@@ -176,12 +233,18 @@ export function createGestureStateMachine(
       currentSegmentIndex = Math.max(0, track.segments.length - 1);
       setState('unlocked');
       onProgress?.(1.0);
+      emitAnnouncement('unlock', { progress: 1.0, currentSegmentIndex });
       onUnlock?.();
       return 1.0;
     }
     progress = newProgress;
+    const prevSeg = currentSegmentIndex;
     updateSegmentFromProgress();
     onProgress?.(progress);
+    if (currentSegmentIndex > prevSeg) {
+      emitAnnouncement('heel_reached', { progress, currentSegmentIndex });
+    }
+    emitAnnouncement('step', { progress, currentSegmentIndex });
     return progress;
   }
 
@@ -193,6 +256,7 @@ export function createGestureStateMachine(
     progress = newProgress;
     updateSegmentFromProgress();
     onProgress?.(progress);
+    emitAnnouncement('step', { progress, currentSegmentIndex });
     return progress;
   }
 
@@ -200,13 +264,16 @@ export function createGestureStateMachine(
     if (state === 'unlocked') {
       return 1.0;
     }
-    if (state === 'idle' || state === 'reset') {
+    const wasIdle = state === 'idle' || state === 'reset';
+    if (wasIdle) {
       setState('active');
+      emitAnnouncement('start', { progress: 0, currentSegmentIndex });
     }
     if (track.segments.length === 0) {
       progress = 1.0;
       setState('unlocked');
       onProgress?.(1.0);
+      emitAnnouncement('unlock', { progress: 1.0, currentSegmentIndex });
       onUnlock?.();
       return 1.0;
     }
@@ -216,6 +283,7 @@ export function createGestureStateMachine(
       currentSegmentIndex = track.segments.length - 1;
       setState('unlocked');
       onProgress?.(1.0);
+      emitAnnouncement('unlock', { progress: 1.0, currentSegmentIndex });
       onUnlock?.();
       return 1.0;
     }
@@ -233,11 +301,13 @@ export function createGestureStateMachine(
       progress = 1.0;
       setState('unlocked');
       onProgress?.(1.0);
+      emitAnnouncement('unlock', { progress: 1.0, currentSegmentIndex });
       onUnlock?.();
       return 1.0;
     }
 
     onProgress?.(progress);
+    emitAnnouncement('heel_reached', { progress, currentSegmentIndex });
     return progress;
   }
 
@@ -249,7 +319,10 @@ export function createGestureStateMachine(
     update,
     end,
     cancel,
-    reset: resetState,
+    reset: () => {
+      resetState();
+      emitAnnouncement('reset', { progress: 0, currentSegmentIndex: 0 });
+    },
     stepForward,
     stepBackward,
     stepToNextHeel

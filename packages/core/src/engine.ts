@@ -40,10 +40,12 @@ export class HeelslideEngine {
   private createMachine(): GestureStateMachine {
     return createGestureStateMachine(this.track, {
       tolerance: this.options.tolerance ?? 24,
+      accessible: this.options.accessible,
       onUnlock: this.options.onUnlock,
       onReset: this.options.onReset,
       onProgress: this.options.onProgress,
-      onStateChange: this.options.onStateChange
+      onStateChange: this.options.onStateChange,
+      onAnnouncement: this.options.onAnnouncement
     });
   }
 

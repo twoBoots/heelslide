@@ -30,6 +30,7 @@ export {
 
 // Accessibility
 export {
+  createDefaultAnnouncementMessage,
   getAccessibleDescription,
   getAccessibleSteps,
   getStepDirection
