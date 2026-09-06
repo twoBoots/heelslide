@@ -95,4 +95,61 @@ describe('<Heelslide /> SVG Rendering & Styling', () => {
     expect(endMarker.attributes('cx')).toBe('100');
     expect(endMarker.attributes('cy')).toBe('120');
   });
+
+  describe('CSS Custom Properties, Heel Theming & Numbered Heels', () => {
+    it('renders heel marker groups with buffer clearance and active target attributes', () => {
+      const wrapper = mount(Heelslide, {
+        props: {
+          track: customTrack,
+          bounds: { width: 300, height: 150 }
+        }
+      });
+
+      // Heel group
+      const heelGroup = wrapper.find('.heelslide-heel-group');
+      expect(heelGroup.exists()).toBe(true);
+      expect(heelGroup.attributes('data-heelslide-heel')).toBe('1');
+      // On segment 0, heel 1 is the active target
+      expect(heelGroup.attributes('data-target')).toBe('true');
+      expect(heelGroup.classes()).toContain('heelslide-target');
+
+      // Clearance buffer circle
+      const heelBuffer = heelGroup.find('.heelslide-heel-buffer');
+      expect(heelBuffer.exists()).toBe(true);
+      expect(heelBuffer.attributes('cx')).toBe('100');
+      expect(heelBuffer.attributes('cy')).toBe('20');
+
+      // Heel marker circle
+      const heelMarker = heelGroup.find('.heelslide-heel-marker');
+      expect(heelMarker.exists()).toBe(true);
+      expect(heelMarker.attributes('cx')).toBe('100');
+      expect(heelMarker.attributes('cy')).toBe('20');
+
+      // Goal group
+      const goalGroup = wrapper.find('.heelslide-goal-group');
+      expect(goalGroup.exists()).toBe(true);
+      expect(goalGroup.attributes('data-target')).toBe('false');
+    });
+
+    it('renders numbered heel text when numberedHeels is enabled', () => {
+      const wrapper = mount(Heelslide, {
+        props: {
+          track: customTrack,
+          bounds: { width: 300, height: 150 },
+          numberedHeels: true
+        }
+      });
+
+      const heelGroup = wrapper.find('.heelslide-heel-group');
+      expect(heelGroup.exists()).toBe(true);
+
+      const textEl = heelGroup.find('text.heelslide-heel-text');
+      expect(textEl.exists()).toBe(true);
+      expect(textEl.text()).toBe('1');
+      expect(textEl.attributes('x')).toBe('100');
+      expect(textEl.attributes('y')).toBe('20');
+      expect(textEl.attributes('text-anchor')).toBe('middle');
+      expect(textEl.attributes('dominant-baseline')).toBe('central');
+    });
+  });
 });

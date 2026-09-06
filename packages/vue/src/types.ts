@@ -43,6 +43,7 @@ export interface HeelslideProps {
   ariaLabel?: string;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
+  numberedHeels?: boolean;
   onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
