@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Type Export Parity & Self-Contained Component Declarations**
+- [x] **Track: Type Export Parity & Self-Contained Component Declarations**
   - Worktree: `.worktrees/type-exports-parity`
   - Link: [.cooper/active/type-exports-parity/index.md](.cooper/active/type-exports-parity/index.md)
 
