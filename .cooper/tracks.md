@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Haptic & Audio Feedback System**
+- [x] **Track: Haptic & Audio Feedback System**
   - Worktree: `.worktrees/haptic-audio-feedback`
   - Link: [.cooper/active/haptic-audio-feedback/index.md](.cooper/active/haptic-audio-feedback/index.md)
 
