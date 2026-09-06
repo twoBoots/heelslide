@@ -24,10 +24,10 @@ Status: `in_progress`
   - [x] Sub-task: Update `.github/workflows/release.yml` with Changesets publication using `NODE_AUTH_TOKEN` and `GITHUB_TOKEN`
   - [x] Sub-task: Add step to pack `.tgz` tarballs (`npm pack`) for all public workspaces
   - [x] Sub-task: Add step to create/update GitHub Releases with changelog notes and upload `.tgz` archive assets
-- [~] Task 2: Initial Release Changeset Generation & Packaging Verification
-  - [ ] Sub-task: Generate initial changeset for `@heelslide/core`, `@heelslide/react`, `@heelslide/svelte`, `@heelslide/vue`
-  - [ ] Sub-task: Verify `npm run build` and `npm pack --dry-run` across all workspaces to guarantee packaging integrity
-  - [ ] Sub-task: Verify `npx changeset status` detects the pending release
+- [x] Task 2: Initial Release Changeset Generation & Packaging Verification (d104434)
+  - [x] Sub-task: Generate initial changeset for `@heelslide/core`, `@heelslide/react`, `@heelslide/svelte`, `@heelslide/vue`
+  - [x] Sub-task: Verify `npm run build` and `npm pack --dry-run` across all workspaces to guarantee packaging integrity
+  - [x] Sub-task: Verify `npx changeset status` detects the pending release
 - [ ] Task 3: Phase 2 Verification & Track Finalization
   - [ ] Sub-task: Run full workspace CI suite locally (`npm run lint`, `npm run typecheck`, `npm test`, `npm run build`)
   - [ ] Sub-task: Synchronize rules with `git fetch origin main`
