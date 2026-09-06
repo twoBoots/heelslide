@@ -4,7 +4,7 @@ Track ID: `playwright-ci-cache`
 Status: `in_progress`
 
 ## Phase 1: CI Workflow Decomposition & Parallelization
-- [ ] Task 1: Living Capability Spec & Spec Delta Verification
+- [~] Task 1: Living Capability Spec & Spec Delta Verification
   - [ ] Sub-task: Verify living capability spec `.cooper/specs/ci-pipeline/spec.md`
   - [ ] Sub-task: Verify spec delta `.cooper/active/playwright-ci-cache/spec-deltas/ci-pipeline/spec.md`
 - [ ] Task 2: Separate `validate` Job
