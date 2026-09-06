@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Accessibility & Keyboard Navigation Fallback**
+- [x] **Track: Accessibility & Keyboard Navigation Fallback**
   - Worktree: `.worktrees/accessibility-fallback`
   - Link: [.cooper/active/accessibility-fallback/index.md](.cooper/active/accessibility-fallback/index.md)
 
