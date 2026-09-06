@@ -48,9 +48,9 @@
   - [x] Sub-task: Write unit & component tests for `haptics`, `sound`, and `onturn`/`onTurn` (Red)
   - [x] Sub-task: Implement `haptics`, `sound`, `onturn`/`onTurn`, and `destroy` in `packages/svelte` (Green)
   - [x] Sub-task: Refactor exports and verify test coverage >80% (Refactor)
-- [~] Task: Phase 4 Verification & Track Finalization
-  - [ ] Sub-task: Run full test suite with coverage report (`vitest run --coverage >80%`)
-  - [ ] Sub-task: Run clean monorepo typecheck (`tsc -b`) and linting (`oxlint .`)
-  - [ ] Sub-task: Verify production build output in `packages/svelte/dist/`
-  - [ ] Sub-task: Synchronize main branch (`git fetch origin main`)
-  - [ ] Sub-task: Push final track commit to remote (`git push origin svelte-adapter`)
+- [x] Task: Phase 4 Verification & Track Finalization (455ff46) [checkpoint: 455ff46]
+  - [x] Sub-task: Run full test suite with coverage report (`vitest run --coverage >80%`)
+  - [x] Sub-task: Run clean monorepo typecheck (`tsc -b`) and linting (`oxlint .`)
+  - [x] Sub-task: Verify production build output in `packages/svelte/dist/`
+  - [x] Sub-task: Synchronize main branch (`git fetch origin main`)
+  - [x] Sub-task: Push final track commit to remote (`git push origin svelte-adapter`)
