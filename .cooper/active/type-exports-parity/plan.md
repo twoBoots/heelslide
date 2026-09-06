@@ -6,8 +6,8 @@ Status: `in_progress`
 ## Phase 1: Consumer Type Smoke Tests & Core Type Re-exports
 - [x] Task 1: Living Capability Specs & Spec Deltas Verification (8a09a62)
   - [x] Sub-task: Verify living capability specs and spec deltas for `react-adapter`, `vue-adapter`, and `svelte-adapter`
-- [~] Task 2: Consumer Type Smoke Test Suite (Red)
-  - [ ] Sub-task: Author `tests/consumer-types.test.ts` verifying external consumer typecheck against built packages without ambient module shims (Red)
+- [x] Task 2: Consumer Type Smoke Test Suite (Red) (b6dbdd1)
+  - [x] Sub-task: Author `tests/consumer-types.test.ts` verifying external consumer typecheck against built packages without ambient module shims (Red)
 - [ ] Task 3: Core Type Re-Exports in React & Svelte (Green & Refactor)
   - [ ] Sub-task: Re-export `Bounds` and `Direction` in `packages/react/src/index.ts`
   - [ ] Sub-task: Re-export `Bounds`, `Direction`, `Segment`, and `ProjectedPoint` in `packages/svelte/src/types.ts`
