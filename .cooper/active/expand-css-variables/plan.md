@@ -7,10 +7,10 @@
   - [x] Sub-task: Implement props, SVG attributes, target heel/goal detection, SVG `<text>` numbering, and state styles in `packages/react/src/Heelslide.tsx` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 
-- [~] Task 2: Vue Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
-  - [ ] Sub-task: Write unit tests in `packages/vue/tests/HeelslideRender.test.ts` for expanded CSS custom properties, heel/target/goal tokens, typography, and `numberedHeels` prop (Red)
-  - [ ] Sub-task: Update `packages/vue/src/style.css`, `packages/vue/src/types.ts`, and `packages/vue/src/Heelslide.vue` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] Task 2: Vue Adapter Expanded CSS Properties, Heel Theming & Numbered Heels (b32c507)
+  - [x] Sub-task: Write unit tests in `packages/vue/tests/HeelslideRender.test.ts` for expanded CSS custom properties, heel/target/goal tokens, typography, and `numberedHeels` prop (Red)
+  - [x] Sub-task: Update `packages/vue/src/style.css`, `packages/vue/src/types.ts`, and `packages/vue/src/Heelslide.vue` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 
 - [ ] Task 3: Svelte 5 Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
   - [ ] Sub-task: Write unit tests in `packages/svelte/tests/HeelslideRender.test.ts` for expanded CSS custom properties, heel/target/goal tokens, typography, and `numberedHeels` prop (Red)
