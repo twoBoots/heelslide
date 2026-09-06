@@ -17,7 +17,7 @@
 ---
 
 ## Phase 2: Visual Regression Specs & Snapshot Baselines
-- [ ] **Task 4: Core Lifecycle States Visual Regression Specs**
+- [~] **Task 4: Core Lifecycle States Visual Regression Specs**
   - [ ] Sub-task: Write Playwright visual test specs for idle, active, unlocked, and disabled states (Red)
   - [ ] Sub-task: Generate initial baseline snapshots across desktop (Chromium, Firefox) and mobile (WebKit) viewports (Green)
   - [ ] Sub-task: Refactor visual test helpers and verify snapshot comparison assertions (Refactor)
