@@ -10,10 +10,10 @@ Track ID: `accessibility-fallback`
   - [x] Sub-task: Unit tests for `getAccessibleSteps()`, `getAccessibleDescription()`, `stepForward()`, `stepBackward()`, and `stepToNextHeel()` (Red)
   - [x] Sub-task: Implement accessible stepping and description generators in `packages/core/src/accessibility.ts`, `types.ts`, and `engine.ts` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [~] **Task 2: Core Accessibility Announcements & Event Lifecycle**
-  - [ ] Sub-task: Unit tests for `onAnnouncement` events across gesture states, heel arrivals, and resets (Red)
-  - [ ] Sub-task: Implement `AccessibleAnnouncement` dispatcher and integrate with `HeelslideEngine` and `machine.ts` (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 2: Core Accessibility Announcements & Event Lifecycle** (52353ac)
+  - [x] Sub-task: Unit tests for `onAnnouncement` events across gesture states, heel arrivals, and resets (Red)
+  - [x] Sub-task: Implement `AccessibleAnnouncement` dispatcher and integrate with `HeelslideEngine` and `machine.ts` (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
 - [ ] **Task 3: Phase 1 Verification & Checkpoint**
   - [ ] Sub-task: Run Vitest core test suite and verify >80% coverage
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
