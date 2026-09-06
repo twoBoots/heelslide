@@ -29,5 +29,10 @@ export type {
   HeelCountConfig,
   Point2D,
   Segment,
-  TrackPath
+  TrackPath,
+  FeedbackOptions,
+  HapticOptions,
+  SoundOptions,
+  HapticPatterns,
+  SoundFrequencies
 } from '@heelslide/core';
