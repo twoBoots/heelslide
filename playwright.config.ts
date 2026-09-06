@@ -48,9 +48,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run docs:dev -- --port 4173',
+    command: 'npm run --prefix apps/docs dev -- --port 4173',
     port: 4173,
     reuseExistingServer: !process.env.CI,
-    timeout: 30000,
+    timeout: 60000,
   },
 });

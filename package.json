@@ -17,7 +17,7 @@
     "lint": "oxlint .",
     "format": "npx oxlint --fix .",
     "format:check": "oxlint .",
-    "docs:dev": "npm run --workspace=@heelslide/docs dev",
+    "docs:dev": "npm run --prefix apps/docs dev --",
     "docs:build": "npm run --workspace=@heelslide/docs build",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
