@@ -1,0 +1,3 @@
+Task: Task 1.1: Core Types & State Extensions
+Scope: packages/core/src/types.ts, packages/core/src/machine.ts, packages/core/src/engine.ts, packages/core/tests/machine.test.ts
+Summary: Added 'checkpoint' to GestureState union and added segmented, checkpointTimeoutMs, and onCheckpoint to EngineOptions and StateMachineOptions.
