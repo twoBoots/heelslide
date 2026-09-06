@@ -52,12 +52,12 @@ export function createGestureStateMachine(
   }
 
   function resetState(): void {
-    state = 'idle';
-    progress = 0;
+    state = options.initialState ?? 'idle';
+    progress = options.initialProgress ?? (state === 'unlocked' ? 1.0 : state === 'active' ? 0.5 : 0);
     currentSegmentIndex = 0;
     accumulatedDistance = 0;
-    onProgress?.(0);
-    setState('idle');
+    onProgress?.(progress);
+    setState(state);
   }
 
   function triggerReset(): void {

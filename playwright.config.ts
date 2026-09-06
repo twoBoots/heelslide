@@ -36,6 +36,7 @@ export default defineConfig({
       name: 'webkit-mobile',
       use: {
         ...devices['iPhone 14'],
+        deviceScaleFactor: 1,
         viewport: { width: 390, height: 844 },
       },
     },

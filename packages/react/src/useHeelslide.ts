@@ -104,7 +104,6 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   // Handle unmount teardown
   useEffect(() => {
     return () => {
-      engine.reset();
       engine.destroy();
     };
   }, [engine]);

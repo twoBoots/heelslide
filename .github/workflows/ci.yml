@@ -56,6 +56,11 @@ jobs:
             npm run typecheck
           fi
 
+      - name: Build Packages & Docs
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          npm run build
+
       - name: Run Tests with Coverage (Vitest)
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
