@@ -1,7 +1,7 @@
 # Implementation Plan: Type Export Parity & Self-Contained Component Declarations
 
 Track ID: `type-exports-parity`
-Status: `in_progress`
+Status: `completed`
 
 ## Phase 1: Consumer Type Smoke Tests & Core Type Re-exports
 - [x] Task 1: Living Capability Specs & Spec Deltas Verification (8a09a62)
@@ -26,8 +26,8 @@ Status: `in_progress`
 - [x] Task 3: Package Builds & Consumer Smoke Test Verification (Green & Refactor) (3169c3d)
   - [x] Sub-task: Rebuild all packages (`npm run build`)
   - [x] Sub-task: Run `tests/consumer-types.test.ts` and verify 0 typecheck diagnostics
-- [~] Task 4: Phase 2 Verification & Track Finalization
-  - [ ] Sub-task: Run full workspace CI suite locally (`npm run lint`, `npm run typecheck`, `npm test`, `npm run build`)
-  - [ ] Sub-task: Synchronize rules with `git fetch origin main`
-  - [ ] Sub-task: Create final checkpoint commit and attach report via `git notes`
-  - [ ] Sub-task: Push branch to `origin type-exports-parity`
+- [x] Task 4: Phase 2 Verification & Track Finalization (e43b279)
+  - [x] Sub-task: Run full workspace CI suite locally (`npm run lint`, `npm run typecheck`, `npm test`, `npm run build`)
+  - [x] Sub-task: Synchronize rules with `git fetch origin main`
+  - [x] Sub-task: Create final checkpoint commit and attach report via `git notes`
+  - [x] Sub-task: Push branch to `origin type-exports-parity`
