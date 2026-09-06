@@ -23,7 +23,7 @@ Status: `in_progress`
   - [x] Sub-task: Explicitly type `Heelslide` in `packages/vue/src/index.ts` as `DefineComponent<HeelslideProps, ..., HeelslideEmits>`
 - [x] Task 2: Svelte Component Explicit Typing (31c8d95)
   - [x] Sub-task: Explicitly type `Heelslide` in `packages/svelte/src/index.ts` as `Component<HeelslideProps>`
-- [ ] Task 3: Package Builds & Consumer Smoke Test Verification (Green & Refactor)
+- [~] Task 3: Package Builds & Consumer Smoke Test Verification (Green & Refactor)
   - [ ] Sub-task: Rebuild all packages (`npm run build`)
   - [ ] Sub-task: Run `tests/consumer-types.test.ts` and verify 0 typecheck diagnostics
 - [ ] Task 4: Phase 2 Verification & Track Finalization
