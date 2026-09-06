@@ -149,4 +149,80 @@ describe('HeelslideEngine Orchestrator & Public API', () => {
     expect(engine.getState()).toBe('idle');
     expect(engine.getProgress()).toBe(0);
   });
+
+  describe('Feedback & onTurn orchestration', () => {
+    it('propagates onTurn callback and triggers haptic/audio feedback during gesture navigation', () => {
+      const onTurn = vi.fn();
+      const mockVibrate = vi.fn().mockReturnValue(true);
+      Object.defineProperty(globalThis, 'navigator', {
+        value: { vibrate: mockVibrate },
+        configurable: true,
+        writable: true
+      });
+
+      const engine = new HeelslideEngine({
+        haptics: true,
+        sound: false,
+        onTurn,
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        }
+      });
+
+      const path = engine.getPath();
+      const startPoint = path.points[0]!;
+      const heelPoint = path.points[1]!;
+      const endPoint = path.points[2]!;
+      const midSecondSegment = {
+        x: (heelPoint.x + endPoint.x) / 2,
+        y: (heelPoint.y + endPoint.y) / 2
+      };
+
+      engine.startGesture(startPoint);
+      engine.updateGesture(heelPoint);
+      engine.updateGesture(midSecondSegment);
+
+      expect(onTurn).toHaveBeenCalledWith(0);
+      expect(mockVibrate).toHaveBeenCalledWith(15);
+    });
+
+    it('resumes AudioContext on startGesture when sound is enabled', async () => {
+      const engine = new HeelslideEngine({
+        sound: true
+      });
+
+      const feedback = engine.getFeedbackController();
+      const resumeSpy = vi.spyOn(feedback, 'resumeAudio');
+
+      const startPoint = engine.getPath().points[0]!;
+      engine.startGesture(startPoint);
+
+      expect(resumeSpy).toHaveBeenCalled();
+    });
+
+    it('allows dynamically updating feedback options via setFeedbackOptions', () => {
+      const engine = new HeelslideEngine({
+        haptics: false,
+        sound: false
+      });
+
+      const feedback = engine.getFeedbackController();
+      expect(feedback.getOptions().haptics).toBe(false);
+
+      engine.setFeedbackOptions({ haptics: true });
+      expect(feedback.getOptions().haptics).toBe(true);
+    });
+
+    it('cleans up feedback resources when destroy() is called', () => {
+      const engine = new HeelslideEngine({ sound: true });
+      const feedback = engine.getFeedbackController();
+      const destroySpy = vi.spyOn(feedback, 'destroy');
+
+      engine.destroy();
+      expect(destroySpy).toHaveBeenCalled();
+    });
+  });
 });
+

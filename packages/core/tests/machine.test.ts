@@ -195,4 +195,62 @@ describe('Gesture State Machine', () => {
     machine.update({ x: 10, y: 10 });
     expect(machine.getProgress()).toBeCloseTo(1.0);
   });
+
+  describe('onTurn callback and feedback integration', () => {
+    it('invokes onTurn with the navigated heel index when advancing segments', () => {
+      const onTurn = vi.fn();
+      const machine = createGestureStateMachine(simpleTrack, {
+        tolerance: 15,
+        onTurn
+      });
+
+      machine.start({ x: 0, y: 0 });
+      // Turn corner onto segment 1
+      machine.update({ x: 50, y: 25 });
+
+      expect(onTurn).toHaveBeenCalledTimes(1);
+      expect(onTurn).toHaveBeenCalledWith(0);
+    });
+
+    it('triggers feedbackController turn, reset, and unlock events', () => {
+      const mockFeedback = {
+        triggerTurn: vi.fn(),
+        triggerReset: vi.fn(),
+        triggerUnlock: vi.fn()
+      };
+
+      const machine = createGestureStateMachine(simpleTrack, {
+        tolerance: 15,
+        feedback: mockFeedback as any
+      });
+
+      machine.start({ x: 0, y: 0 });
+      // 1. Turn
+      machine.update({ x: 50, y: 25 });
+      expect(mockFeedback.triggerTurn).toHaveBeenCalledTimes(1);
+
+      // 2. Unlock
+      machine.update({ x: 50, y: 50 });
+      machine.end();
+      expect(mockFeedback.triggerUnlock).toHaveBeenCalledTimes(1);
+    });
+
+    it('triggers feedbackController reset on deviation or premature end', () => {
+      const mockFeedback = {
+        triggerTurn: vi.fn(),
+        triggerReset: vi.fn(),
+        triggerUnlock: vi.fn()
+      };
+
+      const machine = createGestureStateMachine(simpleTrack, {
+        tolerance: 15,
+        feedback: mockFeedback as any
+      });
+
+      machine.start({ x: 0, y: 0 });
+      machine.update({ x: 20, y: 40 }); // deviate
+
+      expect(mockFeedback.triggerReset).toHaveBeenCalledTimes(1);
+    });
+  });
 });
