@@ -15,7 +15,7 @@
   - [x] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
 
 ## Phase 2: Presentation Component (`<Heelslide />`) & Styling
-- [ ] Task: Procedural SVG Track Rendering & Styling
+- [~] Task: Procedural SVG Track Rendering & Styling
   - [ ] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
   - [ ] Sub-task: Implement `Heelslide.svelte` SVG structure, `$props()`, and `style.css` variables (Green)
   - [ ] Sub-task: Refactor SVG track path calculation and styling (Refactor)
