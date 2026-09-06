@@ -21,6 +21,7 @@ export default defineConfig({
     rollupOptions: {
       external: ['svelte', /^svelte\/.*/, '@heelslide/core'],
       output: {
+        exports: 'named',
         assetFileNames: 'style.[ext]',
         globals: {
           svelte: 'Svelte',
