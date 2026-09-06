@@ -52,7 +52,7 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 4: Documentation Playground & End-to-End Verification (`apps/docs`)
 
-- [ ] **Task 8: Playground Interactive Feedback Controls & Audio Previews**
+- [~] **Task 8: Playground Interactive Feedback Controls & Audio Previews**
   - [ ] Sub-task: Add test cases and component integration for haptics & sound toggles in `apps/docs` (Red)
   - [ ] Sub-task: Implement interactive feedback toggles and test tone buttons in playground UI (Green)
   - [ ] Sub-task: Refactor & verify clean static build (`npm run build`) (Refactor)
