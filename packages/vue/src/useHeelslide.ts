@@ -40,6 +40,10 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     onTurn: (heelIndex) => {
       options.onTurn?.(heelIndex);
     },
+    onCheckpoint: (heelIndex, p) => {
+      syncFromEngine();
+      options.onCheckpoint?.(heelIndex, p);
+    },
     onUnlock: () => {
       syncFromEngine();
       options.onUnlock?.();
@@ -76,6 +80,11 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       lastPoint.value = { ...track.value.points[0]! };
     } else if (state.value === 'unlocked') {
       lastPoint.value = { ...track.value.points[track.value.points.length - 1]! };
+    } else if (state.value === 'checkpoint') {
+      const pt = track.value.points[currentSegmentIndex.value];
+      if (pt) {
+        lastPoint.value = { ...pt };
+      }
     }
   }
 
@@ -90,6 +99,9 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     }
     if (state.value === 'unlocked') {
       return track.value.points[track.value.points.length - 1]!;
+    }
+    if (state.value === 'checkpoint') {
+      return track.value.points[currentSegmentIndex.value] ?? lastPoint.value;
     }
 
     const segments = track.value.segments;
