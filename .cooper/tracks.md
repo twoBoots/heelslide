@@ -5,8 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-
-_None currently active on main._
+- [x] **Track: Automated SemVer Release Pipeline & Package Publishing**
+  - Worktree: `.worktrees/automated-release-pipeline`
+  - Link: [.cooper/active/automated-release-pipeline/index.md](.cooper/active/automated-release-pipeline/index.md)
 
 ## Completed Archive
 - [x] **Track: Svelte 5 Component Adapter**
