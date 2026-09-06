@@ -34,6 +34,9 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   const state = ref<GestureState>('idle');
   const progress = ref<number>(0);
   const currentSegmentIndex = ref<number>(0);
+  const announcement = ref<string | null>(null);
+  const isFallbackOpen = ref<boolean>(false);
+  const accessibleFallback = options.accessibleFallback ?? 'stepped';
 
   const engine = new HeelslideEngine({
     ...options,
@@ -53,6 +56,10 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     onStateChange: (s) => {
       state.value = s;
       options.onStateChange?.(s);
+    },
+    onAnnouncement: (ann) => {
+      announcement.value = ann.message;
+      options.onAnnouncement?.(ann);
     }
   });
 
@@ -72,6 +79,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
 
   // Initial sync
   syncFromEngine();
+  announcement.value = engine.getAccessibleDescription();
 
   const isDragging = computed(() => state.value === 'active');
 
@@ -94,6 +102,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   });
 
   function startGesture(pointOrEvent: Point2D | PointerEvent): boolean {
+    if (options.disabled) return false;
     const pt = extractPoint(pointOrEvent, options.containerRef);
     lastPoint.value = pt;
     const started = engine.startGesture(pt);
@@ -102,6 +111,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   }
 
   function updateGesture(pointOrEvent: Point2D | PointerEvent): void {
+    if (options.disabled) return;
     const pt = extractPoint(pointOrEvent, options.containerRef);
     lastPoint.value = pt;
     engine.updateGesture(pt);
@@ -109,11 +119,13 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   }
 
   function endGesture(): void {
+    if (options.disabled) return;
     engine.endGesture();
     syncFromEngine();
   }
 
   function cancelGesture(): void {
+    if (options.disabled) return;
     engine.cancelGesture();
     syncFromEngine();
   }
@@ -121,6 +133,95 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   function reset(): void {
     engine.reset();
     syncFromEngine();
+    isFallbackOpen.value = false;
+  }
+
+  function openFallback(): void {
+    isFallbackOpen.value = true;
+  }
+
+  function closeFallback(): void {
+    isFallbackOpen.value = false;
+  }
+
+  function confirmFallback(): void {
+    isFallbackOpen.value = false;
+    state.value = 'unlocked';
+    progress.value = 1;
+    announcement.value = 'Security gate unlocked successfully.';
+    options.onUnlock?.();
+  }
+
+  function stepForward(amount?: number): number {
+    if (options.disabled) return progress.value;
+    const newProg = engine.stepForward(amount);
+    syncFromEngine();
+    return newProg;
+  }
+
+  function stepBackward(amount?: number): number {
+    if (options.disabled) return progress.value;
+    const newProg = engine.stepBackward(amount);
+    syncFromEngine();
+    return newProg;
+  }
+
+  function stepToNextHeel(): number {
+    if (options.disabled) return progress.value;
+    const newProg = engine.stepToNextHeel();
+    syncFromEngine();
+    return newProg;
+  }
+
+  function handleKeyDown(event: KeyboardEvent): void {
+    if (options.disabled) return;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown': {
+        event.preventDefault();
+        stepForward();
+        break;
+      }
+      case 'ArrowLeft':
+      case 'ArrowUp': {
+        event.preventDefault();
+        stepBackward();
+        break;
+      }
+      case 'Home': {
+        event.preventDefault();
+        reset();
+        break;
+      }
+      case 'Escape': {
+        event.preventDefault();
+        if (isFallbackOpen.value) {
+          closeFallback();
+        } else {
+          reset();
+        }
+        break;
+      }
+      case ' ':
+      case 'Enter': {
+        event.preventDefault();
+        if (isFallbackOpen.value) {
+          confirmFallback();
+        } else if (state.value === 'idle' && accessibleFallback === 'dialog') {
+          openFallback();
+        } else if (progress.value >= 0.95 || state.value === 'active') {
+          stepForward();
+        }
+        break;
+      }
+      case 'End': {
+        event.preventDefault();
+        break;
+      }
+      default:
+        break;
+    }
   }
 
   function regeneratePath(overrideOptions?: Partial<GeneratorOptions>): TrackPath {
@@ -128,6 +229,8 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     track.value = newTrack;
     syncFromEngine();
     lastPoint.value = { ...newTrack.points[0]! };
+    isFallbackOpen.value = false;
+    announcement.value = engine.getAccessibleDescription();
     return newTrack;
   }
 
@@ -138,11 +241,20 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     currentSegmentIndex: readonly(currentSegmentIndex),
     handlePosition,
     isDragging,
+    announcement: readonly(announcement),
+    isFallbackOpen: readonly(isFallbackOpen),
     startGesture,
     updateGesture,
     endGesture,
     cancelGesture,
     reset,
-    regeneratePath
+    regeneratePath,
+    stepForward,
+    stepBackward,
+    stepToNextHeel,
+    handleKeyDown,
+    openFallback,
+    closeFallback,
+    confirmFallback
   };
 }
