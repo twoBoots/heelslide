@@ -2,7 +2,7 @@
   "track_id": "svelte-adapter",
   "title": "Svelte 5 Component Adapter",
   "type": "feature",
-  "status": "new",
+  "status": "completed",
   "created_at": "2026-09-05T13:38:40Z",
   "capabilities": ["svelte-adapter"]
 }
