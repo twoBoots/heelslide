@@ -29,10 +29,10 @@
   - [x] Sub-task: Implement Vue and Svelte SFC snippet generator in `apps/docs/src/utils/snippets.ts` (Green)
   - [x] Sub-task: Refactor and ensure clean indentation and syntax (Refactor)
 
-- [ ] Task 2: Docs Playground Theme Controls, Presets, Numbered Heels & Granular Sliders
-  - [ ] Sub-task: Write tests in `apps/docs/tests/App.test.tsx` and `VisualFixture.test.tsx` for expanded theme parameters, presets, and `numberedHeels` toggle (Red)
-  - [ ] Sub-task: Expand `ThemeConfig` and implement theme presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), `numberedHeels` control, and geometry sliders in `ConfigPanel.tsx` & `Playground.tsx` (Green)
-  - [ ] Sub-task: Verify production static build (`npm run build --workspace=apps/docs`) (Refactor)
+- [x] Task 2: Docs Playground Theme Controls, Presets, Numbered Heels & Granular Sliders (58f2d30)
+  - [x] Sub-task: Write tests in `apps/docs/tests/App.test.tsx` and `VisualFixture.test.tsx` for expanded theme parameters, presets, and `numberedHeels` toggle (Red)
+  - [x] Sub-task: Expand `ThemeConfig` and implement theme presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), `numberedHeels` control, and geometry sliders in `ConfigPanel.tsx` & `Playground.tsx` (Green)
+  - [x] Sub-task: Verify production static build (`npm run build --workspace=apps/docs`) (Refactor)
 
 - [ ] Task 3: Phase 2 Verification & Checkpoint
   - [ ] Sub-task: Run full monorepo test suite (`npm test`) and lint checks (`npm run lint`)
