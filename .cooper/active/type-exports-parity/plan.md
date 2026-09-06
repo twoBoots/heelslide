@@ -4,8 +4,8 @@ Track ID: `type-exports-parity`
 Status: `in_progress`
 
 ## Phase 1: Consumer Type Smoke Tests & Core Type Re-exports
-- [~] Task 1: Living Capability Specs & Spec Deltas Verification
-  - [ ] Sub-task: Verify living capability specs and spec deltas for `react-adapter`, `vue-adapter`, and `svelte-adapter`
+- [x] Task 1: Living Capability Specs & Spec Deltas Verification (8a09a62)
+  - [x] Sub-task: Verify living capability specs and spec deltas for `react-adapter`, `vue-adapter`, and `svelte-adapter`
 - [ ] Task 2: Consumer Type Smoke Test Suite (Red)
   - [ ] Sub-task: Author `tests/consumer-types.test.ts` verifying external consumer typecheck against built packages without ambient module shims (Red)
 - [ ] Task 3: Core Type Re-Exports in React & Svelte (Green & Refactor)
