@@ -42,7 +42,7 @@ Track ID: `accessibility-fallback`
 
 ## Phase 3: Vue 3 Component Accessibility & Keyboard Controls (`@heelslide/vue`)
 
-- [ ] **Task 7: Headless Composable Keyboard Controls (`useHeelslide`)**
+- [~] **Task 7: Headless Composable Keyboard Controls (`useHeelslide`)**
   - [ ] Sub-task: Unit tests for keyboard event normalization, reactive announcement ref, and accessible fallback primitives in Vue composable (Red)
   - [ ] Sub-task: Implement keyboard handlers and stepping controls in `packages/vue/src/useHeelslide.ts` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
