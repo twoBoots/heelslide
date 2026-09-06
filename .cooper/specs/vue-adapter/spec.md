@@ -23,6 +23,13 @@ The composable MUST accept either native `PointerEvent` objects or explicit `{ x
 - **WHEN** `regeneratePath()` is called
 - **THEN** a new track MUST be generated, resetting state and updating the `track` ref.
 
+### Requirement: Feedback Composable Options
+The composable MUST support `haptics`, `sound`, and `onTurn` options in its initialization arguments.
+
+- **GIVEN** `useHeelslide({ haptics: true, sound: true, onTurn: handleTurn })`
+- **WHEN** gesture tracking navigates heels or triggers state changes
+- **THEN** feedback effects MUST execute and the `onTurn` callback MUST be invoked.
+
 ## Capability: Presentation Component (`<Heelslide />`)
 
 ### Requirement: Procedural SVG Path Rendering
@@ -60,3 +67,12 @@ The component MUST expose and adhere to `--heelslide-*` CSS variables with built
 - **GIVEN** custom `--heelslide-track-bg` or `--heelslide-track-progress` styles applied to the container or ancestor
 - **WHEN** the component is rendered
 - **THEN** styles MUST cascade to the SVG track elements.
+
+### Requirement: Dual Feedback Props and Emits Support
+The component MUST expose `haptics`, `sound`, and `onTurn` props alongside a `@turn` emit.
+
+- **GIVEN** `<Heelslide :haptics="true" :sound="true" @turn="onTurn" :onTurn="propTurn" />`
+- **WHEN** a heel vertex is crossed
+- **THEN** both the `@turn` event MUST be emitted with the heel index and the `:onTurn` callback MUST be invoked.
+- **WHEN** unlock or reset conditions occur
+- **THEN** audio and haptic feedback cues MUST execute according to configured options.
