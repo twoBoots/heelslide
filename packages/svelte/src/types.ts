@@ -60,6 +60,7 @@ export interface HeelslideProps {
   disabled?: boolean;
   ariaLabel?: string;
   class?: string;
+  numberedHeels?: boolean;
 
   // Feedback options
   haptics?: boolean | HapticOptions;

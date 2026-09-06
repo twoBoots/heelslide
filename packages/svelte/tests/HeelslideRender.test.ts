@@ -113,4 +113,63 @@ describe('<Heelslide /> Svelte Component Rendering & Styling', () => {
     expect(container?.classList.contains('heelslide-disabled')).toBe(true);
     expect(container?.getAttribute('data-disabled')).toBe('true');
   });
+
+  describe('CSS Custom Properties, Heel Theming & Numbered Heels', () => {
+    it('renders heel marker groups with buffer clearance and active target attributes', () => {
+      component = mount(Heelslide, {
+        target,
+        props: {
+          track: customTrack,
+          bounds: { width: 300, height: 150 }
+        }
+      });
+
+      // Heel group
+      const heelGroup = target.querySelector('.heelslide-heel-group');
+      expect(heelGroup).not.toBeNull();
+      expect(heelGroup?.getAttribute('data-heelslide-heel')).toBe('1');
+      // On segment 0, heel 1 is the active target
+      expect(heelGroup?.getAttribute('data-target')).toBe('true');
+      expect(heelGroup?.classList.contains('heelslide-target')).toBe(true);
+
+      // Clearance buffer circle
+      const heelBuffer = heelGroup?.querySelector('.heelslide-heel-buffer');
+      expect(heelBuffer).not.toBeNull();
+      expect(heelBuffer?.getAttribute('cx')).toBe('100');
+      expect(heelBuffer?.getAttribute('cy')).toBe('20');
+
+      // Heel marker circle
+      const heelMarker = heelGroup?.querySelector('.heelslide-heel-marker');
+      expect(heelMarker).not.toBeNull();
+      expect(heelMarker?.getAttribute('cx')).toBe('100');
+      expect(heelMarker?.getAttribute('cy')).toBe('20');
+
+      // Goal group
+      const goalGroup = target.querySelector('.heelslide-goal-group');
+      expect(goalGroup).not.toBeNull();
+      expect(goalGroup?.getAttribute('data-target')).toBe('false');
+    });
+
+    it('renders numbered heel text when numberedHeels is enabled', () => {
+      component = mount(Heelslide, {
+        target,
+        props: {
+          track: customTrack,
+          bounds: { width: 300, height: 150 },
+          numberedHeels: true
+        }
+      });
+
+      const heelGroup = target.querySelector('.heelslide-heel-group');
+      expect(heelGroup).not.toBeNull();
+
+      const textEl = heelGroup?.querySelector('text.heelslide-heel-text');
+      expect(textEl).not.toBeNull();
+      expect(textEl?.textContent).toBe('1');
+      expect(textEl?.getAttribute('x')).toBe('100');
+      expect(textEl?.getAttribute('y')).toBe('20');
+      expect(textEl?.getAttribute('text-anchor')).toBe('middle');
+      expect(textEl?.getAttribute('dominant-baseline')).toBe('central');
+    });
+  });
 });

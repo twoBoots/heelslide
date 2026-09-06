@@ -16,6 +16,7 @@ let {
   disabled = false,
   ariaLabel = 'Slide to unlock',
   class: customClass = '',
+  numberedHeels = false,
   haptics,
   sound,
   onturn,
@@ -104,6 +105,10 @@ const heelMarkers = $derived.by(() => {
 const destinationPoint = $derived.by(() => {
   return heelslide.track.points[heelslide.track.points.length - 1];
 });
+
+const isGoalTarget = $derived(
+  heelslide.track.points.length > 0 && heelslide.currentSegmentIndex >= heelslide.track.points.length - 2
+);
 
 const viewBox = $derived(`0 0 ${bounds.width} ${bounds.height}`);
 
@@ -204,20 +209,51 @@ export function getHeelslide() {
 
     <!-- Heel turn markers -->
     {#each heelMarkers as marker, index (`heel-${index}`)}
-      <circle
-        class="heelslide-heel-marker"
-        cx={marker.x}
-        cy={marker.y}
-      />
+      <g
+        class="heelslide-heel-group"
+        class:heelslide-target={heelslide.currentSegmentIndex === index}
+        class:heelslide-cleared={heelslide.currentSegmentIndex > index}
+        data-heelslide-heel={index + 1}
+        data-target={heelslide.currentSegmentIndex === index ? 'true' : 'false'}
+      >
+        <!-- Clearance buffer ring -->
+        <circle
+          class="heelslide-heel-buffer"
+          cx={marker.x}
+          cy={marker.y}
+        />
+        <!-- Heel marker circle -->
+        <circle
+          class="heelslide-heel-marker"
+          cx={marker.x}
+          cy={marker.y}
+        />
+        <!-- Numbered heel text label -->
+        {#if numberedHeels}
+          <text
+            class="heelslide-heel-text"
+            x={marker.x}
+            y={marker.y}
+            text-anchor="middle"
+            dominant-baseline="central"
+          >{index + 1}</text>
+        {/if}
+      </g>
     {/each}
 
     <!-- Destination end marker -->
     {#if destinationPoint}
-      <circle
-        class="heelslide-end-marker"
-        cx={destinationPoint.x}
-        cy={destinationPoint.y}
-      />
+      <g
+        class="heelslide-goal-group"
+        class:heelslide-target={isGoalTarget}
+        data-target={isGoalTarget ? 'true' : 'false'}
+      >
+        <circle
+          class="heelslide-end-marker"
+          cx={destinationPoint.x}
+          cy={destinationPoint.y}
+        />
+      </g>
     {/if}
 
     <!-- Draggable Handle -->
