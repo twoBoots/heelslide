@@ -4,9 +4,9 @@ Track ID: `playwright-ci-cache`
 Status: `in_progress`
 
 ## Phase 1: CI Workflow Decomposition & Parallelization
-- [~] Task 1: Living Capability Spec & Spec Delta Verification
-  - [ ] Sub-task: Verify living capability spec `.cooper/specs/ci-pipeline/spec.md`
-  - [ ] Sub-task: Verify spec delta `.cooper/active/playwright-ci-cache/spec-deltas/ci-pipeline/spec.md`
+- [x] Task 1: Living Capability Spec & Spec Delta Verification (4f9288c)
+  - [x] Sub-task: Verify living capability spec `.cooper/specs/ci-pipeline/spec.md`
+  - [x] Sub-task: Verify spec delta `.cooper/active/playwright-ci-cache/spec-deltas/ci-pipeline/spec.md`
 - [ ] Task 2: Separate `validate` Job
   - [ ] Sub-task: Remove Playwright visual steps and report upload from `validate` job
   - [ ] Sub-task: Verify `validate` job focuses purely on lint, typecheck, build, and Vitest coverage
