@@ -38,7 +38,7 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 3: Vue Adapter Integration (`@heelslide/vue`)
 
-- [ ] **Task 6: Vue Composable & Component Feedback Integration**
+- [~] **Task 6: Vue Composable & Component Feedback Integration**
   - [ ] Sub-task: Write composable and component unit tests for `haptics`, `sound`, `onTurn`, and `@turn` emit (Red)
   - [ ] Sub-task: Implement feedback props and emits in `packages/vue/src/useHeelslide.ts`, `types.ts`, and `Heelslide.vue` (Green)
   - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
