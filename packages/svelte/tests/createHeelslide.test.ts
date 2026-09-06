@@ -228,4 +228,31 @@ describe('createHeelslide rune composable', () => {
     slider.updateGesture(pointerMoveEvent);
     expect(slider.progress).toBeCloseTo(0.25, 2);
   });
+
+  it('triggers onTurn and haptic vibration when rounding heel corner', () => {
+    const onTurn = vi.fn();
+    const mockVibrate = vi.fn().mockReturnValue(true);
+    Object.defineProperty(globalThis, 'navigator', {
+      value: { vibrate: mockVibrate },
+      configurable: true,
+      writable: true
+    });
+
+    const slider = createHeelslide({
+      track: customTrack,
+      tolerance: 20,
+      haptics: true,
+      sound: false,
+      onTurn
+    });
+
+    slider.startGesture({ x: 0, y: 50 });
+    slider.updateGesture({ x: 100, y: 50 });
+    slider.updateGesture({ x: 100, y: 70 });
+
+    expect(onTurn).toHaveBeenCalledWith(0);
+    expect(mockVibrate).toHaveBeenCalledWith(15);
+
+    slider.destroy();
+  });
 });

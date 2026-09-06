@@ -36,6 +36,9 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
 
   const engine = new HeelslideEngine({
     ...options,
+    onTurn: (heelIndex) => {
+      options.onTurn?.(heelIndex);
+    },
     onUnlock: () => {
       syncFromEngine();
       options.onUnlock?.();
@@ -134,6 +137,10 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     container = element;
   }
 
+  function destroy(): void {
+    engine.destroy();
+  }
+
   return {
     get state() {
       return state;
@@ -159,6 +166,7 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     cancelGesture,
     reset,
     regeneratePath,
-    setContainerElement
+    setContainerElement,
+    destroy
   };
 }

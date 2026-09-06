@@ -255,4 +255,45 @@ describe('<Heelslide /> Pointer Interactions & Lifecycle', () => {
 
     expect(onreset).toHaveBeenCalled();
   });
+
+  it('triggers onturn, onTurn, and haptic feedback when rounding heel corner', () => {
+    const onturn = vi.fn();
+    const onTurn = vi.fn();
+    const mockVibrate = vi.fn().mockReturnValue(true);
+    Object.defineProperty(globalThis, 'navigator', {
+      value: { vibrate: mockVibrate },
+      configurable: true,
+      writable: true
+    });
+
+    component = mount(Heelslide, {
+      target,
+      props: {
+        track: customTrack,
+        tolerance: 20,
+        haptics: true,
+        sound: false,
+        onturn,
+        onTurn
+      }
+    });
+
+    const container = target.querySelector('.heelslide-container') as HTMLElement;
+    mockContainerRect(container);
+
+    const handleEl = target.querySelector('.heelslide-handle') as HTMLElement;
+    handleEl.setPointerCapture = vi.fn();
+    handleEl.releasePointerCapture = vi.fn();
+
+    dispatchPointer(handleEl, 'pointerdown', { clientX: 0, clientY: 50, pointerId: 1 });
+    flushSync();
+    dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 50, pointerId: 1 });
+    flushSync();
+    dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 70, pointerId: 1 });
+    flushSync();
+
+    expect(onturn).toHaveBeenCalledWith(0);
+    expect(onTurn).toHaveBeenCalledWith(0);
+    expect(mockVibrate).toHaveBeenCalledWith(15);
+  });
 });

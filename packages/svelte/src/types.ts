@@ -1,11 +1,30 @@
 import type {
   EngineOptions,
+  FeedbackOptions,
   GeneratorOptions,
   GestureState,
+  HapticOptions,
+  HapticPatterns,
   HeelCountConfig,
   Point2D,
+  SoundFrequencies,
+  SoundOptions,
   TrackPath
 } from '@heelslide/core';
+
+export type {
+  EngineOptions,
+  FeedbackOptions,
+  GeneratorOptions,
+  GestureState,
+  HapticOptions,
+  HapticPatterns,
+  HeelCountConfig,
+  Point2D,
+  SoundFrequencies,
+  SoundOptions,
+  TrackPath
+};
 
 export interface CreateHeelslideOptions extends EngineOptions {
   track?: TrackPath;
@@ -27,6 +46,7 @@ export interface CreateHeelslideReturn {
   reset: () => void;
   regeneratePath: (overrideOptions?: Partial<GeneratorOptions>) => TrackPath;
   setContainerElement: (element: HTMLElement | null) => void;
+  destroy: () => void;
 }
 
 export interface HeelslideProps {
@@ -40,6 +60,14 @@ export interface HeelslideProps {
   disabled?: boolean;
   ariaLabel?: string;
   class?: string;
+
+  // Feedback options
+  haptics?: boolean | HapticOptions;
+  sound?: boolean | SoundOptions;
+
+  // Turn Callbacks
+  onturn?: (heelIndex: number) => void;
+  onTurn?: (heelIndex: number) => void;
 
   // Svelte 5 Standard Lowercase Event Props
   onunlock?: () => void;

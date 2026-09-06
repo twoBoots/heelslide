@@ -16,6 +16,10 @@ let {
   disabled = false,
   ariaLabel = 'Slide to unlock',
   class: customClass = '',
+  haptics,
+  sound,
+  onturn,
+  onTurn,
   onunlock,
   onreset,
   onprogress,
@@ -35,6 +39,8 @@ const heelslide = createHeelslide({
   track: propTrack,
   tolerance,
   disabled,
+  haptics,
+  sound,
   generator: {
     bounds,
     gridStep,
@@ -43,6 +49,10 @@ const heelslide = createHeelslide({
     seed
   },
   containerElement: null,
+  onTurn: (heelIndex) => {
+    onturn?.(heelIndex);
+    onTurn?.(heelIndex);
+  },
   onUnlock: () => {
     onunlock?.();
     onUnlock?.();
@@ -159,6 +169,7 @@ onDestroy(() => {
     heelslide.cancelGesture();
   }
   capturedPointerId = null;
+  heelslide.destroy();
 });
 
 export function getHeelslide() {
