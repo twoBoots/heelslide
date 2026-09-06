@@ -14,11 +14,11 @@ Track ID: `accessibility-fallback`
   - [x] Sub-task: Unit tests for `onAnnouncement` events across gesture states, heel arrivals, and resets (Red)
   - [x] Sub-task: Implement `AccessibleAnnouncement` dispatcher and integrate with `HeelslideEngine` and `machine.ts` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 3: Phase 1 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest core test suite and verify >80% coverage
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
+- [x] **Task 3: Phase 1 Verification & Checkpoint** (260cb39)
+  - [x] Sub-task: Run Vitest core test suite and verify >80% coverage
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
 
 ---
 
