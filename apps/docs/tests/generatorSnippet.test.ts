@@ -11,6 +11,9 @@ describe('Playground Code Snippet Generator', () => {
     margin: 16,
     seed: 42,
     disabled: false,
+    haptics: true,
+    sound: true,
+    soundVolume: 0.3,
     theme: {
       trackBg: '#334155',
       trackActive: '#3b82f6',
@@ -26,6 +29,8 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("tolerance={24}");
     expect(snippet).toContain("width={320}");
     expect(snippet).toContain("height={160}");
+    expect(snippet).toContain("haptics={true}");
+    expect(snippet).toContain("sound={true}");
     expect(snippet).toContain("onUnlock={handleUnlock}");
     expect(snippet).toContain("'--heelslide-track-active': '#3b82f6'");
   });
@@ -36,6 +41,8 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("<Heelslide");
     expect(snippet).toContain(":heels=\"2\"");
     expect(snippet).toContain(":tolerance=\"24\"");
+    expect(snippet).toContain(":haptics=\"true\"");
+    expect(snippet).toContain(":sound=\"true\"");
     expect(snippet).toContain("@unlock=\"onUnlock\"");
     expect(snippet).toContain("'--heelslide-track-bg': '#334155'");
   });
@@ -46,6 +53,8 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("heels: 2");
     expect(snippet).toContain("tolerance: 24");
     expect(snippet).toContain("bounds: { width: 320, height: 160 }");
+    expect(snippet).toContain("haptics: true");
+    expect(snippet).toContain("sound: true");
     expect(snippet).toContain("onUnlock: () => {");
   });
 });

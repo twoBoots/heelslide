@@ -271,4 +271,98 @@ describe('<Heelslide /> Component', () => {
 
     unmount();
   });
+
+  describe('Feedback & onTurn Component Props', () => {
+    it('should trigger onTurn and feedback when navigated via Heelslide component', () => {
+      const onTurn = vi.fn();
+      const mockVibrate = vi.fn().mockReturnValue(true);
+      Object.defineProperty(globalThis, 'navigator', {
+        value: { vibrate: mockVibrate },
+        configurable: true,
+        writable: true
+      });
+
+      const { container, unmount } = renderComponent({
+        width: 300,
+        height: 150,
+        heels: 1,
+        seed: 42,
+        tolerance: 30,
+        haptics: true,
+        sound: false,
+        onTurn
+      });
+
+      const rootElement = container.firstElementChild as HTMLElement;
+      const trackPath = container.querySelector('path[data-heelslide-track="background"]')!;
+      const d = trackPath.getAttribute('d') || '';
+
+      const pointsRegex = /[ML]\s*([\d.-]+)\s+([\d.-]+)/g;
+      const points: Array<{ x: number; y: number }> = [];
+      let ptMatch: RegExpExecArray | null;
+      while ((ptMatch = pointsRegex.exec(d)) !== null) {
+        points.push({ x: parseFloat(ptMatch[1]!), y: parseFloat(ptMatch[2]!) });
+      }
+
+      rootElement.getBoundingClientRect = () => ({
+        left: 0,
+        top: 0,
+        right: 300,
+        bottom: 150,
+        width: 300,
+        height: 150,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      });
+      rootElement.setPointerCapture = vi.fn();
+      rootElement.releasePointerCapture = vi.fn();
+
+      const startPt = points[0]!;
+      const heelPt = points[1]!;
+      const endPt = points[2]!;
+      const midSecond = {
+        x: (heelPt.x + endPt.x) / 2,
+        y: (heelPt.y + endPt.y) / 2
+      };
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointerdown', {
+            bubbles: true,
+            clientX: startPt.x,
+            clientY: startPt.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointermove', {
+            bubbles: true,
+            clientX: heelPt.x,
+            clientY: heelPt.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointermove', {
+            bubbles: true,
+            clientX: midSecond.x,
+            clientY: midSecond.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      expect(onTurn).toHaveBeenCalledWith(0);
+      expect(mockVibrate).toHaveBeenCalledWith(15);
+
+      unmount();
+    });
+  });
 });

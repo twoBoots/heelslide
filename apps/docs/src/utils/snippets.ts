@@ -14,17 +14,22 @@ export interface PlaygroundConfig {
   margin: number;
   seed?: number;
   disabled: boolean;
+  haptics: boolean;
+  sound: boolean;
+  soundVolume: number;
   theme: ThemeConfig;
 }
 
 export type FrameworkTarget = 'react' | 'vue' | 'core';
 
 export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundConfig): string {
-  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, theme } = config;
+  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, haptics, sound, theme } = config;
 
   if (target === 'react') {
-    const seedAttr = seed !== undefined ? `\n      seed={${seed}}` : '';
-    const disabledAttr = disabled ? '\n      disabled={true}' : '';
+    const seedAttr = seed !== undefined ? `\n        seed={${seed}}` : '';
+    const disabledAttr = disabled ? '\n        disabled={true}' : '';
+    const hapticsAttr = haptics ? '\n        haptics={true}' : '';
+    const soundAttr = sound ? '\n        sound={true}' : '';
     return `import { Heelslide } from '@heelslide/react';
 
 export function SecurityGate() {
@@ -47,7 +52,7 @@ export function SecurityGate() {
         width={${width}}
         height={${height}}
         gridStep={${gridStep}}
-        margin={${margin}}${seedAttr}${disabledAttr}
+        margin={${margin}}${seedAttr}${disabledAttr}${hapticsAttr}${soundAttr}
         onUnlock={handleUnlock}
         onReset={() => console.log('Reset')}
       />
@@ -59,6 +64,8 @@ export function SecurityGate() {
   if (target === 'vue') {
     const seedAttr = seed !== undefined ? `\n      :seed="${seed}"` : '';
     const disabledAttr = disabled ? '\n      :disabled="true"' : '';
+    const hapticsAttr = haptics ? '\n      :haptics="true"' : '';
+    const soundAttr = sound ? '\n      :sound="true"' : '';
     return `<script setup lang="ts">
 import { Heelslide } from '@heelslide/vue';
 import '@heelslide/vue/dist/style.css';
@@ -82,7 +89,7 @@ function onUnlock() {
       :tolerance="${tolerance}"
       :bounds="{ width: ${width}, height: ${height} }"
       :grid-step="${gridStep}"
-      :margin="${margin}"${seedAttr}${disabledAttr}
+      :margin="${margin}"${seedAttr}${disabledAttr}${hapticsAttr}${soundAttr}
       @unlock="onUnlock"
       @reset="() => console.log('Reset')"
     />
@@ -92,6 +99,8 @@ function onUnlock() {
 
   // Core Vanilla
   const seedField = seed !== undefined ? `\n    seed: ${seed},` : '';
+  const hapticsField = haptics ? '\n  haptics: true,' : '';
+  const soundField = sound ? '\n  sound: true,' : '';
   return `import { HeelslideEngine } from '@heelslide/core';
 
 const engine = new HeelslideEngine({
@@ -101,7 +110,7 @@ const engine = new HeelslideEngine({
     gridStep: ${gridStep},
     margin: ${margin},
     heels: ${heels},${seedField}
-  },
+  },${hapticsField}${soundField}
   onUnlock: () => {
     console.log('Intent confirmed: Unlocked!');
   },

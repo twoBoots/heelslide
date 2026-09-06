@@ -1,4 +1,4 @@
-import { ref, shallowRef, shallowReadonly, computed, readonly, type Ref } from 'vue';
+import { ref, shallowRef, shallowReadonly, computed, readonly, getCurrentScope, onScopeDispose, type Ref } from 'vue';
 import {
   HeelslideEngine,
   projectPointOnSegment,
@@ -37,6 +37,9 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
 
   const engine = new HeelslideEngine({
     ...options,
+    onTurn: (heelIndex) => {
+      options.onTurn?.(heelIndex);
+    },
     onUnlock: () => {
       syncFromEngine();
       options.onUnlock?.();
@@ -55,6 +58,12 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       options.onStateChange?.(s);
     }
   });
+
+  if (getCurrentScope()) {
+    onScopeDispose(() => {
+      engine.destroy();
+    });
+  }
 
   const track = shallowRef<TrackPath>(engine.getPath());
   const lastPoint = ref<Point2D>({ ...track.value.points[0]! });

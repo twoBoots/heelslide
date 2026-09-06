@@ -132,4 +132,30 @@ describe('Docs Playground App Component', () => {
 
     unmount();
   });
+
+  it('renders feedback controls and allows auditioning synthesized tones', () => {
+    const { container, unmount } = renderApp();
+
+    const hapticsToggle = container.querySelector('#ctrl-haptics') as HTMLInputElement;
+    const soundToggle = container.querySelector('#ctrl-sound') as HTMLInputElement;
+
+    expect(hapticsToggle).not.toBeNull();
+    expect(soundToggle).not.toBeNull();
+
+    const testTurnBtn = container.querySelector('#btn-test-turn') as HTMLButtonElement;
+    const testResetBtn = container.querySelector('#btn-test-reset') as HTMLButtonElement;
+    const testUnlockBtn = container.querySelector('#btn-test-unlock') as HTMLButtonElement;
+
+    expect(testTurnBtn).not.toBeNull();
+    expect(testResetBtn).not.toBeNull();
+    expect(testUnlockBtn).not.toBeNull();
+
+    act(() => {
+      testTurnBtn.click();
+      testResetBtn.click();
+      testUnlockBtn.click();
+    });
+
+    unmount();
+  });
 });
