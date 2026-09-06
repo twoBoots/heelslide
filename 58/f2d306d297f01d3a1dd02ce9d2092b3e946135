@@ -1,0 +1,3 @@
+Task: Task 2: Docs Playground Theme Controls, Presets, Numbered Heels & Granular Sliders
+Scope: apps/docs/src/components/ConfigPanel.tsx, apps/docs/src/components/Playground.tsx, apps/docs/src/fixtures/VisualFixture.tsx, apps/docs/src/utils/snippets.ts, apps/docs/tests/App.test.tsx, apps/docs/tests/VisualFixture.test.tsx, apps/docs/tsconfig.json, vitest.config.ts
+Summary: Implemented curated theme presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), numbered heels checkbox and text rendering, and expanded CSS variable color pickers in docs playground.
