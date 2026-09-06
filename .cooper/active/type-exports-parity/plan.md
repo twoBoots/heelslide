@@ -12,7 +12,7 @@ Status: `in_progress`
   - [x] Sub-task: Re-export `Bounds` and `Direction` in `packages/react/src/index.ts`
   - [x] Sub-task: Re-export `Bounds`, `Direction`, `Segment`, and `ProjectedPoint` in `packages/svelte/src/types.ts`
   - [x] Sub-task: Run unit tests and verify re-exported types are accessible
-- [ ] Task 4: Phase 1 Verification & Checkpoint
+- [~] Task 4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Verify workspace quality gates
   - [ ] Sub-task: Synchronize rules with `git fetch origin main`
   - [ ] Sub-task: Record checkpoint commit and attach verification report via `git notes`
