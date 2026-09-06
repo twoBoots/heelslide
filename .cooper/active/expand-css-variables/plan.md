@@ -24,10 +24,10 @@
 
 ## Phase 2: Documentation Playground & Code Generator (apps/docs)
 
-- [ ] Task 1: Vue and Svelte Code Snippets with Scoped Style Blocks
-  - [ ] Sub-task: Update `apps/docs/tests/generatorSnippet.test.ts` to assert `<style scoped>` (Vue), `<style>` (Svelte), and `numberedHeels` output (Red)
-  - [ ] Sub-task: Implement Vue and Svelte SFC snippet generator in `apps/docs/src/utils/snippets.ts` (Green)
-  - [ ] Sub-task: Refactor and ensure clean indentation and syntax (Refactor)
+- [x] Task 1: Vue and Svelte Code Snippets with Scoped Style Blocks (48e7feb)
+  - [x] Sub-task: Update `apps/docs/tests/generatorSnippet.test.ts` to assert `<style scoped>` (Vue), `<style>` (Svelte), and `numberedHeels` output (Red)
+  - [x] Sub-task: Implement Vue and Svelte SFC snippet generator in `apps/docs/src/utils/snippets.ts` (Green)
+  - [x] Sub-task: Refactor and ensure clean indentation and syntax (Refactor)
 
 - [ ] Task 2: Docs Playground Theme Controls, Presets, Numbered Heels & Granular Sliders
   - [ ] Sub-task: Write tests in `apps/docs/tests/App.test.tsx` and `VisualFixture.test.tsx` for expanded theme parameters, presets, and `numberedHeels` toggle (Red)
