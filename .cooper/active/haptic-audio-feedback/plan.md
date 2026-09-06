@@ -52,10 +52,10 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 4: Documentation Playground & End-to-End Verification (`apps/docs`)
 
-- [~] **Task 8: Playground Interactive Feedback Controls & Audio Previews**
-  - [ ] Sub-task: Add test cases and component integration for haptics & sound toggles in `apps/docs` (Red)
-  - [ ] Sub-task: Implement interactive feedback toggles and test tone buttons in playground UI (Green)
-  - [ ] Sub-task: Refactor & verify clean static build (`npm run build`) (Refactor)
+- [x] **Task 8: Playground Interactive Feedback Controls & Audio Previews** (e11c1ea)
+  - [x] Sub-task: Add test cases and component integration for haptics & sound toggles in `apps/docs` (Red)
+  - [x] Sub-task: Implement interactive feedback toggles and test tone buttons in playground UI (Green)
+  - [x] Sub-task: Refactor & verify clean static build (`npm run build`) (Refactor)
 - [ ] **Task 9: Phase 4 Verification & Track Finalization**
   - [ ] Sub-task: Full workspace typecheck (`tsc -b`), lint (`oxlint .`), and test suite (`vitest run --coverage`)
   - [ ] Sub-task: Verify static bundle emissions in `apps/docs/dist/`
