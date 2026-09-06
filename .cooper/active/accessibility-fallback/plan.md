@@ -60,7 +60,7 @@ Track ID: `accessibility-fallback`
 
 ## Phase 4: Full Workspace Integration, Documentation Playground & Final Verification
 
-- [ ] **Task 10: Playground Accessibility Showcase & WCAG Verification Demo (`apps/docs`)**
+- [~] **Task 10: Playground Accessibility Showcase & WCAG Verification Demo (`apps/docs`)**
   - [ ] Sub-task: Add keyboard navigation mode toggle, screen reader announcer log, and accessible fallback demo in docs playground
   - [ ] Sub-task: Run full workspace lint (`oxlint .`), build (`tsc -b && vite build`), and test suite (`vitest run --coverage`)
 - [ ] **Task 11: Phase 4 Verification & Track Finalization**
