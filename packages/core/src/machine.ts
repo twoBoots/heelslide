@@ -1,14 +1,17 @@
 import { euclideanDistance, projectPointOnSegment } from './geometry.js';
+import type { FeedbackController } from './feedback.js';
 import type { GestureState, Point2D, TrackPath } from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
   initialState?: GestureState;
   initialProgress?: number;
+  onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;
   onStateChange?: (state: GestureState) => void;
+  feedback?: FeedbackController;
 }
 
 export interface GestureStateMachine {
@@ -26,7 +29,15 @@ export function createGestureStateMachine(
   track: TrackPath,
   options: StateMachineOptions = {}
 ): GestureStateMachine {
-  const { tolerance = 24, onUnlock, onReset, onProgress, onStateChange } = options;
+  const {
+    tolerance = 24,
+    onTurn,
+    onUnlock,
+    onReset,
+    onProgress,
+    onStateChange,
+    feedback
+  } = options;
 
   let state: GestureState = options.initialState ?? 'idle';
   let progress = options.initialProgress ?? (state === 'unlocked' ? 1.0 : state === 'active' ? 0.5 : 0);
@@ -50,6 +61,7 @@ export function createGestureStateMachine(
   }
 
   function triggerReset(): void {
+    feedback?.triggerReset();
     resetState();
     onReset?.();
   }
@@ -99,7 +111,11 @@ export function createGestureStateMachine(
 
       if (isAdvancingOnNext) {
         accumulatedDistance += currentSegment.length;
+        const navigatedHeelIndex = currentSegmentIndex;
         currentSegmentIndex += 1;
+
+        feedback?.triggerTurn();
+        onTurn?.(navigatedHeelIndex);
 
         const currentDistance = accumulatedDistance + nextProj.t * nextSegment.length;
         progress = track.totalLength > 0 ? Math.min(1, Math.max(0, currentDistance / track.totalLength)) : 0;
@@ -134,6 +150,7 @@ export function createGestureStateMachine(
       progress = 1.0;
       onProgress?.(1.0);
       setState('unlocked');
+      feedback?.triggerUnlock();
       onUnlock?.();
     } else {
       triggerReset();

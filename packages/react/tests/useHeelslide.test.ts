@@ -439,5 +439,88 @@ describe('useHeelslide Hook', () => {
     expect(result.current.track.points.length).toBeGreaterThanOrEqual(3);
     unmount();
   });
+
+  describe('Feedback & onTurn integration', () => {
+    it('should forward onTurn callback when navigating heel vertices', () => {
+      const onTurn = vi.fn();
+      const mockVibrate = vi.fn().mockReturnValue(true);
+      Object.defineProperty(globalThis, 'navigator', {
+        value: { vibrate: mockVibrate },
+        configurable: true,
+        writable: true
+      });
+
+      const { result, unmount } = renderTestHook({
+        haptics: true,
+        sound: false,
+        onTurn,
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        }
+      });
+
+      const path = result.current.track;
+      const startPoint = path.points[0]!;
+      const heelPoint = path.points[1]!;
+      const endPoint = path.points[2]!;
+      const midSecondSegment = {
+        x: (heelPoint.x + endPoint.x) / 2,
+        y: (heelPoint.y + endPoint.y) / 2
+      };
+
+      const mockTarget = {
+        getBoundingClientRect: () => ({
+          left: 0,
+          top: 0,
+          right: 300,
+          bottom: 150,
+          width: 300,
+          height: 150,
+          x: 0,
+          y: 0,
+          toJSON: () => {}
+        }),
+        setPointerCapture: vi.fn(),
+        releasePointerCapture: vi.fn()
+      };
+
+      act(() => {
+        result.current.getContainerProps().onPointerDown({
+          clientX: startPoint.x,
+          clientY: startPoint.y,
+          currentTarget: mockTarget,
+          pointerId: 1,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+
+      act(() => {
+        result.current.getContainerProps().onPointerMove({
+          clientX: heelPoint.x,
+          clientY: heelPoint.y,
+          currentTarget: mockTarget,
+          pointerId: 1,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+
+      act(() => {
+        result.current.getContainerProps().onPointerMove({
+          clientX: midSecondSegment.x,
+          clientY: midSecondSegment.y,
+          currentTarget: mockTarget,
+          pointerId: 1,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+
+      expect(onTurn).toHaveBeenCalledWith(0);
+      expect(mockVibrate).toHaveBeenCalledWith(15);
+
+      unmount();
+    });
+  });
 });
 

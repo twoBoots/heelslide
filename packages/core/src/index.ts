@@ -28,17 +28,31 @@ export {
   segmentsIntersect
 } from './geometry.js';
 
+// Feedback Subsystem
+export {
+  FeedbackController,
+  createFeedbackController,
+  DEFAULT_HAPTIC_PATTERNS,
+  DEFAULT_SOUND_FREQUENCIES,
+  DEFAULT_SOUND_VOLUME
+} from './feedback.js';
+
 // Types & Interfaces
 export type {
   Bounds,
   Direction,
   EngineOptions,
+  FeedbackOptions,
   GeneratorOptions,
   GestureState,
   HeelCountConfig,
+  HapticOptions,
+  HapticPatterns,
   IntersectOptions,
   Point2D,
   ProjectedPoint,
   Segment,
+  SoundFrequencies,
+  SoundOptions,
   TrackPath
 } from './types.js';

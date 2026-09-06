@@ -1,7 +1,9 @@
+import { createFeedbackController, type FeedbackController } from './feedback.js';
 import { generateTrackPath } from './generator.js';
 import { createGestureStateMachine, type GestureStateMachine } from './machine.js';
 import type {
   EngineOptions,
+  FeedbackOptions,
   GeneratorOptions,
   GestureState,
   Point2D,
@@ -16,9 +18,15 @@ export class HeelslideEngine {
   private options: HeelslideEngineOptions;
   private track: TrackPath;
   private machine: GestureStateMachine;
+  private feedback: FeedbackController;
 
   constructor(options: HeelslideEngineOptions = {}) {
     this.options = options;
+
+    this.feedback = createFeedbackController({
+      haptics: options.haptics,
+      sound: options.sound
+    });
 
     if (options.track) {
       this.track = options.track;
@@ -40,10 +48,12 @@ export class HeelslideEngine {
       tolerance: this.options.tolerance ?? 24,
       initialState: this.options.initialState,
       initialProgress: this.options.initialProgress,
+      onTurn: this.options.onTurn,
       onUnlock: this.options.onUnlock,
       onReset: this.options.onReset,
       onProgress: this.options.onProgress,
-      onStateChange: this.options.onStateChange
+      onStateChange: this.options.onStateChange,
+      feedback: this.feedback
     });
   }
 
@@ -64,6 +74,7 @@ export class HeelslideEngine {
   }
 
   public startGesture(point: Point2D): boolean {
+    void this.feedback.resumeAudio();
     return this.machine.start(point);
   }
 
@@ -81,6 +92,18 @@ export class HeelslideEngine {
 
   public reset(): void {
     this.machine.reset();
+  }
+
+  public getFeedbackController(): FeedbackController {
+    return this.feedback;
+  }
+
+  public setFeedbackOptions(options: FeedbackOptions): void {
+    this.feedback.setOptions(options);
+  }
+
+  public destroy(): void {
+    this.feedback.destroy();
   }
 
   public regeneratePath(overrideOptions?: Partial<GeneratorOptions>): TrackPath {

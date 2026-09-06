@@ -38,15 +38,18 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     generator,
     track: initialTrack,
     disabled = false,
+    haptics,
+    sound,
+    onTurn,
     onUnlock,
     onReset,
     onProgress,
     onStateChange
   } = options;
 
-  const callbacksRef = useRef({ onUnlock, onReset, onProgress, onStateChange });
+  const callbacksRef = useRef({ onTurn, onUnlock, onReset, onProgress, onStateChange });
   useEffect(() => {
-    callbacksRef.current = { onUnlock, onReset, onProgress, onStateChange };
+    callbacksRef.current = { onTurn, onUnlock, onReset, onProgress, onStateChange };
   });
 
   const [state, setState] = useState<GestureState>(() => options.initialState ?? 'idle');
@@ -61,6 +64,11 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       track: initialTrack,
       initialState: options.initialState,
       initialProgress: options.initialProgress,
+      haptics,
+      sound,
+      onTurn: (heelIndex) => {
+        callbacksRef.current.onTurn?.(heelIndex);
+      },
       onProgress: (p) => {
         setProgress(p);
         callbacksRef.current.onProgress?.(p);
@@ -84,6 +92,10 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   const [track, setTrack] = useState<TrackPath>(() => engine.getPath());
 
   useEffect(() => {
+    engine.setFeedbackOptions({ haptics, sound });
+  }, [engine, haptics, sound]);
+
+  useEffect(() => {
     setTrack(engine.getPath());
     setState(engine.getState());
     setProgress(engine.getProgress());
@@ -93,6 +105,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   useEffect(() => {
     return () => {
       engine.reset();
+      engine.destroy();
     };
   }, [engine]);
 

@@ -3,8 +3,10 @@ import type {
   EngineOptions,
   GeneratorOptions,
   GestureState,
+  HapticOptions,
   HeelCountConfig,
   Point2D,
+  SoundOptions,
   TrackPath
 } from '@heelslide/core';
 
@@ -43,6 +45,9 @@ export interface HeelslideProps {
   disabled?: boolean;
   initialState?: GestureState;
   initialProgress?: number;
+  haptics?: boolean | HapticOptions;
+  sound?: boolean | SoundOptions;
+  onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

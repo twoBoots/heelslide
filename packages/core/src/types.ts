@@ -46,11 +46,42 @@ export interface IntersectOptions {
   excludeEndpoints?: boolean;
 }
 
+export interface HapticPatterns {
+  turn?: number | number[];
+  reset?: number | number[];
+  unlock?: number | number[];
+}
+
+export interface HapticOptions {
+  enabled?: boolean;
+  patterns?: HapticPatterns;
+}
+
+export interface SoundFrequencies {
+  turn?: number;
+  reset?: number;
+  unlock?: number[];
+}
+
+export interface SoundOptions {
+  enabled?: boolean;
+  volume?: number; // Normalized [0..1], default 0.3
+  frequencies?: SoundFrequencies;
+}
+
+export interface FeedbackOptions {
+  haptics?: boolean | HapticOptions;
+  sound?: boolean | SoundOptions;
+}
+
 export interface EngineOptions {
   tolerance?: number;
   generator?: GeneratorOptions;
   initialState?: GestureState;
   initialProgress?: number;
+  haptics?: boolean | HapticOptions;
+  sound?: boolean | SoundOptions;
+  onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

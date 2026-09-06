@@ -44,7 +44,13 @@ const {
     heels: props.heels,
     seed: props.seed
   },
+  haptics: props.haptics,
+  sound: props.sound,
   containerRef,
+  onTurn: (heelIndex) => {
+    emit('turn', heelIndex);
+    props.onTurn?.(heelIndex);
+  },
   onUnlock: () => {
     emit('unlock');
   },

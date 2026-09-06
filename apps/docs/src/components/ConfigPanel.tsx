@@ -1,3 +1,4 @@
+import { createFeedbackController } from '@heelslide/core';
 import type { PlaygroundConfig } from '../utils/snippets.js';
 
 interface ConfigPanelProps {
@@ -19,6 +20,24 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         [colorKey]: colorVal
       }
     }));
+  };
+
+  const playAudition = (type: 'turn' | 'reset' | 'unlock') => {
+    const ctrl = createFeedbackController({
+      haptics: config.haptics,
+      sound: {
+        enabled: true,
+        volume: config.soundVolume
+      }
+    });
+    void ctrl.resumeAudio();
+    if (type === 'turn') {
+      ctrl.triggerTurn();
+    } else if (type === 'reset') {
+      ctrl.triggerReset();
+    } else if (type === 'unlock') {
+      ctrl.triggerUnlock();
+    }
   };
 
   return (
@@ -114,6 +133,84 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
           />
           Disabled
         </label>
+      </div>
+
+      {/* Feedback & Audio Settings */}
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Feedback & Sound FX</h3>
+
+      <div className="control-group" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
+          <input
+            id="ctrl-haptics"
+            type="checkbox"
+            checked={config.haptics}
+            onChange={(e) => updateField('haptics', e.target.checked)}
+          />
+          Haptics (Vibration)
+        </label>
+
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
+          <input
+            id="ctrl-sound"
+            type="checkbox"
+            checked={config.sound}
+            onChange={(e) => updateField('sound', e.target.checked)}
+          />
+          Sound FX (Web Audio)
+        </label>
+      </div>
+
+      {config.sound && (
+        <div className="control-group">
+          <div className="control-label-row">
+            <label className="control-label" htmlFor="ctrl-volume">Audio Volume:</label>
+            <span className="control-value">{Math.round(config.soundVolume * 100)}%</span>
+          </div>
+          <input
+            id="ctrl-volume"
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={config.soundVolume}
+            onChange={(e) => updateField('soundVolume', Number(e.target.value))}
+            className="slider-input"
+          />
+        </div>
+      )}
+
+      {/* Audio Previews */}
+      <div className="control-group" style={{ marginTop: '0.75rem' }}>
+        <span className="control-label" style={{ display: 'block', marginBottom: '0.5rem' }}>Audition Synthesized Tones:</span>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <button
+            id="btn-test-turn"
+            type="button"
+            className="btn btn-outline"
+            onClick={() => playAudition('turn')}
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.65rem' }}
+          >
+            Audition Turn Tick
+          </button>
+          <button
+            id="btn-test-reset"
+            type="button"
+            className="btn btn-outline"
+            onClick={() => playAudition('reset')}
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.65rem' }}
+          >
+            Audition Reset Tone
+          </button>
+          <button
+            id="btn-test-unlock"
+            type="button"
+            className="btn btn-outline"
+            onClick={() => playAudition('unlock')}
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.65rem' }}
+          >
+            Audition Unlock Chime
+          </button>
+        </div>
       </div>
 
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>CSS Custom Properties</h3>
