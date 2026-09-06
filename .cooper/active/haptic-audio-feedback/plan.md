@@ -56,7 +56,7 @@ Track ID: `haptic-audio-feedback`
   - [x] Sub-task: Add test cases and component integration for haptics & sound toggles in `apps/docs` (Red)
   - [x] Sub-task: Implement interactive feedback toggles and test tone buttons in playground UI (Green)
   - [x] Sub-task: Refactor & verify clean static build (`npm run build`) (Refactor)
-- [ ] **Task 9: Phase 4 Verification & Track Finalization**
-  - [ ] Sub-task: Full workspace typecheck (`tsc -b`), lint (`oxlint .`), and test suite (`vitest run --coverage`)
-  - [ ] Sub-task: Verify static bundle emissions in `apps/docs/dist/`
-  - [ ] Sub-task: Final phase checkpoint commit, Git Note, and push branch
+- [x] **Task 9: Phase 4 Verification & Track Finalization** (24332ea)
+  - [x] Sub-task: Full workspace typecheck (`tsc -b`), lint (`oxlint .`), and test suite (`vitest run --coverage`)
+  - [x] Sub-task: Verify static bundle emissions in `apps/docs/dist/`
+  - [x] Sub-task: Final phase checkpoint commit, Git Note, and push branch
