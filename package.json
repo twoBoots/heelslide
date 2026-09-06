@@ -25,7 +25,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "postinstall": "termux-fix-shebang node_modules/.bin/* 2>/dev/null || true"
+    "postinstall": "termux-fix-shebang node_modules/.bin/* node_modules/@changesets/cli/bin.js 2>/dev/null || true"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.2",
