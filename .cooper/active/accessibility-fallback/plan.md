@@ -24,7 +24,7 @@ Track ID: `accessibility-fallback`
 
 ## Phase 2: React Component Accessibility & Keyboard Controls (`@heelslide/react`)
 
-- [ ] **Task 4: Headless Hook Keyboard Event Prop Generators (`useHeelslide`)**
+- [~] **Task 4: Headless Hook Keyboard Event Prop Generators (`useHeelslide`)**
   - [ ] Sub-task: Unit tests for `onKeyDown` handlers (Arrow keys, Space/Enter, Home/Escape) and announcement state in `useHeelslide` (Red)
   - [ ] Sub-task: Implement keyboard event generators and fallback state in `packages/react/src/useHeelslide.ts` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
