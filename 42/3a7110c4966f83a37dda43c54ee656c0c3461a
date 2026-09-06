@@ -1,0 +1,1 @@
+Task 2.3: Svelte Adapter Integration completed. Added segmented and checkpointTimeoutMs props, oncheckpoint and onCheckpoint callbacks, and checkpoint state handling in createHeelslide rune and Heelslide component.
