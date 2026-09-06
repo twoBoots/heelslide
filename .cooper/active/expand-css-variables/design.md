@@ -1,11 +1,12 @@
-# Design Document: Expanded CSS Custom Properties, Heel Theming & Scoped Vue Docs Snippet
+# Design Document: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity
 
 ## 1. Overview & Architecture
 This design establishes the technical contracts for:
 1. **Heel & Target Custom Properties**: Background, border color/width, and clearance padding for regular heels, the dynamic **target heel** (the immediate next turn in progress), and the **target goal** (the final endpoint).
 2. **Heel Typography & Numbered Heels**: Font family, size, weight, text color, and `numberedHeels` support rendered via SVG `<text>` elements and standard CSS counters (`counter-reset` / `counter-increment`).
-3. **Canonical Handle & Interaction Tokens**: `--heelslide-handle-*` canonical tokens with slider fallbacks, and state properties (`active`, `checkpoint`, `success`, `error`).
-4. **Documentation Playground**: Presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), granular sliders, `numberedHeels` toggle, and Vue SFC `<style scoped>` snippets.
+3. **Three-Framework Component Parity**: Synchronized implementations across `@heelslide/react`, `@heelslide/vue`, and `@heelslide/svelte`.
+4. **Canonical Handle & Interaction Tokens**: `--heelslide-handle-*` canonical tokens with slider fallbacks, and state properties (`active`, `checkpoint`, `success`, `error`).
+5. **Documentation Playground**: Presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), granular sliders, `numberedHeels` toggle, and SFC `<style>` snippets for Vue and Svelte.
 
 ---
 
@@ -60,155 +61,33 @@ This design establishes the technical contracts for:
 
 ---
 
-## 3. DOM & SVG Structure Specifications
+## 3. Framework Adaptations
 
-### 3.1 CSS Counter & Heel Group Structure
-```html
-<div class="heelslide-container" style="counter-reset: heelslide-heel;">
-  <svg class="heelslide-svg" viewBox="...">
-    <!-- Background and progress tracks -->
-    
-    <!-- Heel Marker Groups -->
-    <g
-      class="heelslide-heel-group"
-      data-heelslide-heel="1"
-      data-target="true"
-      style="counter-increment: heelslide-heel;"
-    >
-      <!-- Clearance buffer ring if padding > 0 -->
-      <circle
-        class="heelslide-heel-buffer"
-        cx="x" cy="y"
-        r="calc(var(--heelslide-track-heel-radius, 4px) + var(--heelslide-heel-padding, 0px))"
-        fill="var(--heelslide-track-bg, #e2e8f0)"
-      />
-      <!-- Heel Marker Circle -->
-      <circle
-        class="heelslide-heel-marker"
-        cx="x" cy="y"
-        r="var(--heelslide-track-heel-radius, 4px)"
-      />
-      <!-- Numbered text label (rendered when numberedHeels is true) -->
-      <text
-        class="heelslide-heel-text"
-        x="x" y="y"
-        text-anchor="middle"
-        dominant-baseline="central"
-      >
-        1
-      </text>
-    </g>
+### 3.1 React (`@heelslide/react`)
+- Add `numberedHeels?: boolean` to `HeelslideProps`.
+- Render `<g class="heelslide-heel-group" data-target={isTarget} style={{ counterIncrement: 'heelslide-heel' }}>`.
+- Render SVG `<text class="heelslide-heel-text">` when `numberedHeels` is true.
+- Detect target goal on final segment and apply `data-target="true"`.
 
-    <!-- Goal Marker Group -->
-    <g class="heelslide-goal-group" data-target="false">
-      <circle class="heelslide-end-marker" cx="endX" cy="endY" ... />
-    </g>
+### 3.2 Vue 3 (`@heelslide/vue`)
+- Add `numberedHeels: { type: Boolean, default: false }` to `HeelslideProps`.
+- Update `style.css` with container CSS variables, target selectors, and counter rules.
+- Render heel `<g>` groups with `heelslide-heel-marker` and `<text>` elements.
 
-    <!-- Handle -->
-  </svg>
-</div>
-```
-
-### 3.2 CSS Rules for Target & Numbered Heels (`style.css` / scoped CSS)
-```css
-.heelslide-container {
-  counter-reset: heelslide-heel;
-}
-
-.heelslide-heel-group {
-  counter-increment: heelslide-heel;
-}
-
-.heelslide-heel-marker {
-  fill: var(--heelslide-heel-bg, var(--heelslide-heel-color, #94a3b8));
-  stroke: var(--heelslide-heel-border-color, transparent);
-  stroke-width: var(--heelslide-heel-border-width, 0px);
-  transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
-}
-
-.heelslide-heel-group[data-target="true"] .heelslide-heel-marker {
-  fill: var(--heelslide-target-heel-bg, var(--heelslide-heel-bg, var(--heelslide-track-active, #3b82f6)));
-  stroke: var(--heelslide-target-heel-border-color, var(--heelslide-heel-border-color, #ffffff));
-  stroke-width: var(--heelslide-target-heel-border-width, var(--heelslide-heel-border-width, 2px));
-  transform-origin: center;
-  transform: scale(var(--heelslide-target-heel-scale, 1.1));
-}
-
-.heelslide-heel-text {
-  font-family: var(--heelslide-heel-font-family, system-ui, -apple-system, sans-serif);
-  font-size: var(--heelslide-heel-font-size, 10px);
-  font-weight: var(--heelslide-heel-font-weight, 600);
-  fill: var(--heelslide-heel-text-color, var(--heelslide-heel-color, #475569));
-  pointer-events: none;
-  user-select: none;
-}
-
-.heelslide-heel-group[data-target="true"] .heelslide-heel-text {
-  fill: var(--heelslide-target-heel-text-color, #ffffff);
-}
-
-.heelslide-goal-group .heelslide-end-marker {
-  fill: var(--heelslide-goal-bg, var(--heelslide-end-color, #10b981));
-  stroke: var(--heelslide-goal-border-color, transparent);
-  stroke-width: var(--heelslide-goal-border-width, 0px);
-}
-
-.heelslide-goal-group[data-target="true"] .heelslide-end-marker {
-  fill: var(--heelslide-goal-bg, var(--heelslide-end-color, #10b981));
-  stroke: var(--heelslide-goal-border-color, #ffffff);
-  stroke-width: var(--heelslide-goal-border-width, 2px);
-}
-```
+### 3.3 Svelte 5 (`@heelslide/svelte`)
+- Add `numberedHeels = false` to `HeelslideProps` in `$props()`.
+- Update `packages/svelte/src/style.css` with identical CSS tokens and counter rules.
+- Render heel `<g>` groups with `heelslide-heel-marker` and `<text>` elements.
 
 ---
 
 ## 4. Documentation Site & Snippet Generator (`apps/docs`)
 
-### 4.1 Vue Scoped Style Block Pattern
-`apps/docs/src/utils/snippets.ts` generates:
-```vue
-<script setup lang="ts">
-import { Heelslide } from '@heelslide/vue';
-import '@heelslide/vue/dist/style.css';
-
-function onUnlock() {
-  alert('Unlocked!');
-}
-</script>
-
-<template>
-  <div class="security-gate">
-    <Heelslide
-      :heels="2"
-      :tolerance="24"
-      :bounds="{ width: 300, height: 150 }"
-      :numbered-heels="true"
-      @unlock="onUnlock"
-      @reset="() => console.log('Reset')"
-    />
-  </div>
-</template>
-
-<style scoped>
-.security-gate {
-  --heelslide-track-bg: #e2e8f0;
-  --heelslide-track-active: #3b82f6;
-  --heelslide-track-width: 12px;
-  --heelslide-handle-bg: #ffffff;
-  --heelslide-handle-border-color: #3b82f6;
-  --heelslide-heel-bg: #94a3b8;
-  --heelslide-target-heel-bg: #3b82f6;
-  --heelslide-target-heel-border-color: #ffffff;
-  --heelslide-target-heel-border-width: 2px;
-  --heelslide-goal-bg: #10b981;
-  --heelslide-goal-border-color: #ffffff;
-  --heelslide-goal-border-width: 2px;
-  --heelslide-heel-font-family: system-ui, sans-serif;
-  --heelslide-heel-font-size: 10px;
-  --heelslide-heel-text-color: #ffffff;
-}
-</style>
-```
+### 4.1 Multi-Framework Scoped Snippets
+In `apps/docs/src/utils/snippets.ts`:
+- **Vue**: Generates `<script setup lang="ts">`, `<template>`, and `<style scoped>`.
+- **Svelte**: Generates `<script lang="ts">`, markup, and `<style>` block.
+- **React**: Generates component with inline CSS variable style object.
 
 ### 4.2 Playground Theme Presets & Controls
 - **Clean Slate (Default)**: Enterprise slate/blue theme with crisp white borders.
