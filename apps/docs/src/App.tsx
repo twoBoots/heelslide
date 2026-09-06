@@ -18,6 +18,9 @@ export function App() {
     margin: 16,
     seed: 12345,
     disabled: false,
+    haptics: true,
+    sound: true,
+    soundVolume: 0.3,
     theme: {
       trackBg: '#334155',
       trackActive: '#3b82f6',

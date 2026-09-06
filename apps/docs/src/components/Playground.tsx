@@ -32,6 +32,8 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
             margin={config.margin}
             seed={config.seed}
             disabled={config.disabled}
+            haptics={config.haptics}
+            sound={config.sound ? { volume: config.soundVolume } : false}
             onStateChange={onStateChange}
             onUnlock={onUnlock}
             onReset={onReset}
