@@ -2,7 +2,7 @@
 
 ## Phase 1: Framework Component Adapters (React, Vue & Svelte)
 
-- [ ] Task 1: React Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
+- [~] Task 1: React Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
   - [ ] Sub-task: Write unit tests in `packages/react/tests/Heelslide.test.tsx` for expanded geometry, canonical handle tokens (`--heelslide-handle-bg`, `--heelslide-handle-border-color`), heel theming (`--heelslide-heel-bg`, `--heelslide-heel-border-color`, `--heelslide-heel-border-width`, `--heelslide-heel-padding`), target heel tokens (`--heelslide-target-heel-bg`, `--heelslide-target-heel-border-color`, `--heelslide-target-heel-border-width`), target goal tokens (`--heelslide-goal-bg`, `--heelslide-goal-border-color`), typography tokens (`--heelslide-heel-font-family`, `--heelslide-heel-font-size`, `--heelslide-heel-font-weight`, `--heelslide-heel-text-color`), and `numberedHeels` SVG text & CSS counter attributes (Red)
   - [ ] Sub-task: Implement props, SVG attributes, target heel/goal detection, SVG `<text>` numbering, and state styles in `packages/react/src/Heelslide.tsx` (Green)
   - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
