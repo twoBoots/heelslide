@@ -58,3 +58,11 @@ export interface HeelslideEmits {
   (e: 'stateChange', state: GestureState): void;
   (e: 'turn', heelIndex: number): void;
 }
+
+export type HeelslideEmitsOptions = {
+  unlock: () => void;
+  reset: () => void;
+  progress: (progress: number) => void;
+  stateChange: (state: GestureState) => void;
+  turn: (heelIndex: number) => void;
+};

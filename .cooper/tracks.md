@@ -8,6 +8,9 @@ All active and completed Cooper tracks are registered below.
 - [ ] **Track: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity**
   - Worktree: `.worktrees/expand-css-variables`
   - Link: [.cooper/active/expand-css-variables/index.md](.cooper/active/expand-css-variables/index.md)
+- [x] **Track: Type Export Parity & Self-Contained Component Declarations**
+  - Worktree: `.worktrees/type-exports-parity`
+  - Link: [.cooper/active/type-exports-parity/index.md](.cooper/active/type-exports-parity/index.md)
 
 ## Completed Archive
 - [x] **Track: Svelte 5 Component Adapter**
