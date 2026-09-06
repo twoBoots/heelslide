@@ -1,4 +1,4 @@
-# Track: Expanded CSS Custom Properties & Scoped Vue Docs Snippet
+# Track: Expanded CSS Custom Properties, Heel Theming & Scoped Vue Docs Snippet
 
 - **Track ID:** `expand-css-variables`
 - **Status:** `planned`

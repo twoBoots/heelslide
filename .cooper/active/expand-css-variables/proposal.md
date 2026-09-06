@@ -1,39 +1,73 @@
-# Proposal: Expanded CSS Custom Properties & Scoped Vue Docs Snippet
+# Proposal: Expanded CSS Custom Properties, Heel Theming & Scoped Vue Docs Snippet
 
 ## 1. Summary
-Expand and standardize the CSS custom property theming system across both React (`@heelslide/react`) and Vue (`@heelslide/vue`) adapters, and update the GitHub Pages documentation playground to generate Vue code snippets using idiomatic `<style scoped>` CSS blocks.
+Expand and standardize the CSS custom property theming system across `@heelslide/react` and `@heelslide/vue` adapters. This proposal introduces comprehensive styling for heels and targets (heel background, heel border, target heel background/border, target goal background/border, heel typography/color), adds an option for numbered heels with CSS counter integration, establishes interaction state tokens (active drag, checkpoint wait, success unlock, error reset), and modernizes the documentation playground with design presets and an idiomatic `<style scoped>` Vue code snippet generator.
 
 ## 2. Motivation & Problem Statement
-Currently, visual customization of the Heelslide track and handle relies on namespaced CSS variables (`--heelslide-*`). However, styling control is incomplete and slightly divergent across frameworks:
-1. **Limited Geometry & Radius Control**: Consumers cannot customize the track stroke thickness or independently configure marker radii for the start point, heel turns, and end destination.
-2. **Missing Heel Clearance**: Consumers cannot set inner clearance/padding around heel turns inside the track corridor (`--heelslide-heel-padding`).
-3. **Inconsistent Slider/Handle Variables**: React uses `--heelslide-handle-bg` and `--heelslide-handle-border`, while Vue uses `--heelslide-handle-color`, `--heelslide-handle-border-color`, and `--heelslide-handle-border-width`. Furthermore, documentation refers to `--heelslide-slider-*`.
-4. **Vue Docs Snippet Idiom**: The documentation playground generates Vue snippets using an inline `:style` binding object on a wrapper `<div>`, rather than an idiomatic Vue Single File Component (SFC) `<style scoped>` block.
+Visual customization of the Heelslide track, heel turns, and handle currently relies on namespaced CSS variables (`--heelslide-*`), but lacks critical granular controls:
+1. **Heel & Target Visual Distinction**:
+   - Currently, heel markers are uniform circles with a single color. There is no way to customize heel backgrounds separately from borders.
+   - Crucially, there is no visual differentiation for the **target heel** (the specific upcoming turn the user is currently navigating toward) or the **target goal** (the final destination endpoint).
+2. **Missing Heel Numbering & CSS Counters**:
+   - In complex multi-heel gestures (e.g. 3–5 turns), users lack visual sequence cues. There is no built-in mechanism to display placeholder step numbers (1, 2, 3...) or hook into CSS counters (`counter-reset` / `counter-increment`).
+3. **Limited Typography & State Variables**:
+   - Consumers cannot configure heel font family, font size, font weight, or text color via CSS variables.
+   - Interaction states (`isDragging`, `checkpoint`, `unlocked`, `reset`) lack dedicated styling tokens.
+4. **Inconsistent Variable Names & Vue Snippets**:
+   - React and Vue diverge between `--heelslide-handle-bg` and `--heelslide-handle-color`.
+   - The documentation playground generates Vue snippets using an inline `:style` binding rather than an idiomatic Vue SFC `<style scoped>` block.
 
 ## 3. Proposed Solution
-1. **Standardized CSS Variables**:
-   - `--heelslide-track-width`: Controls track line stroke width across React and Vue (default: `12px` / fallback `8px` normalized to `12px`).
-   - `--heelslide-track-start-radius`: Controls the radius/size of the start endpoint marker (fallback to `--heelslide-endpoint-size`, default `6px`).
-   - `--heelslide-track-end-radius`: Controls the radius/size of the end destination marker (fallback to `--heelslide-end-radius`, default `6px`).
-   - `--heelslide-track-heel-radius`: Controls the corner/turn radius of the heel turn markers (fallback to `--heelslide-heel-radius`, default `4px`).
-   - `--heelslide-heel-padding`: Controls the inner clearance/padding around the heel turn inside the track corridor (default `0px` / `4px`).
-   - `--heelslide-heel-radius`: Controls the heel marker radius (fallback alias with `--heelslide-track-heel-radius`).
-   - `--heelslide-slider-border-color`: Controls the slider handle border stroke color (fallback `--heelslide-handle-border-color` / `transparent`).
-   - `--heelslide-slider-bg`: Controls the slider handle fill/background color (fallback `--heelslide-handle-color` / `--heelslide-handle-bg`).
-   - Full backwards compatibility with all existing `--heelslide-handle-*` and `--heelslide-endpoint-*` variables.
 
-2. **Scoped Style Block in Vue Code Snippets**:
-   - Update `generateCodeSnippet('vue', config)` in `apps/docs/src/utils/snippets.ts` to output a clean Single File Component (SFC) structure:
-     - `<script setup lang="ts">`
-     - `<template>` with `<div class="security-gate"><Heelslide ... /></div>`
-     - `<style scoped>` with `.security-gate { --heelslide-...: ...; }` matching Vue standards.
-   - Update playground preview and tests.
+### 3.1 Heel & Goal Theming Properties
+- **Heel Markers**:
+  - `--heelslide-heel-bg`: Heel marker background fill (fallback: `--heelslide-heel-color`, `#94a3b8`).
+  - `--heelslide-heel-border-color`: Heel border stroke color (fallback: `transparent`).
+  - `--heelslide-heel-border-width`: Heel border stroke thickness (fallback: `0px`).
+  - `--heelslide-heel-border`: Shorthand border property fallback.
+  - `--heelslide-heel-padding`: Inner clearance/gap buffer around the heel marker within the track corridor.
+  - `--heelslide-heel-completed-color`: Fill color for heels already passed during gesture traversal.
+- **Target Heel (Active Upcoming Corner)**:
+  - Applied automatically via `data-target="true"` and `.heelslide-target` on the active segment's destination heel.
+  - `--heelslide-target-heel-bg`: Target heel background fill (fallback: `--heelslide-heel-bg`, `--heelslide-track-active`, `#3b82f6`).
+  - `--heelslide-target-heel-border-color`: Target heel border stroke color (fallback: `--heelslide-heel-border-color`).
+  - `--heelslide-target-heel-border-width`: Target heel border thickness (fallback: `2px`).
+  - `--heelslide-target-heel-border`: Shorthand border fallback.
+  - `--heelslide-target-heel-scale`: Scale factor applied to target heel (default `1.1`).
+- **Target Goal (Final Destination Endpoint)**:
+  - Applied via `data-target="true"` and `.heelslide-target` when the handle enters the final segment.
+  - `--heelslide-goal-bg` / `--heelslide-target-goal-bg`: Goal background fill (fallback: `--heelslide-end-color`, `--heelslide-track-active`, `#10b981`).
+  - `--heelslide-goal-border-color` / `--heelslide-target-goal-border-color`: Goal border stroke color.
+  - `--heelslide-goal-border-width`: Goal border thickness.
+  - `--heelslide-goal-border`: Shorthand border fallback.
+
+### 3.2 Heel Typography & Numbered Heels Option (with CSS Counters)
+- **Props**: `numberedHeels?: boolean` on React `<Heelslide />` and Vue `<Heelslide />`.
+- **SVG Text Elements**: Centered `<text class="heelslide-heel-text">` elements rendered at each heel marker coordinate displaying the 1-based step index when enabled.
+- **CSS Counter Support**:
+  - Container element declares `counter-reset: heelslide-heel;`.
+  - Each heel marker group declares `counter-increment: heelslide-heel;`.
+  - Enables pure CSS counter styling and pseudo-element customization (`content: counter(heelslide-heel)`).
+- **Typography Tokens**:
+  - `--heelslide-heel-font-family`: Font family (default: `system-ui, -apple-system, sans-serif`).
+  - `--heelslide-heel-font-size`: Font size (default: `10px`).
+  - `--heelslide-heel-font-weight`: Font weight (default: `600`).
+  - `--heelslide-heel-text-color` / `--heelslide-heel-color`: Text color for heel numbers (default: `#475569`).
+  - `--heelslide-target-heel-text-color`: Text color when heel is the active target (default: `#ffffff`).
+
+### 3.3 Canonical Handle & State Tokens
+- Canonical `--heelslide-handle-*` tokens with `--heelslide-slider-*` and `--heelslide-handle-color` fallbacks.
+- Interaction tokens: `--heelslide-handle-active-bg`, `--heelslide-handle-checkpoint-bg`, `--heelslide-handle-active-scale`, `--heelslide-success-color`, `--heelslide-error-color`.
+
+### 3.4 Scoped Style Block in Vue Code Snippets & Playground Presets
+- Vue code snippet outputs clean SFC with `<style scoped>` and `.security-gate { ... }`.
+- ConfigPanel adds `numberedHeels` toggle, theme presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), and sliders for track geometry, handle size, and heel borders.
 
 ## 4. Scope Boundaries
 - **In Scope**:
-  - React adapter (`packages/react`): Support expanded CSS variables with resilient fallbacks.
-  - Vue adapter (`packages/vue`): Support expanded CSS variables in `style.css` and template.
-  - Documentation playground (`apps/docs`): Expand ThemeConfig and theme controls to support new variables, and update snippet generator for Vue `<style scoped>`.
+  - React adapter (`packages/react`): Support expanded CSS custom properties, `numberedHeels` prop, target heel/goal detection, and SVG text/counter hooks.
+  - Vue adapter (`packages/vue`): Support expanded CSS custom properties, `numberedHeels` prop, target heel/goal detection, and SVG text/counter hooks.
+  - Documentation playground (`apps/docs`): Expand ThemeConfig, presets, `numberedHeels` control, and update Vue snippet generator.
   - Monorepo tests: Unit tests for React, Vue, and Docs snippet generation.
 - **Out of Scope**:
-  - Changes to `@heelslide/core` gesture engine mechanics or mathematical path planning algorithms.
+  - Changes to core path generation math (`packages/core/src/generator.ts`).

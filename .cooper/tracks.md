@@ -11,7 +11,7 @@ All active and completed Cooper tracks are registered below.
 - [x] **Track: Haptic & Audio Feedback System**
   - Worktree: `.worktrees/haptic-audio-feedback`
   - Link: [.cooper/active/haptic-audio-feedback/index.md](.cooper/active/haptic-audio-feedback/index.md)
-- [ ] **Track: Expanded CSS Custom Properties & Scoped Vue Docs Snippet**
+- [ ] **Track: Expanded CSS Custom Properties, Heel Theming & Scoped Vue Docs Snippet**
   - Worktree: `.worktrees/expand-css-variables`
   - Link: [.cooper/active/expand-css-variables/index.md](.cooper/active/expand-css-variables/index.md)
 
