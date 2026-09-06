@@ -8,11 +8,11 @@
   - [x] Sub-task: Write unit tests for `createHeelslide` rune state, coordinate extraction, and engine lifecycle (Red)
   - [x] Sub-task: Implement `createHeelslide.svelte.ts` composable wrapping `HeelslideEngine` (Green)
   - [x] Sub-task: Refactor composable and verify test coverage >80% (Refactor)
-- [ ] Task: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Run automated unit tests (`vitest run packages/svelte`)
-  - [ ] Sub-task: Verify test coverage >80%
-  - [ ] Sub-task: Synchronize main branch (`git fetch origin main`)
-  - [ ] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
+- [x] Task: Phase 1 Verification & Checkpoint (3efee35) [checkpoint: 3efee35]
+  - [x] Sub-task: Run automated unit tests (`vitest run packages/svelte`)
+  - [x] Sub-task: Verify test coverage >80%
+  - [x] Sub-task: Synchronize main branch (`git fetch origin main`)
+  - [x] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
 
 ## Phase 2: Presentation Component (`<Heelslide />`) & Styling
 - [ ] Task: Procedural SVG Track Rendering & Styling
