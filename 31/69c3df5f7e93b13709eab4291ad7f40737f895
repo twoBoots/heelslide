@@ -1,0 +1,3 @@
+Task: Package Builds & Consumer Smoke Test Verification
+Scope: packages/*/dist/index.d.ts, tests/consumer-types.test.ts
+Summary: Built all workspace packages, confirmed self-contained .d.ts without unbundled SFC relative paths, and verified 100% pass on consumer-types test suite.
