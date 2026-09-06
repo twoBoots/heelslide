@@ -76,7 +76,7 @@ describe('Docs Playground App Component', () => {
     const { container, unmount } = renderApp();
 
     const tabButtons = container.querySelectorAll('.tab-btn');
-    expect(tabButtons.length).toBe(3);
+    expect(tabButtons.length).toBe(4);
 
     // Initial is React
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/react';");
@@ -87,9 +87,15 @@ describe('Docs Playground App Component', () => {
     });
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/vue';");
 
-    // Click Core tab
+    // Click Svelte tab
     act(() => {
       (tabButtons[2] as HTMLButtonElement).click();
+    });
+    expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/svelte';");
+
+    // Click Core tab
+    act(() => {
+      (tabButtons[3] as HTMLButtonElement).click();
     });
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { HeelslideEngine } from '@heelslide/core';");
 
