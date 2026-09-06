@@ -271,4 +271,100 @@ describe('<Heelslide /> Component', () => {
 
     unmount();
   });
+
+  describe('Accessibility, Live Region & Fallback Dialog', () => {
+    it('should include full WAI-ARIA slider semantics and keyshortcuts', () => {
+      const { container, unmount } = renderComponent({
+        ariaLabel: 'Custom Gate',
+        ariaDescribedBy: 'gate-desc'
+      });
+
+      const root = container.firstElementChild as HTMLElement;
+      expect(root.getAttribute('tabindex')).toBe('0');
+      expect(root.getAttribute('aria-label')).toBe('Custom Gate');
+      expect(root.getAttribute('aria-describedby')).toBe('gate-desc');
+      expect(root.getAttribute('aria-keyshortcuts')).toContain('ArrowRight');
+      expect(root.getAttribute('aria-valuetext')).toBeDefined();
+
+      unmount();
+    });
+
+    it('should render visually-hidden ARIA live region with announcement updates', () => {
+      const { container, unmount } = renderComponent();
+
+      const liveRegion = container.querySelector('[data-heelslide-live-region]');
+      expect(liveRegion).not.toBeNull();
+      expect(liveRegion?.getAttribute('role')).toBe('status');
+      expect(liveRegion?.getAttribute('aria-live')).toBe('polite');
+      expect(liveRegion?.getAttribute('aria-atomic')).toBe('true');
+      expect(liveRegion?.textContent).toBeTruthy();
+
+      unmount();
+    });
+
+    it('should render accessible fallback trigger button and modal dialog when accessibleFallback="dialog"', () => {
+      const onUnlock = vi.fn();
+      const { container, unmount } = renderComponent({
+        accessibleFallback: 'dialog',
+        accessibleButtonText: 'Verify without gesture',
+        onUnlock
+      });
+
+      const fallbackBtn = container.querySelector('[data-heelslide-fallback-button]') as HTMLElement;
+      expect(fallbackBtn).not.toBeNull();
+      expect(fallbackBtn.textContent).toBe('Verify without gesture');
+
+      // Click fallback button to open dialog
+      act(() => {
+        fallbackBtn.click();
+      });
+
+      const dialog = container.querySelector('[data-heelslide-dialog]') as HTMLElement;
+      expect(dialog).not.toBeNull();
+      expect(dialog.getAttribute('role')).toBe('dialog');
+      expect(dialog.getAttribute('aria-modal')).toBe('true');
+
+      // Click confirm in dialog
+      const confirmBtn = container.querySelector('[data-heelslide-dialog-confirm]') as HTMLElement;
+      expect(confirmBtn).not.toBeNull();
+
+      act(() => {
+        confirmBtn.click();
+      });
+
+      expect(container.querySelector('[data-heelslide-dialog]')).toBeNull();
+      expect(onUnlock).toHaveBeenCalled();
+
+      unmount();
+    });
+
+    it('should support custom renderAccessibleFallback slot', () => {
+      const { container, unmount } = renderComponent({
+        accessibleFallback: 'dialog',
+        renderAccessibleFallback: ({ isOpen, onConfirm, onCancel }) =>
+          isOpen ? (
+            <div data-custom-dialog>
+              <button data-custom-confirm onClick={onConfirm}>OK</button>
+              <button data-custom-cancel onClick={onCancel}>Cancel</button>
+            </div>
+          ) : null
+      });
+
+      const fallbackBtn = container.querySelector('[data-heelslide-fallback-button]') as HTMLElement;
+      act(() => {
+        fallbackBtn.click();
+      });
+
+      expect(container.querySelector('[data-custom-dialog]')).not.toBeNull();
+
+      const cancelBtn = container.querySelector('[data-custom-cancel]') as HTMLElement;
+      act(() => {
+        cancelBtn.click();
+      });
+
+      expect(container.querySelector('[data-custom-dialog]')).toBeNull();
+
+      unmount();
+    });
+  });
 });
