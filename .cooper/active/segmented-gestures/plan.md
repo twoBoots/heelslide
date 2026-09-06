@@ -2,7 +2,7 @@
 
 ## Phase 1: Core Engine Implementation (`packages/core`)
 
-- [ ] Task 1.1: Core Types & State Extensions
+- [~] Task 1.1: Core Types & State Extensions
   - [ ] Sub-task: Define `segmented?: boolean`, `checkpointTimeoutMs?: number`, `onCheckpoint?: (heelIndex: number, progress: number) => void` in `packages/core/src/types.ts`
   - [ ] Sub-task: Add `'checkpoint'` to `GestureState` union
 
