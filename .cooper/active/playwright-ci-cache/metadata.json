@@ -1,0 +1,10 @@
+{
+  "track_id": "playwright-ci-cache",
+  "title": "Playwright CI Browser Caching & Job Parallelization",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-09-06T04:21:00Z",
+  "capabilities": [
+    "ci-pipeline"
+  ]
+}
