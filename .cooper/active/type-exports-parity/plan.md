@@ -8,10 +8,10 @@ Status: `in_progress`
   - [x] Sub-task: Verify living capability specs and spec deltas for `react-adapter`, `vue-adapter`, and `svelte-adapter`
 - [x] Task 2: Consumer Type Smoke Test Suite (Red) (b6dbdd1)
   - [x] Sub-task: Author `tests/consumer-types.test.ts` verifying external consumer typecheck against built packages without ambient module shims (Red)
-- [~] Task 3: Core Type Re-Exports in React & Svelte (Green & Refactor)
-  - [ ] Sub-task: Re-export `Bounds` and `Direction` in `packages/react/src/index.ts`
-  - [ ] Sub-task: Re-export `Bounds`, `Direction`, `Segment`, and `ProjectedPoint` in `packages/svelte/src/types.ts`
-  - [ ] Sub-task: Run unit tests and verify re-exported types are accessible
+- [x] Task 3: Core Type Re-Exports in React & Svelte (Green & Refactor) (5275255)
+  - [x] Sub-task: Re-export `Bounds` and `Direction` in `packages/react/src/index.ts`
+  - [x] Sub-task: Re-export `Bounds`, `Direction`, `Segment`, and `ProjectedPoint` in `packages/svelte/src/types.ts`
+  - [x] Sub-task: Run unit tests and verify re-exported types are accessible
 - [ ] Task 4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Verify workspace quality gates
   - [ ] Sub-task: Synchronize rules with `git fetch origin main`
