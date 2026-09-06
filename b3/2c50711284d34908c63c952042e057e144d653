@@ -1,0 +1,3 @@
+Task: Task 2: Vue Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
+Scope: packages/vue/src/Heelslide.vue, packages/vue/src/style.css, packages/vue/src/types.ts, packages/vue/tests/HeelslideRender.test.ts
+Summary: Implemented expanded CSS variables for geometry, canonical handle tokens, heel theming, target heel/goal detection, typography tokens, numberedHeels SVG text, and CSS counters.
