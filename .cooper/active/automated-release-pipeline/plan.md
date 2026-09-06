@@ -13,11 +13,11 @@ Status: `in_progress`
   - [x] Sub-task: Add `publishConfig: { "access": "public" }` across all public package manifests
   - [x] Sub-task: Add `changeset`, `version-packages`, and `release` scripts to root `package.json`
   - [x] Sub-task: Run `tests/release-pipeline.test.ts` and verify all tests pass (Green) and refactor (Refactor)
-- [~] Task 4: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Run workspace quality gates (lint, typecheck, tests)
-  - [ ] Sub-task: Synchronize rules with `git fetch origin main`
-  - [ ] Sub-task: Record checkpoint commit and attach verification report via `git notes`
-  - [ ] Sub-task: Push checkpoint to remote with `git push origin automated-release-pipeline`
+- [x] Task 4: Phase 1 Verification & Checkpoint (62acd10)
+  - [x] Sub-task: Run workspace quality gates (lint, typecheck, tests)
+  - [x] Sub-task: Synchronize rules with `git fetch origin main`
+  - [x] Sub-task: Record checkpoint commit and attach verification report via `git notes`
+  - [x] Sub-task: Push checkpoint to remote with `git push origin automated-release-pipeline`
 
 ## Phase 2: Workflow Automation, Tarball Bundling & Initial Release Changeset
 - [ ] Task 1: GitHub Actions Release Workflow Modernization
