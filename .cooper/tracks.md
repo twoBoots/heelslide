@@ -8,20 +8,20 @@ All active and completed Cooper tracks are registered below.
 - [ ] **Track: Segmented Multi-Gesture Checkpoints**
   - Worktree: `.worktrees/segmented-gestures`
   - Link: [.cooper/active/segmented-gestures/index.md](.cooper/active/segmented-gestures/index.md)
-- [x] **Track: Svelte 5 Component Adapter**
-  - Worktree: `.worktrees/svelte-adapter`
-  - Link: [.cooper/active/svelte-adapter/index.md](.cooper/active/svelte-adapter/index.md)
-- [x] **Track: Playwright CI Browser Caching & Job Parallelization**
-  - Worktree: `.worktrees/playwright-ci-cache`
-  - Link: [.cooper/active/playwright-ci-cache/index.md](.cooper/active/playwright-ci-cache/index.md)
-- [x] **Track: Playwright Visual Regression Testing Suite**
-  - Worktree: `.worktrees/visual-regression-testing`
-  - Link: [.cooper/active/visual-regression-testing/index.md](.cooper/active/visual-regression-testing/index.md)
-- [x] **Track: Haptic & Audio Feedback System**
-  - Worktree: `.worktrees/haptic-audio-feedback`
-  - Link: [.cooper/active/haptic-audio-feedback/index.md](.cooper/active/haptic-audio-feedback/index.md)
 
 ## Completed Archive
+- [x] **Track: Svelte 5 Component Adapter**
+  - Completed: 2026-09-06
+  - Archive: [.cooper/archive/svelte-adapter/index.md](.cooper/archive/svelte-adapter/index.md)
+- [x] **Track: Playwright CI Browser Caching & Job Parallelization**
+  - Completed: 2026-09-06
+  - Archive: [.cooper/archive/playwright-ci-cache/index.md](.cooper/archive/playwright-ci-cache/index.md)
+- [x] **Track: Playwright Visual Regression Testing Suite**
+  - Completed: 2026-09-06
+  - Archive: [.cooper/archive/visual-regression-testing/index.md](.cooper/archive/visual-regression-testing/index.md)
+- [x] **Track: Haptic & Audio Feedback System**
+  - Completed: 2026-09-06
+  - Archive: [.cooper/archive/haptic-audio-feedback/index.md](.cooper/archive/haptic-audio-feedback/index.md)
 - [x] **Track: Interactive Documentation & Demo Playground**
   - Completed: 2026-09-05
   - Archive: [.cooper/archive/docs-playground/index.md](.cooper/archive/docs-playground/index.md)
