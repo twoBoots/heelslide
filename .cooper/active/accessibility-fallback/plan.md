@@ -50,11 +50,11 @@ Track ID: `accessibility-fallback`
   - [x] Sub-task: Component tests for ARIA slider markup, live region, keyboard listeners, and accessible fallback slot (Red)
   - [x] Sub-task: Implement template, live region, and dialog in `packages/vue/src/Heelslide.vue` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 9: Phase 3 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest Vue test suite and verify >80% coverage
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
+- [x] **Task 9: Phase 3 Verification & Checkpoint** (38c5146)
+  - [x] Sub-task: Run Vitest Vue test suite and verify >80% coverage
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
 
 ---
 
