@@ -6,7 +6,7 @@
   - [x] Sub-task: Define `segmented?: boolean`, `checkpointTimeoutMs?: number`, `onCheckpoint?: (heelIndex: number, progress: number) => void` in `packages/core/src/types.ts`
   - [x] Sub-task: Add `'checkpoint'` to `GestureState` union
 
-- [ ] Task 1.2: Checkpoint Clamping, Resumption & Snapback (`packages/core/src/machine.ts`)
+- [~] Task 1.2: Checkpoint Clamping, Resumption & Snapback (`packages/core/src/machine.ts`)
   - [ ] Sub-task: Write unit tests in `packages/core/tests/machine.test.ts` for clamping movement at heel vertex in segmented mode (Red)
   - [ ] Sub-task: Implement movement clamping at heel vertices preventing continuous advancement without release (Green)
   - [ ] Sub-task: Write unit tests for pointer release at heel transitioning to `'checkpoint'` state and emitting `onCheckpoint` (Red)
