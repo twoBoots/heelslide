@@ -1,0 +1,3 @@
+Task: Task 3: Implement Dedicated visual-regression Job with Caching
+Scope: .github/workflows/ci.yml
+Summary: Added visual-regression job running in parallel with validate job. Configured actions/cache@v4 on ~/.cache/ms-playwright keyed by OS and Playwright version, playwright install-deps for host dependencies, conditional browser download on cache miss, workspace build, test:visual execution, and artifact upload on failure.
