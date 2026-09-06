@@ -1,0 +1,3 @@
+Task: Consumer Type Smoke Test Suite (Red)
+Scope: tests/consumer-types.test.ts, vitest.config.ts
+Summary: Authored 4 unit tests asserting re-export parity in React/Svelte and standalone component typing in Vue/Svelte (4 failing tests verified in Red phase).
