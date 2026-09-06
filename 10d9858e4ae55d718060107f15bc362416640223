@@ -1,0 +1,3 @@
+Task: Procedural SVG Track Rendering & Styling
+Scope: packages/vue/src/Heelslide.vue, packages/vue/src/style.css, vitest.config.ts, packages/vue/tests/HeelslideRender.test.ts
+Summary: Implemented SVG rectilinear track rendering with background track, progress overlay, heel markers, end destination marker, handle slot, and --heelslide-* CSS custom properties.

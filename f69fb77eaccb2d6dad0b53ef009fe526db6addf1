@@ -1,0 +1,3 @@
+Task: Apps Workspace Configuration
+Scope: apps/docs, tsconfig.json, package.json
+Summary: Scaffolded @heelslide/docs with Vite and React 19, connected workspace dependencies to @heelslide/core and @heelslide/react, configured composite TypeScript references, verified clean compilation and static build.

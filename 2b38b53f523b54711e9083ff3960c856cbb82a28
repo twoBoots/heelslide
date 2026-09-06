@@ -1,0 +1,3 @@
+Task: Pointer Event Tracking, Capture & Teardown
+Scope: packages/vue/src/Heelslide.vue, packages/vue/tests/HeelslideInteraction.test.ts
+Summary: Implemented pointer event tracking with setPointerCapture/releasePointerCapture, dual emits and callback props synchronization, disabled state handling, and safe lifecycle teardown in onUnmounted.

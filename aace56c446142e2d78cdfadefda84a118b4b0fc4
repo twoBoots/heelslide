@@ -1,0 +1,3 @@
+Task: Export Barrel & Full Workspace Verification
+Scope: packages/react/src/index.ts, packages/react/tests/index.test.ts
+Summary: Configured public barrel exports for Heelslide, useHeelslide, types, and core re-exports. Verified clean ESM, CJS, and .d.ts bundling.

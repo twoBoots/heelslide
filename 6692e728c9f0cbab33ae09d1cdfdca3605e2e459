@@ -1,0 +1,3 @@
+Task: Procedural Rectilinear Path Generator
+Scope: packages/core/src/generator.ts, packages/core/tests/generator.test.ts
+Summary: Implemented procedural 2D rectilinear track generator producing non-self-intersecting 90-degree heel paths with fixed/range heel configuration, bounds safety, and deterministic PRNG seeding with 100% statement and branch coverage.

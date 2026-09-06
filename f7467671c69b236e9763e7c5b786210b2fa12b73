@@ -1,0 +1,3 @@
+Task: Svelte Package Skeleton & Build Configuration
+Scope: packages/svelte/, package.json, package-lock.json, tsconfig.json, vitest.config.ts
+Summary: Configured @heelslide/svelte package manifest, tsconfig, vite.config.ts with @sveltejs/vite-plugin-svelte and dts plugin, added workspace references, and verified build output.

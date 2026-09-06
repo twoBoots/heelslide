@@ -1,0 +1,3 @@
+Task: Public API & End-to-End Integration
+Scope: packages/vue/src/index.ts, packages/vue/tests/index.test.ts
+Summary: Exported Heelslide component, useHeelslide composable, and comprehensive TypeScript types in barrel index; added integration tests verifying library exports.

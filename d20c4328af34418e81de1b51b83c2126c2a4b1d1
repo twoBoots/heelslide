@@ -1,0 +1,3 @@
+Task: Package Structure & Build Configuration
+Scope: packages/react, tsconfig.json, vitest.config.ts
+Summary: Initialized @heelslide/react package with peerDependencies, Vite library build for ESM/CJS/.d.ts, and workspace references.
