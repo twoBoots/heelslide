@@ -70,3 +70,17 @@
 + - **GIVEN** `<Heelslide ariaLabel="Authorize Payment" />`
 + - **WHEN** rendered in the DOM
 + - **THEN** appropriate ARIA attributes (`role="slider"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow`, `aria-disabled`, `aria-label`) MUST be set on the interactive container/handle.
++ 
++ #### Requirement: Haptic & Audio Feedback Configuration
++ The composable and component MUST accept haptic and audio feedback configuration options and forward them to the underlying engine.
++ 
++ - **GIVEN** `createHeelslide({ haptics: true, sound: true })` or `<Heelslide haptics={true} sound={true} />`
++ - **WHEN** gestures advance across heels, reset, or unlock
++ - **THEN** tactile vibrations and synthesized audio cues MUST trigger via the core feedback controller.
++ 
++ #### Requirement: Turn Callback Support
++ The composable and component MUST support turn callbacks (`onturn` / `onTurn`) when rounding heel vertices.
++ 
++ - **GIVEN** `<Heelslide onturn={handleTurn} />` or `<Heelslide onTurn={handleTurn} />`
++ - **WHEN** a heel vertex is navigated during active dragging
++ - **THEN** `onturn(heelIndex)` and `onTurn(heelIndex)` MUST be invoked with the completed heel index.
