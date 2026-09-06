@@ -15,11 +15,11 @@
   - [x] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
 
 ## Phase 2: Presentation Component (`<Heelslide />`) & Styling
-- [~] Task: Procedural SVG Track Rendering & Styling
-  - [ ] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
-  - [ ] Sub-task: Implement `Heelslide.svelte` SVG structure, `$props()`, and `style.css` variables (Green)
-  - [ ] Sub-task: Refactor SVG track path calculation and styling (Refactor)
-- [ ] Task: Pointer Event Tracking, Capture & Teardown
+- [x] Task: Procedural SVG Track Rendering & Styling (1fa6e0d)
+  - [x] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
+  - [x] Sub-task: Implement `Heelslide.svelte` SVG structure, `$props()`, and `style.css` variables (Green)
+  - [x] Sub-task: Refactor SVG track path calculation and styling (Refactor)
+- [~] Task: Pointer Event Tracking, Capture & Teardown
   - [ ] Sub-task: Write component tests for pointer interaction, drag tracking, callback events, and unmount teardown (Red)
   - [ ] Sub-task: Implement pointer event listeners with pointer capture and unmount cleanup (Green)
   - [ ] Sub-task: Refactor pointer handling and verify test coverage >80% (Refactor)
