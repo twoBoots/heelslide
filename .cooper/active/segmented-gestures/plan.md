@@ -52,10 +52,10 @@
 - [x] Task 3.1: Interactive Playground Configurator (`apps/docs`) (44e2ec2)
   - [x] Sub-task: Add "Segmented Mode" toggle and "Checkpoint Timeout" controls to the live demo playground
   - [x] Sub-task: Add visual cue/styling for `data-state="checkpoint"`
-- [ ] Task 3.2: Linting, Type Checking & Build Verification
-  - [ ] Sub-task: Run `oxlint` across workspace
-  - [ ] Sub-task: Run `tsc --noEmit` across all workspace packages
-  - [ ] Sub-task: Run production build across monorepo packages (`npm run build`)
+- [x] Task 3.2: Linting, Type Checking & Build Verification
+  - [x] Sub-task: Run `oxlint` across workspace
+  - [x] Sub-task: Run `tsc --noEmit` across all workspace packages
+  - [x] Sub-task: Run production build across monorepo packages (`npm run build`)
 - [ ] Task 3.3: Phase 3 Verification & Track Checkpoint
   - [ ] Sub-task: Verify overall test coverage >80% across all modified packages
   - [ ] Sub-task: Record final phase checkpoint Git Note
