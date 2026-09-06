@@ -1,0 +1,1 @@
+cooper(task): Full Workspace Quality Gates & Build Verification - Clean tsc -b, oxlint ., vitest pass (106/106 tests), >97% coverage, and clean build emissions in packages/svelte/dist/
