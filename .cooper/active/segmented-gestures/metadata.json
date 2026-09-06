@@ -2,8 +2,9 @@
   "track_id": "segmented-gestures",
   "title": "Segmented Multi-Gesture Checkpoints",
   "type": "feature",
-  "status": "new",
+  "status": "completed",
   "created_at": "2026-09-06T06:45:00Z",
+  "completed_at": "2026-09-06T10:18:00Z",
   "capabilities": [
     "gesture-engine",
     "react-adapter",
