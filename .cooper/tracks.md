@@ -5,6 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
+- [x] **Track: Playwright Visual Regression Testing Suite**
+  - Worktree: `.worktrees/visual-regression-testing`
+  - Link: [.cooper/active/visual-regression-testing/index.md](.cooper/active/visual-regression-testing/index.md)
 - [x] **Track: Haptic & Audio Feedback System**
   - Worktree: `.worktrees/haptic-audio-feedback`
   - Link: [.cooper/active/haptic-audio-feedback/index.md](.cooper/active/haptic-audio-feedback/index.md)

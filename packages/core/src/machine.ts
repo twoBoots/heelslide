@@ -4,6 +4,8 @@ import type { GestureState, Point2D, TrackPath } from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
+  initialState?: GestureState;
+  initialProgress?: number;
   onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
@@ -37,8 +39,8 @@ export function createGestureStateMachine(
     feedback
   } = options;
 
-  let state: GestureState = 'idle';
-  let progress = 0;
+  let state: GestureState = options.initialState ?? 'idle';
+  let progress = options.initialProgress ?? (state === 'unlocked' ? 1.0 : state === 'active' ? 0.5 : 0);
   let currentSegmentIndex = 0;
   let accumulatedDistance = 0;
 
@@ -50,12 +52,12 @@ export function createGestureStateMachine(
   }
 
   function resetState(): void {
-    state = 'idle';
-    progress = 0;
+    state = options.initialState ?? 'idle';
+    progress = options.initialProgress ?? (state === 'unlocked' ? 1.0 : state === 'active' ? 0.5 : 0);
     currentSegmentIndex = 0;
     accumulatedDistance = 0;
-    onProgress?.(0);
-    setState('idle');
+    onProgress?.(progress);
+    setState(state);
   }
 
   function triggerReset(): void {

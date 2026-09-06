@@ -43,6 +43,8 @@ export interface HeelslideProps {
   heels?: HeelCountConfig;
   tolerance?: number;
   disabled?: boolean;
+  initialState?: GestureState;
+  initialProgress?: number;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
   onTurn?: (heelIndex: number) => void;
