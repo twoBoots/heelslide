@@ -19,15 +19,15 @@
   - [x] Sub-task: Write component tests for SVG track geometry, heel indicators, and CSS custom properties (Red)
   - [x] Sub-task: Implement `Heelslide.svelte` SVG structure, `$props()`, and `style.css` variables (Green)
   - [x] Sub-task: Refactor SVG track path calculation and styling (Refactor)
-- [~] Task: Pointer Event Tracking, Capture & Teardown
-  - [ ] Sub-task: Write component tests for pointer interaction, drag tracking, callback events, and unmount teardown (Red)
-  - [ ] Sub-task: Implement pointer event listeners with pointer capture and unmount cleanup (Green)
-  - [ ] Sub-task: Refactor pointer handling and verify test coverage >80% (Refactor)
-- [ ] Task: Phase 2 Verification & Checkpoint
-  - [ ] Sub-task: Run automated component tests
-  - [ ] Sub-task: Verify test coverage >80%
-  - [ ] Sub-task: Synchronize main branch (`git fetch origin main`)
-  - [ ] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
+- [x] Task: Pointer Event Tracking, Capture & Teardown (e818324)
+  - [x] Sub-task: Write component tests for pointer interaction, drag tracking, callback events, and unmount teardown (Red)
+  - [x] Sub-task: Implement pointer event listeners with pointer capture and unmount cleanup (Green)
+  - [x] Sub-task: Refactor pointer handling and verify test coverage >80% (Refactor)
+- [x] Task: Phase 2 Verification & Checkpoint (43d239a) [checkpoint: 43d239a]
+  - [x] Sub-task: Run automated component tests
+  - [x] Sub-task: Verify test coverage >80%
+  - [x] Sub-task: Synchronize main branch (`git fetch origin main`)
+  - [x] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
 
 ## Phase 3: Integration, Public API Packaging & Final Quality Gates
 - [ ] Task: Public API & End-to-End Integration
