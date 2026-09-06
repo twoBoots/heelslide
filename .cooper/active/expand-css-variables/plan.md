@@ -12,10 +12,10 @@
   - [x] Sub-task: Update `packages/vue/src/style.css`, `packages/vue/src/types.ts`, and `packages/vue/src/Heelslide.vue` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 
-- [~] Task 3: Svelte 5 Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
-  - [ ] Sub-task: Write unit tests in `packages/svelte/tests/HeelslideRender.test.ts` for expanded CSS custom properties, heel/target/goal tokens, typography, and `numberedHeels` prop (Red)
-  - [ ] Sub-task: Update `packages/svelte/src/style.css`, `packages/svelte/src/types.ts`, and `packages/svelte/src/Heelslide.svelte` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] Task 3: Svelte 5 Adapter Expanded CSS Properties, Heel Theming & Numbered Heels (f7cb873)
+  - [x] Sub-task: Write unit tests in `packages/svelte/tests/HeelslideRender.test.ts` for expanded CSS custom properties, heel/target/goal tokens, typography, and `numberedHeels` prop (Red)
+  - [x] Sub-task: Update `packages/svelte/src/style.css`, `packages/svelte/src/types.ts`, and `packages/svelte/src/Heelslide.svelte` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 
 - [ ] Task 4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Run all React, Vue, and Svelte tests via Vitest (`npm test --workspace=packages/react --workspace=packages/vue --workspace=packages/svelte`)
