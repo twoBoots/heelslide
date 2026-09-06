@@ -42,11 +42,11 @@ Track ID: `haptic-audio-feedback`
   - [x] Sub-task: Write composable and component unit tests for `haptics`, `sound`, `onTurn`, and `@turn` emit (Red)
   - [x] Sub-task: Implement feedback props and emits in `packages/vue/src/useHeelslide.ts`, `types.ts`, and `Heelslide.vue` (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 7: Phase 3 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest suite across `@heelslide/vue` and verify coverage >80%
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
+- [x] **Task 7: Phase 3 Verification & Checkpoint** (c05d13a)
+  - [x] Sub-task: Run Vitest suite across `@heelslide/vue` and verify coverage >80%
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
 
 ---
 
