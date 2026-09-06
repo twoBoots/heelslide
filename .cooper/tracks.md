@@ -5,6 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
+- [ ] **Track: Segmented Multi-Gesture Checkpoints**
+  - Worktree: `.worktrees/segmented-gestures`
+  - Link: [.cooper/active/segmented-gestures/index.md](.cooper/active/segmented-gestures/index.md)
 - [x] **Track: Svelte 5 Component Adapter**
   - Worktree: `.worktrees/svelte-adapter`
   - Link: [.cooper/active/svelte-adapter/index.md](.cooper/active/svelte-adapter/index.md)
