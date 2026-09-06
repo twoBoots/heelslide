@@ -42,10 +42,10 @@ Track ID: `accessibility-fallback`
 
 ## Phase 3: Vue 3 Component Accessibility & Keyboard Controls (`@heelslide/vue`)
 
-- [~] **Task 7: Headless Composable Keyboard Controls (`useHeelslide`)**
-  - [ ] Sub-task: Unit tests for keyboard event normalization, reactive announcement ref, and accessible fallback primitives in Vue composable (Red)
-  - [ ] Sub-task: Implement keyboard handlers and stepping controls in `packages/vue/src/useHeelslide.ts` (Green)
-  - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
+- [x] **Task 7: Headless Composable Keyboard Controls (`useHeelslide`)** (4dd2dfc)
+  - [x] Sub-task: Unit tests for keyboard event normalization, reactive announcement ref, and accessible fallback primitives in Vue composable (Red)
+  - [x] Sub-task: Implement keyboard handlers and stepping controls in `packages/vue/src/useHeelslide.ts` (Green)
+  - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
 - [ ] **Task 8: Vue Presentation Component ARIA Semantics, Live Region & Slots (`<Heelslide />`)**
   - [ ] Sub-task: Component tests for ARIA slider markup, live region, keyboard listeners, and accessible fallback slot (Red)
   - [ ] Sub-task: Implement template, live region, and dialog in `packages/vue/src/Heelslide.vue` (Green)
