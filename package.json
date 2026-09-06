@@ -22,9 +22,13 @@
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
     "test:visual:report": "playwright show-report",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
     "postinstall": "termux-fix-shebang node_modules/.bin/* 2>/dev/null || true"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.2",
     "@playwright/test": "^1.63.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@types/react": "^19.0.0",
