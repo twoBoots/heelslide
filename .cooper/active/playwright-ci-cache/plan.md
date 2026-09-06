@@ -17,7 +17,7 @@ Status: `in_progress`
   - [x] Sub-task: Implement `actions/cache@v4` on `~/.cache/ms-playwright` keyed by OS and version
   - [x] Sub-task: Implement OS dependency installation (`npx playwright install-deps`) and conditional browser installation
   - [x] Sub-task: Add workspace build, `test:visual` execution, and failure artifact upload
-- [ ] Task 4: Phase 1 Verification & Checkpoint
+- [~] Task 4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Validate workflow YAML syntax and run local visual tests and builds
   - [ ] Sub-task: Synchronize rules with `git fetch origin main`
   - [ ] Sub-task: Create checkpoint commit and attach verification report via `git notes`
