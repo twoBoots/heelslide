@@ -17,10 +17,10 @@
   - [x] Sub-task: Update `packages/svelte/src/style.css`, `packages/svelte/src/types.ts`, and `packages/svelte/src/Heelslide.svelte` with variable declarations, target markers, SVG `<text>` elements, and CSS counter rules (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 
-- [ ] Task 4: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Run all React, Vue, and Svelte tests via Vitest (`npm test --workspace=packages/react --workspace=packages/vue --workspace=packages/svelte`)
-  - [ ] Sub-task: Sync remote rules (`git fetch origin main`)
-  - [ ] Sub-task: Record Git Notes checkpoint and push branch (`git push origin expand-css-variables`)
+- [x] Task 4: Phase 1 Verification & Checkpoint (4895f55)
+  - [x] Sub-task: Run all React, Vue, and Svelte tests via Vitest (`npm test --workspace=packages/react --workspace=packages/vue --workspace=packages/svelte`)
+  - [x] Sub-task: Sync remote rules (`git fetch origin main`)
+  - [x] Sub-task: Record Git Notes checkpoint and push branch (`git push origin expand-css-variables`)
 
 ## Phase 2: Documentation Playground & Code Generator (apps/docs)
 
