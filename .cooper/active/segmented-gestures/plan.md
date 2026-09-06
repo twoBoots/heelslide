@@ -38,10 +38,10 @@
   - [x] Sub-task: Implement props, emits, and state synchronization in Vue `<Heelslide />` component (Green)
   - [x] Sub-task: Refactor & verify Vue adapter test coverage >80% (Refactor)
 
-- [~] Task 2.3: Svelte Adapter Integration (`packages/svelte`)
-  - [ ] Sub-task: Write component tests for `segmented` and `oncheckpoint` in `packages/svelte/tests/` (Red)
-  - [ ] Sub-task: Implement Svelte component prop forwarding and event dispatch (Green)
-  - [ ] Sub-task: Refactor & verify Svelte adapter test coverage >80% (Refactor)
+- [x] Task 2.3: Svelte Adapter Integration (`packages/svelte`) (423a711)
+  - [x] Sub-task: Write component tests for `segmented` and `oncheckpoint` in `packages/svelte/tests/` (Red)
+  - [x] Sub-task: Implement Svelte component prop forwarding and event dispatch (Green)
+  - [x] Sub-task: Refactor & verify Svelte adapter test coverage >80% (Refactor)
 
 - [ ] Task 2.4: Phase 2 Verification & Checkpoint
   - [ ] Sub-task: Run Vitest across all packages (`npm run test`)
