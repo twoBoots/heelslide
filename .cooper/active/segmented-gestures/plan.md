@@ -22,7 +22,7 @@
   - [x] Sub-task: Implement inactivity timer in machine/engine and ensure cleanup in `reset()` and `destroy()` (Green)
   - [x] Sub-task: Refactor & verify core engine test suite coverage >80% (Refactor)
 
-- [ ] Task 1.4: Phase 1 Verification & Checkpoint
+- [~] Task 1.4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Run Vitest across `packages/core` ensuring all tests pass with >80% coverage
   - [ ] Sub-task: Sync upstream (`git fetch origin main`) and push checkpoint (`git push origin segmented-gestures`)
 
