@@ -18,6 +18,7 @@ export function App() {
     margin: 16,
     seed: 12345,
     disabled: false,
+    accessibleFallback: 'stepped',
     theme: {
       trackBg: '#334155',
       trackActive: '#3b82f6',

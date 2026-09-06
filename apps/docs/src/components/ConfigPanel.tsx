@@ -116,6 +116,30 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </label>
       </div>
 
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Accessibility (WCAG 2.2)</h3>
+
+      {/* Accessible Fallback Mode */}
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-fallback">Accessible Fallback:</label>
+          <span className="control-value">{config.accessibleFallback}</span>
+        </div>
+        <select
+          id="ctrl-fallback"
+          className="select-input"
+          value={config.accessibleFallback}
+          onChange={(e) => updateField('accessibleFallback', e.target.value as 'stepped' | 'dialog')}
+        >
+          <option value="stepped">Stepped Navigation (Arrow Keys)</option>
+          <option value="dialog">Confirmation Dialog (WCAG Modal)</option>
+        </select>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>
+          {config.accessibleFallback === 'stepped'
+            ? 'Arrow keys step along path segments; Space/Enter jumps across 90° heel turns.'
+            : 'Renders an accessible fallback button and dialog for single-click confirmation.'}
+        </p>
+      </div>
+
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>CSS Custom Properties</h3>
 
       <div className="color-pickers-row">

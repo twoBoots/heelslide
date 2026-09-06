@@ -11,6 +11,7 @@ describe('Playground Code Snippet Generator', () => {
     margin: 16,
     seed: 42,
     disabled: false,
+    accessibleFallback: 'stepped',
     theme: {
       trackBg: '#334155',
       trackActive: '#3b82f6',
@@ -26,6 +27,7 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("tolerance={24}");
     expect(snippet).toContain("width={320}");
     expect(snippet).toContain("height={160}");
+    expect(snippet).toContain('accessibleFallback="stepped"');
     expect(snippet).toContain("onUnlock={handleUnlock}");
     expect(snippet).toContain("'--heelslide-track-active': '#3b82f6'");
   });
@@ -34,9 +36,10 @@ describe('Playground Code Snippet Generator', () => {
     const snippet = generateCodeSnippet('vue', sampleConfig);
     expect(snippet).toContain("import { Heelslide } from '@heelslide/vue';");
     expect(snippet).toContain("<Heelslide");
-    expect(snippet).toContain(":heels=\"2\"");
-    expect(snippet).toContain(":tolerance=\"24\"");
-    expect(snippet).toContain("@unlock=\"onUnlock\"");
+    expect(snippet).toContain(':heels="2"');
+    expect(snippet).toContain(':tolerance="24"');
+    expect(snippet).toContain('accessible-fallback="stepped"');
+    expect(snippet).toContain('@unlock="onUnlock"');
     expect(snippet).toContain("'--heelslide-track-bg': '#334155'");
   });
 
@@ -47,5 +50,7 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("tolerance: 24");
     expect(snippet).toContain("bounds: { width: 320, height: 160 }");
     expect(snippet).toContain("onUnlock: () => {");
+    expect(snippet).toContain("onAnnouncement: (announcement) => {");
+    expect(snippet).toContain("engine.stepForward()");
   });
 });

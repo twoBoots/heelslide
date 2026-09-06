@@ -132,4 +132,53 @@ describe('Docs Playground App Component', () => {
 
     unmount();
   });
+
+  it('renders accessibility fallback mode selector and live announcer log', () => {
+    const { container, unmount } = renderApp();
+
+    // Check fallback select exists
+    const fallbackSelect = container.querySelector('#ctrl-fallback') as HTMLSelectElement;
+    expect(fallbackSelect).not.toBeNull();
+    expect(fallbackSelect.value).toBe('stepped');
+
+    // Check announcer card exists
+    const announcerDisplay = container.querySelector('[data-testid="announcer-log"]');
+    expect(announcerDisplay).not.toBeNull();
+    expect(announcerDisplay?.textContent).toContain('Use Tab to focus handle');
+
+    // Change fallback to dialog
+    const valueSetter = Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype, 'value')?.set;
+    act(() => {
+      valueSetter?.call(fallbackSelect, 'dialog');
+      fallbackSelect.dispatchEvent(new Event('input', { bubbles: true }));
+      fallbackSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    expect(fallbackSelect.value).toBe('dialog');
+
+    // Accessible fallback button should now be rendered by Heelslide
+    const fallbackButton = container.querySelector('[data-heelslide-fallback-button]');
+    expect(fallbackButton).not.toBeNull();
+
+    // Code snippet should reflect accessibleFallback="dialog"
+    expect(container.querySelector('.code-pre')?.textContent).toContain('accessibleFallback="dialog"');
+
+    unmount();
+  });
+
+  it('updates live announcer log when keyboard navigation steps forward', () => {
+    const { container, unmount } = renderApp();
+
+    const handle = container.querySelector('[data-heelslide-handle]') as HTMLElement;
+    expect(handle).not.toBeNull();
+
+    act(() => {
+      handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    });
+
+    const announcerDisplay = container.querySelector('[data-testid="announcer-log"]');
+    expect(announcerDisplay?.textContent).toContain('Stepped along track.');
+
+    unmount();
+  });
 });

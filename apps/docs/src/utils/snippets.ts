@@ -14,17 +14,19 @@ export interface PlaygroundConfig {
   margin: number;
   seed?: number;
   disabled: boolean;
+  accessibleFallback: 'stepped' | 'dialog';
   theme: ThemeConfig;
 }
 
 export type FrameworkTarget = 'react' | 'vue' | 'core';
 
 export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundConfig): string {
-  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, theme } = config;
+  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, accessibleFallback, theme } = config;
 
   if (target === 'react') {
-    const seedAttr = seed !== undefined ? `\n      seed={${seed}}` : '';
-    const disabledAttr = disabled ? '\n      disabled={true}' : '';
+    const seedAttr = seed !== undefined ? `\n        seed={${seed}}` : '';
+    const disabledAttr = disabled ? '\n        disabled={true}' : '';
+    const fallbackAttr = `\n        accessibleFallback="${accessibleFallback}"`;
     return `import { Heelslide } from '@heelslide/react';
 
 export function SecurityGate() {
@@ -47,7 +49,7 @@ export function SecurityGate() {
         width={${width}}
         height={${height}}
         gridStep={${gridStep}}
-        margin={${margin}}${seedAttr}${disabledAttr}
+        margin={${margin}}${seedAttr}${disabledAttr}${fallbackAttr}
         onUnlock={handleUnlock}
         onReset={() => console.log('Reset')}
       />
@@ -59,6 +61,7 @@ export function SecurityGate() {
   if (target === 'vue') {
     const seedAttr = seed !== undefined ? `\n      :seed="${seed}"` : '';
     const disabledAttr = disabled ? '\n      :disabled="true"' : '';
+    const fallbackAttr = `\n      accessible-fallback="${accessibleFallback}"`;
     return `<script setup lang="ts">
 import { Heelslide } from '@heelslide/vue';
 import '@heelslide/vue/dist/style.css';
@@ -82,7 +85,7 @@ function onUnlock() {
       :tolerance="${tolerance}"
       :bounds="{ width: ${width}, height: ${height} }"
       :grid-step="${gridStep}"
-      :margin="${margin}"${seedAttr}${disabledAttr}
+      :margin="${margin}"${seedAttr}${disabledAttr}${fallbackAttr}
       @unlock="onUnlock"
       @reset="() => console.log('Reset')"
     />
@@ -110,8 +113,17 @@ const engine = new HeelslideEngine({
   },
   onProgress: (progress) => {
     console.log(\`Progress: \${Math.round(progress * 100)}%\`);
+  },
+  onAnnouncement: (announcement) => {
+    // Screen reader accessible announcement (${accessibleFallback} fallback mode)
+    console.log('[A11y Announcement]:', announcement.message);
   }
 });
+
+// Accessible Stepping API (WCAG 2.2 Keyboard Alternative)
+// engine.stepForward(); // ArrowRight / ArrowDown
+// engine.stepBackward(); // ArrowLeft / ArrowUp
+// engine.stepToNextHeel(); // Space / Enter
 
 // Access generated track path
 const path = engine.getPath();
