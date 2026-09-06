@@ -28,7 +28,7 @@ Track ID: `accessibility-fallback`
   - [x] Sub-task: Unit tests for `onKeyDown` handlers (Arrow keys, Space/Enter, Home/Escape) and announcement state in `useHeelslide` (Red)
   - [x] Sub-task: Implement keyboard event generators and fallback state in `packages/react/src/useHeelslide.ts` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 5: React Component ARIA Semantics, Live Region & Fallback Dialog (`<Heelslide />`)**
+- [~] **Task 5: React Component ARIA Semantics, Live Region & Fallback Dialog (`<Heelslide />`)**
   - [ ] Sub-task: Component tests for WAI-ARIA slider attributes, visually-hidden live region, and accessible fallback dialog rendering (Red)
   - [ ] Sub-task: Implement ARIA attributes, live region announcer, and fallback confirmation modal in `packages/react/src/Heelslide.tsx` (Green)
   - [ ] Sub-task: Refactor & verify test coverage >80% (Refactor)
