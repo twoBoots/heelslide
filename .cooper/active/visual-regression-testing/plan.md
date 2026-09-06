@@ -21,10 +21,10 @@
   - [x] Sub-task: Write Playwright visual test specs for idle, active, unlocked, and disabled states (Red)
   - [x] Sub-task: Generate initial baseline snapshots across desktop (Chromium, Firefox) and mobile (WebKit) viewports (Green)
   - [x] Sub-task: Refactor visual test helpers and verify snapshot comparison assertions (Refactor)
-- [~] **Task 5: Heel Geometry & CSS Custom Property Theming Specs**
-  - [ ] Sub-task: Write Playwright visual test specs for 1-heel, 2-heel, 4-heel configurations and `--heelslide-*` CSS overrides (Red)
-  - [ ] Sub-task: Generate baseline snapshots for path geometries and custom color palettes (Green)
-  - [ ] Sub-task: Refactor & verify visual test execution stability (Refactor)
+- [x] **Task 5: Heel Geometry & CSS Custom Property Theming Specs** (edd60d2)
+  - [x] Sub-task: Write Playwright visual test specs for 1-heel, 2-heel, 4-heel configurations and `--heelslide-*` CSS overrides (Red)
+  - [x] Sub-task: Generate baseline snapshots for path geometries and custom color palettes (Green)
+  - [x] Sub-task: Refactor & verify visual test execution stability (Refactor)
 - [ ] **Task 6: Phase 2 Verification & Checkpoint**
   - [ ] Sub-task: Run full visual regression suite (`npm run test:visual`)
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
