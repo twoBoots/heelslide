@@ -1,0 +1,13 @@
+{
+  "id": "expand-css-variables",
+  "name": "Expanded CSS Custom Properties & Scoped Vue Docs Snippet",
+  "type": "feature",
+  "status": "planned",
+  "createdAt": "2026-09-06T14:55:00+10:00",
+  "worktree": ".worktrees/expand-css-variables",
+  "capabilities": [
+    "react-adapter",
+    "vue-adapter",
+    "docs-playground"
+  ]
+}
