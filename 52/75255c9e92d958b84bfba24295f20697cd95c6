@@ -1,0 +1,3 @@
+Task: Core Type Re-Exports in React & Svelte
+Scope: packages/react/src/index.ts, packages/svelte/src/types.ts
+Summary: Re-exported Bounds and Direction in @heelslide/react, and Bounds, Direction, Segment, and ProjectedPoint in @heelslide/svelte.
