@@ -5,7 +5,7 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Playwright Visual Regression Testing Suite**
+- [x] **Track: Playwright Visual Regression Testing Suite**
   - Worktree: `.worktrees/visual-regression-testing`
   - Link: [.cooper/active/visual-regression-testing/index.md](.cooper/active/visual-regression-testing/index.md)
 
