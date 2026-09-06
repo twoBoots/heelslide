@@ -254,12 +254,161 @@ describe('Gesture State Machine', () => {
     });
   });
 
-  describe('Checkpoint State & Configuration', () => {
-    it('accepts checkpoint as initial state', () => {
-      const machine = createGestureStateMachine(simpleTrack, {
-        initialState: 'checkpoint'
+  describe('Segmented Multi-Gesture Mode', () => {
+    // 2-heel track:
+    // Seg 0: (0,0) -> (50,0), len 50
+    // Seg 1: (50,0) -> (50,50), len 50
+    // Seg 2: (50,50) -> (100,50), len 50
+    // Total len: 150
+    const twoHeelTrack: TrackPath = {
+      points: [
+        { x: 0, y: 0 },
+        { x: 50, y: 0 },
+        { x: 50, y: 50 },
+        { x: 100, y: 50 }
+      ],
+      segments: [
+        { start: { x: 0, y: 0 }, end: { x: 50, y: 0 }, direction: 'horizontal', length: 50 },
+        { start: { x: 50, y: 0 }, end: { x: 50, y: 50 }, direction: 'vertical', length: 50 },
+        { start: { x: 50, y: 50 }, end: { x: 100, y: 50 }, direction: 'horizontal', length: 50 }
+      ],
+      totalLength: 150,
+      heelCount: 2
+    };
+
+    it('clamps movement at the heel vertex and blocks auto-advancement onto next segment in single stroke', () => {
+      const onTurn = vi.fn();
+      const machine = createGestureStateMachine(twoHeelTrack, {
+        tolerance: 15,
+        segmented: true,
+        onTurn
       });
+
+      machine.start({ x: 0, y: 0 });
+      // Drag along first segment up to heel at (50, 0)
+      machine.update({ x: 50, y: 0 });
+      expect(machine.getProgress()).toBeCloseTo(50 / 150);
+
+      // Attempt to drag onto second segment without lifting finger
+      machine.update({ x: 50, y: 30 });
+      // In segmented mode, progress remains clamped at heel 0 and current segment does not advance
+      expect(machine.getCurrentSegmentIndex()).toBe(0);
+      expect(machine.getProgress()).toBeCloseTo(50 / 150);
+      expect(machine.getState()).toBe('active');
+    });
+
+    it('transitions to checkpoint state and triggers onCheckpoint when gesture is released at a heel', () => {
+      const onCheckpoint = vi.fn();
+      const onStateChange = vi.fn();
+      const machine = createGestureStateMachine(twoHeelTrack, {
+        tolerance: 15,
+        segmented: true,
+        onCheckpoint,
+        onStateChange
+      });
+
+      machine.start({ x: 0, y: 0 });
+      machine.update({ x: 50, y: 0 });
+      machine.end();
+
       expect(machine.getState()).toBe('checkpoint');
+      expect(machine.getProgress()).toBeCloseTo(50 / 150);
+      expect(onCheckpoint).toHaveBeenCalledWith(0, expect.closeTo(50 / 150));
+      expect(onStateChange).toHaveBeenCalledWith('checkpoint');
+    });
+
+    it('allows resuming gesture from checkpoint handle and unlocking at the destination', () => {
+      const onUnlock = vi.fn();
+      const machine = createGestureStateMachine(twoHeelTrack, {
+        tolerance: 15,
+        segmented: true,
+        onUnlock
+      });
+
+      // Segment 0 -> Heel 0
+      machine.start({ x: 0, y: 0 });
+      machine.update({ x: 50, y: 0 });
+      machine.end();
+      expect(machine.getState()).toBe('checkpoint');
+
+      // Attempt start far from heel checkpoint -> rejected
+      const rejectedStart = machine.start({ x: 0, y: 0 });
+      expect(rejectedStart).toBe(false);
+      expect(machine.getState()).toBe('checkpoint');
+
+      // Resume at heel checkpoint (50, 0)
+      const resumed1 = machine.start({ x: 50, y: 0 });
+      expect(resumed1).toBe(true);
+      expect(machine.getState()).toBe('active');
+      expect(machine.getCurrentSegmentIndex()).toBe(1);
+
+      // Segment 1 -> Heel 1 (50, 50)
+      machine.update({ x: 50, y: 50 });
+      machine.end();
+      expect(machine.getState()).toBe('checkpoint');
+      expect(machine.getProgress()).toBeCloseTo(100 / 150);
+
+      // Resume at heel 1 checkpoint (50, 50)
+      const resumed2 = machine.start({ x: 50, y: 50 });
+      expect(resumed2).toBe(true);
+      expect(machine.getCurrentSegmentIndex()).toBe(2);
+
+      // Segment 2 -> Destination (100, 50)
+      machine.update({ x: 100, y: 50 });
+      machine.end();
+
+      expect(machine.getState()).toBe('unlocked');
+      expect(machine.getProgress()).toBe(1.0);
+      expect(onUnlock).toHaveBeenCalledTimes(1);
+    });
+
+    it('snaps back to last reached checkpoint on mid-segment premature release', () => {
+      const mockFeedback = {
+        triggerTurn: vi.fn(),
+        triggerReset: vi.fn(),
+        triggerUnlock: vi.fn()
+      };
+
+      const machine = createGestureStateMachine(twoHeelTrack, {
+        tolerance: 15,
+        segmented: true,
+        feedback: mockFeedback as any
+      });
+
+      // Reach heel 0 and release
+      machine.start({ x: 0, y: 0 });
+      machine.update({ x: 50, y: 0 });
+      machine.end();
+      expect(machine.getState()).toBe('checkpoint');
+      const checkpoint0Progress = machine.getProgress();
+
+      // Resume on segment 1, move halfway, and release prematurely
+      machine.start({ x: 50, y: 0 });
+      machine.update({ x: 50, y: 25 });
+      expect(machine.getProgress()).toBeGreaterThan(checkpoint0Progress);
+
+      machine.end();
+      // Snaps back to checkpoint 0
+      expect(machine.getState()).toBe('checkpoint');
+      expect(machine.getProgress()).toBeCloseTo(checkpoint0Progress);
+      expect(mockFeedback.triggerReset).toHaveBeenCalledTimes(1);
+    });
+
+    it('resets to idle at origin if premature release happens before first heel', () => {
+      const onReset = vi.fn();
+      const machine = createGestureStateMachine(twoHeelTrack, {
+        tolerance: 15,
+        segmented: true,
+        onReset
+      });
+
+      machine.start({ x: 0, y: 0 });
+      machine.update({ x: 25, y: 0 });
+      machine.end();
+
+      expect(machine.getState()).toBe('idle');
+      expect(machine.getProgress()).toBe(0);
+      expect(onReset).toHaveBeenCalledTimes(1);
     });
   });
 });

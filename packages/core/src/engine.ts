@@ -106,6 +106,7 @@ export class HeelslideEngine {
   }
 
   public destroy(): void {
+    this.machine.destroy?.();
     this.feedback.destroy();
   }
 
