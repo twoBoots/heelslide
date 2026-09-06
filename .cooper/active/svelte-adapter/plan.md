@@ -30,11 +30,11 @@
   - [x] Sub-task: Push phase checkpoint to remote (`git push origin svelte-adapter`)
 
 ## Phase 3: Integration, Public API Packaging & Final Quality Gates
-- [~] Task: Public API & End-to-End Integration
-  - [ ] Sub-task: Write integration tests verifying library exports and full unlock/reset workflows (Red)
-  - [ ] Sub-task: Export public types, components, and composable in `packages/svelte/src/index.ts` (Green)
-  - [ ] Sub-task: Refactor package exports and verify barrel cleanliness (Refactor)
-- [ ] Task: Full Workspace Quality Gates & Build Verification
+- [x] Task: Public API & End-to-End Integration (bea4f26)
+  - [x] Sub-task: Write integration tests verifying library exports and full unlock/reset workflows (Red)
+  - [x] Sub-task: Export public types, components, and composable in `packages/svelte/src/index.ts` (Green)
+  - [x] Sub-task: Refactor package exports and verify barrel cleanliness (Refactor)
+- [~] Task: Full Workspace Quality Gates & Build Verification
   - [ ] Sub-task: Run full test suite with coverage report (`vitest run --coverage >80%`)
   - [ ] Sub-task: Run clean monorepo typecheck (`tsc -b`) and linting (`oxlint .`)
   - [ ] Sub-task: Verify production build output in `packages/svelte/dist/`
