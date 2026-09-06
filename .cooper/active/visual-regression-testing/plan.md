@@ -33,9 +33,9 @@
 ---
 
 ## Phase 3: CI Workflow Integration & Quality Gates
-- [~] **Task 7: GitHub Actions CI Integration & Artifact Reporting**
-  - [ ] Sub-task: Update `.github/workflows/ci.yml` Playwright execution step and failure artifact upload
-  - [ ] Sub-task: Execute end-to-end verification pipeline (`npm run lint`, `npm run typecheck`, `npm run test:coverage`, `npm run test:visual`)
+- [x] **Task 7: GitHub Actions CI Integration & Artifact Reporting** (c52f86c)
+  - [x] Sub-task: Update `.github/workflows/ci.yml` Playwright execution step and failure artifact upload
+  - [x] Sub-task: Execute end-to-end verification pipeline (`npm run lint`, `npm run typecheck`, `npm run test:coverage`, `npm run test:visual`)
 - [ ] **Task 8: Phase 3 Verification & Track Finalization**
   - [ ] Sub-task: Complete track metadata and update tracks registry
   - [ ] Sub-task: Final checkpoint commit, Git Note, and remote push (`git push origin visual-regression-testing`)
