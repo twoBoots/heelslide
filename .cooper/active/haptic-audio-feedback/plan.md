@@ -28,11 +28,11 @@ Track ID: `haptic-audio-feedback`
   - [x] Sub-task: Write component & hook unit tests for `haptics`, `sound`, and `onTurn` in React (Red)
   - [x] Sub-task: Implement feedback props in `packages/react/src/useHeelslide.ts`, `types.ts`, and `Heelslide.tsx` (Green)
   - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
-- [ ] **Task 5: Phase 2 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest suite across `@heelslide/react` and verify coverage >80%
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
+- [x] **Task 5: Phase 2 Verification & Checkpoint** (86b303f)
+  - [x] Sub-task: Run Vitest suite across `@heelslide/react` and verify coverage >80%
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Remote sync (`git push origin haptic-audio-feedback`)
 
 ---
 
