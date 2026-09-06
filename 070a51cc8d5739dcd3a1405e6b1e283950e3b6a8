@@ -1,0 +1,3 @@
+Task: Task 2: Separate validate Job
+Scope: .github/workflows/ci.yml
+Summary: Removed visual regression tests and report upload from validate job, focusing it purely on lint, typecheck, build, and unit test coverage.
