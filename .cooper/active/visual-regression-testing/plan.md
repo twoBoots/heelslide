@@ -9,10 +9,10 @@
   - [x] Sub-task: Configure `@playwright/test` devDependencies in monorepo root
   - [x] Sub-task: Create `playwright.config.ts` with desktop/mobile viewports, webServer configuration, and snapshot tolerances
   - [x] Sub-task: Add `test:visual`, `test:visual:update`, and `test:visual:report` scripts to root `package.json`
-- [~] **Task 3: Phase 1 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest test suite and typecheck
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
+- [x] **Task 3: Phase 1 Verification & Checkpoint** (cefdd7a)
+  - [x] Sub-task: Run Vitest test suite and typecheck
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
 
 ---
 
