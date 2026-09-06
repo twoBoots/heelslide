@@ -8,7 +8,7 @@ Status: `in_progress`
   - [x] Sub-task: Verify living capability specs and spec delta `.cooper/active/automated-release-pipeline/spec-deltas/release-pipeline/spec.md`
 - [x] Task 2: Release Configuration Validation Tests (Red) (43b8a87)
   - [x] Sub-task: Write unit test suite `tests/release-pipeline.test.ts` verifying Changesets config schema, public package manifests, and root release scripts (Red)
-- [ ] Task 3: Changesets Setup, Configuration & Package Manifest Updates (Green & Refactor)
+- [~] Task 3: Changesets Setup, Configuration & Package Manifest Updates (Green & Refactor)
   - [ ] Sub-task: Install `@changesets/cli` and configure `.changeset/config.json` with fixed grouping for all public packages (`@heelslide/core`, `@heelslide/react`, `@heelslide/svelte`, `@heelslide/vue`) and ignore `@heelslide/docs`
   - [ ] Sub-task: Add `publishConfig: { "access": "public" }` across all public package manifests
   - [ ] Sub-task: Add `changeset`, `version-packages`, and `release` scripts to root `package.json`
