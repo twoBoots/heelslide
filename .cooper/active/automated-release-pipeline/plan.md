@@ -20,7 +20,7 @@ Status: `in_progress`
   - [x] Sub-task: Push checkpoint to remote with `git push origin automated-release-pipeline`
 
 ## Phase 2: Workflow Automation, Tarball Bundling & Initial Release Changeset
-- [ ] Task 1: GitHub Actions Release Workflow Modernization
+- [~] Task 1: GitHub Actions Release Workflow Modernization
   - [ ] Sub-task: Update `.github/workflows/release.yml` with Changesets publication using `NODE_AUTH_TOKEN` and `GITHUB_TOKEN`
   - [ ] Sub-task: Add step to pack `.tgz` tarballs (`npm pack`) for all public workspaces
   - [ ] Sub-task: Add step to create/update GitHub Releases with changelog notes and upload `.tgz` archive assets
