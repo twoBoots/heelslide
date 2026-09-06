@@ -46,9 +46,12 @@ export class HeelslideEngine {
   private createMachine(): GestureStateMachine {
     return createGestureStateMachine(this.track, {
       tolerance: this.options.tolerance ?? 24,
+      segmented: this.options.segmented,
+      checkpointTimeoutMs: this.options.checkpointTimeoutMs,
       initialState: this.options.initialState,
       initialProgress: this.options.initialProgress,
       onTurn: this.options.onTurn,
+      onCheckpoint: this.options.onCheckpoint,
       onUnlock: this.options.onUnlock,
       onReset: this.options.onReset,
       onProgress: this.options.onProgress,

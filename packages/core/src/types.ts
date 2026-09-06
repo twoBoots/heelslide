@@ -34,7 +34,7 @@ export interface TrackPath {
   heelCount: number;
 }
 
-export type GestureState = 'idle' | 'active' | 'unlocked' | 'reset';
+export type GestureState = 'idle' | 'active' | 'unlocked' | 'reset' | 'checkpoint';
 
 export interface ProjectedPoint {
   point: Point2D;
@@ -81,7 +81,10 @@ export interface EngineOptions {
   initialProgress?: number;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   onTurn?: (heelIndex: number) => void;
+  onCheckpoint?: (heelIndex: number, progress: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

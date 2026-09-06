@@ -4,9 +4,12 @@ import type { GestureState, Point2D, TrackPath } from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   initialState?: GestureState;
   initialProgress?: number;
   onTurn?: (heelIndex: number) => void;
+  onCheckpoint?: (heelIndex: number, progress: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

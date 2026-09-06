@@ -253,4 +253,14 @@ describe('Gesture State Machine', () => {
       expect(mockFeedback.triggerReset).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('Checkpoint State & Configuration', () => {
+    it('accepts checkpoint as initial state', () => {
+      const machine = createGestureStateMachine(simpleTrack, {
+        initialState: 'checkpoint'
+      });
+      expect(machine.getState()).toBe('checkpoint');
+    });
+  });
 });
+
