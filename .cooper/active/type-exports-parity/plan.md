@@ -12,11 +12,11 @@ Status: `in_progress`
   - [x] Sub-task: Re-export `Bounds` and `Direction` in `packages/react/src/index.ts`
   - [x] Sub-task: Re-export `Bounds`, `Direction`, `Segment`, and `ProjectedPoint` in `packages/svelte/src/types.ts`
   - [x] Sub-task: Run unit tests and verify re-exported types are accessible
-- [~] Task 4: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Verify workspace quality gates
-  - [ ] Sub-task: Synchronize rules with `git fetch origin main`
-  - [ ] Sub-task: Record checkpoint commit and attach verification report via `git notes`
-  - [ ] Sub-task: Push checkpoint to remote with `git push origin type-exports-parity`
+- [x] Task 4: Phase 1 Verification & Checkpoint (02c0221)
+  - [x] Sub-task: Verify workspace quality gates
+  - [x] Sub-task: Synchronize rules with `git fetch origin main`
+  - [x] Sub-task: Record checkpoint commit and attach verification report via `git notes`
+  - [x] Sub-task: Push checkpoint to remote with `git push origin type-exports-parity`
 
 ## Phase 2: Standalone Component Declarations & Consumer Verification
 - [ ] Task 1: Vue Component Explicit Typing
