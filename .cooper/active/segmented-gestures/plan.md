@@ -43,9 +43,9 @@
   - [x] Sub-task: Implement Svelte component prop forwarding and event dispatch (Green)
   - [x] Sub-task: Refactor & verify Svelte adapter test coverage >80% (Refactor)
 
-- [ ] Task 2.4: Phase 2 Verification & Checkpoint
-  - [ ] Sub-task: Run Vitest across all packages (`npm run test`)
-  - [ ] Sub-task: Sync upstream (`git fetch origin main`) and push checkpoint (`git push origin segmented-gestures`)
+- [x] Task 2.4: Phase 2 Verification & Checkpoint
+  - [x] Sub-task: Run Vitest across all packages (`npm run test`)
+  - [x] Sub-task: Sync upstream (`git fetch origin main`) and push checkpoint (`git push origin segmented-gestures`)
 
 ## Phase 3: Documentation Playground & Final Verification
 
