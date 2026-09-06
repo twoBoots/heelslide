@@ -34,10 +34,10 @@
   - [x] Sub-task: Expand `ThemeConfig` and implement theme presets (Clean Slate, Cyberpunk, Emerald Vault, High Contrast), `numberedHeels` control, and geometry sliders in `ConfigPanel.tsx` & `Playground.tsx` (Green)
   - [x] Sub-task: Verify production static build (`npm run build --workspace=apps/docs`) (Refactor)
 
-- [ ] Task 3: Phase 2 Verification & Checkpoint
-  - [ ] Sub-task: Run full monorepo test suite (`npm test`) and lint checks (`npm run lint`)
-  - [ ] Sub-task: Sync remote rules (`git fetch origin main`)
-  - [ ] Sub-task: Record Git Notes checkpoint and push branch (`git push origin expand-css-variables`)
+- [x] Task 3: Phase 2 Verification & Checkpoint (3726ca0)
+  - [x] Sub-task: Run full monorepo test suite (`npm test`) and lint checks (`npm run lint`)
+  - [x] Sub-task: Sync remote rules (`git fetch origin main`)
+  - [x] Sub-task: Record Git Notes checkpoint and push branch (`git push origin expand-css-variables`)
 
 ## Phase 3: Documentation & Spec Reconciliation
 
