@@ -24,10 +24,10 @@ Track ID: `haptic-audio-feedback`
 
 ## Phase 2: React Adapter Integration (`@heelslide/react`)
 
-- [~] **Task 4: React Hook & Component Feedback Props**
-  - [ ] Sub-task: Write component & hook unit tests for `haptics`, `sound`, and `onTurn` in React (Red)
-  - [ ] Sub-task: Implement feedback props in `packages/react/src/useHeelslide.ts`, `types.ts`, and `Heelslide.tsx` (Green)
-  - [ ] Sub-task: Refactor & verify coverage >80% (Refactor)
+- [x] **Task 4: React Hook & Component Feedback Props** (bf8d0f0)
+  - [x] Sub-task: Write component & hook unit tests for `haptics`, `sound`, and `onTurn` in React (Red)
+  - [x] Sub-task: Implement feedback props in `packages/react/src/useHeelslide.ts`, `types.ts`, and `Heelslide.tsx` (Green)
+  - [x] Sub-task: Refactor & verify coverage >80% (Refactor)
 - [ ] **Task 5: Phase 2 Verification & Checkpoint**
   - [ ] Sub-task: Run Vitest suite across `@heelslide/react` and verify coverage >80%
   - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
