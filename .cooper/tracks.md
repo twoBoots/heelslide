@@ -5,8 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-
-_None currently active on main._
+- [x] **Track: Type Export Parity & Self-Contained Component Declarations**
+  - Worktree: `.worktrees/type-exports-parity`
+  - Link: [.cooper/active/type-exports-parity/index.md](.cooper/active/type-exports-parity/index.md)
 
 ## Completed Archive
 - [x] **Track: Svelte 5 Component Adapter**
