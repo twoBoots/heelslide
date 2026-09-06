@@ -32,11 +32,11 @@ Track ID: `accessibility-fallback`
   - [x] Sub-task: Component tests for WAI-ARIA slider attributes, visually-hidden live region, and accessible fallback dialog rendering (Red)
   - [x] Sub-task: Implement ARIA attributes, live region announcer, and fallback confirmation modal in `packages/react/src/Heelslide.tsx` (Green)
   - [x] Sub-task: Refactor & verify test coverage >80% (Refactor)
-- [ ] **Task 6: Phase 2 Verification & Checkpoint**
-  - [ ] Sub-task: Run Vitest React test suite and verify >80% coverage
-  - [ ] Sub-task: Workflow rule sync (`git fetch origin main`)
-  - [ ] Sub-task: Checkpoint commit & attach Git Note
-  - [ ] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
+- [x] **Task 6: Phase 2 Verification & Checkpoint** (9b5cfcc)
+  - [x] Sub-task: Run Vitest React test suite and verify >80% coverage
+  - [x] Sub-task: Workflow rule sync (`git fetch origin main`)
+  - [x] Sub-task: Checkpoint commit & attach Git Note
+  - [x] Sub-task: Push branch to remote (`git push origin accessibility-fallback`)
 
 ---
 
