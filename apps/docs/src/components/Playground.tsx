@@ -13,9 +13,18 @@ interface PlaygroundProps {
 export function Playground({ config, onStateChange, onUnlock, onReset }: PlaygroundProps) {
   const containerStyle: CSSProperties = {
     '--heelslide-track-bg': config.theme.trackBg,
+    '--heelslide-track-progress': config.theme.trackActive,
     '--heelslide-track-active': config.theme.trackActive,
+    '--heelslide-handle-bg': config.theme.handleColor,
     '--heelslide-handle-color': config.theme.handleColor,
-    '--heelslide-heel-color': config.theme.heelColor
+    '--heelslide-heel-bg': config.theme.heelColor,
+    '--heelslide-heel-color': config.theme.heelColor,
+    ...(config.theme.heelBorderColor ? { '--heelslide-heel-border-color': config.theme.heelBorderColor } : {}),
+    ...(config.theme.targetHeelBg ? { '--heelslide-target-heel-bg': config.theme.targetHeelBg } : {}),
+    ...(config.theme.targetHeelBorderColor ? { '--heelslide-target-heel-border-color': config.theme.targetHeelBorderColor } : {}),
+    ...(config.theme.goalBg ? { '--heelslide-goal-bg': config.theme.goalBg } : {}),
+    ...(config.theme.goalBorderColor ? { '--heelslide-goal-border-color': config.theme.goalBorderColor } : {}),
+    ...(config.theme.heelTextColor ? { '--heelslide-heel-text-color': config.theme.heelTextColor } : {})
   } as CSSProperties;
 
   return (
@@ -32,6 +41,7 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
             margin={config.margin}
             seed={config.seed}
             disabled={config.disabled}
+            numberedHeels={config.numberedHeels}
             haptics={config.haptics}
             sound={config.sound ? { volume: config.soundVolume } : false}
             onStateChange={onStateChange}

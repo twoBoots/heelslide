@@ -2,10 +2,18 @@ import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
+import path from 'node:path';
+
 export default defineConfig({
   plugins: [vue(), svelte()],
   resolve: {
-    conditions: ['browser']
+    conditions: ['browser'],
+    alias: {
+      '@heelslide/core': path.resolve(__dirname, 'packages/core/src/index.ts'),
+      '@heelslide/react': path.resolve(__dirname, 'packages/react/src/index.ts'),
+      '@heelslide/vue': path.resolve(__dirname, 'packages/vue/src/index.ts'),
+      '@heelslide/svelte': path.resolve(__dirname, 'packages/svelte/src/index.ts')
+    }
   },
   test: {
     globals: true,

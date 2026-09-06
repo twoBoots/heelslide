@@ -48,6 +48,12 @@ describe('VisualFixture Query Parameter Parser', () => {
     expect(params.theme).toBe('custom');
   });
 
+  it('parses numberedHeels and theme presets', () => {
+    const params = parseVisualFixtureParams('?fixture=visual&numberedHeels=true&theme=cyberpunk');
+    expect(params.numberedHeels).toBe(true);
+    expect(params.theme).toBe('cyberpunk');
+  });
+
   it('identifies non-fixture search queries', () => {
     const params = parseVisualFixtureParams('?other=123');
     expect(params.isFixture).toBe(false);
@@ -141,6 +147,38 @@ describe('VisualFixture Component Rendering', () => {
     expect(stage).not.toBeNull();
     expect(stage.style.getPropertyValue('--heelslide-track-bg')).toBe('#475569');
     expect(stage.style.getPropertyValue('--heelslide-track-active')).toBe('#10b981');
+
+    act(() => {
+      root.unmount();
+    });
+  });
+
+  it('renders cyberpunk preset with neon theme custom properties', () => {
+    const root = createRoot(container);
+    act(() => {
+      root.render(React.createElement(VisualFixture, { search: '?fixture=visual&theme=cyberpunk' }));
+    });
+
+    const stage = container.querySelector('[data-testid="visual-fixture-stage"]') as HTMLElement;
+    expect(stage).not.toBeNull();
+    expect(stage.style.getPropertyValue('--heelslide-track-bg')).toBe('#0f172a');
+    expect(stage.style.getPropertyValue('--heelslide-track-progress')).toBe('#06b6d4');
+    expect(stage.style.getPropertyValue('--heelslide-target-heel-bg')).toBe('#f43f5e');
+
+    act(() => {
+      root.unmount();
+    });
+  });
+
+  it('renders numbered heels in visual fixture when numberedHeels=true', () => {
+    const root = createRoot(container);
+    act(() => {
+      root.render(React.createElement(VisualFixture, { search: '?fixture=visual&heels=2&numberedHeels=true' }));
+    });
+
+    const heelText = container.querySelector('text.heelslide-heel-text');
+    expect(heelText).not.toBeNull();
+    expect(heelText?.textContent).toBe('1');
 
     act(() => {
       root.unmount();

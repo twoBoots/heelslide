@@ -11,6 +11,86 @@ export interface ThemeConfig {
   heelTextColor?: string;
 }
 
+export type ThemePresetKey = 'clean-slate' | 'cyberpunk' | 'emerald-vault' | 'high-contrast';
+
+export interface ThemePreset {
+  id: ThemePresetKey;
+  name: string;
+  theme: ThemeConfig;
+  numberedHeels?: boolean;
+}
+
+export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
+  'clean-slate': {
+    id: 'clean-slate',
+    name: 'Clean Slate',
+    theme: {
+      trackBg: '#e2e8f0',
+      trackActive: '#3b82f6',
+      handleColor: '#ffffff',
+      heelColor: '#94a3b8',
+      heelBorderColor: 'transparent',
+      targetHeelBg: '#3b82f6',
+      targetHeelBorderColor: '#ffffff',
+      goalBg: '#10b981',
+      goalBorderColor: '#ffffff',
+      heelTextColor: '#475569'
+    },
+    numberedHeels: false
+  },
+  'cyberpunk': {
+    id: 'cyberpunk',
+    name: 'Cyberpunk',
+    theme: {
+      trackBg: '#0f172a',
+      trackActive: '#06b6d4',
+      handleColor: '#f43f5e',
+      heelColor: '#334155',
+      heelBorderColor: '#06b6d4',
+      targetHeelBg: '#f43f5e',
+      targetHeelBorderColor: '#facc15',
+      goalBg: '#eab308',
+      goalBorderColor: '#f43f5e',
+      heelTextColor: '#06b6d4'
+    },
+    numberedHeels: true
+  },
+  'emerald-vault': {
+    id: 'emerald-vault',
+    name: 'Emerald Vault',
+    theme: {
+      trackBg: '#064e3b',
+      trackActive: '#10b981',
+      handleColor: '#34d399',
+      heelColor: '#047857',
+      heelBorderColor: '#a7f3d0',
+      targetHeelBg: '#059669',
+      targetHeelBorderColor: '#fbbf24',
+      goalBg: '#fbbf24',
+      goalBorderColor: '#ffffff',
+      heelTextColor: '#d1fae5'
+    },
+    numberedHeels: true
+  },
+  'high-contrast': {
+    id: 'high-contrast',
+    name: 'High Contrast',
+    theme: {
+      trackBg: '#000000',
+      trackActive: '#ffffff',
+      handleColor: '#ffffff',
+      heelColor: '#000000',
+      heelBorderColor: '#ffffff',
+      targetHeelBg: '#ffffff',
+      targetHeelBorderColor: '#000000',
+      goalBg: '#ffffff',
+      goalBorderColor: '#000000',
+      heelTextColor: '#ffffff'
+    },
+    numberedHeels: true
+  }
+};
+
 export interface PlaygroundConfig {
   heels: number;
   tolerance: number;

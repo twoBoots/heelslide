@@ -164,4 +164,36 @@ describe('Docs Playground App Component', () => {
 
     unmount();
   });
+
+  it('toggles numberedHeels and applies theme presets from ConfigPanel', () => {
+    const { container, unmount } = renderApp();
+
+    // Find numbered heels checkbox
+    const numberedHeelsCheckbox = container.querySelector('#ctrl-numbered-heels') as HTMLInputElement;
+    expect(numberedHeelsCheckbox).not.toBeNull();
+    expect(numberedHeelsCheckbox.checked).toBe(false);
+
+    // Toggle numbered heels
+    act(() => {
+      numberedHeelsCheckbox.click();
+    });
+    expect(numberedHeelsCheckbox.checked).toBe(true);
+    expect(container.querySelector('text.heelslide-heel-text')).not.toBeNull();
+
+    // Find Cyberpunk preset button
+    const cyberpunkBtn = Array.from(container.querySelectorAll('button')).find((b) =>
+      b.textContent?.includes('Cyberpunk')
+    );
+    expect(cyberpunkBtn).toBeDefined();
+
+    act(() => {
+      cyberpunkBtn?.click();
+    });
+
+    // Verify code snippet updated
+    const codePre = container.querySelector('.code-pre')?.textContent;
+    expect(codePre).toContain('#06b6d4');
+
+    unmount();
+  });
 });
