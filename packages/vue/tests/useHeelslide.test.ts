@@ -192,4 +192,32 @@ describe('useHeelslide composable', () => {
     updateGesture(pointerMoveEvent);
     expect(progress.value).toBeCloseTo(0.25, 2);
   });
+
+  describe('Feedback & onTurn integration', () => {
+    it('triggers onTurn callback and haptic feedback when turning corner', () => {
+      const onTurn = vi.fn();
+      const mockVibrate = vi.fn().mockReturnValue(true);
+      Object.defineProperty(globalThis, 'navigator', {
+        value: { vibrate: mockVibrate },
+        configurable: true,
+        writable: true
+      });
+
+      const { startGesture, updateGesture } = useHeelslide({
+        track: customTrack,
+        tolerance: 20,
+        haptics: true,
+        sound: false,
+        onTurn
+      });
+
+      startGesture({ x: 0, y: 50 });
+      // Move to corner and then down into segment 1
+      updateGesture({ x: 100, y: 50 });
+      updateGesture({ x: 100, y: 70 });
+
+      expect(onTurn).toHaveBeenCalledWith(0);
+      expect(mockVibrate).toHaveBeenCalledWith(15);
+    });
+  });
 });

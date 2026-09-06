@@ -3,8 +3,10 @@ import type {
   EngineOptions,
   GeneratorOptions,
   GestureState,
+  HapticOptions,
   HeelCountConfig,
   Point2D,
+  SoundOptions,
   TrackPath
 } from '@heelslide/core';
 import type { ComputedRef, Ref } from 'vue';
@@ -39,6 +41,9 @@ export interface HeelslideProps {
   seed?: number;
   disabled?: boolean;
   ariaLabel?: string;
+  haptics?: boolean | HapticOptions;
+  sound?: boolean | SoundOptions;
+  onTurn?: (heelIndex: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;
@@ -50,4 +55,5 @@ export interface HeelslideEmits {
   (e: 'reset'): void;
   (e: 'progress', progress: number): void;
   (e: 'stateChange', state: GestureState): void;
+  (e: 'turn', heelIndex: number): void;
 }
