@@ -28,7 +28,7 @@
 
 ## Phase 2: Framework Adapters Integration (`packages/react`, `packages/vue`, `packages/svelte`)
 
-- [ ] Task 2.1: React Adapter Integration (`packages/react`)
+- [~] Task 2.1: React Adapter Integration (`packages/react`)
   - [ ] Sub-task: Write component and hook tests for `segmented`, `checkpointTimeoutMs`, `onCheckpoint`, and `data-state="checkpoint"` in `packages/react/tests/` (Red)
   - [ ] Sub-task: Implement prop forwarding and state synchronization in `useHeelslide` and `<Heelslide />` (Green)
   - [ ] Sub-task: Refactor & verify React adapter test coverage >80% (Refactor)
