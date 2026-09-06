@@ -1,10 +1,10 @@
 # Implementation Plan: Automated SemVer Release Pipeline & Package Publishing
 
 Track ID: `automated-release-pipeline`
-Status: `new`
+Status: `in_progress`
 
 ## Phase 1: Tooling Scaffolding, Package Manifests & Configuration
-- [ ] Task 1: Living Capability Spec & Spec Delta Verification
+- [~] Task 1: Living Capability Spec & Spec Delta Verification
   - [ ] Sub-task: Verify living capability specs and spec delta `.cooper/active/automated-release-pipeline/spec-deltas/release-pipeline/spec.md`
 - [ ] Task 2: Release Configuration Validation Tests (Red)
   - [ ] Sub-task: Write unit test suite `tests/release-pipeline.test.ts` verifying Changesets config schema, public package manifests, and root release scripts (Red)
