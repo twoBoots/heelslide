@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   validate:
-    name: Lint, Typecheck & Test
+    name: Lint, Typecheck & Unit Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -70,11 +70,72 @@ jobs:
             npm test
           fi
 
-      - name: Visual Regression Tests (Playwright)
+  visual-regression:
+    name: Visual Regression (Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Check for package.json
+        id: check-pkg
+        run: |
+          if [ -f package.json ]; then
+            echo "has_pkg=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
+            echo "No package.json found; skipping visual regression validation."
+          fi
+
+      - name: Setup Node.js
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Install Dependencies
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Get Playwright Version
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        id: playwright-version
+        run: |
+          echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright Browsers
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright OS Dependencies
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          npx playwright install-deps chromium webkit firefox
+
+      - name: Install Playwright Browsers
+        if: steps.check-pkg.outputs.has_pkg == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install chromium webkit firefox
+
+      - name: Build Packages & Docs
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: |
+          npm run build
+
+      - name: Run Visual Regression Tests (Playwright)
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
           if npm run | grep -q 'test:visual'; then
-            npx playwright install --with-deps chromium webkit firefox
             npm run test:visual
           else
             echo "No test:visual script found in package.json; skipping visual regression tests."
@@ -87,4 +148,5 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
 

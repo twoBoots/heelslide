@@ -8,6 +8,9 @@ All active and completed Cooper tracks are registered below.
 - [x] **Track: Svelte 5 Component Adapter**
   - Worktree: `.worktrees/svelte-adapter`
   - Link: [.cooper/active/svelte-adapter/index.md](.cooper/active/svelte-adapter/index.md)
+- [x] **Track: Playwright CI Browser Caching & Job Parallelization**
+  - Worktree: `.worktrees/playwright-ci-cache`
+  - Link: [.cooper/active/playwright-ci-cache/index.md](.cooper/active/playwright-ci-cache/index.md)
 - [x] **Track: Playwright Visual Regression Testing Suite**
   - Worktree: `.worktrees/visual-regression-testing`
   - Link: [.cooper/active/visual-regression-testing/index.md](.cooper/active/visual-regression-testing/index.md)
