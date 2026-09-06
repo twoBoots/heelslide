@@ -1,0 +1,3 @@
+Task: Task 1: React Adapter Expanded CSS Properties, Heel Theming & Numbered Heels
+Scope: packages/react/src/Heelslide.tsx, packages/react/src/types.ts, packages/react/src/useHeelslide.ts, packages/react/tests/Heelslide.test.tsx
+Summary: Implemented expanded CSS variables for geometry, canonical handle tokens, heel theming, target heel/goal detection, typography tokens, numberedHeels SVG text, and CSS counters.
