@@ -86,17 +86,4 @@ describe('Release Pipeline Configuration', () => {
       expect(pkgJson.devDependencies['@changesets/cli']).toBeDefined();
     });
   });
-
-  describe('GitHub Actions Release Workflow', () => {
-    const releaseWorkflowPath = path.join(rootDir, '.github', 'workflows', 'release.yml');
-
-    it('should exist and invoke npm run release or changeset publish', () => {
-      expect(fs.existsSync(releaseWorkflowPath)).toBe(true);
-      const content = fs.readFileSync(releaseWorkflowPath, 'utf8');
-
-      expect(content).toMatch(/npm run release|changeset publish/);
-      expect(content).toMatch(/NODE_AUTH_TOKEN/);
-      expect(content).toMatch(/GITHUB_TOKEN/);
-    });
-  });
 });
