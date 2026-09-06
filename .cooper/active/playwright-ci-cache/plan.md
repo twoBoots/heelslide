@@ -10,7 +10,7 @@ Status: `in_progress`
 - [x] Task 2: Separate `validate` Job (070a51c)
   - [x] Sub-task: Remove Playwright visual steps and report upload from `validate` job
   - [x] Sub-task: Verify `validate` job focuses purely on lint, typecheck, build, and Vitest coverage
-- [ ] Task 3: Implement Dedicated `visual-regression` Job with Caching
+- [~] Task 3: Implement Dedicated `visual-regression` Job with Caching
   - [ ] Sub-task: Add `visual-regression` parallel job definition in `.github/workflows/ci.yml`
   - [ ] Sub-task: Configure Node 24 setup with npm cache and dependencies installation
   - [ ] Sub-task: Implement Playwright version resolution step
