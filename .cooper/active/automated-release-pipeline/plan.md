@@ -6,7 +6,7 @@ Status: `in_progress`
 ## Phase 1: Tooling Scaffolding, Package Manifests & Configuration
 - [x] Task 1: Living Capability Spec & Spec Delta Verification (b76e161)
   - [x] Sub-task: Verify living capability specs and spec delta `.cooper/active/automated-release-pipeline/spec-deltas/release-pipeline/spec.md`
-- [ ] Task 2: Release Configuration Validation Tests (Red)
+- [~] Task 2: Release Configuration Validation Tests (Red)
   - [ ] Sub-task: Write unit test suite `tests/release-pipeline.test.ts` verifying Changesets config schema, public package manifests, and root release scripts (Red)
 - [ ] Task 3: Changesets Setup, Configuration & Package Manifest Updates (Green & Refactor)
   - [ ] Sub-task: Install `@changesets/cli` and configure `.changeset/config.json` with fixed grouping for all public packages (`@heelslide/core`, `@heelslide/react`, `@heelslide/svelte`, `@heelslide/vue`) and ignore `@heelslide/docs`
