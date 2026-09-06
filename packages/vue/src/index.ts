@@ -5,8 +5,14 @@
 
 export const VERSION = '0.1.0';
 
+import type { DefineComponent } from 'vue';
+import HeelslideComponent from './Heelslide.vue';
+import type { HeelslideEmitsOptions, HeelslideProps } from './types.js';
+
 // Component
-export { default as Heelslide } from './Heelslide.vue';
+export const Heelslide: DefineComponent<HeelslideProps, {}, {}, {}, {}, any, any, HeelslideEmitsOptions> =
+  HeelslideComponent as unknown as DefineComponent<HeelslideProps, {}, {}, {}, {}, any, any, HeelslideEmitsOptions>;
+export default Heelslide;
 
 // Headless Composable
 export { useHeelslide } from './useHeelslide.js';
@@ -15,6 +21,7 @@ export { useHeelslide } from './useHeelslide.js';
 export type {
   HeelslideProps,
   HeelslideEmits,
+  HeelslideEmitsOptions,
   UseHeelslideOptions,
   UseHeelslideReturn
 } from './types.js';
