@@ -19,7 +19,7 @@ Status: `in_progress`
   - [x] Sub-task: Push checkpoint to remote with `git push origin type-exports-parity`
 
 ## Phase 2: Standalone Component Declarations & Consumer Verification
-- [ ] Task 1: Vue Component Explicit Typing
+- [~] Task 1: Vue Component Explicit Typing
   - [ ] Sub-task: Explicitly type `Heelslide` in `packages/vue/src/index.ts` as `DefineComponent<HeelslideProps, ..., HeelslideEmits>`
 - [ ] Task 2: Svelte Component Explicit Typing
   - [ ] Sub-task: Explicitly type `Heelslide` in `packages/svelte/src/index.ts` as `Component<HeelslideProps>`
