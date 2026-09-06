@@ -38,25 +38,31 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     generator,
     track: initialTrack,
     disabled = false,
+    accessible,
+    accessibleFallback = 'stepped',
     onUnlock,
     onReset,
     onProgress,
-    onStateChange
+    onStateChange,
+    onAnnouncement
   } = options;
 
-  const callbacksRef = useRef({ onUnlock, onReset, onProgress, onStateChange });
+  const callbacksRef = useRef({ onUnlock, onReset, onProgress, onStateChange, onAnnouncement });
   useEffect(() => {
-    callbacksRef.current = { onUnlock, onReset, onProgress, onStateChange };
+    callbacksRef.current = { onUnlock, onReset, onProgress, onStateChange, onAnnouncement };
   });
 
   const [state, setState] = useState<GestureState>('idle');
   const [progress, setProgress] = useState<number>(0);
+  const [announcement, setAnnouncement] = useState<string | null>(null);
+  const [isFallbackOpen, setIsFallbackOpen] = useState<boolean>(false);
 
   const engine = useMemo(() => {
     return new HeelslideEngine({
       tolerance,
       generator,
       track: initialTrack,
+      accessible,
       onProgress: (p) => {
         setProgress(p);
         callbacksRef.current.onProgress?.(p);
@@ -73,9 +79,13 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       onStateChange: (s) => {
         setState(s);
         callbacksRef.current.onStateChange?.(s);
+      },
+      onAnnouncement: (ann) => {
+        setAnnouncement(ann.message);
+        callbacksRef.current.onAnnouncement?.(ann);
       }
     });
-  }, [tolerance, generator, initialTrack]);
+  }, [tolerance, generator, initialTrack, accessible]);
 
   const [track, setTrack] = useState<TrackPath>(() => engine.getPath());
 
@@ -83,6 +93,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     setTrack(engine.getPath());
     setState(engine.getState());
     setProgress(engine.getProgress());
+    setAnnouncement(engine.getAccessibleDescription());
   }, [engine]);
 
   // Handle unmount teardown
@@ -102,7 +113,54 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     engine.reset();
     setState('idle');
     setProgress(0);
+    setIsFallbackOpen(false);
   }, [engine]);
+
+  const openFallback = useCallback(() => {
+    setIsFallbackOpen(true);
+  }, []);
+
+  const closeFallback = useCallback(() => {
+    setIsFallbackOpen(false);
+  }, []);
+
+  const confirmFallback = useCallback(() => {
+    setIsFallbackOpen(false);
+    setState('unlocked');
+    setProgress(1);
+    setAnnouncement('Security gate unlocked successfully.');
+    callbacksRef.current.onUnlock?.();
+  }, []);
+
+  const stepForward = useCallback(
+    (amount?: number) => {
+      if (disabled) return progress;
+      const newProgress = engine.stepForward(amount);
+      setProgress(newProgress);
+      setState(engine.getState());
+      return newProgress;
+    },
+    [disabled, engine, progress]
+  );
+
+  const stepBackward = useCallback(
+    (amount?: number) => {
+      if (disabled) return progress;
+      const newProgress = engine.stepBackward(amount);
+      setProgress(newProgress);
+      setState(engine.getState());
+      return newProgress;
+    },
+    [disabled, engine, progress]
+  );
+
+  const stepToNextHeel = useCallback(() => {
+    if (disabled) return progress;
+    const newProgress = engine.stepToNextHeel();
+    setProgress(newProgress);
+    setState(engine.getState());
+    return newProgress;
+  }, [disabled, engine, progress]);
 
   const regenerate = useCallback(
     (overrideOptions?: Partial<GeneratorOptions>) => {
@@ -110,6 +168,8 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       setTrack(newTrack);
       setState('idle');
       setProgress(0);
+      setIsFallbackOpen(false);
+      setAnnouncement(engine.getAccessibleDescription());
     },
     [engine]
   );
@@ -199,19 +259,89 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     [engine]
   );
 
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (disabled) return;
+
+      switch (event.key) {
+        case 'ArrowRight':
+        case 'ArrowDown': {
+          event.preventDefault();
+          stepForward();
+          break;
+        }
+        case 'ArrowLeft':
+        case 'ArrowUp': {
+          event.preventDefault();
+          stepBackward();
+          break;
+        }
+        case 'Home': {
+          event.preventDefault();
+          reset();
+          break;
+        }
+        case 'Escape': {
+          event.preventDefault();
+          if (isFallbackOpen) {
+            closeFallback();
+          } else {
+            reset();
+          }
+          break;
+        }
+        case ' ':
+        case 'Enter': {
+          event.preventDefault();
+          if (isFallbackOpen) {
+            confirmFallback();
+          } else if (state === 'idle' && accessibleFallback === 'dialog') {
+            openFallback();
+          } else if (progress >= 0.95 || state === 'active') {
+            stepForward();
+          }
+          break;
+        }
+        case 'End': {
+          event.preventDefault();
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    [
+      disabled,
+      stepForward,
+      stepBackward,
+      reset,
+      isFallbackOpen,
+      closeFallback,
+      confirmFallback,
+      state,
+      accessibleFallback,
+      openFallback,
+      progress
+    ]
+  );
+
   const getContainerProps = useCallback(
     (): ContainerProps => ({
       onPointerDown: handlePointerDown,
       onPointerMove: handlePointerMove,
       onPointerUp: handlePointerUp,
-      onPointerCancel: handlePointerCancel
+      onPointerCancel: handlePointerCancel,
+      onKeyDown: handleKeyDown,
+      tabIndex: disabled ? -1 : 0
     }),
-    [handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel]
+    [handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel, handleKeyDown, disabled]
   );
 
   const getHandleProps = useCallback(
     (): HandleProps => ({
       onPointerDown: handlePointerDown,
+      onKeyDown: handleKeyDown,
+      tabIndex: disabled ? -1 : 0,
       style: {
         position: 'absolute',
         left: `${handlePosition.x}px`,
@@ -222,7 +352,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
         userSelect: 'none'
       }
     }),
-    [handlePointerDown, handlePosition.x, handlePosition.y, disabled, isDragging]
+    [handlePointerDown, handleKeyDown, handlePosition.x, handlePosition.y, disabled, isDragging]
   );
 
   return {
@@ -231,6 +361,14 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     track,
     handlePosition,
     isDragging,
+    announcement,
+    isFallbackOpen,
+    openFallback,
+    closeFallback,
+    confirmFallback,
+    stepForward,
+    stepBackward,
+    stepToNextHeel,
     regenerate,
     reset,
     getContainerProps,
