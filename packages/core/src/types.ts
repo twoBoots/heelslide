@@ -77,6 +77,8 @@ export interface FeedbackOptions {
 export interface EngineOptions {
   tolerance?: number;
   generator?: GeneratorOptions;
+  initialState?: GestureState;
+  initialProgress?: number;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
   onTurn?: (heelIndex: number) => void;
