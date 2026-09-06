@@ -21,7 +21,7 @@ Status: `in_progress`
 ## Phase 2: Standalone Component Declarations & Consumer Verification
 - [x] Task 1: Vue Component Explicit Typing (7955edd)
   - [x] Sub-task: Explicitly type `Heelslide` in `packages/vue/src/index.ts` as `DefineComponent<HeelslideProps, ..., HeelslideEmits>`
-- [ ] Task 2: Svelte Component Explicit Typing
+- [~] Task 2: Svelte Component Explicit Typing
   - [ ] Sub-task: Explicitly type `Heelslide` in `packages/svelte/src/index.ts` as `Component<HeelslideProps>`
 - [ ] Task 3: Package Builds & Consumer Smoke Test Verification (Green & Refactor)
   - [ ] Sub-task: Rebuild all packages (`npm run build`)
