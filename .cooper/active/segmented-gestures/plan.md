@@ -17,10 +17,10 @@
   - [x] Sub-task: Implement mid-segment snapback in `end()` and `cancel()` (Green)
   - [x] Sub-task: Refactor & verify core state machine test coverage >80% (Refactor)
 
-- [~] Task 1.3: Checkpoint Inactivity Timeout & Engine Integration (`packages/core/src/engine.ts`)
-  - [ ] Sub-task: Write unit tests for `checkpointTimeoutMs` auto-reset to origin and timer cleanup on resumption/destroy (Red)
-  - [ ] Sub-task: Implement inactivity timer in machine/engine and ensure cleanup in `reset()` and `destroy()` (Green)
-  - [ ] Sub-task: Refactor & verify core engine test suite coverage >80% (Refactor)
+- [x] Task 1.3: Checkpoint Inactivity Timeout & Engine Integration (`packages/core/src/engine.ts`) (6b3447a)
+  - [x] Sub-task: Write unit tests for `checkpointTimeoutMs` auto-reset to origin and timer cleanup on resumption/destroy (Red)
+  - [x] Sub-task: Implement inactivity timer in machine/engine and ensure cleanup in `reset()` and `destroy()` (Green)
+  - [x] Sub-task: Refactor & verify core engine test suite coverage >80% (Refactor)
 
 - [ ] Task 1.4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Run Vitest across `packages/core` ensuring all tests pass with >80% coverage
