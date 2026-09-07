@@ -114,4 +114,46 @@ describe('Playground Code Snippet Generator', () => {
     expect(coreSnippet).toContain('segmented: true,');
     expect(coreSnippet).toContain('checkpointTimeoutMs: 2500,');
   });
+
+  it('should generate snippets with expanded geometry and styling CSS custom properties', () => {
+    const expandedThemeConfig: PlaygroundConfig = {
+      ...sampleConfig,
+      theme: {
+        ...sampleConfig.theme,
+        trackWidth: 16,
+        handleSize: 36,
+        handleBorderColor: '#3b82f6',
+        heelRadius: 6,
+        heelPadding: 4,
+        targetHeelScale: 1.25,
+        targetHeelTextColor: '#ffffff'
+      }
+    };
+
+    const reactSnippet = generateCodeSnippet('react', expandedThemeConfig);
+    expect(reactSnippet).toContain("'--heelslide-track-width': '16px'");
+    expect(reactSnippet).toContain("'--heelslide-handle-size': '36px'");
+    expect(reactSnippet).toContain("'--heelslide-handle-border-color': '#3b82f6'");
+    expect(reactSnippet).toContain("'--heelslide-track-heel-radius': '6px'");
+    expect(reactSnippet).toContain("'--heelslide-heel-radius': '6px'");
+    expect(reactSnippet).toContain("'--heelslide-heel-padding': '4px'");
+    expect(reactSnippet).toContain("'--heelslide-target-heel-scale': '1.25'");
+    expect(reactSnippet).toContain("'--heelslide-target-heel-text-color': '#ffffff'");
+
+    const vueSnippet = generateCodeSnippet('vue', expandedThemeConfig);
+    expect(vueSnippet).toContain('--heelslide-track-width: 16px;');
+    expect(vueSnippet).toContain('--heelslide-handle-size: 36px;');
+    expect(vueSnippet).toContain('--heelslide-handle-border-color: #3b82f6;');
+    expect(vueSnippet).toContain('--heelslide-track-heel-radius: 6px;');
+    expect(vueSnippet).toContain('--heelslide-heel-radius: 6px;');
+    expect(vueSnippet).toContain('--heelslide-heel-padding: 4px;');
+    expect(vueSnippet).toContain('--heelslide-target-heel-scale: 1.25;');
+    expect(vueSnippet).toContain('--heelslide-target-heel-text-color: #ffffff;');
+
+    const svelteSnippet = generateCodeSnippet('svelte', expandedThemeConfig);
+    expect(svelteSnippet).toContain('--heelslide-track-width: 16px;');
+    expect(svelteSnippet).toContain('--heelslide-handle-size: 36px;');
+    expect(svelteSnippet).toContain('--heelslide-handle-border-color: #3b82f6;');
+  });
 });
+

@@ -23,6 +23,15 @@ The app MUST allow adjusting expanded CSS custom properties via control inputs a
 - **WHEN** any theme property, preset, or numbered heel option is selected/modified
 - **THEN** the component styles MUST update instantly via the corresponding CSS custom properties.
 
+### Requirement: Expanded CSS Variable Customization Controls
+The playground MUST provide granular sliders and color pickers for all expanded component geometry and theming variables.
+
+- **GIVEN** the theme configuration section in the playground
+- **WHEN** adjusting track width, handle size, heel radius, clearance padding, or target heel scale sliders
+- **THEN** the live simulator container and generated code snippets MUST reflect the corresponding `--heelslide-*` CSS custom properties in real time.
+- **WHEN** picking colors for handle border, heel border, target heel border, goal border, or heel text
+- **THEN** the live simulator container and generated code snippets MUST update with the selected colors.
+
 ### Requirement: Multi-Framework Code Snippets
 The app MUST generate and display copyable code examples matching the current playground parameters across Vanilla JS/TS, React, Vue, and Svelte, adhering to framework-specific style conventions.
 
@@ -32,6 +41,13 @@ The app MUST generate and display copyable code examples matching the current pl
 - **GIVEN** the Svelte framework tab selected in code snippet generator
 - **WHEN** the code snippet is rendered
 - **THEN** it MUST generate a Svelte 5 component with idiomatic `<style>` block encapsulation and lowercase event handlers (`onunlock`, `onreset`).
+
+### Requirement: Documentation Header Version Badge
+The documentation header MUST dynamically display the active version of the Heelslide package suite.
+
+- **GIVEN** the documentation header loaded in the browser
+- **WHEN** the header renders the title group badge
+- **THEN** it MUST display `v` followed by the exported `VERSION` constant from `@heelslide/core`.
 
 ### Requirement: Static Production Bundling
 The app MUST build into a standalone static bundle (`dist/`) suitable for GitHub Pages deployment under the repository subpath.

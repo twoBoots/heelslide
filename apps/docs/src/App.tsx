@@ -34,7 +34,20 @@ export function App() {
       trackBg: '#334155',
       trackActive: '#3b82f6',
       handleColor: '#ffffff',
-      heelColor: '#94a3b8'
+      handleBorderColor: '#3b82f6',
+      heelColor: '#94a3b8',
+      heelBorderColor: '#cbd5e1',
+      targetHeelBg: '#3b82f6',
+      targetHeelBorderColor: '#ffffff',
+      goalBg: '#10b981',
+      goalBorderColor: '#ffffff',
+      heelTextColor: '#475569',
+      targetHeelTextColor: '#ffffff',
+      trackWidth: 12,
+      handleSize: 32,
+      heelRadius: 4,
+      heelPadding: 0,
+      targetHeelScale: 1.1
     }
   });
 

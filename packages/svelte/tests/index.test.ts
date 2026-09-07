@@ -1,8 +1,12 @@
 // @vitest-environment happy-dom
 import { describe, it, expect } from 'vitest';
-import HeelslideDefault, { Heelslide, createHeelslide } from '../src/index.js';
+import HeelslideDefault, { Heelslide, createHeelslide, VERSION } from '../src/index.js';
 
 describe('Public API Exports (@heelslide/svelte)', () => {
+  it('exports package version', () => {
+    expect(VERSION).toBe('0.2.0');
+  });
+
   it('exports Heelslide as default and named export', () => {
     expect(HeelslideDefault).toBeDefined();
     expect(Heelslide).toBeDefined();

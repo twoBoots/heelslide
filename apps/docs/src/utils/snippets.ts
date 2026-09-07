@@ -3,12 +3,19 @@ export interface ThemeConfig {
   trackActive: string;
   handleColor: string;
   heelColor: string;
+  trackWidth?: number;
+  handleSize?: number;
+  handleBorderColor?: string;
+  heelRadius?: number;
+  heelPadding?: number;
   heelBorderColor?: string;
   targetHeelBg?: string;
   targetHeelBorderColor?: string;
+  targetHeelScale?: number;
   goalBg?: string;
   goalBorderColor?: string;
   heelTextColor?: string;
+  targetHeelTextColor?: string;
 }
 
 export type ThemePresetKey = 'clean-slate' | 'cyberpunk' | 'emerald-vault' | 'high-contrast';
@@ -28,13 +35,20 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       trackBg: '#e2e8f0',
       trackActive: '#3b82f6',
       handleColor: '#ffffff',
+      handleBorderColor: '#3b82f6',
       heelColor: '#94a3b8',
       heelBorderColor: 'transparent',
       targetHeelBg: '#3b82f6',
       targetHeelBorderColor: '#ffffff',
       goalBg: '#10b981',
       goalBorderColor: '#ffffff',
-      heelTextColor: '#475569'
+      heelTextColor: '#475569',
+      targetHeelTextColor: '#ffffff',
+      trackWidth: 12,
+      handleSize: 32,
+      heelRadius: 4,
+      heelPadding: 0,
+      targetHeelScale: 1.1
     },
     numberedHeels: false
   },
@@ -45,13 +59,20 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       trackBg: '#0f172a',
       trackActive: '#06b6d4',
       handleColor: '#f43f5e',
+      handleBorderColor: '#facc15',
       heelColor: '#334155',
       heelBorderColor: '#06b6d4',
       targetHeelBg: '#f43f5e',
       targetHeelBorderColor: '#facc15',
       goalBg: '#eab308',
       goalBorderColor: '#f43f5e',
-      heelTextColor: '#06b6d4'
+      heelTextColor: '#06b6d4',
+      targetHeelTextColor: '#ffffff',
+      trackWidth: 14,
+      handleSize: 34,
+      heelRadius: 5,
+      heelPadding: 2,
+      targetHeelScale: 1.25
     },
     numberedHeels: true
   },
@@ -62,13 +83,20 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       trackBg: '#064e3b',
       trackActive: '#10b981',
       handleColor: '#34d399',
+      handleBorderColor: '#a7f3d0',
       heelColor: '#047857',
       heelBorderColor: '#a7f3d0',
       targetHeelBg: '#059669',
       targetHeelBorderColor: '#fbbf24',
       goalBg: '#fbbf24',
       goalBorderColor: '#ffffff',
-      heelTextColor: '#d1fae5'
+      heelTextColor: '#d1fae5',
+      targetHeelTextColor: '#ffffff',
+      trackWidth: 12,
+      handleSize: 32,
+      heelRadius: 4,
+      heelPadding: 2,
+      targetHeelScale: 1.15
     },
     numberedHeels: true
   },
@@ -79,13 +107,20 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       trackBg: '#000000',
       trackActive: '#ffffff',
       handleColor: '#ffffff',
+      handleBorderColor: '#ffffff',
       heelColor: '#000000',
       heelBorderColor: '#ffffff',
       targetHeelBg: '#ffffff',
       targetHeelBorderColor: '#000000',
       goalBg: '#ffffff',
       goalBorderColor: '#000000',
-      heelTextColor: '#ffffff'
+      heelTextColor: '#ffffff',
+      targetHeelTextColor: '#000000',
+      trackWidth: 16,
+      handleSize: 36,
+      heelRadius: 6,
+      heelPadding: 3,
+      targetHeelScale: 1.2
     },
     numberedHeels: true
   }
@@ -118,6 +153,22 @@ function formatReactStyles(theme: ThemeConfig): string {
     `'--heelslide-handle-bg': '${theme.handleColor}'`,
     `'--heelslide-heel-bg': '${theme.heelColor}'`
   ];
+  if (theme.trackWidth !== undefined) {
+    styles.push(`'--heelslide-track-width': '${theme.trackWidth}px'`);
+  }
+  if (theme.handleSize !== undefined) {
+    styles.push(`'--heelslide-handle-size': '${theme.handleSize}px'`);
+  }
+  if (theme.handleBorderColor) {
+    styles.push(`'--heelslide-handle-border-color': '${theme.handleBorderColor}'`);
+  }
+  if (theme.heelRadius !== undefined) {
+    styles.push(`'--heelslide-track-heel-radius': '${theme.heelRadius}px'`);
+    styles.push(`'--heelslide-heel-radius': '${theme.heelRadius}px'`);
+  }
+  if (theme.heelPadding !== undefined) {
+    styles.push(`'--heelslide-heel-padding': '${theme.heelPadding}px'`);
+  }
   if (theme.heelBorderColor) {
     styles.push(`'--heelslide-heel-border-color': '${theme.heelBorderColor}'`);
   }
@@ -127,6 +178,9 @@ function formatReactStyles(theme: ThemeConfig): string {
   if (theme.targetHeelBorderColor) {
     styles.push(`'--heelslide-target-heel-border-color': '${theme.targetHeelBorderColor}'`);
   }
+  if (theme.targetHeelScale !== undefined) {
+    styles.push(`'--heelslide-target-heel-scale': '${theme.targetHeelScale}'`);
+  }
   if (theme.goalBg) {
     styles.push(`'--heelslide-goal-bg': '${theme.goalBg}'`);
   }
@@ -135,6 +189,9 @@ function formatReactStyles(theme: ThemeConfig): string {
   }
   if (theme.heelTextColor) {
     styles.push(`'--heelslide-heel-text-color': '${theme.heelTextColor}'`);
+  }
+  if (theme.targetHeelTextColor) {
+    styles.push(`'--heelslide-target-heel-text-color': '${theme.targetHeelTextColor}'`);
   }
   return styles.map((s) => `        ${s},`).join('\n').replace(/,$/, '');
 }
@@ -146,6 +203,22 @@ function formatCssDeclarations(theme: ThemeConfig): string {
     `  --heelslide-handle-bg: ${theme.handleColor};`,
     `  --heelslide-heel-bg: ${theme.heelColor};`
   ];
+  if (theme.trackWidth !== undefined) {
+    decls.push(`  --heelslide-track-width: ${theme.trackWidth}px;`);
+  }
+  if (theme.handleSize !== undefined) {
+    decls.push(`  --heelslide-handle-size: ${theme.handleSize}px;`);
+  }
+  if (theme.handleBorderColor) {
+    decls.push(`  --heelslide-handle-border-color: ${theme.handleBorderColor};`);
+  }
+  if (theme.heelRadius !== undefined) {
+    decls.push(`  --heelslide-track-heel-radius: ${theme.heelRadius}px;`);
+    decls.push(`  --heelslide-heel-radius: ${theme.heelRadius}px;`);
+  }
+  if (theme.heelPadding !== undefined) {
+    decls.push(`  --heelslide-heel-padding: ${theme.heelPadding}px;`);
+  }
   if (theme.heelBorderColor) {
     decls.push(`  --heelslide-heel-border-color: ${theme.heelBorderColor};`);
   }
@@ -155,6 +228,9 @@ function formatCssDeclarations(theme: ThemeConfig): string {
   if (theme.targetHeelBorderColor) {
     decls.push(`  --heelslide-target-heel-border-color: ${theme.targetHeelBorderColor};`);
   }
+  if (theme.targetHeelScale !== undefined) {
+    decls.push(`  --heelslide-target-heel-scale: ${theme.targetHeelScale};`);
+  }
   if (theme.goalBg) {
     decls.push(`  --heelslide-goal-bg: ${theme.goalBg};`);
   }
@@ -163,6 +239,9 @@ function formatCssDeclarations(theme: ThemeConfig): string {
   }
   if (theme.heelTextColor) {
     decls.push(`  --heelslide-heel-text-color: ${theme.heelTextColor};`);
+  }
+  if (theme.targetHeelTextColor) {
+    decls.push(`  --heelslide-target-heel-text-color: ${theme.targetHeelTextColor};`);
   }
   return decls.join('\n');
 }

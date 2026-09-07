@@ -12,12 +12,12 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
     onChange((prev) => ({ ...prev, [field]: value }));
   };
 
-  const updateTheme = (colorKey: keyof PlaygroundConfig['theme'], colorVal: string) => {
+  const updateTheme = <K extends keyof PlaygroundConfig['theme']>(key: K, val: PlaygroundConfig['theme'][K]) => {
     onChange((prev) => ({
       ...prev,
       theme: {
         ...prev.theme,
-        [colorKey]: colorVal
+        [key]: val
       }
     }));
   };
@@ -284,7 +284,93 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </div>
       </div>
 
-      <div className="color-pickers-row">
+      {/* Geometry & Sizing Sliders */}
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-track-width">Track Width:</label>
+          <span className="control-value">{config.theme.trackWidth ?? 12}px</span>
+        </div>
+        <input
+          id="ctrl-track-width"
+          type="range"
+          min={4}
+          max={24}
+          step={1}
+          value={config.theme.trackWidth ?? 12}
+          onChange={(e) => updateTheme('trackWidth', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-handle-size">Handle Size:</label>
+          <span className="control-value">{config.theme.handleSize ?? 32}px</span>
+        </div>
+        <input
+          id="ctrl-handle-size"
+          type="range"
+          min={20}
+          max={48}
+          step={2}
+          value={config.theme.handleSize ?? 32}
+          onChange={(e) => updateTheme('handleSize', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-heel-radius">Heel Radius:</label>
+          <span className="control-value">{config.theme.heelRadius ?? 4}px</span>
+        </div>
+        <input
+          id="ctrl-heel-radius"
+          type="range"
+          min={2}
+          max={10}
+          step={1}
+          value={config.theme.heelRadius ?? 4}
+          onChange={(e) => updateTheme('heelRadius', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-heel-padding">Clearance Padding:</label>
+          <span className="control-value">{config.theme.heelPadding ?? 0}px</span>
+        </div>
+        <input
+          id="ctrl-heel-padding"
+          type="range"
+          min={0}
+          max={16}
+          step={1}
+          value={config.theme.heelPadding ?? 0}
+          onChange={(e) => updateTheme('heelPadding', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-target-heel-scale">Target Heel Scale:</label>
+          <span className="control-value">{(config.theme.targetHeelScale ?? 1.1).toFixed(2)}x</span>
+        </div>
+        <input
+          id="ctrl-target-heel-scale"
+          type="range"
+          min={1}
+          max={1.5}
+          step={0.05}
+          value={config.theme.targetHeelScale ?? 1.1}
+          onChange={(e) => updateTheme('targetHeelScale', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '1rem' }}>
         <div className="color-field">
           <input
             type="color"
@@ -304,9 +390,11 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             className="color-input"
             aria-label="Track Active Color"
           />
-          <span className="color-text">Active</span>
+          <span className="color-text">Active Track</span>
         </div>
+      </div>
 
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
         <div className="color-field">
           <input
             type="color"
@@ -315,9 +403,22 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             className="color-input"
             aria-label="Handle Color"
           />
-          <span className="color-text">Handle</span>
+          <span className="color-text">Handle BG</span>
         </div>
 
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.handleBorderColor || '#3b82f6'}
+            onChange={(e) => updateTheme('handleBorderColor', e.target.value)}
+            className="color-input"
+            aria-label="Handle Border Color"
+          />
+          <span className="color-text">Handle Border</span>
+        </div>
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
         <div className="color-field">
           <input
             type="color"
@@ -326,7 +427,18 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             className="color-input"
             aria-label="Heel Turn Marker Color"
           />
-          <span className="color-text">Heels</span>
+          <span className="color-text">Heel BG</span>
+        </div>
+
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.heelBorderColor && config.theme.heelBorderColor !== 'transparent' ? config.theme.heelBorderColor : '#cbd5e1'}
+            onChange={(e) => updateTheme('heelBorderColor', e.target.value)}
+            className="color-input"
+            aria-label="Heel Border Color"
+          />
+          <span className="color-text">Heel Border</span>
         </div>
       </div>
 
@@ -345,12 +457,60 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         <div className="color-field">
           <input
             type="color"
+            value={config.theme.targetHeelBorderColor || '#ffffff'}
+            onChange={(e) => updateTheme('targetHeelBorderColor', e.target.value)}
+            className="color-input"
+            aria-label="Target Heel Border Color"
+          />
+          <span className="color-text">Target Border</span>
+        </div>
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
+        <div className="color-field">
+          <input
+            type="color"
             value={config.theme.goalBg || '#10b981'}
             onChange={(e) => updateTheme('goalBg', e.target.value)}
             className="color-input"
             aria-label="Goal Color"
           />
           <span className="color-text">Goal BG</span>
+        </div>
+
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.goalBorderColor || '#ffffff'}
+            onChange={(e) => updateTheme('goalBorderColor', e.target.value)}
+            className="color-input"
+            aria-label="Goal Border Color"
+          />
+          <span className="color-text">Goal Border</span>
+        </div>
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.heelTextColor || '#475569'}
+            onChange={(e) => updateTheme('heelTextColor', e.target.value)}
+            className="color-input"
+            aria-label="Heel Text Color"
+          />
+          <span className="color-text">Heel Text</span>
+        </div>
+
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.targetHeelTextColor || '#ffffff'}
+            onChange={(e) => updateTheme('targetHeelTextColor', e.target.value)}
+            className="color-input"
+            aria-label="Target Heel Text Color"
+          />
+          <span className="color-text">Target Text</span>
         </div>
       </div>
     </div>

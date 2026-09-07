@@ -5,7 +5,7 @@ import { VERSION, Heelslide, useHeelslide } from '../src/index';
 
 describe('@heelslide/vue Public API exports & Integration', () => {
   it('exports package version, Heelslide component, and useHeelslide composable', () => {
-    expect(VERSION).toBe('0.1.0');
+    expect(VERSION).toBe('0.2.0');
     expect(Heelslide).toBeDefined();
     expect(typeof useHeelslide).toBe('function');
   });

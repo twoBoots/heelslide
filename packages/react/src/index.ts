@@ -3,7 +3,7 @@
  * React 18/19 component adapter and headless hook for intentional heelslide gesture security gates.
  */
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 // Presentation Component
 export { Heelslide } from './Heelslide';

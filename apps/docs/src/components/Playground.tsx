@@ -19,12 +19,22 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
     '--heelslide-handle-color': config.theme.handleColor,
     '--heelslide-heel-bg': config.theme.heelColor,
     '--heelslide-heel-color': config.theme.heelColor,
+    ...(config.theme.trackWidth !== undefined ? { '--heelslide-track-width': `${config.theme.trackWidth}px` } : {}),
+    ...(config.theme.handleSize !== undefined ? { '--heelslide-handle-size': `${config.theme.handleSize}px` } : {}),
+    ...(config.theme.handleBorderColor ? { '--heelslide-handle-border-color': config.theme.handleBorderColor } : {}),
+    ...(config.theme.heelRadius !== undefined ? {
+      '--heelslide-track-heel-radius': `${config.theme.heelRadius}px`,
+      '--heelslide-heel-radius': `${config.theme.heelRadius}px`
+    } : {}),
+    ...(config.theme.heelPadding !== undefined ? { '--heelslide-heel-padding': `${config.theme.heelPadding}px` } : {}),
     ...(config.theme.heelBorderColor ? { '--heelslide-heel-border-color': config.theme.heelBorderColor } : {}),
     ...(config.theme.targetHeelBg ? { '--heelslide-target-heel-bg': config.theme.targetHeelBg } : {}),
     ...(config.theme.targetHeelBorderColor ? { '--heelslide-target-heel-border-color': config.theme.targetHeelBorderColor } : {}),
+    ...(config.theme.targetHeelScale !== undefined ? { '--heelslide-target-heel-scale': String(config.theme.targetHeelScale) } : {}),
     ...(config.theme.goalBg ? { '--heelslide-goal-bg': config.theme.goalBg } : {}),
     ...(config.theme.goalBorderColor ? { '--heelslide-goal-border-color': config.theme.goalBorderColor } : {}),
-    ...(config.theme.heelTextColor ? { '--heelslide-heel-text-color': config.theme.heelTextColor } : {})
+    ...(config.theme.heelTextColor ? { '--heelslide-heel-text-color': config.theme.heelTextColor } : {}),
+    ...(config.theme.targetHeelTextColor ? { '--heelslide-target-heel-text-color': config.theme.targetHeelTextColor } : {})
   } as CSSProperties;
 
   return (
