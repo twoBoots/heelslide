@@ -13,6 +13,7 @@ export interface VisualFixtureParams {
   theme: string;
   disabled: boolean;
   progress: number;
+  numberedHeels?: boolean;
 }
 
 export function parseVisualFixtureParams(search: string): VisualFixtureParams {
@@ -63,6 +64,7 @@ export function parseVisualFixtureParams(search: string): VisualFixtureParams {
   const height = isNaN(rawHeight) ? 160 : rawHeight;
 
   const theme = params.get('theme') || 'default';
+  const numberedHeels = params.get('numberedHeels') === 'true';
 
   return {
     isFixture,
@@ -74,7 +76,8 @@ export function parseVisualFixtureParams(search: string): VisualFixtureParams {
     height,
     theme,
     disabled,
-    progress
+    progress,
+    numberedHeels
   };
 }
 
@@ -87,9 +90,78 @@ export function VisualFixture({ search }: VisualFixtureProps) {
   const config = parseVisualFixtureParams(currentSearch);
 
   const getThemeStyles = (): React.CSSProperties => {
+    if (config.theme === 'cyberpunk') {
+      return {
+        '--heelslide-track-bg': '#0f172a',
+        '--heelslide-track-progress': '#06b6d4',
+        '--heelslide-track-active': '#06b6d4',
+        '--heelslide-handle-bg': '#f43f5e',
+        '--heelslide-handle-color': '#f43f5e',
+        '--heelslide-heel-bg': '#334155',
+        '--heelslide-heel-color': '#334155',
+        '--heelslide-target-heel-bg': '#f43f5e',
+        '--heelslide-target-heel-border-color': '#facc15',
+        '--heelslide-goal-bg': '#eab308',
+        '--heelslide-goal-border-color': '#f43f5e',
+        '--heelslide-heel-text-color': '#06b6d4'
+      } as React.CSSProperties;
+    }
+
+    if (config.theme === 'emerald-vault') {
+      return {
+        '--heelslide-track-bg': '#064e3b',
+        '--heelslide-track-progress': '#10b981',
+        '--heelslide-track-active': '#10b981',
+        '--heelslide-handle-bg': '#34d399',
+        '--heelslide-handle-color': '#34d399',
+        '--heelslide-heel-bg': '#047857',
+        '--heelslide-heel-color': '#047857',
+        '--heelslide-target-heel-bg': '#059669',
+        '--heelslide-target-heel-border-color': '#fbbf24',
+        '--heelslide-goal-bg': '#fbbf24',
+        '--heelslide-goal-border-color': '#ffffff',
+        '--heelslide-heel-text-color': '#d1fae5'
+      } as React.CSSProperties;
+    }
+
+    if (config.theme === 'high-contrast') {
+      return {
+        '--heelslide-track-bg': '#000000',
+        '--heelslide-track-progress': '#ffffff',
+        '--heelslide-track-active': '#ffffff',
+        '--heelslide-handle-bg': '#ffffff',
+        '--heelslide-handle-color': '#ffffff',
+        '--heelslide-heel-bg': '#000000',
+        '--heelslide-heel-color': '#000000',
+        '--heelslide-target-heel-bg': '#ffffff',
+        '--heelslide-target-heel-border-color': '#000000',
+        '--heelslide-goal-bg': '#ffffff',
+        '--heelslide-goal-border-color': '#000000',
+        '--heelslide-heel-text-color': '#ffffff'
+      } as React.CSSProperties;
+    }
+
+    if (config.theme === 'clean-slate') {
+      return {
+        '--heelslide-track-bg': '#e2e8f0',
+        '--heelslide-track-progress': '#3b82f6',
+        '--heelslide-track-active': '#3b82f6',
+        '--heelslide-handle-bg': '#ffffff',
+        '--heelslide-handle-color': '#ffffff',
+        '--heelslide-heel-bg': '#94a3b8',
+        '--heelslide-heel-color': '#94a3b8',
+        '--heelslide-target-heel-bg': '#3b82f6',
+        '--heelslide-target-heel-border-color': '#ffffff',
+        '--heelslide-goal-bg': '#10b981',
+        '--heelslide-goal-border-color': '#ffffff',
+        '--heelslide-heel-text-color': '#475569'
+      } as React.CSSProperties;
+    }
+
     if (config.theme === 'custom') {
       return {
         '--heelslide-track-bg': '#475569',
+        '--heelslide-track-progress': '#10b981',
         '--heelslide-track-active': '#10b981',
         '--heelslide-handle-color': '#f59e0b',
         '--heelslide-heel-color': '#ef4444',
@@ -101,6 +173,7 @@ export function VisualFixture({ search }: VisualFixtureProps) {
       return {
         '--heelslide-bg': '#1e293b',
         '--heelslide-track-bg': '#334155',
+        '--heelslide-track-progress': '#38bdf8',
         '--heelslide-track-active': '#38bdf8',
         '--heelslide-handle-color': '#ffffff',
         '--heelslide-heel-color': '#64748b'
@@ -111,7 +184,7 @@ export function VisualFixture({ search }: VisualFixtureProps) {
   };
 
   const themeStyles = getThemeStyles();
-  const isDark = config.theme === 'dark';
+  const isDark = config.theme === 'dark' || config.theme === 'cyberpunk';
 
   return (
     <div
@@ -157,6 +230,7 @@ export function VisualFixture({ search }: VisualFixtureProps) {
           width={config.width}
           height={config.height}
           disabled={config.disabled}
+          numberedHeels={config.numberedHeels}
           initialState={config.state === 'disabled' ? 'idle' : config.state}
           initialProgress={config.progress}
         />

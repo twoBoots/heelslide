@@ -70,6 +70,7 @@ export interface HeelslideProps {
   checkpointTimeoutMs?: number;
   ariaLabel?: string;
   class?: string;
+  numberedHeels?: boolean;
 
   // Feedback options
   haptics?: boolean | HapticOptions;

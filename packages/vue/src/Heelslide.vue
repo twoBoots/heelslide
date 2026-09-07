@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<HeelslideProps>(), {
   gridStep: 24,
   margin: 16,
   disabled: false,
+  numberedHeels: false,
   segmented: false,
   checkpointTimeoutMs: 0,
   ariaLabel: 'Slide to unlock'
@@ -101,6 +102,10 @@ const destinationPoint = computed(() => {
   return track.value.points[track.value.points.length - 1]!;
 });
 
+const isGoalTarget = computed(() => {
+  return track.value.points.length > 0 && currentSegmentIndex.value >= track.value.points.length - 2;
+});
+
 const viewBox = computed(() => {
   return `0 0 ${props.bounds.width} ${props.bounds.height}`;
 });
@@ -184,13 +189,15 @@ defineExpose({
   <div
     ref="containerRef"
     class="heelslide-container"
-    :data-state="state"
     :class="{
       'heelslide-disabled': disabled,
       'heelslide-active': isDragging,
       'heelslide-checkpoint': state === 'checkpoint',
       'heelslide-unlocked': state === 'unlocked'
     }"
+    :data-disabled="disabled"
+    :data-state="state"
+    data-heelslide-container
     :style="{
       '--heelslide-width': `${bounds.width}px`,
       '--heelslide-height': `${bounds.height}px`
@@ -214,20 +221,54 @@ defineExpose({
       />
 
       <!-- Heel turn markers -->
-      <circle
+      <g
         v-for="(marker, index) in heelMarkers"
         :key="`heel-${index}`"
-        class="heelslide-heel-marker"
-        :cx="marker.x"
-        :cy="marker.y"
-      />
+        class="heelslide-heel-group"
+        :class="{
+          'heelslide-target': currentSegmentIndex === index,
+          'heelslide-cleared': currentSegmentIndex > index
+        }"
+        :data-heelslide-heel="index + 1"
+        :data-target="currentSegmentIndex === index ? 'true' : 'false'"
+      >
+        <!-- Clearance buffer ring -->
+        <circle
+          class="heelslide-heel-buffer"
+          :cx="marker.x"
+          :cy="marker.y"
+        />
+        <!-- Heel marker circle -->
+        <circle
+          class="heelslide-heel-marker"
+          :cx="marker.x"
+          :cy="marker.y"
+        />
+        <!-- Numbered heel text label -->
+        <text
+          v-if="numberedHeels"
+          class="heelslide-heel-text"
+          :x="marker.x"
+          :y="marker.y"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          {{ index + 1 }}
+        </text>
+      </g>
 
       <!-- Destination end marker -->
-      <circle
-        class="heelslide-end-marker"
-        :cx="destinationPoint.x"
-        :cy="destinationPoint.y"
-      />
+      <g
+        class="heelslide-goal-group"
+        :class="{ 'heelslide-target': isGoalTarget }"
+        :data-target="isGoalTarget ? 'true' : 'false'"
+      >
+        <circle
+          class="heelslide-end-marker"
+          :cx="destinationPoint.x"
+          :cy="destinationPoint.y"
+        />
+      </g>
 
       <!-- Draggable Handle -->
       <g

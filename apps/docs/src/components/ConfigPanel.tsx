@@ -1,5 +1,5 @@
 import { createFeedbackController } from '@heelslide/core';
-import type { PlaygroundConfig } from '../utils/snippets.js';
+import { THEME_PRESETS, type PlaygroundConfig } from '../utils/snippets.js';
 
 interface ConfigPanelProps {
   config: PlaygroundConfig;
@@ -115,8 +115,8 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         />
       </div>
 
-      {/* Disabled Switch & Regenerate */}
-      <div className="control-group" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+      {/* Disabled Switch, Numbered Heels & Regenerate */}
+      <div className="control-group" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <button
           type="button"
           className="btn btn-outline"
@@ -132,6 +132,15 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             onChange={(e) => updateField('disabled', e.target.checked)}
           />
           Disabled
+        </label>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
+          <input
+            id="ctrl-numbered-heels"
+            type="checkbox"
+            checked={config.numberedHeels ?? false}
+            onChange={(e) => updateField('numberedHeels', e.target.checked)}
+          />
+          Numbered Heels
         </label>
       </div>
 
@@ -249,7 +258,31 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </div>
       </div>
 
-      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>CSS Custom Properties</h3>
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>CSS Custom Properties & Presets</h3>
+
+      {/* Presets buttons */}
+      <div className="control-group" style={{ marginBottom: '1rem' }}>
+        <span className="control-label" style={{ display: 'block', marginBottom: '0.5rem' }}>Design Presets:</span>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          {Object.values(THEME_PRESETS).map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              className="btn btn-outline"
+              onClick={() => {
+                onChange((prev) => ({
+                  ...prev,
+                  theme: { ...preset.theme },
+                  numberedHeels: preset.numberedHeels ?? prev.numberedHeels
+                }));
+              }}
+              style={{ fontSize: '0.8rem', padding: '0.35rem 0.65rem' }}
+            >
+              {preset.name}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="color-pickers-row">
         <div className="color-field">
@@ -294,6 +327,30 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             aria-label="Heel Turn Marker Color"
           />
           <span className="color-text">Heels</span>
+        </div>
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.targetHeelBg || '#3b82f6'}
+            onChange={(e) => updateTheme('targetHeelBg', e.target.value)}
+            className="color-input"
+            aria-label="Target Heel Color"
+          />
+          <span className="color-text">Target Heel</span>
+        </div>
+
+        <div className="color-field">
+          <input
+            type="color"
+            value={config.theme.goalBg || '#10b981'}
+            onChange={(e) => updateTheme('goalBg', e.target.value)}
+            className="color-input"
+            aria-label="Goal Color"
+          />
+          <span className="color-text">Goal BG</span>
         </div>
       </div>
     </div>
