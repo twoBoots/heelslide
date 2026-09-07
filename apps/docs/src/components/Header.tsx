@@ -1,10 +1,12 @@
+import { VERSION } from '@heelslide/core';
+
 export function Header() {
   return (
     <header className="header">
       <div className="header-title-group">
         <h1>
           <span>Heelslide</span>
-          <span className="header-badge">v0.1.0</span>
+          <span className="header-badge">v{VERSION}</span>
         </h1>
         <p className="header-tagline">
           Intentional-gesture security gate component preventing in-pocket and accidental activations

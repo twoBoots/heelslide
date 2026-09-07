@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from '../src/App.js';
+import { VERSION } from '@heelslide/core';
 
 function renderApp() {
   const container = document.createElement('div');
@@ -33,7 +34,7 @@ describe('Docs Playground App Component', () => {
 
     // Check title
     expect(container.querySelector('h1')?.textContent).toContain('Heelslide');
-    expect(container.querySelector('.header-badge')?.textContent).toBe('v0.1.0');
+    expect(container.querySelector('.header-badge')?.textContent).toBe(`v${VERSION}`);
 
     // Check live simulator stage exists
     expect(container.querySelector('.preview-stage')).not.toBeNull();
