@@ -174,7 +174,8 @@ body {
 .status-tag.unlocked { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 .status-tag.reset { background: rgba(239, 68, 68, 0.2); color: #f87171; }
 
-[data-state="checkpoint"] .heelslide-handle-circle {
+[data-state="checkpoint"] .heelslide-handle-circle,
+[data-state="checkpoint"] [data-heelslide-handle] {
   stroke: #f59e0b;
   filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
   transition: stroke 0.2s ease, filter 0.2s ease;

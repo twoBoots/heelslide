@@ -272,7 +272,7 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
               ? 'var(--heelslide-success-color, #10b981)'
               : isDragging
               ? 'var(--heelslide-handle-active-bg, var(--heelslide-handle-bg, #1d4ed8))'
-              : (state as string) === 'checkpoint'
+              : state === 'checkpoint'
               ? 'var(--heelslide-handle-checkpoint-bg, var(--heelslide-handle-active-bg, var(--heelslide-handle-bg, #2563eb)))'
               : 'var(--heelslide-handle-bg, var(--heelslide-slider-bg, var(--heelslide-handle-color, #2563eb)))',
           borderWidth: 'var(--heelslide-handle-border-width, 2px)',
@@ -280,11 +280,16 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
           borderColor:
             state === 'unlocked'
               ? 'var(--heelslide-success-color, #10b981)'
+              : state === 'checkpoint'
+              ? 'var(--heelslide-handle-checkpoint-border-color, var(--heelslide-handle-border-color, #f59e0b))'
               : 'var(--heelslide-handle-border-color, var(--heelslide-slider-border-color, #ffffff))',
           borderRadius: '50%',
-          boxShadow: 'var(--heelslide-handle-shadow, 0 2px 8px rgba(0, 0, 0, 0.15))',
+          boxShadow:
+            state === 'checkpoint'
+              ? 'var(--heelslide-handle-checkpoint-shadow, 0 0 12px rgba(245, 158, 11, 0.6))'
+              : 'var(--heelslide-handle-shadow, 0 2px 8px rgba(0, 0, 0, 0.15))',
           transform:
-            isDragging || (state as string) === 'checkpoint'
+            isDragging || state === 'checkpoint'
               ? `${handleProps.style.transform ?? ''} scale(var(--heelslide-handle-active-scale, 1.05))`
               : handleProps.style.transform,
           display: 'flex',
