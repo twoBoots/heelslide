@@ -44,6 +44,6 @@
 - [x] Task 1: Update Living Capability Specs & README (9d64b92)
   - [x] Sub-task: Merge spec deltas into `.cooper/specs/react-adapter/spec.md`, `.cooper/specs/vue-adapter/spec.md`, `.cooper/specs/svelte-adapter/spec.md`, and `.cooper/specs/docs-playground/spec.md`
   - [x] Sub-task: Update `README.md` CSS variable documentation table with new canonical tokens, heel/target/goal variables, typography properties, and `numberedHeels` guide across React, Vue, and Svelte
-- [ ] Task 2: Final Verification & Review Preparation
-  - [ ] Sub-task: Run comprehensive test, lint, and typecheck suite
-  - [ ] Sub-task: Update track metadata to review-ready
+- [x] Task 2: Final Verification & Review Preparation (0d9bc09)
+  - [x] Sub-task: Run comprehensive test, lint, and typecheck suite
+  - [x] Sub-task: Update track metadata to review-ready

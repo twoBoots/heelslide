@@ -1,7 +1,7 @@
 # Track: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity
 
 - **Track ID:** `expand-css-variables`
-- **Status:** `planned`
+- **Status:** `review-ready`
 - **Capabilities:** `react-adapter`, `vue-adapter`, `svelte-adapter`, `docs-playground`
 
 ## Artifacts
