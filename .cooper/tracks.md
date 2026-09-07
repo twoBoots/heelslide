@@ -5,7 +5,10 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity**
+- [ ] **Track: Dynamic Documentation Version & Package Export Synchronization**
+  - Worktree: `.worktrees/docs-version-sync`
+  - Link: [.cooper/active/docs-version-sync/index.md](.cooper/active/docs-version-sync/index.md)
+- [x] **Track: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity**
   - Worktree: `.worktrees/expand-css-variables`
   - Link: [.cooper/active/expand-css-variables/index.md](.cooper/active/expand-css-variables/index.md)
 - [x] **Track: Automated SemVer Release Pipeline & Package Publishing**
