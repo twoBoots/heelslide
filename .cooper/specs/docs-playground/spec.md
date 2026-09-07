@@ -33,6 +33,13 @@ The app MUST generate and display copyable code examples matching the current pl
 - **WHEN** the code snippet is rendered
 - **THEN** it MUST generate a Svelte 5 component with idiomatic `<style>` block encapsulation and lowercase event handlers (`onunlock`, `onreset`).
 
+### Requirement: Documentation Header Version Badge
+The documentation header MUST dynamically display the active version of the Heelslide package suite.
+
+- **GIVEN** the documentation header loaded in the browser
+- **WHEN** the header renders the title group badge
+- **THEN** it MUST display `v` followed by the exported `VERSION` constant from `@heelslide/core`.
+
 ### Requirement: Static Production Bundling
 The app MUST build into a standalone static bundle (`dist/`) suitable for GitHub Pages deployment under the repository subpath.
 
