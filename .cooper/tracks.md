@@ -5,6 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
+- [x] **Track: Automated SemVer Release Pipeline & Package Publishing**
+  - Worktree: `.worktrees/automated-release-pipeline`
+  - Link: [.cooper/active/automated-release-pipeline/index.md](.cooper/active/automated-release-pipeline/index.md)
 - [x] **Track: Segmented Multi-Gesture Checkpoints** (Implementation Complete - Ready for PR)
   - Worktree: `.worktrees/segmented-gestures`
   - Link: [.cooper/active/segmented-gestures/index.md](.cooper/active/segmented-gestures/index.md)

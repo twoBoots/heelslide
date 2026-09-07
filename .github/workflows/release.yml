@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   packages: write
   id-token: write
 
@@ -41,6 +42,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
 
       - name: Install Dependencies
         if: steps.check-pkg.outputs.has_pkg == 'true'
@@ -55,15 +57,33 @@ jobs:
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: npm run build
 
-      - name: Release & Publish Packages
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
         if: steps.check-pkg.outputs.has_pkg == 'true'
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+          version: npm run version-packages
+          title: "chore(release): Version Packages"
+          commit: "chore(release): Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Pack & Upload Release Tarballs
+        if: steps.check-pkg.outputs.has_pkg == 'true' && steps.changesets.outputs.published == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Automated SemVer release via npm / changesets
-          if npm run | grep -q 'release'; then
-            npm run release
-          else
-            echo "No release script configured in package.json; skipping automated release."
-          fi
+          mkdir -p dist-tarballs
+          npm pack --workspace=packages/core --pack-destination dist-tarballs/
+          npm pack --workspace=packages/react --pack-destination dist-tarballs/
+          npm pack --workspace=packages/svelte --pack-destination dist-tarballs/
+          npm pack --workspace=packages/vue --pack-destination dist-tarballs/
+
+          echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | .name + "@" + .version' | while read -r tag; do
+            if [ -n "$tag" ]; then
+              echo "Uploading tarball assets to GitHub Release for $tag..."
+              gh release upload "$tag" dist-tarballs/*.tgz --clobber || true
+            fi
+          done
