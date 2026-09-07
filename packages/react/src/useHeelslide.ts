@@ -40,16 +40,19 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     disabled = false,
     haptics,
     sound,
+    segmented,
+    checkpointTimeoutMs,
     onTurn,
+    onCheckpoint,
     onUnlock,
     onReset,
     onProgress,
     onStateChange
   } = options;
 
-  const callbacksRef = useRef({ onTurn, onUnlock, onReset, onProgress, onStateChange });
+  const callbacksRef = useRef({ onTurn, onCheckpoint, onUnlock, onReset, onProgress, onStateChange });
   useEffect(() => {
-    callbacksRef.current = { onTurn, onUnlock, onReset, onProgress, onStateChange };
+    callbacksRef.current = { onTurn, onCheckpoint, onUnlock, onReset, onProgress, onStateChange };
   });
 
   const [state, setState] = useState<GestureState>(() => options.initialState ?? 'idle');
@@ -66,8 +69,13 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       initialProgress: options.initialProgress,
       haptics,
       sound,
+      segmented,
+      checkpointTimeoutMs,
       onTurn: (heelIndex) => {
         callbacksRef.current.onTurn?.(heelIndex);
+      },
+      onCheckpoint: (heelIndex, p) => {
+        callbacksRef.current.onCheckpoint?.(heelIndex, p);
       },
       onProgress: (p) => {
         setProgress(p);
@@ -87,7 +95,7 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
         callbacksRef.current.onStateChange?.(s);
       }
     });
-  }, [tolerance, generator, initialTrack, options.initialState, options.initialProgress]);
+  }, [tolerance, generator, initialTrack, options.initialState, options.initialProgress, segmented, checkpointTimeoutMs]);
 
   const [track, setTrack] = useState<TrackPath>(() => engine.getPath());
 

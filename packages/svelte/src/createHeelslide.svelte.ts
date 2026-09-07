@@ -39,6 +39,10 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     onTurn: (heelIndex) => {
       options.onTurn?.(heelIndex);
     },
+    onCheckpoint: (heelIndex, progress) => {
+      syncFromEngine();
+      options.onCheckpoint?.(heelIndex, progress);
+    },
     onUnlock: () => {
       syncFromEngine();
       options.onUnlock?.();
@@ -68,6 +72,8 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     currentSegmentIndex = engine.getCurrentSegmentIndex();
     if (state === 'idle' || state === 'reset') {
       lastPoint = { ...track.points[0]! };
+    } else if (state === 'checkpoint') {
+      lastPoint = { ...track.points[currentSegmentIndex]! };
     } else if (state === 'unlocked') {
       lastPoint = { ...track.points[track.points.length - 1]! };
     }
@@ -81,6 +87,9 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
   const handlePosition = $derived.by<Point2D>(() => {
     if (state === 'idle' || state === 'reset') {
       return track.points[0]!;
+    }
+    if (state === 'checkpoint') {
+      return track.points[currentSegmentIndex] ?? lastPoint;
     }
     if (state === 'unlocked') {
       return track.points[track.points.length - 1]!;

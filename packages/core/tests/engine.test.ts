@@ -224,5 +224,121 @@ describe('HeelslideEngine Orchestrator & Public API', () => {
       expect(destroySpy).toHaveBeenCalled();
     });
   });
+
+  describe('Segmented Mode & Inactivity Timeout', () => {
+    it('automatically resets to origin when checkpointTimeoutMs expires', () => {
+      vi.useFakeTimers();
+      const onReset = vi.fn();
+      const onStateChange = vi.fn();
+
+      const engine = new HeelslideEngine({
+        segmented: true,
+        checkpointTimeoutMs: 2000,
+        onReset,
+        onStateChange,
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        }
+      });
+
+      const path = engine.getPath();
+      const startPoint = path.points[0]!;
+      const heelPoint = path.points[1]!;
+
+      // Advance to first heel and release
+      engine.startGesture(startPoint);
+      engine.updateGesture(heelPoint);
+      engine.endGesture();
+
+      expect(engine.getState()).toBe('checkpoint');
+      expect(engine.getProgress()).toBeGreaterThan(0);
+
+      // Fast forward 1500ms -> should still be at checkpoint
+      vi.advanceTimersByTime(1500);
+      expect(engine.getState()).toBe('checkpoint');
+      expect(onReset).not.toHaveBeenCalled();
+
+      // Fast forward remaining 500ms -> timeout expires
+      vi.advanceTimersByTime(500);
+      expect(engine.getState()).toBe('idle');
+      expect(engine.getProgress()).toBe(0);
+      expect(onReset).toHaveBeenCalledTimes(1);
+
+      vi.useRealTimers();
+    });
+
+    it('cancels checkpoint timeout when user resumes gesture before expiry', () => {
+      vi.useFakeTimers();
+      const onReset = vi.fn();
+
+      const engine = new HeelslideEngine({
+        segmented: true,
+        checkpointTimeoutMs: 2000,
+        onReset,
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        }
+      });
+
+      const path = engine.getPath();
+      const startPoint = path.points[0]!;
+      const heelPoint = path.points[1]!;
+
+      engine.startGesture(startPoint);
+      engine.updateGesture(heelPoint);
+      engine.endGesture();
+      expect(engine.getState()).toBe('checkpoint');
+
+      // Advance 1000ms, then resume gesture
+      vi.advanceTimersByTime(1000);
+      const resumed = engine.startGesture(heelPoint);
+      expect(resumed).toBe(true);
+      expect(engine.getState()).toBe('active');
+
+      // Advance another 2000ms -> should NOT reset because gesture was resumed
+      vi.advanceTimersByTime(2000);
+      expect(engine.getState()).toBe('active');
+      expect(onReset).not.toHaveBeenCalled();
+
+      vi.useRealTimers();
+    });
+
+    it('clears checkpoint timeout on destroy() and reset()', () => {
+      vi.useFakeTimers();
+      const onReset = vi.fn();
+
+      const engine = new HeelslideEngine({
+        segmented: true,
+        checkpointTimeoutMs: 2000,
+        onReset,
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        }
+      });
+
+      const path = engine.getPath();
+      const startPoint = path.points[0]!;
+      const heelPoint = path.points[1]!;
+
+      engine.startGesture(startPoint);
+      engine.updateGesture(heelPoint);
+      engine.endGesture();
+      expect(engine.getState()).toBe('checkpoint');
+
+      engine.destroy();
+
+      // Advancing time should not fire onReset
+      vi.advanceTimersByTime(3000);
+      expect(onReset).not.toHaveBeenCalled();
+
+      vi.useRealTimers();
+    });
+  });
 });
 

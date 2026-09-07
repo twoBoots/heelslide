@@ -281,4 +281,51 @@ describe('<Heelslide /> Pointer Interactions & Lifecycle', () => {
       expect(mockVibrate).toHaveBeenCalledWith(15);
     });
   });
+
+  describe('Segmented Multi-Gesture Support', () => {
+    it('supports segmented prop, emits checkpoint, and unlocks after multi-gesture sequence', async () => {
+      const onCheckpoint = vi.fn();
+
+      const wrapper = mount(Heelslide, {
+        props: {
+          track: customTrack,
+          tolerance: 20,
+          segmented: true,
+          onCheckpoint
+        }
+      });
+
+      const container = wrapper.element as HTMLElement;
+      mockContainerRect(container);
+
+      const handle = wrapper.find('.heelslide-handle');
+      const handleEl = handle.element as HTMLElement;
+      handleEl.setPointerCapture = vi.fn();
+      handleEl.releasePointerCapture = vi.fn();
+
+      // Gesture 1: Start at origin (0, 50), drag to heel (100, 50), and release
+      dispatchPointer(handleEl, 'pointerdown', { clientX: 0, clientY: 50, pointerId: 1 });
+      dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 50, pointerId: 1 });
+      dispatchPointer(handleEl, 'pointerup', { clientX: 100, clientY: 50, pointerId: 1 });
+
+      expect(wrapper.emitted('checkpoint')).toBeTruthy();
+      expect(wrapper.emitted('checkpoint')?.[0]).toEqual([{ heelIndex: 0, progress: 0.5 }]);
+      expect(onCheckpoint).toHaveBeenCalledWith(0, 0.5);
+
+      await wrapper.vm.$nextTick();
+      expect(container.getAttribute('data-state')).toBe('checkpoint');
+
+      // Gesture 2: Re-engage at heel (100, 50), drag to endpoint (100, 150), and release
+      dispatchPointer(handleEl, 'pointerdown', { clientX: 100, clientY: 50, pointerId: 2 });
+      await wrapper.vm.$nextTick();
+      expect(container.getAttribute('data-state')).toBe('active');
+
+      dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 150, pointerId: 2 });
+      dispatchPointer(handleEl, 'pointerup', { clientX: 100, clientY: 150, pointerId: 2 });
+
+      expect(wrapper.emitted('unlock')).toBeTruthy();
+      await wrapper.vm.$nextTick();
+      expect(container.getAttribute('data-state')).toBe('unlocked');
+    });
+  });
 });

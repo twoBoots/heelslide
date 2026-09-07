@@ -170,8 +170,15 @@ body {
 
 .status-tag.idle { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
 .status-tag.active { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.status-tag.checkpoint { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 .status-tag.unlocked { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 .status-tag.reset { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+[data-state="checkpoint"] .heelslide-handle-circle {
+  stroke: #f59e0b;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
+  transition: stroke 0.2s ease, filter 0.2s ease;
+}
 
 .status-dot {
   width: 6px;

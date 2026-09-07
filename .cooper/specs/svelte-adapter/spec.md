@@ -82,3 +82,17 @@ The composable and component MUST support turn callbacks (`onturn` / `onTurn`) w
 - **GIVEN** `<Heelslide onturn={handleTurn} />` or `<Heelslide onTurn={handleTurn} />`
 - **WHEN** a heel vertex is navigated during active dragging
 - **THEN** `onturn(heelIndex)` and `onTurn(heelIndex)` MUST be invoked with the completed heel index.
+
+## Capability: Segmented Multi-Gesture Support
+
+### Requirement: Segmented Props & Callbacks
+The Svelte `<Heelslide />` component and composable MUST support `segmented`, `checkpointTimeoutMs`, and `oncheckpoint`/`onCheckpoint` callbacks.
+
+- **GIVEN** `<Heelslide segmented={true} checkpointTimeoutMs={3000} oncheckpoint={onCheckpoint} />`
+- **WHEN** mounted and interacted with
+- **THEN** segmented behavior MUST be enforced and the `oncheckpoint` callback invoked upon reaching and releasing at heel vertices.
+
+### Requirement: Checkpoint State Synchronization
+- **GIVEN** an active gesture pausing at a heel in segmented mode
+- **WHEN** pointer release occurs
+- **THEN** the root container element MUST reflect `data-state="checkpoint"` and `.heelslide-checkpoint`.

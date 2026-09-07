@@ -25,6 +25,8 @@ export function App() {
     margin: 16,
     seed: 12345,
     disabled: false,
+    segmented: false,
+    checkpointTimeoutMs: 0,
     haptics: true,
     sound: true,
     soundVolume: 0.3,
