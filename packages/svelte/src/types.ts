@@ -1,4 +1,6 @@
 import type {
+  Bounds,
+  Direction,
   EngineOptions,
   FeedbackOptions,
   GeneratorOptions,
@@ -7,12 +9,16 @@ import type {
   HapticPatterns,
   HeelCountConfig,
   Point2D,
+  ProjectedPoint,
+  Segment,
   SoundFrequencies,
   SoundOptions,
   TrackPath
 } from '@heelslide/core';
 
 export type {
+  Bounds,
+  Direction,
   EngineOptions,
   FeedbackOptions,
   GeneratorOptions,
@@ -21,6 +27,8 @@ export type {
   HapticPatterns,
   HeelCountConfig,
   Point2D,
+  ProjectedPoint,
+  Segment,
   SoundFrequencies,
   SoundOptions,
   TrackPath

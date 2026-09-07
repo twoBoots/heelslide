@@ -8,6 +8,9 @@ All active and completed Cooper tracks are registered below.
 - [x] **Track: Segmented Multi-Gesture Checkpoints** (Implementation Complete - Ready for PR)
   - Worktree: `.worktrees/segmented-gestures`
   - Link: [.cooper/active/segmented-gestures/index.md](.cooper/active/segmented-gestures/index.md)
+- [x] **Track: Type Export Parity & Self-Contained Component Declarations**
+  - Worktree: `.worktrees/type-exports-parity`
+  - Link: [.cooper/active/type-exports-parity/index.md](.cooper/active/type-exports-parity/index.md)
 
 ## Completed Archive
 - [x] **Track: Svelte 5 Component Adapter**

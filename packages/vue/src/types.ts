@@ -61,3 +61,12 @@ export interface HeelslideEmits {
   (e: 'turn', heelIndex: number): void;
   (e: 'checkpoint', payload: { heelIndex: number; progress: number }): void;
 }
+
+export type HeelslideEmitsOptions = {
+  unlock: () => void;
+  reset: () => void;
+  progress: (progress: number) => void;
+  stateChange: (state: GestureState) => void;
+  turn: (heelIndex: number) => void;
+  checkpoint: (payload: { heelIndex: number; progress: number }) => void;
+};
