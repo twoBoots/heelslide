@@ -14,12 +14,16 @@ let {
   margin = 16,
   seed,
   disabled = false,
+  segmented = false,
+  checkpointTimeoutMs = 0,
   ariaLabel = 'Slide to unlock',
   class: customClass = '',
   haptics,
   sound,
   onturn,
   onTurn,
+  oncheckpoint,
+  onCheckpoint,
   onunlock,
   onreset,
   onprogress,
@@ -39,6 +43,8 @@ const heelslide = createHeelslide({
   track: propTrack,
   tolerance,
   disabled,
+  segmented,
+  checkpointTimeoutMs,
   haptics,
   sound,
   generator: {
@@ -52,6 +58,10 @@ const heelslide = createHeelslide({
   onTurn: (heelIndex) => {
     onturn?.(heelIndex);
     onTurn?.(heelIndex);
+  },
+  onCheckpoint: (heelIndex, progress) => {
+    oncheckpoint?.(heelIndex, progress);
+    onCheckpoint?.(heelIndex, progress);
   },
   onUnlock: () => {
     onunlock?.();
@@ -179,7 +189,7 @@ export function getHeelslide() {
 
 <div
   bind:this={containerRef}
-  class="heelslide-container {customClass} {disabled ? 'heelslide-disabled' : ''} {heelslide.isDragging ? 'heelslide-active' : ''} {heelslide.state === 'unlocked' ? 'heelslide-unlocked' : ''}"
+  class="heelslide-container {customClass} {disabled ? 'heelslide-disabled' : ''} {heelslide.isDragging ? 'heelslide-active' : ''} {heelslide.state === 'checkpoint' ? 'heelslide-checkpoint' : ''} {heelslide.state === 'unlocked' ? 'heelslide-unlocked' : ''}"
   data-disabled={disabled}
   data-state={heelslide.state}
   data-heelslide-container

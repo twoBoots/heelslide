@@ -255,4 +255,41 @@ describe('createHeelslide rune composable', () => {
 
     slider.destroy();
   });
+
+  it('supports segmented mode with checkpoint transitions and handle repositioning', () => {
+    const onCheckpoint = vi.fn();
+    const slider = createHeelslide({
+      track: customTrack,
+      tolerance: 20,
+      segmented: true,
+      onCheckpoint
+    });
+
+    // Gesture 1: Drag to first heel
+    expect(slider.startGesture({ x: 0, y: 50 })).toBe(true);
+    expect(slider.state).toBe('active');
+    expect(slider.isDragging).toBe(true);
+
+    slider.updateGesture({ x: 100, y: 50 });
+    slider.endGesture();
+
+    expect(slider.state).toBe('checkpoint');
+    expect(slider.isDragging).toBe(false);
+    expect(slider.progress).toBe(0.5);
+    expect(slider.handlePosition).toEqual({ x: 100, y: 50 });
+    expect(onCheckpoint).toHaveBeenCalledWith(0, 0.5);
+
+    // Gesture 2: Resume from heel to finish
+    expect(slider.startGesture({ x: 100, y: 50 })).toBe(true);
+    expect(slider.state).toBe('active');
+    expect(slider.isDragging).toBe(true);
+
+    slider.updateGesture({ x: 100, y: 150 });
+    slider.endGesture();
+
+    expect(slider.state).toBe('unlocked');
+    expect(slider.isDragging).toBe(false);
+    expect(slider.progress).toBe(1);
+    expect(slider.handlePosition).toEqual({ x: 100, y: 150 });
+  });
 });

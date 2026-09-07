@@ -22,6 +22,8 @@ export type {
 
 // Re-export key core types for convenience
 export type {
+  Bounds,
+  Direction,
   GestureState,
   Point2D,
   Segment,

@@ -158,4 +158,39 @@ describe('Docs Playground App Component', () => {
 
     unmount();
   });
+
+  it('renders segmented mode controls and updates checkpoint timeout', () => {
+    const { container, unmount } = renderApp();
+
+    const segmentedToggle = container.querySelector('#ctrl-segmented') as HTMLInputElement;
+    expect(segmentedToggle).not.toBeNull();
+    expect(segmentedToggle.checked).toBe(false);
+
+    // Timeout slider should not be visible when segmented is unchecked
+    expect(container.querySelector('#ctrl-checkpoint-timeout')).toBeNull();
+
+    // Check segmented mode
+    act(() => {
+      segmentedToggle.click();
+    });
+
+    expect(segmentedToggle.checked).toBe(true);
+
+    // Timeout slider should now be rendered
+    const timeoutInput = container.querySelector('#ctrl-checkpoint-timeout') as HTMLInputElement;
+    expect(timeoutInput).not.toBeNull();
+    expect(container.textContent).toContain('Disabled');
+
+    // Change timeout value
+    const valueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+    act(() => {
+      valueSetter?.call(timeoutInput, '2000');
+      timeoutInput.dispatchEvent(new Event('input', { bubbles: true }));
+      timeoutInput.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('2000ms');
+
+    unmount();
+  });
 });

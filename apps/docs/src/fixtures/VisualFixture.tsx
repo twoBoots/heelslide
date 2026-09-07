@@ -33,6 +33,9 @@ export function parseVisualFixtureParams(search: string): VisualFixtureParams {
   } else if (rawState === 'active') {
     state = 'active';
     progress = 0.5;
+  } else if (rawState === 'checkpoint') {
+    state = 'checkpoint';
+    progress = 0.5;
   } else if (rawState === 'unlocked') {
     state = 'unlocked';
     progress = 1.0;

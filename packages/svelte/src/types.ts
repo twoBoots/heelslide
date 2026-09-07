@@ -1,4 +1,6 @@
 import type {
+  Bounds,
+  Direction,
   EngineOptions,
   FeedbackOptions,
   GeneratorOptions,
@@ -7,12 +9,16 @@ import type {
   HapticPatterns,
   HeelCountConfig,
   Point2D,
+  ProjectedPoint,
+  Segment,
   SoundFrequencies,
   SoundOptions,
   TrackPath
 } from '@heelslide/core';
 
 export type {
+  Bounds,
+  Direction,
   EngineOptions,
   FeedbackOptions,
   GeneratorOptions,
@@ -21,6 +27,8 @@ export type {
   HapticPatterns,
   HeelCountConfig,
   Point2D,
+  ProjectedPoint,
+  Segment,
   SoundFrequencies,
   SoundOptions,
   TrackPath
@@ -58,6 +66,8 @@ export interface HeelslideProps {
   margin?: number;
   seed?: number;
   disabled?: boolean;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   ariaLabel?: string;
   class?: string;
 
@@ -68,6 +78,10 @@ export interface HeelslideProps {
   // Turn Callbacks
   onturn?: (heelIndex: number) => void;
   onTurn?: (heelIndex: number) => void;
+
+  // Checkpoint Callbacks
+  oncheckpoint?: (heelIndex: number, progress: number) => void;
+  onCheckpoint?: (heelIndex: number, progress: number) => void;
 
   // Svelte 5 Standard Lowercase Event Props
   onunlock?: () => void;

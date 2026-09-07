@@ -12,6 +12,8 @@ const props = withDefaults(defineProps<HeelslideProps>(), {
   gridStep: 24,
   margin: 16,
   disabled: false,
+  segmented: false,
+  checkpointTimeoutMs: 0,
   ariaLabel: 'Slide to unlock'
 });
 
@@ -37,6 +39,8 @@ const {
 } = useHeelslide({
   track: props.track,
   tolerance: props.tolerance,
+  segmented: props.segmented,
+  checkpointTimeoutMs: props.checkpointTimeoutMs,
   generator: {
     bounds: props.bounds,
     gridStep: props.gridStep,
@@ -50,6 +54,10 @@ const {
   onTurn: (heelIndex) => {
     emit('turn', heelIndex);
     props.onTurn?.(heelIndex);
+  },
+  onCheckpoint: (heelIndex, p) => {
+    emit('checkpoint', { heelIndex, progress: p });
+    props.onCheckpoint?.(heelIndex, p);
   },
   onUnlock: () => {
     emit('unlock');
@@ -176,9 +184,11 @@ defineExpose({
   <div
     ref="containerRef"
     class="heelslide-container"
+    :data-state="state"
     :class="{
       'heelslide-disabled': disabled,
       'heelslide-active': isDragging,
+      'heelslide-checkpoint': state === 'checkpoint',
       'heelslide-unlocked': state === 'unlocked'
     }"
     :style="{

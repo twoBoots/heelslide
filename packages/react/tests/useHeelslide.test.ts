@@ -522,5 +522,74 @@ describe('useHeelslide Hook', () => {
       unmount();
     });
   });
+
+  describe('Segmented Multi-Gesture Support', () => {
+    it('supports segmented: true, clamps at heel and transitions to checkpoint on pointer up', () => {
+      const onCheckpoint = vi.fn();
+      const { result, unmount } = renderTestHook({
+        generator: {
+          bounds: { width: 300, height: 150 },
+          heels: 1,
+          seed: 42
+        },
+        tolerance: 30,
+        segmented: true,
+        onCheckpoint
+      });
+
+      const startPt = result.current.track.points[0]!;
+      const heelPt = result.current.track.points[1]!;
+
+      const mockTarget = {
+        setPointerCapture: vi.fn(),
+        releasePointerCapture: vi.fn(),
+        getBoundingClientRect: () => ({
+          left: 0,
+          top: 0,
+          width: 300,
+          height: 150
+        })
+      };
+
+      // Pointer down at start
+      act(() => {
+        result.current.getContainerProps().onPointerDown({
+          pointerId: 1,
+          clientX: startPt.x,
+          clientY: startPt.y,
+          currentTarget: mockTarget,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+      expect(result.current.state).toBe('active');
+
+      // Pointer move to heel
+      act(() => {
+        result.current.getContainerProps().onPointerMove({
+          pointerId: 1,
+          clientX: heelPt.x,
+          clientY: heelPt.y,
+          currentTarget: mockTarget,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+
+      // Pointer up at heel
+      act(() => {
+        result.current.getContainerProps().onPointerUp({
+          pointerId: 1,
+          clientX: heelPt.x,
+          clientY: heelPt.y,
+          currentTarget: mockTarget,
+          preventDefault: vi.fn()
+        } as unknown as React.PointerEvent);
+      });
+
+      expect(result.current.state).toBe('checkpoint');
+      expect(onCheckpoint).toHaveBeenCalledWith(0, expect.any(Number));
+
+      unmount();
+    });
+  });
 });
 

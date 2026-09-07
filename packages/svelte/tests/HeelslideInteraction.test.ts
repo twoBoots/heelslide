@@ -296,4 +296,56 @@ describe('<Heelslide /> Pointer Interactions & Lifecycle', () => {
     expect(onTurn).toHaveBeenCalledWith(0);
     expect(mockVibrate).toHaveBeenCalledWith(15);
   });
+
+  describe('Segmented Multi-Gesture Support', () => {
+    it('supports segmented mode, calls oncheckpoint, and completes across multiple gestures', () => {
+      const oncheckpoint = vi.fn();
+      const onCheckpoint = vi.fn();
+      const onunlock = vi.fn();
+
+      component = mount(Heelslide, {
+        target,
+        props: {
+          track: customTrack,
+          tolerance: 20,
+          segmented: true,
+          oncheckpoint,
+          onCheckpoint,
+          onunlock
+        }
+      });
+
+      const container = target.querySelector('.heelslide-container') as HTMLElement;
+      mockContainerRect(container);
+
+      const handleEl = target.querySelector('.heelslide-handle') as HTMLElement;
+      handleEl.setPointerCapture = vi.fn();
+      handleEl.releasePointerCapture = vi.fn();
+
+      // Gesture 1: Start at origin (0, 50), drag to heel (100, 50), release
+      dispatchPointer(handleEl, 'pointerdown', { clientX: 0, clientY: 50, pointerId: 1 });
+      flushSync();
+      dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 50, pointerId: 1 });
+      flushSync();
+      dispatchPointer(handleEl, 'pointerup', { clientX: 100, clientY: 50, pointerId: 1 });
+      flushSync();
+
+      expect(oncheckpoint).toHaveBeenCalledWith(0, 0.5);
+      expect(onCheckpoint).toHaveBeenCalledWith(0, 0.5);
+      expect(container.getAttribute('data-state')).toBe('checkpoint');
+
+      // Gesture 2: Re-engage at heel (100, 50), drag to end (100, 150), release
+      dispatchPointer(handleEl, 'pointerdown', { clientX: 100, clientY: 50, pointerId: 2 });
+      flushSync();
+      expect(container.getAttribute('data-state')).toBe('active');
+
+      dispatchPointer(handleEl, 'pointermove', { clientX: 100, clientY: 150, pointerId: 2 });
+      flushSync();
+      dispatchPointer(handleEl, 'pointerup', { clientX: 100, clientY: 150, pointerId: 2 });
+      flushSync();
+
+      expect(onunlock).toHaveBeenCalled();
+      expect(container.getAttribute('data-state')).toBe('unlocked');
+    });
+  });
 });
