@@ -3,7 +3,7 @@ import { Heelslide, useHeelslide, getPointAtProgress, VERSION } from '../src/ind
 
 describe('Heelslide React barrel exports', () => {
   it('should export the current package version', () => {
-    expect(VERSION).toBe('0.1.0');
+    expect(VERSION).toBe('0.2.0');
   });
 
   it('should export Heelslide component and useHeelslide hook', () => {

@@ -3,7 +3,7 @@
  * Vue 3 component and headless composable for intentional-gesture security gates.
  */
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 import type { DefineComponent } from 'vue';
 import HeelslideComponent from './Heelslide.vue';
