@@ -16,19 +16,22 @@ The app MUST provide interactive controls adjusting heel count, tolerance, dimen
 - **WHEN** the user selects a different heel count (e.g., 1 to 4) or tolerance value
 - **THEN** the track MUST regenerate immediately reflecting the chosen parameters.
 
-### Requirement: Real-time Theme Customisation
-The app MUST allow adjusting CSS custom properties (`--heelslide-*`) via color pickers or presets with instant visual feedback.
+### Requirement: Real-time Theme Customisation & Design Presets
+The app MUST allow adjusting expanded CSS custom properties via control inputs and selecting curated design presets with instant visual feedback.
 
-- **GIVEN** theme color inputs in the playground
-- **WHEN** a custom color is selected
-- **THEN** the component styles MUST update instantly via inline CSS variables.
+- **GIVEN** expanded theme controls in the playground (including track width, handle size, heel background/borders, target heel background/border, target goal background/border, heel typography, numbered heels toggle, and curated presets such as Clean Slate, Cyberpunk, Emerald Vault, High Contrast)
+- **WHEN** any theme property, preset, or numbered heel option is selected/modified
+- **THEN** the component styles MUST update instantly via the corresponding CSS custom properties.
 
 ### Requirement: Multi-Framework Code Snippets
-The app MUST generate and display copyable code examples matching the current playground parameters across Vanilla JS/TS, React, and Vue.
+The app MUST generate and display copyable code examples matching the current playground parameters across Vanilla JS/TS, React, Vue, and Svelte, adhering to framework-specific style conventions.
 
-- **GIVEN** selected playground options
-- **WHEN** switching framework tabs (React, Vue, Core)
-- **THEN** the displayed snippet MUST reflect the active heel count, tolerance, and event handlers.
+- **GIVEN** the Vue framework tab selected in code snippet generator
+- **WHEN** the code snippet is rendered
+- **THEN** it MUST encapsulate component CSS custom property configurations within an idiomatic `<style scoped>` block with `.security-gate` rather than inline `:style` object attributes, including `numberedHeels` and heel theming if enabled.
+- **GIVEN** the Svelte framework tab selected in code snippet generator
+- **WHEN** the code snippet is rendered
+- **THEN** it MUST generate a Svelte 5 component with idiomatic `<style>` block encapsulation and lowercase event handlers (`onunlock`, `onreset`).
 
 ### Requirement: Static Production Bundling
 The app MUST build into a standalone static bundle (`dist/`) suitable for GitHub Pages deployment under the repository subpath.

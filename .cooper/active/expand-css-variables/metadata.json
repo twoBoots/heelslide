@@ -1,0 +1,14 @@
+{
+  "id": "expand-css-variables",
+  "name": "Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity",
+  "type": "feature",
+  "status": "review-ready",
+  "createdAt": "2026-09-06T14:55:00+10:00",
+  "worktree": ".worktrees/expand-css-variables",
+  "capabilities": [
+    "react-adapter",
+    "vue-adapter",
+    "svelte-adapter",
+    "docs-playground"
+  ]
+}

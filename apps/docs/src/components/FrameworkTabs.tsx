@@ -41,6 +41,13 @@ export function FrameworkTabs({ config }: FrameworkTabsProps) {
         </button>
         <button
           type="button"
+          className={`tab-btn ${activeTab === 'svelte' ? 'active' : ''}`}
+          onClick={() => setActiveTab('svelte')}
+        >
+          Svelte 5 (@heelslide/svelte)
+        </button>
+        <button
+          type="button"
           className={`tab-btn ${activeTab === 'core' ? 'active' : ''}`}
           onClick={() => setActiveTab('core')}
         >
@@ -53,6 +60,7 @@ export function FrameworkTabs({ config }: FrameworkTabsProps) {
           <span>
             {activeTab === 'react' && 'SecurityGate.tsx'}
             {activeTab === 'vue' && 'SecurityGate.vue'}
+            {activeTab === 'svelte' && 'SecurityGate.svelte'}
             {activeTab === 'core' && 'security-gate.ts'}
           </span>
           <button type="button" onClick={handleCopy} className="copy-btn">

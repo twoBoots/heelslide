@@ -76,7 +76,7 @@ describe('Docs Playground App Component', () => {
     const { container, unmount } = renderApp();
 
     const tabButtons = container.querySelectorAll('.tab-btn');
-    expect(tabButtons.length).toBe(3);
+    expect(tabButtons.length).toBe(4);
 
     // Initial is React
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/react';");
@@ -87,9 +87,15 @@ describe('Docs Playground App Component', () => {
     });
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/vue';");
 
-    // Click Core tab
+    // Click Svelte tab
     act(() => {
       (tabButtons[2] as HTMLButtonElement).click();
+    });
+    expect(container.querySelector('.code-pre')?.textContent).toContain("import { Heelslide } from '@heelslide/svelte';");
+
+    // Click Core tab
+    act(() => {
+      (tabButtons[3] as HTMLButtonElement).click();
     });
     expect(container.querySelector('.code-pre')?.textContent).toContain("import { HeelslideEngine } from '@heelslide/core';");
 
@@ -155,6 +161,38 @@ describe('Docs Playground App Component', () => {
       testResetBtn.click();
       testUnlockBtn.click();
     });
+
+    unmount();
+  });
+
+  it('toggles numberedHeels and applies theme presets from ConfigPanel', () => {
+    const { container, unmount } = renderApp();
+
+    // Find numbered heels checkbox
+    const numberedHeelsCheckbox = container.querySelector('#ctrl-numbered-heels') as HTMLInputElement;
+    expect(numberedHeelsCheckbox).not.toBeNull();
+    expect(numberedHeelsCheckbox.checked).toBe(false);
+
+    // Toggle numbered heels
+    act(() => {
+      numberedHeelsCheckbox.click();
+    });
+    expect(numberedHeelsCheckbox.checked).toBe(true);
+    expect(container.querySelector('text.heelslide-heel-text')).not.toBeNull();
+
+    // Find Cyberpunk preset button
+    const cyberpunkBtn = Array.from(container.querySelectorAll('button')).find((b) =>
+      b.textContent?.includes('Cyberpunk')
+    );
+    expect(cyberpunkBtn).toBeDefined();
+
+    act(() => {
+      cyberpunkBtn?.click();
+    });
+
+    // Verify code snippet updated
+    const codePre = container.querySelector('.code-pre')?.textContent;
+    expect(codePre).toContain('#06b6d4');
 
     unmount();
   });

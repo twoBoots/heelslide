@@ -5,16 +5,43 @@
   --heelslide-track-progress: #3b82f6;
   --heelslide-track-width: 12px;
   --heelslide-track-cap: round;
+  --heelslide-track-start-radius: var(--heelslide-start-radius, 6px);
+  --heelslide-track-end-radius: var(--heelslide-end-radius, 6px);
+  --heelslide-track-heel-radius: var(--heelslide-heel-radius, 4px);
+  --heelslide-heel-radius: 4px;
+  --heelslide-heel-padding: 0px;
   --heelslide-handle-radius: 18px;
   --heelslide-handle-color: #ffffff;
   --heelslide-handle-border-color: #3b82f6;
   --heelslide-handle-border-width: 2px;
+  --heelslide-handle-bg: var(--heelslide-slider-bg, var(--heelslide-handle-color, #ffffff));
+  --heelslide-handle-active-scale: 1.05;
+  --heelslide-handle-active-bg: var(--heelslide-handle-bg);
+  --heelslide-handle-checkpoint-bg: var(--heelslide-handle-active-bg);
   --heelslide-heel-color: #94a3b8;
-  --heelslide-heel-radius: 4px;
+  --heelslide-heel-bg: var(--heelslide-heel-color, #94a3b8);
+  --heelslide-heel-border-color: transparent;
+  --heelslide-heel-border-width: 0px;
+  --heelslide-heel-completed-color: var(--heelslide-track-progress, #3b82f6);
+  --heelslide-target-heel-bg: var(--heelslide-heel-bg, var(--heelslide-track-progress, #3b82f6));
+  --heelslide-target-heel-border-color: #ffffff;
+  --heelslide-target-heel-border-width: 2px;
+  --heelslide-target-heel-scale: 1.1;
   --heelslide-end-color: #10b981;
   --heelslide-end-radius: 6px;
+  --heelslide-goal-bg: var(--heelslide-end-color, #10b981);
+  --heelslide-goal-border-color: transparent;
+  --heelslide-goal-border-width: 0px;
+  --heelslide-heel-font-family: system-ui, -apple-system, sans-serif;
+  --heelslide-heel-font-size: 10px;
+  --heelslide-heel-font-weight: 600;
+  --heelslide-heel-text-color: var(--heelslide-heel-color, #475569);
+  --heelslide-target-heel-text-color: #ffffff;
+  --heelslide-success-color: #10b981;
+  --heelslide-error-color: #ef4444;
   --heelslide-cursor: grab;
   --heelslide-cursor-active: grabbing;
+  counter-reset: heelslide-heel;
 
   position: relative;
   display: inline-block;
@@ -55,16 +82,70 @@
   transition: stroke 0.15s ease;
 }
 
+.heelslide-heel-group {
+  counter-increment: heelslide-heel;
+}
+
+.heelslide-heel-buffer {
+  fill: none;
+  stroke: var(--heelslide-track-bg);
+  stroke-width: var(--heelslide-heel-padding);
+  pointer-events: none;
+}
+
 .heelslide-heel-marker {
-  fill: var(--heelslide-heel-color);
-  r: var(--heelslide-heel-radius);
+  fill: var(--heelslide-heel-bg);
+  stroke: var(--heelslide-heel-border-color);
+  stroke-width: var(--heelslide-heel-border-width);
+  r: var(--heelslide-track-heel-radius);
+  pointer-events: none;
+  transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
+}
+
+.heelslide-heel-group.heelslide-target .heelslide-heel-marker,
+.heelslide-heel-group[data-target="true"] .heelslide-heel-marker {
+  fill: var(--heelslide-target-heel-bg);
+  stroke: var(--heelslide-target-heel-border-color);
+  stroke-width: var(--heelslide-target-heel-border-width);
+  transform-origin: center;
+  transform: scale(var(--heelslide-target-heel-scale));
+}
+
+.heelslide-heel-group.heelslide-cleared .heelslide-heel-marker {
+  fill: var(--heelslide-heel-completed-color);
+}
+
+.heelslide-heel-text {
+  font-family: var(--heelslide-heel-font-family);
+  font-size: var(--heelslide-heel-font-size);
+  font-weight: var(--heelslide-heel-font-weight);
+  fill: var(--heelslide-heel-text-color);
+  pointer-events: none;
+  user-select: none;
+}
+
+.heelslide-heel-group.heelslide-target .heelslide-heel-text,
+.heelslide-heel-group[data-target="true"] .heelslide-heel-text {
+  fill: var(--heelslide-target-heel-text-color);
+}
+
+.heelslide-goal-group {
   pointer-events: none;
 }
 
 .heelslide-end-marker {
-  fill: var(--heelslide-end-color);
-  r: var(--heelslide-end-radius);
+  fill: var(--heelslide-goal-bg);
+  stroke: var(--heelslide-goal-border-color);
+  stroke-width: var(--heelslide-goal-border-width);
+  r: var(--heelslide-track-end-radius);
   pointer-events: none;
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.heelslide-goal-group.heelslide-target .heelslide-end-marker,
+.heelslide-goal-group[data-target="true"] .heelslide-end-marker {
+  stroke: var(--heelslide-goal-border-color, #ffffff);
+  stroke-width: var(--heelslide-goal-border-width, 2px);
 }
 
 .heelslide-handle {
@@ -79,7 +160,25 @@
 
 .heelslide-handle-circle {
   r: var(--heelslide-handle-radius);
-  fill: var(--heelslide-handle-color);
+  fill: var(--heelslide-handle-bg);
   stroke: var(--heelslide-handle-border-color);
   stroke-width: var(--heelslide-handle-border-width);
+  transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
+}
+
+.heelslide-container.heelslide-active .heelslide-handle-circle {
+  fill: var(--heelslide-handle-active-bg);
+  transform-origin: center;
+  transform: scale(var(--heelslide-handle-active-scale));
+}
+
+.heelslide-container[data-state="checkpoint"] .heelslide-handle-circle {
+  fill: var(--heelslide-handle-checkpoint-bg);
+  filter: drop-shadow(0 0 6px var(--heelslide-track-progress));
+}
+
+.heelslide-container.heelslide-unlocked .heelslide-handle-circle,
+.heelslide-container[data-state="unlocked"] .heelslide-handle-circle {
+  fill: var(--heelslide-success-color);
+  stroke: var(--heelslide-success-color);
 }

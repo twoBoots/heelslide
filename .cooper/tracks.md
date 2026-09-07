@@ -5,6 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
+- [ ] **Track: Expanded CSS Custom Properties, Heel Theming & Svelte/Vue/React Parity**
+  - Worktree: `.worktrees/expand-css-variables`
+  - Link: [.cooper/active/expand-css-variables/index.md](.cooper/active/expand-css-variables/index.md)
 - [x] **Track: Segmented Multi-Gesture Checkpoints** (Implementation Complete - Ready for PR)
   - Worktree: `.worktrees/segmented-gestures`
   - Link: [.cooper/active/segmented-gestures/index.md](.cooper/active/segmented-gestures/index.md)
