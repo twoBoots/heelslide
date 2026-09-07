@@ -232,4 +232,45 @@ describe('Docs Playground App Component', () => {
 
     unmount();
   });
+
+  it('renders expanded geometry sliders and color pickers and updates container style and code snippet', () => {
+    const { container, unmount } = renderApp();
+
+    // Check sliders exist
+    const trackWidthInput = container.querySelector('#ctrl-track-width') as HTMLInputElement;
+    const handleSizeInput = container.querySelector('#ctrl-handle-size') as HTMLInputElement;
+    const heelRadiusInput = container.querySelector('#ctrl-heel-radius') as HTMLInputElement;
+    const heelPaddingInput = container.querySelector('#ctrl-heel-padding') as HTMLInputElement;
+    const targetHeelScaleInput = container.querySelector('#ctrl-target-heel-scale') as HTMLInputElement;
+
+    expect(trackWidthInput).not.toBeNull();
+    expect(handleSizeInput).not.toBeNull();
+    expect(heelRadiusInput).not.toBeNull();
+    expect(heelPaddingInput).not.toBeNull();
+    expect(targetHeelScaleInput).not.toBeNull();
+
+    // Check color pickers exist
+    expect(container.querySelector('input[aria-label="Handle Border Color"]')).not.toBeNull();
+    expect(container.querySelector('input[aria-label="Heel Border Color"]')).not.toBeNull();
+    expect(container.querySelector('input[aria-label="Target Heel Border Color"]')).not.toBeNull();
+    expect(container.querySelector('input[aria-label="Goal Border Color"]')).not.toBeNull();
+    expect(container.querySelector('input[aria-label="Heel Text Color"]')).not.toBeNull();
+
+    // Update track width slider
+    const valueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+    act(() => {
+      valueSetter?.call(trackWidthInput, '18');
+      trackWidthInput.dispatchEvent(new Event('input', { bubbles: true }));
+      trackWidthInput.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('18px');
+
+    // Verify code snippet updated
+    const codePre = container.querySelector('.code-pre')?.textContent;
+    expect(codePre).toContain("'--heelslide-track-width': '18px'");
+
+    unmount();
+  });
 });
+
