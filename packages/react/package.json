@@ -1,6 +1,6 @@
 {
   "name": "@heelslide/react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React 18/19 component adapter and headless hook for intentional heelslide gesture security gates.",
   "type": "module",
   "main": "./dist/index.cjs",
