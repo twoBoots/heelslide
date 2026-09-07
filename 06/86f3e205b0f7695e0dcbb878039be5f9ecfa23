@@ -1,0 +1,3 @@
+Task: Changesets Setup, Configuration & Package Manifest Updates
+Scope: .changeset/config.json, package.json, package-lock.json, packages/*/package.json
+Summary: Installed @changesets/cli, configured fixed versioning for all public packages (@heelslide/core, @heelslide/react, @heelslide/svelte, @heelslide/vue), added publishConfig with public access, and added changeset lifecycle scripts.

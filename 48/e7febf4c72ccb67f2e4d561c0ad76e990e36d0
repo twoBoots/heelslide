@@ -1,0 +1,3 @@
+Task: Task 1: Vue and Svelte Code Snippets with Scoped Style Blocks
+Scope: apps/docs/src/utils/snippets.ts, apps/docs/src/components/FrameworkTabs.tsx, apps/docs/tests/generatorSnippet.test.ts, apps/docs/tests/App.test.tsx
+Summary: Implemented Vue SFC <style scoped> and Svelte SFC <style> code snippet generation with expanded CSS custom properties and numberedHeels support.

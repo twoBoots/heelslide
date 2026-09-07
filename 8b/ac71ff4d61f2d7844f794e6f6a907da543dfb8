@@ -1,0 +1,3 @@
+Task: Task 2.1: React Adapter Integration
+Scope: packages/react/src/types.ts, packages/react/src/useHeelslide.ts, packages/react/src/Heelslide.tsx, packages/react/tests/Heelslide.test.tsx, packages/react/tests/useHeelslide.test.ts, vitest.config.ts
+Summary: Added segmented, checkpointTimeoutMs, and onCheckpoint props to React component and useHeelslide hook, synced data-state="checkpoint", and added full test coverage.

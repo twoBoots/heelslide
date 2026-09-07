@@ -1,0 +1,3 @@
+Task: Initial Release Changeset Generation & Packaging Verification
+Scope: .changeset/initial-release-setup.md, apps/docs/package.json
+Summary: Created initial changeset for @heelslide/* packages, harmonized apps/docs workspace dependencies, verified changeset status and npm pack dry-run.

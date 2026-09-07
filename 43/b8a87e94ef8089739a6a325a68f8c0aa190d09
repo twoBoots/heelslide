@@ -1,0 +1,3 @@
+Task: Release Configuration Validation Tests (Red)
+Scope: tests/release-pipeline.test.ts, vitest.config.ts
+Summary: Authored unit tests asserting Changesets config, package manifests, and root release scripts (10 failing tests as expected in Red phase).

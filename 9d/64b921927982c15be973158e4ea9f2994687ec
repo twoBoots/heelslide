@@ -1,0 +1,3 @@
+Task: Task 1: Update Living Capability Specs & README
+Scope: .cooper/specs/react-adapter/spec.md, .cooper/specs/vue-adapter/spec.md, .cooper/specs/svelte-adapter/spec.md, .cooper/specs/docs-playground/spec.md, README.md
+Summary: Reconciled living capability specs across all adapters and docs playground with spec deltas; updated README.md with comprehensive CSS custom properties table and numberedHeels guide across React, Vue, and Svelte.

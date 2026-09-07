@@ -1,0 +1,3 @@
+Task: Task 1.2: Checkpoint Clamping, Resumption & Snapback
+Scope: packages/core/src/machine.ts, packages/core/src/engine.ts, packages/core/tests/machine.test.ts
+Summary: Implemented movement clamping at heel corner vertices in segmented mode, release transition to 'checkpoint' state with onCheckpoint callback, handle re-engagement from checkpoints, and mid-segment snapback to the last confirmed heel checkpoint.

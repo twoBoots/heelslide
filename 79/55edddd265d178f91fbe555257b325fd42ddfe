@@ -1,0 +1,3 @@
+Task: Vue Component Explicit Typing
+Scope: packages/vue/src/index.ts, packages/vue/src/types.ts
+Summary: Replaced unbundled SFC re-export with explicit DefineComponent typing for Heelslide, providing self-contained .d.ts emission without consumer ambient shims.

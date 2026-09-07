@@ -1,0 +1,3 @@
+Task: Living Capability Specs & Spec Deltas Verification
+Scope: .cooper/specs/{react-adapter,vue-adapter,svelte-adapter}/spec.md, spec-deltas/
+Summary: Verified alignment across all three framework adapter living specs and drafted spec deltas.

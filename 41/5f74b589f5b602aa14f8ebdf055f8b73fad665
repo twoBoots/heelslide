@@ -1,0 +1,3 @@
+Task: Task 2.2: Vue Adapter Integration
+Scope: packages/vue/src/types.ts, packages/vue/src/useHeelslide.ts, packages/vue/src/Heelslide.vue, packages/vue/tests/HeelslideInteraction.test.ts
+Summary: Added segmented and checkpointTimeoutMs props, checkpoint emit, onCheckpoint callback, and data-state="checkpoint" container attribute to Vue adapter with passing interaction tests.

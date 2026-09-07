@@ -1,0 +1,3 @@
+Task: Task 1.3: Checkpoint Inactivity Timeout & Engine Integration
+Scope: packages/core/tests/engine.test.ts
+Summary: Verified and tested automatic reset to origin upon checkpointTimeoutMs expiration, cancellation of inactivity timer upon gesture resumption, and timer cleanup on engine.destroy() and reset().
