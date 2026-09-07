@@ -12,8 +12,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@heelslide/core": "file:../../packages/core",
-    "@heelslide/react": "file:../../packages/react",
+    "@heelslide/core": "*",
+    "@heelslide/react": "*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
