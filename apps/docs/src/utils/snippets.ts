@@ -100,6 +100,8 @@ export interface PlaygroundConfig {
   margin: number;
   seed?: number;
   disabled: boolean;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   haptics: boolean;
   sound: boolean;
   soundVolume: number;
@@ -166,11 +168,13 @@ function formatCssDeclarations(theme: ThemeConfig): string {
 }
 
 export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundConfig): string {
-  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, haptics, sound, numberedHeels, theme } = config;
+  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, segmented, checkpointTimeoutMs, haptics, sound, numberedHeels, theme } = config;
 
   if (target === 'react') {
     const seedAttr = seed !== undefined ? `\n        seed={${seed}}` : '';
     const disabledAttr = disabled ? '\n        disabled={true}' : '';
+    const segmentedAttr = segmented ? '\n        segmented={true}' : '';
+    const timeoutAttr = segmented && checkpointTimeoutMs ? `\n        checkpointTimeoutMs={${checkpointTimeoutMs}}` : '';
     const hapticsAttr = haptics ? '\n        haptics={true}' : '';
     const soundAttr = sound ? '\n        sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n        numberedHeels={true}' : '';
@@ -193,7 +197,7 @@ ${formatReactStyles(theme)}
         width={${width}}
         height={${height}}
         gridStep={${gridStep}}
-        margin={${margin}}${seedAttr}${disabledAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+        margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
         onUnlock={handleUnlock}
         onReset={() => console.log('Reset')}
       />
@@ -205,6 +209,8 @@ ${formatReactStyles(theme)}
   if (target === 'vue') {
     const seedAttr = seed !== undefined ? `\n      :seed="${seed}"` : '';
     const disabledAttr = disabled ? '\n      :disabled="true"' : '';
+    const segmentedAttr = segmented ? '\n      :segmented="true"' : '';
+    const timeoutAttr = segmented && checkpointTimeoutMs ? `\n      :checkpoint-timeout-ms="${checkpointTimeoutMs}"` : '';
     const hapticsAttr = haptics ? '\n      :haptics="true"' : '';
     const soundAttr = sound ? '\n      :sound="true"' : '';
     const numberedHeelsAttr = numberedHeels ? '\n      :numbered-heels="true"' : '';
@@ -224,7 +230,7 @@ function onUnlock() {
       :tolerance="${tolerance}"
       :bounds="{ width: ${width}, height: ${height} }"
       :grid-step="${gridStep}"
-      :margin="${margin}"${seedAttr}${disabledAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+      :margin="${margin}"${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
       @unlock="onUnlock"
       @reset="() => console.log('Reset')"
     />
@@ -241,6 +247,8 @@ ${formatCssDeclarations(theme)}
   if (target === 'svelte') {
     const seedAttr = seed !== undefined ? `\n    seed={${seed}}` : '';
     const disabledAttr = disabled ? '\n    disabled={true}' : '';
+    const segmentedAttr = segmented ? '\n    segmented={true}' : '';
+    const timeoutAttr = segmented && checkpointTimeoutMs ? `\n    checkpointTimeoutMs={${checkpointTimeoutMs}}` : '';
     const hapticsAttr = haptics ? '\n    haptics={true}' : '';
     const soundAttr = sound ? '\n    sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n    numberedHeels={true}' : '';
@@ -259,7 +267,7 @@ function onUnlock() {
     tolerance={${tolerance}}
     bounds={{ width: ${width}, height: ${height} }}
     gridStep={${gridStep}}
-    margin={${margin}}${seedAttr}${disabledAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+    margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
     onunlock={onUnlock}
     onreset={() => console.log('Reset')}
   />
@@ -274,6 +282,8 @@ ${formatCssDeclarations(theme)}
 
   // Core Vanilla
   const seedField = seed !== undefined ? `\n    seed: ${seed},` : '';
+  const segmentedField = segmented ? '\n  segmented: true,' : '';
+  const timeoutField = segmented && checkpointTimeoutMs ? `\n  checkpointTimeoutMs: ${checkpointTimeoutMs},` : '';
   const hapticsField = haptics ? '\n  haptics: true,' : '';
   const soundField = sound ? '\n  sound: true,' : '';
   return `import { HeelslideEngine } from '@heelslide/core';
@@ -285,7 +295,7 @@ const engine = new HeelslideEngine({
     gridStep: ${gridStep},
     margin: ${margin},
     heels: ${heels},${seedField}
-  },${hapticsField}${soundField}
+  },${segmentedField}${timeoutField}${hapticsField}${soundField}
   onUnlock: () => {
     console.log('Intent confirmed: Unlocked!');
   },

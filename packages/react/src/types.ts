@@ -48,7 +48,10 @@ export interface HeelslideProps {
   initialProgress?: number;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   onTurn?: (heelIndex: number) => void;
+  onCheckpoint?: (heelIndex: number, progress: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;

@@ -40,11 +40,14 @@ export interface HeelslideProps {
   margin?: number;
   seed?: number;
   disabled?: boolean;
+  segmented?: boolean;
+  checkpointTimeoutMs?: number;
   ariaLabel?: string;
   haptics?: boolean | HapticOptions;
   sound?: boolean | SoundOptions;
   numberedHeels?: boolean;
   onTurn?: (heelIndex: number) => void;
+  onCheckpoint?: (heelIndex: number, progress: number) => void;
   onUnlock?: () => void;
   onReset?: () => void;
   onProgress?: (progress: number) => void;
@@ -57,6 +60,7 @@ export interface HeelslideEmits {
   (e: 'progress', progress: number): void;
   (e: 'stateChange', state: GestureState): void;
   (e: 'turn', heelIndex: number): void;
+  (e: 'checkpoint', payload: { heelIndex: number; progress: number }): void;
 }
 
 export type HeelslideEmitsOptions = {
@@ -65,4 +69,5 @@ export type HeelslideEmitsOptions = {
   progress: (progress: number) => void;
   stateChange: (state: GestureState) => void;
   turn: (heelIndex: number) => void;
+  checkpoint: (payload: { heelIndex: number; progress: number }) => void;
 };

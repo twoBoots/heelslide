@@ -144,6 +144,42 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </label>
       </div>
 
+      {/* Multi-Gesture & Checkpoint Controls */}
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Multi-Gesture & Checkpoints</h3>
+
+      <div className="control-group">
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
+          <input
+            id="ctrl-segmented"
+            type="checkbox"
+            checked={!!config.segmented}
+            onChange={(e) => updateField('segmented', e.target.checked)}
+          />
+          Segmented Mode (Release at each heel)
+        </label>
+      </div>
+
+      {config.segmented && (
+        <div className="control-group">
+          <div className="control-label-row">
+            <label className="control-label" htmlFor="ctrl-checkpoint-timeout">Checkpoint Inactivity Timeout:</label>
+            <span className="control-value">
+              {config.checkpointTimeoutMs ? `${config.checkpointTimeoutMs}ms` : 'Disabled'}
+            </span>
+          </div>
+          <input
+            id="ctrl-checkpoint-timeout"
+            type="range"
+            min={0}
+            max={5000}
+            step={500}
+            value={config.checkpointTimeoutMs ?? 0}
+            onChange={(e) => updateField('checkpointTimeoutMs', Number(e.target.value))}
+            className="slider-input"
+          />
+        </div>
+      )}
+
       {/* Feedback & Audio Settings */}
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Feedback & Sound FX</h3>
 

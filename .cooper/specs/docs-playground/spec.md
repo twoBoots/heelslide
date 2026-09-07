@@ -62,3 +62,12 @@ The visual fixture MUST support rendering specific interaction states (`idle`, `
 - **GIVEN** the visual fixture URL containing state parameters (e.g., `?fixture=visual&state=disabled` or `?fixture=visual&state=unlocked`)
 - **WHEN** the page is rendered
 - **THEN** the `<Heelslide />` component MUST mount directly in the requested state reflecting corresponding handle positions, visual indicators, or CSS variable overrides.
+
+## Capability: Segmented Gesture Demonstration
+
+### Requirement: Interactive Segmented Configurator Controls
+The documentation playground MUST provide controls to toggle segmented multi-gesture mode and set optional checkpoint timeout.
+
+- **GIVEN** the interactive configurator in `apps/docs`
+- **WHEN** the user enables the "Segmented Mode" checkbox
+- **THEN** the live preview component MUST switch to segmented multi-gesture behavior and visually guide the user to lift and re-engage at heels.

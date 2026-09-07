@@ -42,6 +42,8 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
             seed={config.seed}
             disabled={config.disabled}
             numberedHeels={config.numberedHeels}
+            segmented={config.segmented}
+            checkpointTimeoutMs={config.checkpointTimeoutMs}
             haptics={config.haptics}
             sound={config.sound ? { volume: config.soundVolume } : false}
             onStateChange={onStateChange}

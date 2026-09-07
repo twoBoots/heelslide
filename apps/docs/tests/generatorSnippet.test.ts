@@ -94,4 +94,24 @@ describe('Playground Code Snippet Generator', () => {
     expect(snippet).toContain("sound: true");
     expect(snippet).toContain("onUnlock: () => {");
   });
+
+  it('should generate segmented mode snippets with checkpoint timeout when configured', () => {
+    const segmentedConfig: PlaygroundConfig = {
+      ...sampleConfig,
+      segmented: true,
+      checkpointTimeoutMs: 2500
+    };
+
+    const reactSnippet = generateCodeSnippet('react', segmentedConfig);
+    expect(reactSnippet).toContain('segmented={true}');
+    expect(reactSnippet).toContain('checkpointTimeoutMs={2500}');
+
+    const vueSnippet = generateCodeSnippet('vue', segmentedConfig);
+    expect(vueSnippet).toContain(':segmented="true"');
+    expect(vueSnippet).toContain(':checkpoint-timeout-ms="2500"');
+
+    const coreSnippet = generateCodeSnippet('core', segmentedConfig);
+    expect(coreSnippet).toContain('segmented: true,');
+    expect(coreSnippet).toContain('checkpointTimeoutMs: 2500,');
+  });
 });

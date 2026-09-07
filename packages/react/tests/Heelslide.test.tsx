@@ -527,5 +527,129 @@ describe('<Heelslide /> Component', () => {
       unmountActive();
     });
   });
+
+  describe('Segmented Multi-Gesture Support', () => {
+    it('supports segmented prop, triggers onCheckpoint, and reflects data-state="checkpoint"', () => {
+      const onCheckpoint = vi.fn();
+      const onUnlock = vi.fn();
+
+      const { container, unmount } = renderComponent({
+        width: 300,
+        height: 150,
+        heels: 1,
+        seed: 42,
+        tolerance: 30,
+        segmented: true,
+        onCheckpoint,
+        onUnlock
+      });
+
+      const rootElement = container.firstElementChild as HTMLElement;
+      const trackPath = container.querySelector('path[data-heelslide-track="background"]')!;
+      const d = trackPath.getAttribute('d') || '';
+
+      const pointsRegex = /[ML]\s*([\d.-]+)\s+([\d.-]+)/g;
+      const points: Array<{ x: number; y: number }> = [];
+      let ptMatch: RegExpExecArray | null;
+      while ((ptMatch = pointsRegex.exec(d)) !== null) {
+        points.push({ x: parseFloat(ptMatch[1]!), y: parseFloat(ptMatch[2]!) });
+      }
+
+      rootElement.getBoundingClientRect = () => ({
+        left: 0,
+        top: 0,
+        right: 300,
+        bottom: 150,
+        width: 300,
+        height: 150,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      });
+      rootElement.setPointerCapture = vi.fn();
+      rootElement.releasePointerCapture = vi.fn();
+
+      const startPt = points[0]!;
+      const heelPt = points[1]!;
+      const endPt = points[2]!;
+
+      // 1. Gesture 1: Start at origin, drag to heel, and release
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointerdown', {
+            bubbles: true,
+            clientX: startPt.x,
+            clientY: startPt.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointermove', {
+            bubbles: true,
+            clientX: heelPt.x,
+            clientY: heelPt.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointerup', {
+            bubbles: true,
+            clientX: heelPt.x,
+            clientY: heelPt.y,
+            pointerId: 1
+          })
+        );
+      });
+
+      expect(rootElement.getAttribute('data-state')).toBe('checkpoint');
+      expect(onCheckpoint).toHaveBeenCalledWith(0, expect.any(Number));
+
+      // 2. Gesture 2: Re-engage at heel checkpoint and complete to endpoint
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointerdown', {
+            bubbles: true,
+            clientX: heelPt.x,
+            clientY: heelPt.y,
+            pointerId: 2
+          })
+        );
+      });
+      expect(rootElement.getAttribute('data-state')).toBe('active');
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointermove', {
+            bubbles: true,
+            clientX: endPt.x,
+            clientY: endPt.y,
+            pointerId: 2
+          })
+        );
+      });
+
+      act(() => {
+        rootElement.dispatchEvent(
+          new PointerEvent('pointerup', {
+            bubbles: true,
+            clientX: endPt.x,
+            clientY: endPt.y,
+            pointerId: 2
+          })
+        );
+      });
+
+      expect(rootElement.getAttribute('data-state')).toBe('unlocked');
+      expect(onUnlock).toHaveBeenCalledTimes(1);
+
+      unmount();
+    });
+  });
 });
 
