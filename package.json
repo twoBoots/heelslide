@@ -23,9 +23,10 @@
     "test:visual:update": "playwright test --update-snapshots",
     "test:visual:report": "playwright show-report",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && node scripts/sync-version-exports.mjs",
     "release": "changeset publish",
-    "postinstall": "termux-fix-shebang node_modules/.bin/* node_modules/@changesets/cli/bin.js 2>/dev/null || true"
+    "postinstall": "termux-fix-shebang node_modules/.bin/* node_modules/@changesets/cli/bin.js 2>/dev/null || true",
+    "sync-versions": "node scripts/sync-version-exports.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.2",
