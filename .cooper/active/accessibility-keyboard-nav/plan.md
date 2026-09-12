@@ -13,11 +13,12 @@ free-ride on aggregate coverage.
 
 ## Phase 0: Harvest & Baseline
 
-- [~] Task: Recover artifacts from the superseded `accessibility-fallback` branch
-  - [ ] Sub-task: Extract `packages/core/src/accessibility.ts` from `origin/accessibility-fallback` into the worktree as a starting point, without merging the branch
-  - [ ] Sub-task: Extract `core/tests/accessibility.test.ts`, `core/tests/announcements.test.ts`, and `vue/tests/HeelslideAccessibility.test.ts` as test source material
-  - [ ] Sub-task: Audit every harvested assertion against current `main` — the segmented-checkpoint capability, the four-adapter surface, and existing ARIA on `main` invalidate a subset; delete or rewrite rather than carry forward
-  - [ ] Sub-task: Record in `git notes` which harvested assertions were kept, rewritten, or discarded, and why
+- [x] Task: Recover artifacts from the superseded `accessibility-fallback` branch (cab0d30)
+  - [x] Sub-task: Extract `packages/core/src/accessibility.ts` from `origin/accessibility-fallback`, without merging the branch — quarantined as `harvest/accessibility.ts.ref` rather than placed in `packages/`, so Phase 1 implements under TDD instead of landing code ahead of its Red phase
+  - [x] Sub-task: Extract `core/tests/accessibility.test.ts`, `core/tests/announcements.test.ts`, and `vue/tests/HeelslideAccessibility.test.ts` as test source material
+  - [x] Sub-task: Audit every harvested assertion against current `main` — 23 of 36 kept, 1 rewritten, 3 discarded; see `harvest/AUDIT.md`
+  - [x] Sub-task: Record in `git notes` which harvested assertions were kept, rewritten, or discarded, and why
+  - [x] Sub-task (unplanned): Correct `design.md` and the `gesture-engine` delta for the unlock-parity defect the audit surfaced
 - [ ] Task: Establish the accessibility baseline
   - [ ] Sub-task: Write a failing test asserting each adapter's container is keyboard-focusable and responds to `ArrowRight` (Red — documents the live SC 2.1.1 defect on `main`)
   - [ ] Sub-task: Confirm the full existing suite is green on the untouched base, so later failures are attributable to this track
