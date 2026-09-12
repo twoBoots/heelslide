@@ -1,16 +1,37 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript"],
+  "plugins": [
+    "typescript",
+    "react",
+    "unicorn",
+    "oxc"
+  ],
   "rules": {
     "no-console": "warn",
     "no-debugger": "error",
     "no-unused-vars": "error",
-    "eqeqeq": "error"
+    "eqeqeq": "error",
+    "typescript/no-explicit-any": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "ignorePatterns": [
     "dist/**",
     "node_modules/**",
     "coverage/**",
     ".worktrees/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/tests/**",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "react/globals": "off"
+      }
+    }
   ]
 }

@@ -23,8 +23,8 @@ jobs:
           if [ -f package.json ]; then
             echo "has_pkg=true" >> "$GITHUB_OUTPUT"
           else
-            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
-            echo "No package.json found; skipping JavaScript/TypeScript validation."
+            echo "package.json is missing; the working tree is not a valid checkout." >&2
+            exit 1
           fi
 
       - name: Setup Node.js
@@ -46,15 +46,12 @@ jobs:
       - name: Check Formatting & Lint (Oxc)
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: |
-          npm run lint || npx oxlint
-          npm run format:check || true
+          npm run lint
+          npm run format:check
 
-      - name: Type Check (TypeScript v7)
+      - name: Type Check (TypeScript)
         if: steps.check-pkg.outputs.has_pkg == 'true'
-        run: |
-          if npm run | grep -q 'typecheck'; then
-            npm run typecheck
-          fi
+        run: npm run typecheck
 
       - name: Build Packages & Docs
         if: steps.check-pkg.outputs.has_pkg == 'true'
@@ -63,12 +60,7 @@ jobs:
 
       - name: Run Tests with Coverage (Vitest)
         if: steps.check-pkg.outputs.has_pkg == 'true'
-        run: |
-          if npm run | grep -q 'test:coverage'; then
-            npm run test:coverage
-          elif npm run | grep -q 'test'; then
-            npm test
-          fi
+        run: npm run test:coverage
 
   visual-regression:
     name: Visual Regression (Playwright)
@@ -83,8 +75,8 @@ jobs:
           if [ -f package.json ]; then
             echo "has_pkg=true" >> "$GITHUB_OUTPUT"
           else
-            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
-            echo "No package.json found; skipping visual regression validation."
+            echo "package.json is missing; the working tree is not a valid checkout." >&2
+            exit 1
           fi
 
       - name: Setup Node.js
@@ -134,12 +126,7 @@ jobs:
 
       - name: Run Visual Regression Tests (Playwright)
         if: steps.check-pkg.outputs.has_pkg == 'true'
-        run: |
-          if npm run | grep -q 'test:visual'; then
-            npm run test:visual
-          else
-            echo "No test:visual script found in package.json; skipping visual regression tests."
-          fi
+        run: npm run test:visual
 
       - name: Upload Playwright Report
         if: failure()

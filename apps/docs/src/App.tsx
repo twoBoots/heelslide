@@ -9,13 +9,20 @@ import { VisualFixture } from './fixtures/VisualFixture.js';
 import type { PlaygroundConfig } from './utils/snippets.js';
 import './styles.css';
 
+/**
+ * Thin router. Keeping the fixture branch here means the playground's hooks are never
+ * declared after a conditional return, which would make hook order depend on the query
+ * string.
+ */
 export function App() {
-  const isVisualFixture = typeof window !== 'undefined' &&
+  const isVisualFixture =
+    typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('fixture') === 'visual';
 
-  if (isVisualFixture) {
-    return <VisualFixture />;
-  }
+  return isVisualFixture ? <VisualFixture /> : <PlaygroundApp />;
+}
+
+function PlaygroundApp() {
   const [config, setConfig] = useState<PlaygroundConfig>({
     heels: 2,
     tolerance: 24,
