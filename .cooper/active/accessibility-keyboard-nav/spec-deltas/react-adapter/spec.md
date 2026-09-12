@@ -31,11 +31,20 @@
 + - **WHEN** a bound arrow key is pressed
 + - **THEN** `preventDefault()` MUST be called so the page does not scroll, and MUST NOT be called for unbound keys.
 +
++ ### Requirement: Slider Element Normalization
++ The `role="slider"` contract MUST be carried by the container element. This adapter already places it there; the requirement is stated so all three adapters are held to one normalised structure.
++ - **GIVEN** a rendered component
++ - **WHEN** the accessibility tree is inspected
++ - **THEN** exactly one element MUST carry `role="slider"`, and it MUST be the container carrying `data-heelslide-container`.
++ - **GIVEN** the handle element
++ - **WHEN** the component is rendered
++ - **THEN** the handle MUST remain presentational, carrying no `role="slider"`, no `tabindex`, and no `aria-value*` attributes.
++
 + ### Requirement: Complete ARIA Slider Semantics
 + The component MUST complete the `role="slider"` contract it already declares, satisfying WCAG 2.2 SC 4.1.2 (Name, Role, Value).
 + - **GIVEN** an enabled component
 + - **WHEN** it is rendered
-+ - **THEN** the container MUST expose `tabindex="0"`, and `tabindex="-1"` when `disabled`.
++ - **THEN** the container MUST expose `tabindex="0"`, and `tabindex="-1"` when `disabled`. This adapter currently exposes no `tabindex` at all, leaving its declared slider unreachable by keyboard.
 + - **GIVEN** a component at any progress
 + - **WHEN** progress changes
 + - **THEN** `aria-valuetext` MUST update to a descriptive string stating percentage complete and the next required direction.
@@ -45,6 +54,15 @@
 + - **GIVEN** an enabled component with `accessibleFallback="stepped"`
 + - **WHEN** it is rendered
 + - **THEN** `aria-keyshortcuts` MUST enumerate the bound keys and `aria-describedby` MUST reference a node containing the engine's accessible path description.
++
++ ### Requirement: Visible Focus Indicator
++ The slider MUST present a visible focus indicator when focused by keyboard, satisfying WCAG 2.2 SC 2.4.7 (Focus Visible).
++ - **GIVEN** an enabled component
++ - **WHEN** the slider receives keyboard focus
++ - **THEN** a visible focus indicator MUST be rendered on the container, themeable via a `--heelslide-focus-*` custom property with a built-in fallback.
++ - **GIVEN** the shipped stylesheet sets `outline: none` on `.heelslide-handle`
++ - **WHEN** the slider role moves to the container
++ - **THEN** that rule MUST NOT suppress the container's focus indicator.
 +
 + ### Requirement: Polite Live Region Announcements
 + The component MUST announce progress to assistive technology without interrupting the user.

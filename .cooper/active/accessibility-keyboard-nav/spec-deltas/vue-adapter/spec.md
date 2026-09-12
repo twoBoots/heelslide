@@ -31,6 +31,18 @@
 + - **WHEN** a bound arrow key is pressed
 + - **THEN** `preventDefault()` MUST be called so the page does not scroll, and MUST NOT be called for unbound keys.
 +
++ ### Requirement: Slider Element Normalization
++ The `role="slider"` contract MUST be carried by the container element, matching the React and Svelte adapters.
++ - **GIVEN** a rendered component
++ - **WHEN** the accessibility tree is inspected
++ - **THEN** exactly one element MUST carry `role="slider"`, and it MUST be the container carrying `data-heelslide-container`.
++ - **GIVEN** the SVG handle group, which carried `role="slider"`, `tabindex="0"`, and the `aria-value*` attributes prior to this track
++ - **WHEN** the component is rendered
++ - **THEN** the handle MUST be presentational, carrying no `role="slider"`, no `tabindex`, and no `aria-value*` attributes, so assistive technology sees a single slider node rather than two.
++ - **GIVEN** the container is a `div` rather than an SVG `g`
++ - **WHEN** it is focused
++ - **THEN** focus MUST succeed in every supported browser, avoiding the unreliable focusability of `tabindex` on SVG container elements.
++
 + ### Requirement: Complete ARIA Slider Semantics
 + The component MUST complete the `role="slider"` contract it already declares, satisfying WCAG 2.2 SC 4.1.2 (Name, Role, Value).
 + - **GIVEN** an enabled component
@@ -48,6 +60,15 @@
 + - **GIVEN** an enabled component with `accessibleFallback="stepped"`
 + - **WHEN** it is rendered
 + - **THEN** `aria-keyshortcuts` MUST enumerate the bound keys and `aria-describedby` MUST reference a node containing the engine's accessible path description.
++
++ ### Requirement: Visible Focus Indicator
++ The slider MUST present a visible focus indicator when focused by keyboard, satisfying WCAG 2.2 SC 2.4.7 (Focus Visible).
++ - **GIVEN** an enabled component
++ - **WHEN** the slider receives keyboard focus
++ - **THEN** a visible focus indicator MUST be rendered on the container, themeable via a `--heelslide-focus-*` custom property with a built-in fallback.
++ - **GIVEN** `style.css` sets `outline: none` on `.heelslide-handle`, which prior to this track was the focusable element
++ - **WHEN** a keyboard user focuses the component
++ - **THEN** the indicator MUST be visible, closing the pre-existing defect in which the sole focusable element had its focus ring suppressed outright.
 +
 + ### Requirement: Polite Live Region Announcements
 + The component MUST announce progress to assistive technology without interrupting the user.

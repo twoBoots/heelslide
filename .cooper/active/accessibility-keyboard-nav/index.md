@@ -32,7 +32,8 @@
 | 2.1.2 No Keyboard Trap | A | Untested |
 | 2.2.1 Timing Adjustable | A | **At risk** — checkpoint inactivity auto-reset would time keyboard users |
 | 2.5.1 Pointer Gestures | A | **Failing** — no non-path alternative to the unlock gesture |
-| 4.1.2 Name, Role, Value | A | **Partial** — role declared, interaction contract unimplemented |
+| 2.4.7 Focus Visible | AA | **Failing** — `style.css` sets `outline: none` on the only focusable element in Vue and Svelte |
+| 4.1.2 Name, Role, Value | A | **Partial** — role declared, interaction contract unimplemented; placement diverges across adapters |
 
 ## Key Decisions
 
@@ -45,3 +46,11 @@
    and modal semantics are separable from the urgent SC 2.1.1 fix.
 4. **Playwright keyboard E2E in scope; axe-core deferred** — the Playwright matrix already exists,
    whereas axe-core needs a dependency and a `tech-stack.md` amendment first.
+5. **`role="slider"` normalized onto the container `<div>`** in all three adapters. `main` diverges:
+   React on the container with no `tabindex`, Vue and Svelte on an SVG `<g>` with `tabindex="0"`.
+   A `div` is reliably focusable everywhere; `tabindex` on SVG container elements is not,
+   particularly in WebKit — which the CI matrix tests. Decided in Phase 0.
+6. **Unlock routes through `end()` for both modalities.** Stepping advances progress only; confirm
+   unlocks, under the same conjunctive final-segment condition pointer release uses. Prevents a
+   keyboard user doing more work than a pointer user, and avoids reintroducing the audit defect
+   `6c8c6fb` closed. Decided in Phase 0 during the harvest audit.

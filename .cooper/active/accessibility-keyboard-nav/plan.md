@@ -89,6 +89,20 @@ free-ride on aggregate coverage.
 > All three adapters land together. `type-exports-parity` and `expand-css-variables` established
 > that adapters do not ship at different capability levels.
 
+- [ ] Task: Normalize the slider element across adapters
+  > Decided during Phase 0 after the baseline surfaced the divergence. Must land before handlers
+  > are bound, since handlers belong on whichever element carries the role.
+  - [ ] Sub-task: Write tests asserting exactly one `[role="slider"]` per adapter and that it is the container (Red)
+  - [ ] Sub-task: Write tests asserting the handle is presentational — no `role`, no `tabindex`, no `aria-value*` (Red)
+  - [ ] Sub-task: Move `role`, `tabindex`, and `aria-*` from the SVG `<g>` handle to the container in Vue and Svelte (Green)
+  - [ ] Sub-task: Add the missing `tabindex` to the React container (Green)
+  - [ ] Sub-task: Confirm visual regression baselines are unaffected — `tabindex` and `role` paint nothing
+- [ ] Task: Visible focus indicator (WCAG SC 2.4.7)
+  > Second defect found in Phase 0: `style.css` sets `outline: none` on `.heelslide-handle`, which
+  > is currently the only focusable element in Vue and Svelte — so focusing it shows nothing.
+  - [ ] Sub-task: Write tests asserting a focus indicator is applied on container focus in all three adapters (Red)
+  - [ ] Sub-task: Implement a themeable `--heelslide-focus-*` indicator with a built-in fallback (Green)
+  - [ ] Sub-task: Verify the `.heelslide-handle { outline: none }` rule no longer suppresses the indicator (Refactor)
 - [ ] Task: React adapter keyboard and ARIA
   - [ ] Sub-task: Write component tests for every key binding, including `End` as a no-op and `disabled` inertness (Red)
   - [ ] Sub-task: Write tests for `tabindex`, `aria-valuetext`, `aria-orientation`, `aria-keyshortcuts`, `aria-describedby` at representative states (Red)
