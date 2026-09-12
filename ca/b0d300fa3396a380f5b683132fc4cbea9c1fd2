@@ -1,0 +1,21 @@
+Task: Recover artifacts from the superseded accessibility-fallback branch
+Phase: 0 (Harvest & Baseline)
+Scope: harvest/AUDIT.md, 4x *.ref quarantined files, design.md, spec-deltas/gesture-engine/spec.md, plan.md
+
+Summary: Extracted 4 files (611 lines) from origin/accessibility-fallback and audited
+every assertion against current main. Verdict: 23 of 36 assertions kept, 1 rewritten,
+3 discarded (dialog mode deferred; >=0.95 standalone unlock threshold superseded).
+
+Harvested code quarantined with .ref suffix rather than promoted into packages/, so
+Phase 1 writes production code under TDD instead of landing implementation ahead of
+its Red phase.
+
+Design correction produced by the audit: stepping no longer unlocks on reaching
+totalLength. Main unlocks at progress >= 0.95 on the final segment via end(); the
+harvested test asserted the progress threshold alone, which is the defect 6c8c6fb
+fixed by making the condition conjunctive. Unlock now routes through end() for both
+modalities under one shared condition.
+
+Coverage gaps recorded for later phases: no segmented-mode stepping tests, no
+checkpoint announcement type, no React/Svelte equivalents of the Vue a11y matrix,
+no aria-disabled parity test for the Vue adapter.
