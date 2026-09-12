@@ -1,0 +1,31 @@
+{
+  "track_id": "accessibility-keyboard-nav",
+  "title": "Accessibility & Keyboard Navigation",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-09-13T00:00:00Z",
+  "capabilities": [
+    "gesture-engine",
+    "react-adapter",
+    "vue-adapter",
+    "svelte-adapter",
+    "docs-playground",
+    "ci-pipeline"
+  ],
+  "supersedes": {
+    "track_id": "accessibility-fallback",
+    "pull_request": 9,
+    "reason": "118 commits behind main and CONFLICTING; designed against a 3-adapter, pre-segmented-checkpoint engine. Artifacts harvested, branch abandoned."
+  },
+  "wcag_targets": [
+    "2.1.1 Keyboard (A)",
+    "2.1.2 No Keyboard Trap (A)",
+    "2.2.1 Timing Adjustable (A)",
+    "2.5.1 Pointer Gestures (A)",
+    "4.1.2 Name, Role, Value (A)"
+  ],
+  "deferred": [
+    "accessibleFallback 'dialog' mode (focus trap, aria-modal)",
+    "axe-core automated audit in CI (requires tech-stack.md amendment)"
+  ]
+}

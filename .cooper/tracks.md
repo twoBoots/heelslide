@@ -5,15 +5,24 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Whole-Project Audit Remediation**
-  - Worktree: `.worktrees/audit-remediation`
-  - Link: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)
-- [ ] **Track: Accessibility & Keyboard Navigation Fallback**
-  - Worktree: _(not provisioned; branch `accessibility-fallback` only)_
-  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — open, awaiting review
-  - Spec deltas live on the branch at `.cooper/active/accessibility-fallback/spec-deltas/`
+- [ ] **Track: Accessibility & Keyboard Navigation**
+  - Worktree: `.worktrees/accessibility-keyboard-nav`
+  - Link: [.cooper/active/accessibility-keyboard-nav/index.md](.cooper/active/accessibility-keyboard-nav/index.md)
+  - Supersedes the abandoned `accessibility-fallback` track / PR [#9](https://github.com/twoBoots/heelslide/pull/9)
+
+## Superseded
+- [~] **Track: Accessibility & Keyboard Navigation Fallback**
+  - Branch: `accessibility-fallback` (no worktree was provisioned)
+  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — to be closed unmerged
+  - Assessed 2026-09-13 at 118 commits behind `main` and `CONFLICTING`, with all 22 touched source
+    files drifted. Designed against a three-adapter, pre-segmented-checkpoint engine.
+  - Artifacts harvested into `accessibility-keyboard-nav`; branch retained for provenance only.
 
 ## Completed Archive
+- [x] **Track: Whole-Project Audit Remediation**
+  - Completed: 2026-09-12 (PR #17)
+  - Archive: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)
+  - _Registry correction: this track remained listed as active after merging._
 - [x] **Track: Dynamic Documentation Version & Package Export Synchronization**
   - Completed: 2026-09-07 (PR #16)
   - Archive: [.cooper/archive/docs-version-sync/index.md](.cooper/archive/docs-version-sync/index.md)
