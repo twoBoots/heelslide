@@ -13,7 +13,7 @@ free-ride on aggregate coverage.
 
 ## Phase 0: Harvest & Baseline
 
-- [ ] Task: Recover artifacts from the superseded `accessibility-fallback` branch
+- [~] Task: Recover artifacts from the superseded `accessibility-fallback` branch
   - [ ] Sub-task: Extract `packages/core/src/accessibility.ts` from `origin/accessibility-fallback` into the worktree as a starting point, without merging the branch
   - [ ] Sub-task: Extract `core/tests/accessibility.test.ts`, `core/tests/announcements.test.ts`, and `vue/tests/HeelslideAccessibility.test.ts` as test source material
   - [ ] Sub-task: Audit every harvested assertion against current `main` — the segmented-checkpoint capability, the four-adapter surface, and existing ARIA on `main` invalidate a subset; delete or rewrite rather than carry forward
