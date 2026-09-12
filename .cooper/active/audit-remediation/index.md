@@ -1,7 +1,7 @@
 # Track: Whole-Project Audit Remediation
 
 - **Track ID:** `audit-remediation`
-- **Status:** `in-progress`
+- **Status:** `review-ready`
 - **Capabilities:** `gesture-engine`, `react-adapter`, `vue-adapter`, `svelte-adapter`, `ci-pipeline`, `release-pipeline`
 
 ## Artifacts
