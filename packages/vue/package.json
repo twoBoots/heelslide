@@ -1,6 +1,6 @@
 {
   "name": "@heelslide/vue",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vue 3 component and headless composable for intentional-gesture security gates.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -26,7 +26,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@heelslide/core": "0.2.0"
+    "@heelslide/core": "0.3.0"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

@@ -1,6 +1,6 @@
 {
   "name": "@heelslide/svelte",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Svelte 5 component adapter and headless rune composable for intentional-gesture security gates.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@heelslide/core": "0.2.0"
+    "@heelslide/core": "0.3.0"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
