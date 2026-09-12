@@ -1,0 +1,28 @@
+Task: Establish the accessibility baseline (Red phase)
+Phase: 0 (Harvest & Baseline)
+Scope: packages/{react,vue,svelte}/tests/a11yBaseline.test.*
+
+Baseline on untouched base: 279 passed, 0 failed.
+After adding baseline specs: 5 failed, 3 passed (8 new).
+
+Documented failures, all genuine defects on main:
+  1. React  slider has no tabindex - unreachable by keyboard
+  2. React  ArrowRight does not advance progress
+  3. Vue    ArrowRight does not advance progress
+  4. Vue    aria-disabled absent (React and Svelte both ship it)
+  5. Svelte ArrowRight does not advance progress
+
+Finding: role=slider placement diverges across adapters. React puts it
+on the container div; Vue and Svelte put it on an SVG <g> handle with
+tabindex=0. Specs were rewritten mid-task to locate the widget by
+[role=slider] rather than a hardcoded container, so they remain valid
+under either normalisation.
+
+Open decision blocking Phase 3: where role=slider belongs. Keyboard
+handlers and tabindex must sit on that element. Note that tabindex on
+an SVG <g> is not reliably focusable across browsers - WebKit in
+particular - which the Playwright matrix in Phase 5 would surface.
+
+Spec deltas for the three adapters currently say 'the container MUST
+expose tabindex'. That wording is correct only for React and needs
+correcting once placement is decided.
