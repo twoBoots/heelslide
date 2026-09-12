@@ -25,8 +25,10 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     numberedHeels = false,
     className,
     style,
-    width = 300,
-    height = 150,
+    bounds,
+    width,
+    height,
+    track: trackProp,
     gridStep = 24,
     margin = 16,
     seed,
@@ -34,15 +36,19 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     children
   } = props;
 
+  // `bounds` is the cross-adapter prop; `width`/`height` remain as deprecated aliases.
+  const resolvedWidth = bounds?.width ?? width ?? 300;
+  const resolvedHeight = bounds?.height ?? height ?? 150;
+
   const generatorOptions = useMemo(
     () => ({
-      bounds: { width, height },
+      bounds: { width: resolvedWidth, height: resolvedHeight },
       gridStep,
       margin,
       heels,
       seed
     }),
-    [width, height, gridStep, margin, heels, seed]
+    [resolvedWidth, resolvedHeight, gridStep, margin, heels, seed]
   );
 
   const {
@@ -63,6 +69,7 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     segmented,
     checkpointTimeoutMs,
     generator: generatorOptions,
+    track: trackProp,
     onTurn,
     onCheckpoint,
     onUnlock,
@@ -80,6 +87,38 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
       .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`)
       .join(' ');
   }, [track.points]);
+
+  /**
+   * Overlay describing exactly the traversed length, walking whole segments until the remaining
+   * distance falls inside one and then interpolating along it.
+   */
+  const progressPathData = useMemo(() => {
+    if (!track.points || track.points.length === 0 || track.totalLength <= 0) return '';
+
+    const travelled = Math.min(1, Math.max(0, progress)) * track.totalLength;
+    if (travelled <= 0) return '';
+
+    const first = track.points[0]!;
+    const commands = [`M ${first.x} ${first.y}`];
+    let remaining = travelled;
+
+    for (const segment of track.segments) {
+      if (remaining >= segment.length) {
+        commands.push(`L ${segment.end.x} ${segment.end.y}`);
+        remaining -= segment.length;
+        continue;
+      }
+
+      const t = segment.length > 0 ? remaining / segment.length : 0;
+      const x = segment.start.x + t * (segment.end.x - segment.start.x);
+      const y = segment.start.y + t * (segment.end.y - segment.start.y);
+      commands.push(`L ${x} ${y}`);
+      remaining = 0;
+      break;
+    }
+
+    return commands.length > 1 ? commands.join(' ') : '';
+  }, [track, progress]);
 
   const heelVertices = useMemo(() => {
     if (!track.points || track.points.length <= 2) return [];
@@ -105,8 +144,8 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
       className={className}
       style={{
         position: 'relative',
-        width: `${width}px`,
-        height: `${height}px`,
+        width: `${resolvedWidth}px`,
+        height: `${resolvedHeight}px`,
         counterReset: 'heelslide-heel',
         backgroundColor: 'var(--heelslide-bg, transparent)',
         borderRadius: 'var(--heelslide-border-radius, 12px)',
@@ -119,7 +158,7 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
       {...containerProps}
     >
       <svg
-        viewBox={`0 0 ${width} ${height}`}
+        viewBox={`0 0 ${resolvedWidth} ${resolvedHeight}`}
         width="100%"
         height="100%"
         style={{
@@ -144,6 +183,18 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
             fill="none"
           />
         )}
+
+        {/* Traversed progress overlay */}
+        <path
+          data-heelslide-track="progress"
+          className="heelslide-track-progress"
+          d={progressPathData}
+          stroke="var(--heelslide-track-progress, var(--heelslide-track-active, #3b82f6))"
+          strokeWidth="var(--heelslide-track-width, 12px)"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
 
         {/* Start endpoint marker */}
         {startPoint && (

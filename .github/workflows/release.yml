@@ -32,8 +32,8 @@ jobs:
           if [ -f package.json ]; then
             echo "has_pkg=true" >> "$GITHUB_OUTPUT"
           else
-            echo "has_pkg=false" >> "$GITHUB_OUTPUT"
-            echo "No package.json found; skipping package build and release."
+            echo "package.json is missing; the working tree is not a valid checkout." >&2
+            exit 1
           fi
 
       - name: Setup Node.js
@@ -74,6 +74,7 @@ jobs:
         if: steps.check-pkg.outputs.has_pkg == 'true' && steps.changesets.outputs.published == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
         run: |
           mkdir -p dist-tarballs
           npm pack --workspace=packages/core --pack-destination dist-tarballs/
@@ -81,7 +82,7 @@ jobs:
           npm pack --workspace=packages/svelte --pack-destination dist-tarballs/
           npm pack --workspace=packages/vue --pack-destination dist-tarballs/
 
-          echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | .name + "@" + .version' | while read -r tag; do
+          printf '%s' "$PUBLISHED_PACKAGES" | jq -r '.[] | .name + "@" + .version' | while read -r tag; do
             if [ -n "$tag" ]; then
               echo "Uploading tarball assets to GitHub Release for $tag..."
               gh release upload "$tag" dist-tarballs/*.tgz --clobber || true

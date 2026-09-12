@@ -40,6 +40,8 @@ const {
 } = useHeelslide({
   track: props.track,
   tolerance: props.tolerance,
+  initialState: props.initialState,
+  initialProgress: props.initialProgress,
   segmented: props.segmented,
   checkpointTimeoutMs: props.checkpointTimeoutMs,
   generator: {

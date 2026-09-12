@@ -125,6 +125,10 @@ export class HeelslideEngine {
 
     this.options.generator = mergedOptions;
     this.track = generateTrackPath(mergedOptions);
+
+    // Retire the superseded machine first: an armed checkpoint timer would otherwise survive and
+    // fire onReset against a machine that is no longer in use.
+    this.machine.destroy?.();
     this.machine = this.createMachine();
 
     return this.track;

@@ -26,7 +26,10 @@ export default defineConfig({
         lines: 80,
         functions: 80,
         branches: 80,
-        statements: 80
+        statements: 80,
+        // Applied per file as well as in aggregate: without this a well-covered majority hides
+        // modules sitting near zero branch coverage behind a healthy-looking global number.
+        perFile: true
       },
       include: ['{packages,apps}/*/src/**/*.{ts,tsx,vue,svelte}'],
       exclude: [

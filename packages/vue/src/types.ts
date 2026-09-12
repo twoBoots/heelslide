@@ -40,6 +40,8 @@ export interface HeelslideProps {
   margin?: number;
   seed?: number;
   disabled?: boolean;
+  initialState?: GestureState;
+  initialProgress?: number;
   segmented?: boolean;
   checkpointTimeoutMs?: number;
   ariaLabel?: string;

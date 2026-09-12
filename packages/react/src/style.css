@@ -1,0 +1,65 @@
+:where([data-heelslide-container]) {
+  /*
+   * Default `--heelslide-*` cascade for @heelslide/react.
+   *
+   * This sheet declares custom properties only. The React component paints via SVG
+   * presentation attributes that already carry `var(--x, fallback)` defaults, and a class-based
+   * property rule here would win over those attributes and blank the graphic out. Scoped with
+   * `:where()` so it carries zero specificity and consumer styles override it without effort.
+   *
+   * Importing this file is optional and opt-in: the component renders correctly without it,
+ * and the component deliberately does not import it, so adding it never restyles an existing
+ * consumer unexpectedly.
+   */
+  --heelslide-width: 300px;
+  --heelslide-height: 150px;
+  --heelslide-track-bg: #e2e8f0;
+  --heelslide-track-progress: #3b82f6;
+  --heelslide-track-width: 12px;
+  --heelslide-track-cap: round;
+  --heelslide-track-start-radius: var(--heelslide-start-radius, 6px);
+  --heelslide-track-end-radius: var(--heelslide-end-radius, 6px);
+  --heelslide-track-heel-radius: var(--heelslide-heel-radius, 4px);
+  --heelslide-heel-radius: 4px;
+  --heelslide-heel-padding: 0px;
+  --heelslide-handle-radius: 18px;
+  --heelslide-handle-color: #ffffff;
+  --heelslide-handle-border-color: #3b82f6;
+  --heelslide-handle-border-width: 2px;
+  --heelslide-handle-bg: var(--heelslide-slider-bg, var(--heelslide-handle-color, #ffffff));
+  --heelslide-handle-active-scale: 1.05;
+  --heelslide-handle-active-bg: var(--heelslide-handle-bg);
+  --heelslide-handle-checkpoint-bg: var(--heelslide-handle-active-bg);
+  --heelslide-heel-color: #94a3b8;
+  --heelslide-heel-bg: var(--heelslide-heel-color, #94a3b8);
+  --heelslide-heel-border-color: transparent;
+  --heelslide-heel-border-width: 0px;
+  --heelslide-heel-completed-color: var(--heelslide-track-progress, #3b82f6);
+  --heelslide-target-heel-bg: var(--heelslide-heel-bg, var(--heelslide-track-progress, #3b82f6));
+  --heelslide-target-heel-border-color: #ffffff;
+  --heelslide-target-heel-border-width: 2px;
+  --heelslide-target-heel-scale: 1.1;
+  --heelslide-end-color: #10b981;
+  --heelslide-end-radius: 6px;
+  --heelslide-goal-bg: var(--heelslide-end-color, #10b981);
+  --heelslide-goal-border-color: transparent;
+  --heelslide-goal-border-width: 0px;
+  --heelslide-heel-font-family: system-ui, -apple-system, sans-serif;
+  --heelslide-heel-font-size: 10px;
+  --heelslide-heel-font-weight: 600;
+  --heelslide-heel-text-color: var(--heelslide-heel-color, #475569);
+  --heelslide-target-heel-text-color: #ffffff;
+  --heelslide-success-color: #10b981;
+  --heelslide-error-color: #ef4444;
+  --heelslide-cursor: grab;
+  --heelslide-cursor-active: grabbing;
+  counter-reset: heelslide-heel;
+
+  position: relative;
+  display: inline-block;
+  width: var(--heelslide-width);
+  height: var(--heelslide-height);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}

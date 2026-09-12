@@ -61,7 +61,17 @@ export class FeedbackController {
     return getAudioContextConstructor() !== undefined;
   }
 
+  public isSoundEnabled(): boolean {
+    if (this.options.sound === undefined) return false;
+    if (typeof this.options.sound === 'boolean') return this.options.sound;
+    return this.options.sound.enabled ?? true;
+  }
+
   public async resumeAudio(): Promise<void> {
+    // Constructing an AudioContext is not free: browsers cap them per document, so consumers who
+    // never opt into sound must not spend one on first pointer-down.
+    if (!this.isSoundEnabled()) return;
+
     try {
       const ctx = this.getOrCreateAudioContext();
       if (ctx && ctx.state === 'suspended') {
@@ -128,12 +138,6 @@ export class FeedbackController {
     } catch {
       // Gracefully ignore vibration errors
     }
-  }
-
-  private isSoundEnabled(): boolean {
-    if (this.options.sound === undefined) return false;
-    if (typeof this.options.sound === 'boolean') return this.options.sound;
-    return this.options.sound.enabled ?? true;
   }
 
   private getSoundVolume(): number {

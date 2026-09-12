@@ -67,6 +67,26 @@ describe('Release Pipeline Configuration', () => {
     });
   });
 
+  describe('Internal Dependency Ranges', () => {
+    const adapters = ['packages/react', 'packages/svelte', 'packages/vue'];
+    const coreVersion = JSON.parse(
+      fs.readFileSync(path.join(rootDir, 'packages/core/package.json'), 'utf8')
+    ).version as string;
+
+    // A wildcard publishes a dependency on *any* core, which defeats the `fixed` versioning
+    // policy: a consumer installing an adapter could resolve an incompatible core.
+    it.each(adapters)('should pin %s to an exact @heelslide/core version', (pkgPath) => {
+      const pkgJson = JSON.parse(
+        fs.readFileSync(path.join(rootDir, pkgPath, 'package.json'), 'utf8')
+      );
+      const range = pkgJson.dependencies?.['@heelslide/core'];
+
+      expect(range).toBeDefined();
+      expect(range).not.toBe('*');
+      expect(range).toBe(coreVersion);
+    });
+  });
+
   describe('Root Workspace Manifest', () => {
     const rootPkgJsonPath = path.join(rootDir, 'package.json');
 

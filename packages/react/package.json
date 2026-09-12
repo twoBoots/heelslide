@@ -11,10 +11,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./style.css": "./src/style.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "publishConfig": {
     "access": "public"
@@ -25,7 +27,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@heelslide/core": "*"
+    "@heelslide/core": "0.2.0"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

@@ -2,10 +2,19 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { VERSION, Heelslide, useHeelslide } from '../src/index';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+/** The manifest is the single source of truth; comparing against a duplicated literal
+ *  cannot detect a bump that leaves the VERSION export behind. */
+const manifest = JSON.parse(
+  readFileSync(resolve(process.cwd(), 'packages/vue/package.json'), 'utf8')
+) as { version: string };
+
 
 describe('@heelslide/vue Public API exports & Integration', () => {
   it('exports package version, Heelslide component, and useHeelslide composable', () => {
-    expect(VERSION).toBe('0.2.0');
+    expect(VERSION).toBe(manifest.version);
     expect(Heelslide).toBeDefined();
     expect(typeof useHeelslide).toBe('function');
   });

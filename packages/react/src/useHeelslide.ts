@@ -61,6 +61,40 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   );
   const [currentSegmentIndex, setCurrentSegmentIndex] = useState<number>(0);
 
+  // The engine is keyed on the *values* of its configuration rather than the identity of the
+  // objects carrying them. Keying on identity means an inline options literal builds a new
+  // engine every render, and the [engine] effect below then sets fresh state, which schedules
+  // another render: an unbounded loop for the most natural way to call this hook.
+  const configSignature = JSON.stringify({
+    tolerance,
+    segmented: segmented ?? false,
+    checkpointTimeoutMs: checkpointTimeoutMs ?? 0,
+    initialState: options.initialState ?? null,
+    initialProgress: options.initialProgress ?? null,
+    generator: generator
+      ? {
+          width: generator.bounds?.width ?? null,
+          height: generator.bounds?.height ?? null,
+          gridStep: generator.gridStep ?? null,
+          margin: generator.margin ?? null,
+          seed: generator.seed ?? null,
+          heels:
+            typeof generator.heels === 'object' && generator.heels !== null
+              ? [generator.heels.min, generator.heels.max]
+              : generator.heels ?? null
+        }
+      : null,
+    track: initialTrack
+      ? {
+          pointCount: initialTrack.points.length,
+          totalLength: initialTrack.totalLength,
+          heelCount: initialTrack.heelCount,
+          first: initialTrack.points[0] ?? null,
+          last: initialTrack.points[initialTrack.points.length - 1] ?? null
+        }
+      : null
+  });
+
   const engine = useMemo(() => {
     return new HeelslideEngine({
       tolerance,
@@ -99,7 +133,8 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
         callbacksRef.current.onStateChange?.(s);
       }
     });
-  }, [tolerance, generator, initialTrack, options.initialState, options.initialProgress, segmented, checkpointTimeoutMs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on configSignature by design
+  }, [configSignature]);
 
   const [track, setTrack] = useState<TrackPath>(() => engine.getPath());
 
