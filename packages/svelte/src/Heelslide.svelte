@@ -14,6 +14,8 @@ let {
   margin = 16,
   seed,
   disabled = false,
+  initialState,
+  initialProgress,
   segmented = false,
   checkpointTimeoutMs = 0,
   ariaLabel = 'Slide to unlock',
@@ -34,7 +36,7 @@ let {
   onProgress,
   onStateChange,
   children
-}: HeelslideProps & { children?: any } = $props();
+}: HeelslideProps = $props();
 
 let containerRef: HTMLElement | null = $state(null);
 let capturedPointerId: number | null = $state(null);
@@ -43,6 +45,8 @@ let capturedPointerId: number | null = $state(null);
 const heelslide = createHeelslide({
   track: propTrack,
   tolerance,
+  initialState,
+  initialProgress,
   disabled,
   segmented,
   checkpointTimeoutMs,

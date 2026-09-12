@@ -1,3 +1,4 @@
+import type { Snippet } from 'svelte';
 import type {
   Bounds,
   Direction,
@@ -66,6 +67,8 @@ export interface HeelslideProps {
   margin?: number;
   seed?: number;
   disabled?: boolean;
+  initialState?: GestureState;
+  initialProgress?: number;
   segmented?: boolean;
   checkpointTimeoutMs?: number;
   ariaLabel?: string;
@@ -95,4 +98,7 @@ export interface HeelslideProps {
   onReset?: () => void;
   onProgress?: (progress: number) => void;
   onStateChange?: (state: GestureState) => void;
+
+  /** Content rendered inside the draggable handle. */
+  children?: Snippet;
 }

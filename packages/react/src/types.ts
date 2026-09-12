@@ -1,5 +1,6 @@
 import type React from 'react';
 import type {
+  Bounds,
   EngineOptions,
   GeneratorOptions,
   GestureState,
@@ -41,8 +42,15 @@ export interface UseHeelslideReturn {
 }
 
 export interface HeelslideProps {
+  /** Explicit track override; when supplied the generator is bypassed. */
+  track?: TrackPath;
   heels?: HeelCountConfig;
   tolerance?: number;
+  /**
+   * Container dimensions. Preferred over `width`/`height`, and consistent with
+   * `@heelslide/vue` and `@heelslide/svelte`.
+   */
+  bounds?: Bounds;
   disabled?: boolean;
   initialState?: GestureState;
   initialProgress?: number;
@@ -59,7 +67,9 @@ export interface HeelslideProps {
   numberedHeels?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  /** @deprecated Use `bounds`. Retained as an alias; `bounds` wins when both are supplied. */
   width?: number;
+  /** @deprecated Use `bounds`. Retained as an alias; `bounds` wins when both are supplied. */
   height?: number;
   gridStep?: number;
   margin?: number;

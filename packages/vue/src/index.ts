@@ -5,13 +5,31 @@
 
 export const VERSION = '0.2.0';
 
-import type { DefineComponent } from 'vue';
+import type { ComponentOptionsMixin, DefineComponent } from 'vue';
 import HeelslideComponent from './Heelslide.vue';
 import type { HeelslideEmitsOptions, HeelslideProps } from './types.js';
 
 // Component
-export const Heelslide: DefineComponent<HeelslideProps, {}, {}, {}, {}, any, any, HeelslideEmitsOptions> =
-  HeelslideComponent as unknown as DefineComponent<HeelslideProps, {}, {}, {}, {}, any, any, HeelslideEmitsOptions>;
+export const Heelslide: DefineComponent<
+  HeelslideProps,
+  Record<string, never>,
+  Record<string, never>,
+  Record<string, never>,
+  Record<string, never>,
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  HeelslideEmitsOptions
+> =
+  HeelslideComponent as unknown as DefineComponent<
+  HeelslideProps,
+  Record<string, never>,
+  Record<string, never>,
+  Record<string, never>,
+  Record<string, never>,
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  HeelslideEmitsOptions
+>;
 export default Heelslide;
 
 // Headless Composable
