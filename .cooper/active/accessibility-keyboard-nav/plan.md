@@ -19,9 +19,11 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Audit every harvested assertion against current `main` — 23 of 36 kept, 1 rewritten, 3 discarded; see `harvest/AUDIT.md`
   - [x] Sub-task: Record in `git notes` which harvested assertions were kept, rewritten, or discarded, and why
   - [x] Sub-task (unplanned): Correct `design.md` and the `gesture-engine` delta for the unlock-parity defect the audit surfaced
-- [~] Task: Establish the accessibility baseline
-  - [ ] Sub-task: Write a failing test asserting each adapter's container is keyboard-focusable and responds to `ArrowRight` (Red — documents the live SC 2.1.1 defect on `main`)
-  - [ ] Sub-task: Confirm the full existing suite is green on the untouched base, so later failures are attributable to this track
+- [x] Task: Establish the accessibility baseline (267c3f4)
+  - [x] Sub-task: Write a failing test asserting each adapter's slider is keyboard-focusable and responds to `ArrowRight` (Red — 5 failing, 3 passing; documents the live SC 2.1.1 defect on `main`)
+  - [x] Sub-task: Confirm the full existing suite is green on the untouched base — 279 passed, 0 failed
+  - [x] Sub-task (unplanned): Rewrite specs to locate the widget by `[role="slider"]` rather than a hardcoded container, after the baseline revealed the adapters disagree on placement
+  - [x] Sub-task (unplanned): Resolve the placement divergence and record the focus-visible defect (25045ce)
 - [ ] Task: Phase 0 Verification & Checkpoint
   - [ ] Sub-task: `git fetch origin main` to sync workflow rules and living specs
   - [ ] Sub-task: `CI=true npm test` — baseline green except the intentional Red specs
