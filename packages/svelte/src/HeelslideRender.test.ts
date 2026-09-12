@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { mount, unmount } from 'svelte';
-import Heelslide from '../src/Heelslide.svelte';
+import Heelslide from './Heelslide.svelte';
 import type { TrackPath } from '@heelslide/core';
 
 describe('<Heelslide /> Svelte Component Rendering & Styling', () => {

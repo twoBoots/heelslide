@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount, unmount, flushSync } from 'svelte';
-import Heelslide from '../src/Heelslide.svelte';
+import Heelslide from './Heelslide.svelte';
 import type { TrackPath } from '@heelslide/core';
 
 const track: TrackPath = {

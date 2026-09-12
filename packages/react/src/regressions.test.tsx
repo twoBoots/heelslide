@@ -4,8 +4,8 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, it, expect, afterEach } from 'vitest';
 import React, { act, useState } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { useHeelslide } from '../src/useHeelslide';
-import { Heelslide } from '../src/Heelslide';
+import { useHeelslide } from './useHeelslide';
+import { Heelslide } from './Heelslide';
 import type { TrackPath } from '@heelslide/core';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];

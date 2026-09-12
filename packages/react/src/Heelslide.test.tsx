@@ -5,8 +5,8 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, it, expect, vi } from 'vitest';
 import React, { act, createRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Heelslide } from '../src/Heelslide.js';
-import type { HeelslideProps } from '../src/types.js';
+import { Heelslide } from './Heelslide.js';
+import type { HeelslideProps } from './types.js';
 
 function renderComponent(props: HeelslideProps = {}, ref?: React.RefObject<HTMLDivElement | null>) {
   const container = document.createElement('div');

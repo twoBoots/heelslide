@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { VERSION, Heelslide, useHeelslide } from '../src/index';
+import { VERSION, Heelslide, useHeelslide } from './index';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 

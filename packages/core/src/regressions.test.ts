@@ -4,8 +4,8 @@ import {
   generateTrackPath,
   segmentsIntersect,
   HeelslideEngine
-} from '../src/index.js';
-import type { GestureState, Segment, TrackPath } from '../src/types.js';
+} from './index.js';
+import type { GestureState, Segment, TrackPath } from './types.js';
 
 function seg(x1: number, y1: number, x2: number, y2: number): Segment {
   return {

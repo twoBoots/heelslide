@@ -5,8 +5,8 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { VisualFixture, parseVisualFixtureParams } from '../src/fixtures/VisualFixture.js';
-import { App } from '../src/App.js';
+import { VisualFixture, parseVisualFixtureParams } from './VisualFixture.js';
+import { App } from '../App.js';
 
 describe('VisualFixture Query Parameter Parser', () => {
   it('parses default parameters when none are specified', () => {

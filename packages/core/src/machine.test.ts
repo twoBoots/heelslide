@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createGestureStateMachine } from '../src/machine.js';
-import type { TrackPath } from '../src/types.js';
+import { createGestureStateMachine } from './machine.js';
+import type { TrackPath } from './types.js';
 
 describe('Gesture State Machine', () => {
   // Simple L-shaped track: 1 heel at (50, 0)

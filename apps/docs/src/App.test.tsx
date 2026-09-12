@@ -5,7 +5,7 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, expect, it } from 'vitest';
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from '../src/App.js';
+import { App } from './App.js';
 import { VERSION } from '@heelslide/core';
 
 function renderApp() {

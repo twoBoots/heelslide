@@ -5,10 +5,10 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, expect, it, vi, afterEach } from 'vitest';
 import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { ConfigPanel } from '../src/components/ConfigPanel.js';
-import { Playground } from '../src/components/Playground.js';
-import { FrameworkTabs } from '../src/components/FrameworkTabs.js';
-import { generateCodeSnippet, type PlaygroundConfig } from '../src/utils/snippets.js';
+import { ConfigPanel } from './ConfigPanel.js';
+import { Playground } from './Playground.js';
+import { FrameworkTabs } from './FrameworkTabs.js';
+import { generateCodeSnippet, type PlaygroundConfig } from '../utils/snippets.js';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];
 

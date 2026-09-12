@@ -5,8 +5,8 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, expect, it, afterEach } from 'vitest';
 import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { VisualFixture } from '../src/fixtures/VisualFixture.js';
-import { generateCodeSnippet, type FrameworkTarget, type PlaygroundConfig } from '../src/utils/snippets.js';
+import { VisualFixture } from './VisualFixture.js';
+import { generateCodeSnippet, type FrameworkTarget, type PlaygroundConfig } from '../utils/snippets.js';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];
 

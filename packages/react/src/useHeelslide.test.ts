@@ -5,8 +5,8 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, it, expect, vi } from 'vitest';
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { useHeelslide, getPointAtProgress } from '../src/useHeelslide.js';
-import type { UseHeelslideOptions, UseHeelslideReturn } from '../src/types.js';
+import { useHeelslide, getPointAtProgress } from './useHeelslide.js';
+import type { UseHeelslideOptions, UseHeelslideReturn } from './types.js';
 
 // Helper to render and inspect hook in happy-dom
 function renderTestHook(options: UseHeelslideOptions = {}) {
