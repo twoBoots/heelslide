@@ -94,9 +94,35 @@ public stepToNextHeel(): number;               // jumps to the vertex ending the
 
 **Boundary semantics:**
 
-- Forward stepping that reaches `totalLength` sets `progress = 1.0`, transitions to `unlocked`,
-  and fires `onUnlock`. There is no `End`-key shortcut to this state — a single keypress must not
-  bypass intent validation, which would defeat the primitive's purpose.
+- **Stepping never unlocks on its own.** It advances progress; unlock happens only through an
+  explicit confirm (`Enter` / `Space`) that invokes the **same `end()` path pointer release uses**,
+  and is therefore subject to the identical condition:
+
+  ```ts
+  // machine.ts:285 — current main, unchanged by this track
+  const isAtEnd =
+    track.segments.length > 0 &&
+    currentSegmentIndex === track.segments.length - 1 &&
+    progress >= 0.95;
+  ```
+
+  Two reasons this matters, both discovered auditing the harvested code (see `harvest/AUDIT.md`):
+
+  1. **Threshold parity.** Pointer users unlock at 95% of the final segment. Requiring keyboard
+     users to reach `totalLength` would make them do strictly more work for the same action — an
+     accessibility defect introduced by the accessibility feature.
+  2. **Defect containment.** That condition is conjunctive because commit `6c8c6fb` fixed a real
+     unlock defect: on a `[100,100,5]` track, aggregate progress `0.9756` was reachable at the end
+     of segment 1, unlocking without the final segment ever being entered. A stepping API that
+     unlocked on the progress threshold alone would reintroduce that defect through a new entry
+     point. Routing through `end()` means there is one unlock rule, not two.
+
+  A pointer user can drag back before releasing; routing keyboard unlock through an explicit
+  confirm preserves the equivalent ability to step back before committing. Auto-unlocking
+  mid-step would silently remove it.
+
+- There is no `End`-key shortcut to the destination — a single keypress must not bypass intent
+  validation, which would defeat the primitive's purpose.
 - Forward stepping across a heel vertex in **segmented** mode sets `checkpoint` state and fires
   `onCheckpoint`, exactly as pointer traversal does — but does **not** arm the inactivity timer
   (§1).

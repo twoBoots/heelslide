@@ -36,7 +36,8 @@ free-ride on aggregate coverage.
   - [ ] Sub-task: Implement `AccessibleStep`, `AccessibleAnnouncement`, `AccessibleOptions`, `AnnouncementContext` in `types.ts` and the generators in `accessibility.ts` (Green)
   - [ ] Sub-task: Verify `typescript/no-explicit-any` passes — the harvested `(context: any)` signature must be replaced with `AnnouncementContext` (Refactor)
 - [ ] Task: Discrete stepping on the engine
-  - [ ] Sub-task: Write unit tests for `stepForward` / `stepBackward` — within-segment advance, crossing a heel vertex, multi-segment traversal, unlock at `totalLength`, flooring at 0 (Red)
+  - [ ] Sub-task: Write unit tests for `stepForward` / `stepBackward` — within-segment advance, crossing a heel vertex, multi-segment traversal, flooring at 0 (Red)
+  - [ ] Sub-task: Write unit tests asserting stepping NEVER unlocks on its own, and that confirm unlocks only via `end()` under the conjunctive final-segment condition — including the `[100,100,5]` regression case from audit commit `6c8c6fb` (Red)
   - [ ] Sub-task: Write a unit test asserting no API exists to jump straight to the destination (Red)
   - [ ] Sub-task: Write unit tests for `stepToNextHeel()` landing exactly on the terminating vertex (Red)
   - [ ] Sub-task: Implement stepping against the existing `accumulatedDistance / totalLength` model, reusing the pointer progress path rather than duplicating it (Green)

@@ -15,12 +15,27 @@
 + - **GIVEN** an active engine at intermediate progress in non-segmented mode
 + - **WHEN** `stepBackward(amount)` is invoked
 + - **THEN** progress MUST decrement along the path, reverting across heel vertices, flooring at 0 and returning state to `idle`.
-+ - **GIVEN** an active engine whose accumulated distance reaches `totalLength`
-+ - **WHEN** `stepForward()` completes
-+ - **THEN** progress MUST equal 1.0, state MUST transition to `unlocked`, and `onUnlock` MUST fire.
++ - **GIVEN** an active engine on the final segment at progress at or above the unlock threshold
++ - **WHEN** `stepForward()` advances progress further
++ - **THEN** the engine MUST NOT unlock; stepping MUST advance progress only.
 + - **GIVEN** any engine state
 + - **WHEN** a consumer seeks a single-keypress jump to the destination
 + - **THEN** no such API MUST exist; stepping MUST NOT provide a means to bypass traversal of the path.
++
++ ### Requirement: Unlock Parity Between Keyboard and Pointer
++ Keyboard-driven unlock MUST be governed by exactly the same condition as pointer-driven unlock, evaluated through the same code path.
++ - **GIVEN** an engine advanced by stepping onto the final segment at progress at or above the unlock threshold
++ - **WHEN** the confirm action is invoked
++ - **THEN** the engine MUST unlock via the same `end()` transition pointer release uses, progress MUST become 1.0, and `onUnlock` MUST fire exactly once.
++ - **GIVEN** an engine advanced by stepping to aggregate progress at or above the unlock threshold while NOT on the final segment
++ - **WHEN** the confirm action is invoked
++ - **THEN** the engine MUST NOT unlock, preserving the conjunctive condition that closed the audit defect in which a `[100,100,5]` track unlocked at the end of segment 1 without the final segment being entered.
++ - **GIVEN** an engine advanced by stepping to any progress below the unlock threshold
++ - **WHEN** the confirm action is invoked
++ - **THEN** the engine MUST NOT unlock, and MUST follow the same non-unlock branch pointer release follows at that progress.
++ - **GIVEN** a keyboard user at progress at or above the unlock threshold who has not yet confirmed
++ - **WHEN** `stepBackward()` is invoked
++ - **THEN** progress MUST decrement without unlocking, preserving the ability to withdraw before committing that a pointer user has by dragging back before release.
 +
 + ### Requirement: Step-to-Next-Heel Navigation
 + The engine MUST support jumping directly to the next heel vertex for efficient stepped navigation.
