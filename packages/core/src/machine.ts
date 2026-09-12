@@ -1,4 +1,4 @@
-import { euclideanDistance, projectPointOnSegment } from './geometry.js';
+import { euclideanDistance, isNearVertex, projectPointOnSegment } from './geometry.js';
 import type { FeedbackController } from './feedback.js';
 import type { GestureState, Point2D, TrackPath } from './types.js';
 
@@ -53,6 +53,7 @@ export function createGestureStateMachine(
   let lastConfirmedCheckpointIndex = -1;
   let lastConfirmedDistance = 0;
   let hasReachedSegmentEnd = false;
+  let hasTouchedHeelVertex = false;
   let turnFiredForSegment = false;
   let checkpointTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -79,23 +80,29 @@ export function createGestureStateMachine(
     }
   }
 
+  /**
+   * Returns the machine to its fail-safe origin. `initialState` seeds construction only; it is
+   * never a reset target, otherwise an engine seeded as 'unlocked' would report success after a
+   * rejected gesture.
+   */
   function resetState(): void {
     clearCheckpointTimer();
-    state = options.initialState ?? 'idle';
-    progress = options.initialProgress ?? (state === 'unlocked' ? 1.0 : state === 'active' ? 0.5 : 0);
+    progress = 0;
     currentSegmentIndex = 0;
     accumulatedDistance = 0;
     lastConfirmedCheckpointIndex = -1;
     lastConfirmedDistance = 0;
     hasReachedSegmentEnd = false;
+    hasTouchedHeelVertex = false;
     turnFiredForSegment = false;
     onProgress?.(progress);
-    setState(state);
+    setState('idle');
   }
 
   function triggerReset(): void {
     clearCheckpointTimer();
     feedback?.triggerReset();
+    setState('reset');
     resetState();
     onReset?.();
   }
@@ -105,6 +112,7 @@ export function createGestureStateMachine(
       currentSegmentIndex = lastConfirmedCheckpointIndex + 1;
       accumulatedDistance = lastConfirmedDistance;
       hasReachedSegmentEnd = false;
+      hasTouchedHeelVertex = false;
       turnFiredForSegment = false;
       progress = track.totalLength > 0 ? Math.min(1, Math.max(0, accumulatedDistance / track.totalLength)) : 0;
       setState('checkpoint');
@@ -124,6 +132,7 @@ export function createGestureStateMachine(
       if (checkpointPoint && euclideanDistance(point, checkpointPoint) <= tolerance) {
         clearCheckpointTimer();
         hasReachedSegmentEnd = false;
+        hasTouchedHeelVertex = false;
         turnFiredForSegment = false;
         setState('active');
         return true;
@@ -141,6 +150,7 @@ export function createGestureStateMachine(
       lastConfirmedCheckpointIndex = -1;
       lastConfirmedDistance = 0;
       hasReachedSegmentEnd = false;
+      hasTouchedHeelVertex = false;
       turnFiredForSegment = false;
       progress = 0;
       setState('active');
@@ -159,6 +169,7 @@ export function createGestureStateMachine(
     }
 
     const currentSegment = track.segments[currentSegmentIndex]!;
+    const currentProjection = projectPointOnSegment(point, currentSegment);
 
     if (!segmented) {
       // Check if the gesture is advancing onto the next segment across the heel
@@ -175,12 +186,21 @@ export function createGestureStateMachine(
             ? point.y >= currentSegment.end.y - 0.5
             : point.y <= currentSegment.end.y + 0.5;
 
-        const isAdvancingOnNext = hasPassedHeel && nextProj.distance <= tolerance && nextProj.t > 0;
+        // Negotiating a heel means actually reaching it. Without this the pointer can appear on
+        // segment K+1 having never come near the corner — a straight diagonal that skips the
+        // direction change the heel exists to demand.
+        if (isNearVertex(point, currentSegment.end, tolerance)) {
+          hasTouchedHeelVertex = true;
+        }
+
+        const isAdvancingOnNext =
+          hasTouchedHeelVertex && hasPassedHeel && nextProj.distance <= tolerance && nextProj.t > 0;
 
         if (isAdvancingOnNext) {
           accumulatedDistance += currentSegment.length;
           const navigatedHeelIndex = currentSegmentIndex;
           currentSegmentIndex += 1;
+          hasTouchedHeelVertex = false;
 
           feedback?.triggerTurn();
           onTurn?.(navigatedHeelIndex);
@@ -192,15 +212,13 @@ export function createGestureStateMachine(
         }
       }
 
-      const projection = projectPointOnSegment(point, currentSegment);
-
       // Check tolerance against current segment
-      if (projection.distance > tolerance) {
+      if (currentProjection.distance > tolerance) {
         triggerReset();
         return;
       }
 
-      const currentDistance = accumulatedDistance + projection.t * currentSegment.length;
+      const currentDistance = accumulatedDistance + currentProjection.t * currentSegment.length;
       progress = track.totalLength > 0 ? Math.min(1, Math.max(0, currentDistance / track.totalLength)) : 0;
       onProgress?.(progress);
       return;
@@ -208,7 +226,7 @@ export function createGestureStateMachine(
 
     // Segmented mode
     const isLastSegment = currentSegmentIndex === track.segments.length - 1;
-    const projection = projectPointOnSegment(point, currentSegment);
+    const projection = currentProjection;
 
     if (isLastSegment) {
       if (projection.distance > tolerance) {
@@ -262,11 +280,12 @@ export function createGestureStateMachine(
   function end(): void {
     if (state !== 'active') return;
 
-    // Check if close to terminal destination
-    const lastPoint = track.points[track.points.length - 1];
+    // Unlock requires being on the final segment: aggregate progress alone is satisfiable at an
+    // earlier heel whenever the trailing segments are short relative to total length.
     const isAtEnd =
-      progress >= 0.95 ||
-      (lastPoint !== undefined && currentSegmentIndex === track.segments.length - 1 && progress >= 0.9);
+      track.segments.length > 0 &&
+      currentSegmentIndex === track.segments.length - 1 &&
+      progress >= 0.95;
 
     if (isAtEnd) {
       clearCheckpointTimer();
@@ -288,6 +307,7 @@ export function createGestureStateMachine(
           lastConfirmedCheckpointIndex = heelIndex;
           lastConfirmedDistance = accumulatedDistance;
           hasReachedSegmentEnd = false;
+          hasTouchedHeelVertex = false;
           turnFiredForSegment = false;
           progress = track.totalLength > 0 ? Math.min(1, Math.max(0, accumulatedDistance / track.totalLength)) : 0;
           setState('checkpoint');

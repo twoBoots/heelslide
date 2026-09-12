@@ -205,11 +205,27 @@ describe('Gesture State Machine', () => {
       });
 
       machine.start({ x: 0, y: 0 });
-      // Turn corner onto segment 1
+      // Reach the heel vertex, then turn the corner onto segment 1
+      machine.update({ x: 48, y: 2 });
       machine.update({ x: 50, y: 25 });
 
       expect(onTurn).toHaveBeenCalledTimes(1);
       expect(onTurn).toHaveBeenCalledWith(0);
+    });
+
+    it('does not invoke onTurn when the pointer skips the heel vertex entirely', () => {
+      const onTurn = vi.fn();
+      const machine = createGestureStateMachine(simpleTrack, {
+        tolerance: 15,
+        onTurn
+      });
+
+      machine.start({ x: 0, y: 0 });
+      // Straight from the origin onto segment 1 without ever nearing the heel at (50, 0)
+      machine.update({ x: 50, y: 25 });
+
+      expect(onTurn).not.toHaveBeenCalled();
+      expect(machine.getCurrentSegmentIndex()).toBe(0);
     });
 
     it('triggers feedbackController turn, reset, and unlock events', () => {
@@ -225,7 +241,8 @@ describe('Gesture State Machine', () => {
       });
 
       machine.start({ x: 0, y: 0 });
-      // 1. Turn
+      // 1. Turn (reaching the heel vertex before rounding it)
+      machine.update({ x: 48, y: 2 });
       machine.update({ x: 50, y: 25 });
       expect(mockFeedback.triggerTurn).toHaveBeenCalledTimes(1);
 

@@ -131,7 +131,13 @@ function tryGeneratePath(
       validMoves = possibleY.map((y) => ({ x: current.x, y }));
     }
 
-    // Filter candidate moves to eliminate intersections
+    // Filter candidate moves to eliminate intersections.
+    //
+    // Adjacency matters here. The immediately preceding segment legitimately shares the heel
+    // vertex with the candidate, so it is tested in `excludeEndpoints` mode, which ignores that
+    // shared point. Every earlier segment must share no point at all, so it is tested in the
+    // default mode — `excludeEndpoints` reports only strict crossings and so silently accepts
+    // collinear overlap, which is how retraced paths were being generated.
     const legalMoves = validMoves.filter((next) => {
       const candidateSeg = {
         start: { x: current.x, y: current.y },
@@ -140,7 +146,8 @@ function tryGeneratePath(
         length: Math.abs(current.x - next.x) + Math.abs(current.y - next.y)
       };
 
-      for (const existing of segments) {
+      for (let s = 0; s < segments.length; s++) {
+        const existing = segments[s]!;
         const existSeg = {
           start: { x: existing.start.x, y: existing.start.y },
           end: { x: existing.end.x, y: existing.end.y },
@@ -148,7 +155,12 @@ function tryGeneratePath(
           length: Math.abs(existing.start.x - existing.end.x) + Math.abs(existing.start.y - existing.end.y)
         };
 
-        if (segmentsIntersect(candidateSeg, existSeg, { excludeEndpoints: true })) {
+        const isAdjacent = s === segments.length - 1;
+        const overlaps = isAdjacent
+          ? segmentsIntersect(candidateSeg, existSeg, { excludeEndpoints: true })
+          : segmentsIntersect(candidateSeg, existSeg);
+
+        if (overlaps) {
           return false;
         }
       }
