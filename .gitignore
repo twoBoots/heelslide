@@ -2,6 +2,10 @@
 .worktrees/
 
 # Dependencies
+# Both forms are required. The trailing-slash form matches directories only, so a `node_modules`
+# *symlink* — which is how a Troop worktree is usually pointed at the root install — is a file to
+# git and slips past it into `git add -A`.
+node_modules
 node_modules/
 
 # Build outputs
