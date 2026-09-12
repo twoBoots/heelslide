@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const rootDir = path.resolve(__dirname, '..');
 
@@ -64,6 +65,31 @@ describe('Release Pipeline Configuration', () => {
       expect(pkgJson.publishConfig.access).toBe('public');
       expect(pkgJson.files).toBeDefined();
       expect(pkgJson.files).toContain('dist');
+    });
+  });
+
+  describe('Repository Hygiene', () => {
+    // A `node_modules` symlink (how a Troop worktree is pointed at the root install) is a file
+    // to git, so a trailing-slash ignore rule misses it and `git add -A` commits it. On CI the
+    // release job's `git reset --hard` then restores the dangling link over the real install and
+    // every binary disappears: `sh: 1: changeset: not found`, exit 127.
+    it('should not track any node_modules path', () => {
+      const tracked = execFileSync('git', ['ls-files', '-z', '--', 'node_modules', '*/node_modules'], {
+        cwd: rootDir,
+        encoding: 'utf8'
+      })
+        .split('\0')
+        .filter(Boolean);
+
+      expect(tracked).toEqual([]);
+    });
+
+    it('should ignore a node_modules symlink as well as a directory', () => {
+      const gitignore = fs.readFileSync(path.join(rootDir, '.gitignore'), 'utf8');
+      const rules = gitignore.split('\n').map((line) => line.trim());
+
+      // The bare form is what catches the symlink; the trailing-slash form alone does not.
+      expect(rules).toContain('node_modules');
     });
   });
 
