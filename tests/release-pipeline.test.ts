@@ -66,6 +66,28 @@ describe('Release Pipeline Configuration', () => {
       expect(pkgJson.files).toBeDefined();
       expect(pkgJson.files).toContain('dist');
     });
+
+    // Tests sit beside the modules they cover, and react/svelte both publish `src` (for
+    // ./style.css and the `svelte` export condition). Without negation globs in `files`, that
+    // combination ships every colocated test to npm, dragging a `vitest` import into published
+    // source that consumers do not have installed. Asserting on the manifest would only restate
+    // the fix; packing is what sees the bytes npm actually sends.
+    it.each(publicPackages)('should not publish test files from %s', (pkgPath) => {
+      const pkgJson = JSON.parse(
+        fs.readFileSync(path.join(rootDir, pkgPath, 'package.json'), 'utf8')
+      );
+
+      const output = execFileSync(
+        'npm',
+        ['pack', '--dry-run', '--json', '--workspace', pkgJson.name],
+        { cwd: rootDir, encoding: 'utf8' }
+      );
+
+      const packed = (JSON.parse(output)[0].files as Array<{ path: string }>).map((f) => f.path);
+
+      expect(packed.length).toBeGreaterThan(0);
+      expect(packed.filter((f) => /\.(test|spec)\./.test(f))).toEqual([]);
+    });
   });
 
   describe('Repository Hygiene', () => {
