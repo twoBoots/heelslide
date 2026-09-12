@@ -24,10 +24,10 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Confirm the full existing suite is green on the untouched base — 279 passed, 0 failed
   - [x] Sub-task (unplanned): Rewrite specs to locate the widget by `[role="slider"]` rather than a hardcoded container, after the baseline revealed the adapters disagree on placement
   - [x] Sub-task (unplanned): Resolve the placement divergence and record the focus-visible defect (25045ce)
-- [ ] Task: Phase 0 Verification & Checkpoint
-  - [ ] Sub-task: `git fetch origin main` to sync workflow rules and living specs
-  - [ ] Sub-task: `CI=true npm test` — baseline green except the intentional Red specs
-  - [ ] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Phase 0 Verification & Checkpoint [checkpoint: df33a4b]
+  - [x] Sub-task: `git fetch origin main` to sync workflow rules and living specs — no upstream drift
+  - [x] Sub-task: `CI=true npm test` — 282 passed, 5 intentional Red; `tsc -b` and `oxlint` clean
+  - [x] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
 
 ---
 
