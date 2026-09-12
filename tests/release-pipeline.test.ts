@@ -121,8 +121,18 @@ describe('Release Pipeline Configuration', () => {
 
       expect(pkgJson.scripts).toBeDefined();
       expect(pkgJson.scripts.changeset).toBe('changeset');
-      expect(pkgJson.scripts['version-packages']).toBe('changeset version');
+      expect(pkgJson.scripts['version-packages']).toMatch(/^changeset version\b/);
       expect(pkgJson.scripts.release).toBe('changeset publish');
+    });
+
+    // `changeset version` rewrites manifests but not the VERSION constants the barrels export,
+    // so versioning must propagate them in the same step or every release ships stale exports
+    // and fails the per-package version assertions.
+    it('should propagate VERSION exports as part of versioning', () => {
+      const pkgJson = JSON.parse(fs.readFileSync(rootPkgJsonPath, 'utf8'));
+
+      expect(pkgJson.scripts['version-packages']).toContain('sync-version-exports');
+      expect(fs.existsSync(path.join(rootDir, 'scripts/sync-version-exports.mjs'))).toBe(true);
     });
 
     it('should include @changesets/cli devDependency', () => {

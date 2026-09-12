@@ -32,6 +32,14 @@
         "typescript/no-explicit-any": "off",
         "react/globals": "off"
       }
+    },
+    {
+      "files": [
+        "scripts/**"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
     }
   ]
 }
