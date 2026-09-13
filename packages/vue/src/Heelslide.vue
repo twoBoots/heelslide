@@ -331,9 +331,14 @@ defineExpose({
       </g>
 
       <!-- Draggable Handle -->
+      <!--
+        The handle is a pointer affordance only. Keyboard and assistive-technology users operate
+        the container, which carries role="slider", focus and the key bindings.
+      -->
       <g
         ref="handleRef"
         class="heelslide-handle"
+        role="presentation"
         @pointerdown="handlePointerDown"
         @pointermove="handlePointerMove"
         @pointerup="handlePointerUp"

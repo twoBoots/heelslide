@@ -81,7 +81,7 @@ describe('<Heelslide /> Svelte Component Rendering & Styling', () => {
     // assertions below target the container instead.
     const handle = target.querySelector('.heelslide-handle');
     expect(handle).not.toBeNull();
-    expect(handle?.getAttribute('role')).toBeNull();
+    expect(handle?.getAttribute('role')).toBe('presentation');
 
     const slider = target.querySelector('[data-heelslide-container]');
     expect(slider?.getAttribute('role')).toBe('slider');

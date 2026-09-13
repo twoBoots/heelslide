@@ -62,7 +62,7 @@ describe('<Heelslide /> SVG Rendering & Styling', () => {
     // assertions below target the container instead.
     const handle = wrapper.find('.heelslide-handle');
     expect(handle.exists()).toBe(true);
-    expect(handle.attributes('role')).toBeUndefined();
+    expect(handle.attributes('role')).toBe('presentation');
 
     const slider = wrapper.find('[data-heelslide-container]');
     expect(slider.attributes('role')).toBe('slider');

@@ -329,8 +329,14 @@ export function getHeelslide() {
     {/if}
 
     <!-- Draggable Handle -->
+    <!--
+      The handle is a pointer affordance only. Keyboard and assistive-technology users operate
+      the container, which carries role="slider", focus and the key bindings; role="presentation"
+      says so explicitly rather than leaving the handle an unlabelled interactive element.
+    -->
     <g
       class="heelslide-handle"
+      role="presentation"
       onpointerdown={handlePointerDown}
       onpointermove={handlePointerMove}
       onpointerup={handlePointerUp}
