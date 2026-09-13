@@ -9,7 +9,7 @@
   - [x] Sub-task: Run unit tests and attach checkpoint notes
 
 ## Phase 2: ConfigPanel & Playground Controls (TDD)
-- [ ] Task: ConfigPanel Additional Controls
+- [~] Task: ConfigPanel Additional Controls
   - [ ] Sub-task: Add test coverage in `apps/docs/src/components/coverage.test.tsx` for `gridStep`, `margin`, border widths, and state colors (Red)
   - [ ] Sub-task: Implement control inputs in `ConfigPanel.tsx` and wire CSS variables into `Playground.tsx` container styles (Green)
   - [ ] Sub-task: Verify live interactive simulator behavior (Refactor)
