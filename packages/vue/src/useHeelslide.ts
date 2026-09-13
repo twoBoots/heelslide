@@ -1,7 +1,10 @@
 import { ref, shallowRef, shallowReadonly, computed, readonly, getCurrentScope, onScopeDispose, type Ref } from 'vue';
 import {
   HeelslideEngine,
+  getAccessibleDescription,
+  getAccessibleSteps,
   projectPointOnSegment,
+  type AccessibleAnnouncement,
   type GestureState,
   type GeneratorOptions,
   type Point2D,
@@ -34,9 +37,14 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
   const state = ref<GestureState>('idle');
   const progress = ref<number>(0);
   const currentSegmentIndex = ref<number>(0);
+  const announcement = ref<AccessibleAnnouncement | null>(null);
 
   const engine = new HeelslideEngine({
     ...options,
+    onAnnouncement: (a) => {
+      announcement.value = a;
+      options.onAnnouncement?.(a);
+    },
     onTurn: (heelIndex) => {
       options.onTurn?.(heelIndex);
     },
@@ -164,6 +172,19 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     endGesture,
     cancelGesture,
     reset,
-    regeneratePath
+    regeneratePath,
+    stepForward: (amount?: number) => {
+      engine.stepForward(amount);
+    },
+    stepBackward: (amount?: number) => {
+      engine.stepBackward(amount);
+    },
+    stepToNextHeel: () => {
+      engine.stepToNextHeel();
+    },
+    // Derived from the reactive track, so a regenerated path updates both.
+    steps: computed(() => getAccessibleSteps(track.value)),
+    description: computed(() => getAccessibleDescription(track.value)),
+    announcement: readonly(announcement)
   };
 }
