@@ -57,18 +57,18 @@ jobs:
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: npm run build
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Create Release Pull Request (npm publish temporarily disabled)
         id: changesets
         if: steps.check-pkg.outputs.has_pkg == 'true'
         uses: changesets/action@v1
         with:
-          publish: npm run release
+          # publish: npm run release # Temporarily disabled; reintroduce when NPM_TOKEN is configured
           version: npm run version-packages
           title: "chore(release): Version Packages"
           commit: "chore(release): Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Pack & Upload Release Tarballs
         if: steps.check-pkg.outputs.has_pkg == 'true' && steps.changesets.outputs.published == 'true'

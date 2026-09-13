@@ -5,6 +5,9 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
+- [x] **Track: Temporarily Disable npm Publishing in Release Workflow**
+  - Worktree: `.worktrees/disable-npm-release`
+  - Link: [.cooper/active/disable-npm-release/index.md](.cooper/active/disable-npm-release/index.md)
 - [ ] **Track: Whole-Project Audit Remediation**
   - Worktree: `.worktrees/audit-remediation`
   - Link: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)
