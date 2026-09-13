@@ -45,7 +45,7 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write unit tests for `stepToNextHeel()` landing exactly on the terminating vertex (Red)
   - [x] Sub-task: Implement stepping against the existing `accumulatedDistance / totalLength` model, reusing the pointer progress path rather than duplicating it (Green) — position derives from `progress`, so there is no second source of truth
   - [x] Sub-task: Refactor shared distance arithmetic out of the pointer and stepping paths; verify per-file coverage >80% (Refactor) — `machine.ts` branches 82.35%, `engine.ts` 96.96%
-- [ ] Task: Announcement lifecycle
+- [~] Task: Announcement lifecycle
   - [ ] Sub-task: Write unit tests for `onAnnouncement` firing on start, step, heel_reached, checkpoint, unlock, reset, with correct type, progress, and timestamp (Red)
   - [ ] Sub-task: Write unit tests for `announceMessages` overrides and for `accessible.enabled: false` suppressing all announcements (Red)
   - [ ] Sub-task: Implement announcement emission and override resolution (Green)
