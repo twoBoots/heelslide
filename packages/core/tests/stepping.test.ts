@@ -212,15 +212,18 @@ describe('unlock parity between keyboard and pointer', () => {
     expect(onUnlock).toHaveBeenCalledTimes(1);
   });
 
-  it('does not unlock on confirm below the progress threshold', () => {
+  it('does not unlock on confirm below the progress threshold, and discards progress as an early pointer release does', () => {
     const onUnlock = vi.fn();
-    const engine = new HeelslideEngine({ track: evenTrack, onUnlock });
+    const onReset = vi.fn();
+    const engine = new HeelslideEngine({ track: evenTrack, onUnlock, onReset });
 
     engine.stepForward(0.5);
     engine.endGesture();
 
-    expect(engine.getState()).not.toBe('unlocked');
+    expect(engine.getState()).toBe('idle');
+    expect(engine.getProgress()).toBe(0);
     expect(onUnlock).not.toHaveBeenCalled();
+    expect(onReset).toHaveBeenCalledTimes(1);
   });
 
   it('does not unlock on confirm when aggregate progress is above threshold but the final segment has not been entered', () => {
@@ -236,6 +239,7 @@ describe('unlock parity between keyboard and pointer', () => {
     engine.endGesture();
 
     expect(engine.getState()).not.toBe('unlocked');
+    expect(engine.getProgress()).toBe(0);
     expect(onUnlock).not.toHaveBeenCalled();
   });
 

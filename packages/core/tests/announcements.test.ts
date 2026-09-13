@@ -66,6 +66,21 @@ describe('announcement lifecycle', () => {
     expect(typesOf(announcements)).toContain('heel_reached');
   });
 
+  it('numbers heels by the heel just crossed, not the segment now occupied', () => {
+    const { announcements, onAnnouncement } = collect();
+    const engine = new HeelslideEngine({ track, onAnnouncement });
+
+    // Crossing out of segment 0 means the FIRST heel has been negotiated.
+    engine.stepForward(0.5);
+    const first = announcements.find((a) => a.type === 'heel_reached');
+    expect(first?.message).toContain('Turn 1');
+    expect(first?.message).not.toContain('Turn 2');
+
+    engine.stepForward(0.3);
+    const second = announcements.filter((a) => a.type === 'heel_reached').at(-1);
+    expect(second?.message).toContain('Turn 2');
+  });
+
   it('announces the unlock', () => {
     const { announcements, onAnnouncement } = collect();
     const engine = new HeelslideEngine({ track, onAnnouncement });
@@ -216,5 +231,14 @@ describe('createDefaultAnnouncementMessage', () => {
 
     expect(checkpoint).not.toBe(heel);
     expect(checkpoint.toLowerCase()).toContain('checkpoint');
+  });
+
+  it('names the heel just crossed, so arriving on segment 1 reports turn 1', () => {
+    expect(
+      createDefaultAnnouncementMessage('heel_reached', { progress: 0.33, currentSegmentIndex: 1 })
+    ).toContain('Turn 1');
+    expect(
+      createDefaultAnnouncementMessage('checkpoint', { progress: 0.66, currentSegmentIndex: 2 })
+    ).toContain('Checkpoint 2');
   });
 });

@@ -94,7 +94,9 @@ export function createDefaultAnnouncementMessage(
   context: AnnouncementContext
 ): string {
   const percent = Math.round((context.progress ?? 0) * 100);
-  const heelNumber = (context.currentSegmentIndex ?? 0) + 1;
+  // Crossing out of segment K negotiates heel K, which is heel K in 1-based terms — so the heel
+  // just crossed is the index of the segment now occupied, not that index plus one.
+  const heelNumber = Math.max(1, context.currentSegmentIndex ?? 1);
 
   switch (type) {
     case 'start':
