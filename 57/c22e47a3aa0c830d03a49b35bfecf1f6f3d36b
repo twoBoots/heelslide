@@ -1,0 +1,22 @@
+Task: Cross-adapter parity audit - type export parity
+Phase: 3 (Framework Adapter Parity)
+Scope: packages/{react,vue}/src/index.ts
+
+Second half of the parity audit, checking the published type surface rather
+than the rendered markup.
+
+Gap found: AccessibleFallbackMode reached consumers from Svelte but not React
+or Vue. The cause is a difference in export style that predates this track -
+Svelte uses `export type * from './types.js'`, the other two enumerate. A new
+type therefore ships from one adapter automatically and from the others only if
+someone remembers.
+
+Worth noting for future tracks: that asymmetry will silently swallow the next
+new type too. Not changed here, as converting React and Vue to wildcard exports
+would widen their public surface beyond this track's remit.
+
+Also forwarded the seven new core accessibility types from all three adapters,
+matching the existing convenience re-exports, so consumers can type an
+announcement handler without importing @heelslide/core directly.
+
+Full suite 468 passing, tsc and oxlint clean.
