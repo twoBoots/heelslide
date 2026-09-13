@@ -38,7 +38,7 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write unit tests for `getAccessibleDescription()` across 0-turn, 1-turn, and 2-turn paths (Red)
   - [x] Sub-task: Implement `AccessibleStep` and `StepDirection` in `types.ts` and the generators in `accessibility.ts` (Green) — announcement types deferred to Task 3 so they land with their own tests rather than ahead of them
   - [x] Sub-task: Export from `index.ts`; `tsc -b`, `oxlint` and coverage clean (Refactor) — 100% on `accessibility.ts`
-- [ ] Task: Discrete stepping on the engine
+- [~] Task: Discrete stepping on the engine
   - [ ] Sub-task: Write unit tests for `stepForward` / `stepBackward` — within-segment advance, crossing a heel vertex, multi-segment traversal, flooring at 0 (Red)
   - [ ] Sub-task: Write unit tests asserting stepping NEVER unlocks on its own, and that confirm unlocks only via `end()` under the conjunctive final-segment condition — including the `[100,100,5]` regression case from audit commit `6c8c6fb` (Red)
   - [ ] Sub-task: Write a unit test asserting no API exists to jump straight to the destination (Red)
