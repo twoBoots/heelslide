@@ -29,7 +29,10 @@
 + - **THEN** each MUST include the accessibility props in that framework's idiomatic syntax.
 +
 + ### Requirement: Documented Key Bindings
-+ The playground MUST document how to operate the component by keyboard.
-+ - **GIVEN** a visitor on the playground
-+ - **WHEN** the accessibility section is viewed
-+ - **THEN** it MUST tabulate every bound key and its action, and MUST state that `End` is intentionally unbound to prevent bypassing intent validation.
++ The playground MUST document how to operate the component by keyboard, within the existing on-page reference rather than as a separate section.
++ - **GIVEN** the Configuration & Styling Reference introduced by the `docs-config-css-parity` track
++ - **WHEN** it is rendered
++ - **THEN** it MUST offer a keyboard tab alongside the props and CSS tabs, following the same tab pattern.
++ - **GIVEN** the keyboard reference tab
++ - **WHEN** it is viewed
++ - **THEN** it MUST tabulate every bound key and its action, and MUST state that `End` is intentionally unbound to prevent a single keypress bypassing intent validation.
