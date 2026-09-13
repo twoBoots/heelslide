@@ -25,7 +25,7 @@
   - [x] Sub-task: Build production bundle (`npm run build` in `apps/docs`) and verify static artifacts
 
 ## Phase 4: Track Finalization & Review
-- [ ] Task: Final Quality Audit
+- [~] Task: Final Quality Audit
   - [ ] Sub-task: Run lint, format, typecheck, and full test suite
   - [ ] Sub-task: Sync capability spec `.cooper/specs/docs-playground/spec.md` with approved deltas
   - [ ] Sub-task: Push checkpoint to remote
