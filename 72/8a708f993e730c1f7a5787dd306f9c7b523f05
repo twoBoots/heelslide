@@ -1,0 +1,21 @@
+Task: Announcement lifecycle - defect correction
+Phase: 1 (Core Accessible Stepping & Semantics)
+
+Two issues, both found by running the built package rather than by assertion.
+
+1. Heel numbering off by one (product defect, fixed).
+   createDefaultAnnouncementMessage used currentSegmentIndex + 1. Crossing the
+   first heel therefore announced 'Turn 2 reached'. Corrected to the segment
+   index now occupied, floored at 1.
+
+   The existing specs could not have caught this: they asserted an announcement
+   fired and that message.length > 0. Added specs now assert which turn is named,
+   at both the emission and message-builder level.
+
+2. Confirm below threshold (behaviour correct, spec strengthened).
+   endGesture below the unlock threshold routes to triggerReset, so progress is
+   discarded and state returns to idle. That is exact parity with releasing a
+   pointer early. The spec asserted only 'not unlocked' and so passed without
+   pinning it; it now asserts state, progress and onReset.
+
+Core suite 158 passed. Demonstration output verified before and after.
