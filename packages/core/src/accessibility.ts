@@ -1,4 +1,12 @@
-import type { AccessibleStep, Direction, Point2D, StepDirection, TrackPath } from './types.js';
+import type {
+  AccessibleAnnouncementType,
+  AccessibleStep,
+  AnnouncementContext,
+  Direction,
+  Point2D,
+  StepDirection,
+  TrackPath
+} from './types.js';
 
 /**
  * Resolves the cardinal movement direction for a segment from its axis and the sign of its
@@ -75,4 +83,32 @@ export function getAccessibleDescription(track: TrackPath): string {
   const turnLabel = turns === 1 ? '1 turn' : `${turns} turns`;
 
   return `Security gate with ${turnLabel}: move ${directions.join(', then ')} to unlock.`;
+}
+
+/**
+ * Default screen-reader wording for each announcement milestone. Consumers override individual
+ * types through `AccessibleOptions.announceMessages`.
+ */
+export function createDefaultAnnouncementMessage(
+  type: AccessibleAnnouncementType,
+  context: AnnouncementContext
+): string {
+  const percent = Math.round((context.progress ?? 0) * 100);
+  const heelNumber = (context.currentSegmentIndex ?? 0) + 1;
+
+  switch (type) {
+    case 'start':
+      return 'Gesture started. Move along the track to begin.';
+    case 'step':
+      return `${percent}% complete.`;
+    case 'heel_reached':
+      return `Turn ${heelNumber} reached. Change direction to continue. ${percent}% complete.`;
+    case 'checkpoint':
+      // Distinct from 'heel_reached': a checkpoint is confirmed and cannot be rewound past.
+      return `Checkpoint ${heelNumber} confirmed. ${percent}% complete.`;
+    case 'unlock':
+      return 'Security gate unlocked.';
+    case 'reset':
+      return 'Gesture reset to the start.';
+  }
 }

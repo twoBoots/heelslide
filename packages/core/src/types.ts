@@ -92,11 +92,41 @@ export interface FeedbackOptions {
   sound?: boolean | SoundOptions;
 }
 
+/**
+ * Milestones worth announcing to a screen reader. Pointer movement is deliberately absent: the
+ * pointer path emits progress continuously, and announcing it would flood the live region.
+ */
+export type AccessibleAnnouncementType =
+  | 'start'
+  | 'step'
+  | 'heel_reached'
+  | 'checkpoint'
+  | 'unlock'
+  | 'reset';
+
+export interface AccessibleAnnouncement {
+  type: AccessibleAnnouncementType;
+  message: string;
+  progress: number;
+  timestamp: number;
+}
+
+/** State passed to message builders, default and overridden alike. */
+export interface AnnouncementContext {
+  progress: number;
+  currentSegmentIndex?: number;
+  totalSegments?: number;
+}
+
 /** Tuning for keyboard and switch-device operation. */
 export interface AccessibleOptions {
   enabled?: boolean;
   /** Fraction of total path length advanced per step. Defaults to 0.1. */
   stepIncrement?: number;
+  /** Per-type message overrides. Types left unset keep their default message. */
+  announceMessages?: Partial<
+    Record<AccessibleAnnouncementType, (context: AnnouncementContext) => string>
+  >;
 }
 
 export interface EngineOptions {
@@ -115,4 +145,5 @@ export interface EngineOptions {
   onReset?: () => void;
   onProgress?: (progress: number) => void;
   onStateChange?: (state: GestureState) => void;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
 }

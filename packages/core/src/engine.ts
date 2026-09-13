@@ -58,6 +58,8 @@ export class HeelslideEngine {
       onReset: this.options.onReset,
       onProgress: this.options.onProgress,
       onStateChange: this.options.onStateChange,
+      onAnnouncement: this.options.onAnnouncement,
+      accessible: this.options.accessible,
       feedback: this.feedback
     });
   }

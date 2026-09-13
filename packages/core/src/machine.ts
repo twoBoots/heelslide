@@ -1,11 +1,21 @@
+import { createDefaultAnnouncementMessage } from './accessibility.js';
 import { euclideanDistance, isNearVertex, projectPointOnSegment } from './geometry.js';
 import type { FeedbackController } from './feedback.js';
-import type { GestureState, Point2D, TrackPath } from './types.js';
+import type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  GestureState,
+  Point2D,
+  TrackPath
+} from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
   segmented?: boolean;
   checkpointTimeoutMs?: number;
+  accessible?: AccessibleOptions;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
   initialState?: GestureState;
   initialProgress?: number;
   onTurn?: (heelIndex: number) => void;
@@ -50,6 +60,8 @@ export function createGestureStateMachine(
     onReset,
     onProgress,
     onStateChange,
+    onAnnouncement,
+    accessible,
     feedback
   } = options;
 
@@ -63,6 +75,28 @@ export function createGestureStateMachine(
   let hasTouchedHeelVertex = false;
   let turnFiredForSegment = false;
   let checkpointTimer: ReturnType<typeof setTimeout> | null = null;
+
+  /**
+   * Emits one accessibility milestone. Silent when accessibility is disabled or no consumer is
+   * listening, so the announcement path costs nothing for pointer-only integrations.
+   */
+  function announce(type: AccessibleAnnouncementType): void {
+    if (!onAnnouncement || accessible?.enabled === false) return;
+
+    const context = {
+      progress,
+      currentSegmentIndex,
+      totalSegments: track.segments.length
+    };
+    const override = accessible?.announceMessages?.[type];
+
+    onAnnouncement({
+      type,
+      message: override ? override(context) : createDefaultAnnouncementMessage(type, context),
+      progress,
+      timestamp: Date.now()
+    });
+  }
 
   function setState(newState: GestureState): void {
     if (state !== newState) {
@@ -104,6 +138,9 @@ export function createGestureStateMachine(
     turnFiredForSegment = false;
     onProgress?.(progress);
     setState('idle');
+    // Announced here rather than in triggerReset so a programmatic reset — the Home key, for
+    // one — is narrated too, while triggerReset still yields exactly one announcement.
+    announce('reset');
   }
 
   function triggerReset(): void {
@@ -147,6 +184,7 @@ export function createGestureStateMachine(
     }
 
     const clamped = Math.min(track.totalLength, Math.max(0, distance));
+    const previousSegmentIndex = currentSegmentIndex;
 
     let boundary = 0;
     let index = 0;
@@ -169,6 +207,12 @@ export function createGestureStateMachine(
 
     setState(progress > 0 ? 'active' : 'idle');
     onProgress?.(progress);
+
+    if (index > previousSegmentIndex) {
+      announce('heel_reached');
+    } else {
+      announce('step');
+    }
 
     return progress;
   }
@@ -232,6 +276,7 @@ export function createGestureStateMachine(
       progress = 0;
       setState('active');
       onProgress?.(0);
+      announce('start');
       return true;
     }
 
@@ -370,6 +415,7 @@ export function createGestureStateMachine(
       onProgress?.(1.0);
       setState('unlocked');
       feedback?.triggerUnlock();
+      announce('unlock');
       onUnlock?.();
       return;
     }
@@ -389,6 +435,7 @@ export function createGestureStateMachine(
           progress = track.totalLength > 0 ? Math.min(1, Math.max(0, accumulatedDistance / track.totalLength)) : 0;
           setState('checkpoint');
           onProgress?.(progress);
+          announce('checkpoint');
           onCheckpoint?.(heelIndex, progress);
           startCheckpointTimer();
           return;

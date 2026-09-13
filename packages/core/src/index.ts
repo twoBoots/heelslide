@@ -20,6 +20,7 @@ export { generateDeterministicFallback, generateTrackPath } from './generator.js
 
 // Accessibility: semantic path description
 export {
+  createDefaultAnnouncementMessage,
   getAccessibleDescription,
   getAccessibleSteps,
   getStepDirection
@@ -46,7 +47,11 @@ export {
 
 // Types & Interfaces
 export type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
   AccessibleStep,
+  AnnouncementContext,
   Bounds,
   Direction,
   EngineOptions,
