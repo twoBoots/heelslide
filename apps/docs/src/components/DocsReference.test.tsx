@@ -62,14 +62,23 @@ describe('DocsReference Component', () => {
     expect(host.textContent).toContain('--heelslide-error-color');
   });
 
-  it('should allow filtering or switching categories if tabs exist', () => {
+  it('should switch between tabs and update active class', () => {
     const host = render(React.createElement(DocsReference));
     const tabButtons = host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn');
-    if (tabButtons.length >= 2) {
-      act(() => {
-        tabButtons[1].click();
-      });
-      expect(tabButtons[1].className).toContain('active');
-    }
+    expect(tabButtons.length).toBe(2);
+
+    // Switch to CSS tab
+    act(() => {
+      tabButtons[1].click();
+    });
+    expect(tabButtons[1].className).toContain('active');
+    expect(tabButtons[0].className).not.toContain('active');
+
+    // Switch back to Props tab
+    act(() => {
+      tabButtons[0].click();
+    });
+    expect(tabButtons[0].className).toContain('active');
+    expect(tabButtons[1].className).not.toContain('active');
   });
 });
