@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import { describe, it, expect } from 'vitest';
-import HeelslideDefault, { Heelslide, createHeelslide, VERSION } from '../src/index.js';
+import HeelslideDefault, { Heelslide, createHeelslide, VERSION } from './index.js';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 

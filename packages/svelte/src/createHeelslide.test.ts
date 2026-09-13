@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest';
-import { createHeelslide } from '../src/createHeelslide.svelte.js';
+import { createHeelslide } from './createHeelslide.svelte.js';
 import type { TrackPath } from '@heelslide/core';
 
 describe('createHeelslide rune composable', () => {

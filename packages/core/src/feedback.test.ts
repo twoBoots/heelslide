@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { FeedbackController, createFeedbackController } from '../src/feedback.js';
+import { FeedbackController, createFeedbackController } from './feedback.js';
 
 describe('FeedbackController', () => {
   let originalNavigator: unknown;

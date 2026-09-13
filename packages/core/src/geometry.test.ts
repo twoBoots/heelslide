@@ -6,8 +6,8 @@ import {
   pointInBounds,
   projectPointOnSegment,
   segmentsIntersect
-} from '../src/geometry.js';
-import type { Point2D, Segment } from '../src/types.js';
+} from './geometry.js';
+import type { Point2D, Segment } from './types.js';
 
 describe('Geometry Utilities', () => {
   describe('euclideanDistance', () => {

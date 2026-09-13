@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import Heelslide from '../src/Heelslide.vue';
+import Heelslide from './Heelslide.vue';
 import type { TrackPath } from '@heelslide/core';
 
 describe('<Heelslide /> Pointer Interactions & Lifecycle', () => {

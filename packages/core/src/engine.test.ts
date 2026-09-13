@@ -4,7 +4,7 @@ import {
   createGestureStateMachine,
   euclideanDistance,
   generateTrackPath
-} from '../src/index.js';
+} from './index.js';
 
 describe('HeelslideEngine Orchestrator & Public API', () => {
   it('exports all core public utilities and classes from index.ts', () => {

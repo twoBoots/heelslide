@@ -5,7 +5,7 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 import { describe, expect, it, vi, afterEach } from 'vitest';
 import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { App } from '../src/App.js';
+import { App } from './App.js';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];
 

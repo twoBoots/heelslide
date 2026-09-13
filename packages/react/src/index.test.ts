@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Heelslide, useHeelslide, getPointAtProgress, VERSION } from '../src/index.js';
+import { Heelslide, useHeelslide, getPointAtProgress, VERSION } from './index.js';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 

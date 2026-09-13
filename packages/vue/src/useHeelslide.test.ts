@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest';
 import { ref } from 'vue';
-import { useHeelslide } from '../src/useHeelslide';
+import { useHeelslide } from './useHeelslide';
 import type { TrackPath } from '@heelslide/core';
 
 describe('useHeelslide composable', () => {

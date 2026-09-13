@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildFixtureUrl } from '../../../tests/visual/helpers/visual-utils.js';
+import { buildFixtureUrl } from './visual-utils.js';
 
 describe('buildFixtureUrl helper', () => {
   it('builds default fixture URL', () => {

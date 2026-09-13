@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { generateDeterministicFallback, generateTrackPath } from '../src/generator.js';
-import { pointInBounds, segmentsIntersect } from '../src/geometry.js';
-import type { GeneratorOptions } from '../src/types.js';
+import { generateDeterministicFallback, generateTrackPath } from './generator.js';
+import { pointInBounds, segmentsIntersect } from './geometry.js';
+import type { GeneratorOptions } from './types.js';
 
 describe('Procedural Rectilinear Path Generator', () => {
   const defaultOptions: GeneratorOptions = {

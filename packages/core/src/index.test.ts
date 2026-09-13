@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { VERSION } from '../src/index.js';
+import { VERSION } from './index.js';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -16,7 +16,7 @@ describe('Heelslide Core exports', () => {
   });
 
   it('should export FeedbackController and createFeedbackController', async () => {
-    const core = await import('../src/index.js');
+    const core = await import('./index.js');
     expect(typeof core.FeedbackController).toBe('function');
     expect(typeof core.createFeedbackController).toBe('function');
     expect(core.DEFAULT_HAPTIC_PATTERNS).toBeDefined();

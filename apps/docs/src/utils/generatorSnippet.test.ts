@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { generateCodeSnippet, type PlaygroundConfig } from '../src/utils/snippets.js';
+import { generateCodeSnippet, type PlaygroundConfig } from './snippets.js';
 
 describe('Playground Code Snippet Generator', () => {
   const sampleConfig: PlaygroundConfig = {
