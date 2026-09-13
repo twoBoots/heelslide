@@ -164,4 +164,17 @@ describe('Release Pipeline Configuration', () => {
       expect(pkgJson.devDependencies['@changesets/cli']).toBeDefined();
     });
   });
+
+  describe('Release Workflow', () => {
+    const releaseWorkflowPath = path.join(rootDir, '.github', 'workflows', 'release.yml');
+
+    it('should temporarily disable npm publish in changesets action', () => {
+      expect(fs.existsSync(releaseWorkflowPath)).toBe(true);
+      const content = fs.readFileSync(releaseWorkflowPath, 'utf8');
+
+      // npm publish should not be actively invoked by changesets action
+      expect(content).not.toMatch(/^\s*publish:\s*npm run release/m);
+    });
+  });
 });
+
