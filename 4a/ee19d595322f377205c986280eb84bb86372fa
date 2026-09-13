@@ -1,0 +1,22 @@
+Task: Playwright keyboard end-to-end specs
+Phase: 5 (Browser Verification & Release)
+Scope: tests/e2e/{keyboard.spec.ts,svg-focus-probe.spec.ts}, playwright.config.ts, packages/vue/src/a11ySemantics.test.ts, spec deltas, index.md
+
+Results: 7 specs x 3 projects = 21 passed.
+  chromium-desktop 7/7, webkit-mobile 7/7, firefox-desktop 7/7
+Vitest suite unaffected: 478 passed. tsc -b clean, oxlint clean.
+
+Correction recorded rather than quietly dropped. When recommending that
+role=slider move onto the container, I cited unreliable SVG tabindex focus in
+WebKit as a reason. The probe added here finds <g tabindex="0"> focusable in
+Chromium, WebKit and Firefox alike, so the claim did not hold for the engines
+this project actually targets.
+
+The design decision is unchanged, because the reasons that survive are
+sufficient on their own - fewer adapters altered, natural ownership of the
+describedby/keyshortcuts/live-region wiring, and the focus-visibility fix that
+moving off the handle enabled. But the stated rationale was wrong and is
+corrected in the vue and svelte spec deltas, index.md, and the Vue test header.
+
+The probe is kept as a committed spec that reports rather than enforces, so
+this stays verifiable instead of reverting to folklore.
