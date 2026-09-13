@@ -5,8 +5,8 @@
   - [x] Sub-task: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` verifying `--heelslide-width`, `--heelslide-height`, border widths, and state colors are formatted into React, Vue, and Svelte snippets (Red)
   - [x] Sub-task: Update `ThemeConfig`, `formatReactStyles`, and `formatCssDeclarations` in `apps/docs/src/utils/snippets.ts` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
-- [ ] Task: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Run unit tests and attach checkpoint notes
+- [x] Task: Phase 1 Verification & Checkpoint [checkpoint: f2456b1]
+  - [x] Sub-task: Run unit tests and attach checkpoint notes
 
 ## Phase 2: ConfigPanel & Playground Controls (TDD)
 - [ ] Task: ConfigPanel Additional Controls
