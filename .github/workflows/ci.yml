@@ -124,6 +124,14 @@ jobs:
         run: |
           npm run build
 
+      # Named explicitly rather than relying on the suite-wide run below. If the keyboard specs
+      # are renamed, moved or deleted, Playwright exits 1 with "No tests found" and this gate
+      # fails — where the suite-wide run would still pass on the remaining visual specs, quietly
+      # dropping keyboard accessibility coverage.
+      - name: Run Keyboard Accessibility Tests (Playwright)
+        if: steps.check-pkg.outputs.has_pkg == 'true'
+        run: npm run test:keyboard
+
       - name: Run Visual Regression Tests (Playwright)
         if: steps.check-pkg.outputs.has_pkg == 'true'
         run: npm run test:visual
