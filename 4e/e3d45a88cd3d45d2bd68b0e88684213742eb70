@@ -1,0 +1,3 @@
+Task: DocsReference Component
+Scope: apps/docs/src/components/DocsReference.tsx, apps/docs/src/components/DocsReference.test.tsx, apps/docs/src/App.tsx, apps/docs/src/styles.css
+Summary: Implemented interactive DocsReference component tabulating all component props, callbacks, and complete set of CSS custom properties directly on the documentation page.
