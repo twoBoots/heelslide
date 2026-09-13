@@ -1,0 +1,24 @@
+Task: Cross-adapter parity audit
+Phase: 3 (Framework Adapter Parity)
+Scope: packages/{vue,svelte}/src/Heelslide.{vue,svelte}
+
+Audited 21 accessibility features across the three adapters by inspecting what
+each file actually ships, rather than trusting that three parallel
+implementations agreed.
+
+Result after correction: all 21 present in all three. role=slider, the full
+aria-value set, aria-valuetext, aria-orientation, aria-disabled,
+aria-describedby, aria-keyshortcuts, tabindex, keydown handler,
+resolveKeyAction, KEY_SHORTCUTS, live region with role=status/aria-live=polite/
+aria-atomic, accessibleFallback, and a visually-hidden utility.
+
+One genuine asymmetry found: aria-hidden on the Vue and Svelte handles, absent
+in React. Resolved by removing it from both rather than adding it to React.
+The handle subtree carries author-provided children in every adapter, and
+hiding it costs information for no benefit - role=slider on the container
+already means assistive technology presents name and value, not descendants.
+The spec delta asks only that the handle drop role, tabindex and aria-value*.
+
+Placement is verified by the per-adapter specs ('declares exactly one slider,
+on the container'), not by the audit script, whose textual proximity heuristic
+could not reliably associate an attribute with its element.
