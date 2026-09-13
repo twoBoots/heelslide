@@ -92,8 +92,16 @@ export interface FeedbackOptions {
   sound?: boolean | SoundOptions;
 }
 
+/** Tuning for keyboard and switch-device operation. */
+export interface AccessibleOptions {
+  enabled?: boolean;
+  /** Fraction of total path length advanced per step. Defaults to 0.1. */
+  stepIncrement?: number;
+}
+
 export interface EngineOptions {
   tolerance?: number;
+  accessible?: AccessibleOptions;
   generator?: GeneratorOptions;
   initialState?: GestureState;
   initialProgress?: number;

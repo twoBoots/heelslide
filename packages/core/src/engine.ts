@@ -1,7 +1,9 @@
+import { getAccessibleDescription, getAccessibleSteps } from './accessibility.js';
 import { createFeedbackController, type FeedbackController } from './feedback.js';
 import { generateTrackPath } from './generator.js';
 import { createGestureStateMachine, type GestureStateMachine } from './machine.js';
 import type {
+  AccessibleStep,
   EngineOptions,
   FeedbackOptions,
   GeneratorOptions,
@@ -95,6 +97,40 @@ export class HeelslideEngine {
 
   public reset(): void {
     this.machine.reset();
+  }
+
+  /** Default fraction of total path length advanced per step. */
+  private get stepIncrement(): number {
+    const configured = this.options.accessible?.stepIncrement;
+    return typeof configured === 'number' && configured > 0 ? configured : 0.1;
+  }
+
+  /**
+   * Advances along the path by a fraction of total length. Progress only — unlock is reached
+   * through `endGesture()`, the same transition pointer release uses.
+   */
+  public stepForward(amount?: number): number {
+    return this.machine.step(amount ?? this.stepIncrement);
+  }
+
+  /** Retreats along the path, flooring at the start. */
+  public stepBackward(amount?: number): number {
+    return this.machine.step(-(amount ?? this.stepIncrement));
+  }
+
+  /** Advances to the next heel vertex, for efficient stepped navigation. */
+  public stepToNextHeel(): number {
+    return this.machine.stepToNextHeel();
+  }
+
+  /** One step descriptor per segment of the active track. */
+  public getAccessibleSteps(): AccessibleStep[] {
+    return getAccessibleSteps(this.track);
+  }
+
+  /** Single-sentence summary of the active track, suitable for `aria-describedby`. */
+  public getAccessibleDescription(): string {
+    return getAccessibleDescription(this.track);
   }
 
   public getFeedbackController(): FeedbackController {

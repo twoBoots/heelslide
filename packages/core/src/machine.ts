@@ -26,6 +26,13 @@ export interface GestureStateMachine {
   end: () => void;
   cancel: () => void;
   reset: () => void;
+  /**
+   * Moves along the path by a signed fraction of total length. Advances progress only: unlock is
+   * reached exclusively through `end()`, so keyboard and pointer share one unlock condition.
+   */
+  step: (deltaNormalized: number) => number;
+  /** Advances to the first heel vertex strictly beyond the current position. */
+  stepToNextHeel: () => number;
   destroy?: () => void;
 }
 
@@ -122,6 +129,76 @@ export function createGestureStateMachine(
     } else {
       triggerReset();
     }
+  }
+
+  /** Absolute distance travelled along the path, derived from progress rather than stored twice. */
+  function currentDistance(): number {
+    return track.totalLength > 0 ? progress * track.totalLength : 0;
+  }
+
+  /**
+   * Places the machine at an absolute distance along the path, resolving which segment contains
+   * it. Deliberately never sets 'unlocked': stepping advances position, and `end()` alone decides
+   * whether that position constitutes a completed gesture.
+   */
+  function applyDistance(distance: number): number {
+    if (track.totalLength <= 0 || track.segments.length === 0) {
+      return progress;
+    }
+
+    const clamped = Math.min(track.totalLength, Math.max(0, distance));
+
+    let boundary = 0;
+    let index = 0;
+    for (let i = 0; i < track.segments.length; i += 1) {
+      const length = track.segments[i]!.length;
+      const isLast = i === track.segments.length - 1;
+      if (clamped <= boundary + length || isLast) {
+        index = i;
+        break;
+      }
+      boundary += length;
+    }
+
+    currentSegmentIndex = index;
+    accumulatedDistance = boundary;
+    hasReachedSegmentEnd = false;
+    hasTouchedHeelVertex = false;
+    turnFiredForSegment = false;
+    progress = clamped / track.totalLength;
+
+    setState(progress > 0 ? 'active' : 'idle');
+    onProgress?.(progress);
+
+    return progress;
+  }
+
+  function step(deltaNormalized: number): number {
+    // A completed gesture is terminal; stepping must not reopen it.
+    if (state === 'unlocked') return progress;
+    if (!Number.isFinite(deltaNormalized) || deltaNormalized === 0) return progress;
+
+    return applyDistance(currentDistance() + deltaNormalized * track.totalLength);
+  }
+
+  function stepToNextHeel(): number {
+    if (state === 'unlocked') return progress;
+    if (track.totalLength <= 0 || track.segments.length === 0) return progress;
+
+    // Strictly beyond the current position, so a call made while resting exactly on a vertex
+    // advances to the following one rather than standing still.
+    const epsilon = 1e-9;
+    const from = currentDistance();
+    let boundary = 0;
+
+    for (const segment of track.segments) {
+      boundary += segment.length;
+      if (boundary > from + epsilon) {
+        return applyDistance(boundary);
+      }
+    }
+
+    return applyDistance(track.totalLength);
   }
 
   function start(point: Point2D): boolean {
@@ -342,6 +419,8 @@ export function createGestureStateMachine(
     start,
     update,
     end,
+    step,
+    stepToNextHeel,
     cancel,
     reset: resetState,
     destroy: clearCheckpointTimer
