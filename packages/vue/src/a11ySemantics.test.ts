@@ -7,8 +7,13 @@ import Heelslide from './Heelslide.vue';
  * Slider identity and ARIA completeness for the Vue adapter.
  *
  * Before this track the role sat on the SVG `<g>` handle. It now sits on the container, matching
- * React and Svelte: a `div` is reliably focusable everywhere, whereas `tabindex` on an SVG
- * container element is not, WebKit especially — and the CI matrix tests WebKit.
+ * React and Svelte, which makes the container the single owner of focus, `aria-describedby`,
+ * `aria-keyshortcuts` and the live region — and made the suppressed focus indicator fixable
+ * rather than merely relocated.
+ *
+ * Note: an earlier rationale claimed `tabindex` on an SVG `<g>` was unreliable in WebKit. A probe
+ * across the CI matrix (`tests/e2e/svg-focus-probe.spec.ts`) found it focusable in all three
+ * engines, so that argument was wrong and is not why the role moved.
  */
 
 const props = { width: 320, height: 160 };

@@ -1,9 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests/visual/specs',
-  // Playwright's default testMatch also claims `*.test.ts`, which is vitest's suffix here. Only
-  // testDir currently keeps the two apart, so widening it would hand vitest suites to Playwright.
+  testDir: './tests',
+  // Playwright's default testMatch also claims `*.test.ts`, which is vitest's suffix here, so the
+  // explicit `*.spec.ts` is what keeps the two apart — widening it would hand vitest suites to
+  // Playwright. Widening testDir is safe precisely because testMatch stays narrow: the vitest
+  // suites under tests/ use `.test.ts` and are not matched.
   testMatch: '**/*.spec.ts',
   snapshotDir: './tests/visual/snapshots',
   snapshotPathTemplate: '{snapshotDir}/{arg}-{projectName}{ext}',

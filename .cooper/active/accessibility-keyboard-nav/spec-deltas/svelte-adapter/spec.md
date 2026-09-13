@@ -44,8 +44,8 @@
 + - **WHEN** the component is rendered
 + - **THEN** the handle MUST be presentational, carrying no `role="slider"`, no `tabindex`, and no `aria-value*` attributes, so assistive technology sees a single slider node rather than two.
 + - **GIVEN** the container is a `div` rather than an SVG `g`
-+ - **WHEN** it is focused
-+ - **THEN** focus MUST succeed in every supported browser, avoiding the unreliable focusability of `tabindex` on SVG container elements.
++ - **WHEN** it is focused by keyboard in any browser on the supported matrix
++ - **THEN** focus MUST succeed and a focus indicator MUST be visible.
 +
 + ### Requirement: Complete ARIA Slider Semantics
 + The component MUST complete the `role="slider"` contract it already declares, satisfying WCAG 2.2 SC 4.1.2 (Name, Role, Value).

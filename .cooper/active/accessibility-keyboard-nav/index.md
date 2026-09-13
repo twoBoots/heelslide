@@ -48,8 +48,18 @@
    whereas axe-core needs a dependency and a `tech-stack.md` amendment first.
 5. **`role="slider"` normalized onto the container `<div>`** in all three adapters. `main` diverges:
    React on the container with no `tabindex`, Vue and Svelte on an SVG `<g>` with `tabindex="0"`.
-   A `div` is reliably focusable everywhere; `tabindex` on SVG container elements is not,
-   particularly in WebKit — which the CI matrix tests. Decided in Phase 0.
+   Decided in Phase 0.
+
+   **Rationale corrected in Phase 5.** The decision was recommended partly on the argument that
+   `tabindex` on an SVG container element is unreliable, WebKit especially. A probe across the
+   actual CI matrix (`tests/e2e/svg-focus-probe.spec.ts`) found `<g tabindex="0">` focusable in
+   all three engines, so that argument was overstated and should not be repeated.
+
+   The decision stands on the reasons that survive: React already declared the role on the
+   container, so normalizing there changed two adapters rather than three; the container is the
+   natural owner of `aria-describedby`, `aria-keyshortcuts` and the live region; and moving focus
+   off the handle is what made the `outline: none` focus-visibility defect fixable rather than
+   merely relocated.
 6. **Unlock routes through `end()` for both modalities.** Stepping advances progress only; confirm
    unlocks, under the same conjunctive final-segment condition pointer release uses. Prevents a
    keyboard user doing more work than a pointer user, and avoids reintroducing the audit defect
