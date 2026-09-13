@@ -5,6 +5,7 @@ import { Playground } from './components/Playground.js';
 import { ConfigPanel } from './components/ConfigPanel.js';
 import { SimulationCard } from './components/SimulationCard.js';
 import { FrameworkTabs } from './components/FrameworkTabs.js';
+import { DocsReference } from './components/DocsReference.js';
 import { VisualFixture } from './fixtures/VisualFixture.js';
 import type { PlaygroundConfig } from './utils/snippets.js';
 import './styles.css';
@@ -118,6 +119,7 @@ function PlaygroundApp() {
       </div>
 
       <FrameworkTabs config={config} />
+      <DocsReference />
     </div>
   );
 }
