@@ -76,17 +76,15 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Make `startCheckpointTimer()` a no-op under keyboard modality and clear on transition (Green)
   - [x] Sub-task: Verify no timer leaks — `destroy()` clears any armed timer under either modality (Refactor)
   - [x] Sub-task (unplanned): Assert pointer abandonment still times out, so the fix does not disable the behaviour segmented mode exists to provide
-- [ ] Task: Stepping under segmented mode
-  - [ ] Sub-task: Write unit tests asserting a stepped heel crossing sets `checkpoint` state and fires `onCheckpoint` identically to pointer traversal (Red)
-  - [ ] Sub-task: Write unit tests asserting `stepBackward` floors at the confirmed checkpoint and cannot rewind into a confirmed segment (Red)
-  - [ ] Sub-task: Implement segmented-aware stepping transitions (Green)
-- [ ] Task: Heel feedback parity for stepping
-  > Found in Phase 1: `applyDistance` does not fire `onTurn`, so a keyboard user crossing a heel
-  > gets no haptic or audio cue where a pointer user does. The announcement fires; the feedback
-  > controller never runs.
-  - [ ] Sub-task: Write tests asserting `onTurn` and `FeedbackController.triggerTurn` fire when stepping crosses a heel, matching pointer traversal (Red)
-  - [ ] Sub-task: Fire `onTurn` and turn feedback from the stepping path (Green)
-  - [ ] Sub-task: Assert no duplicate `onTurn` when a single step spans more than one heel (Refactor)
+- [x] Task: Stepping under segmented mode (49755e1)
+  - [x] Sub-task: Write unit tests asserting a stepped heel crossing sets `checkpoint` state and fires `onCheckpoint` identically to pointer traversal (Red)
+  - [x] Sub-task: Write unit tests asserting `stepBackward` floors at the confirmed checkpoint and cannot rewind into a confirmed segment (Red)
+  - [x] Sub-task: Implement segmented-aware stepping transitions (Green)
+  - [x] Sub-task (unplanned): Fix the Phase 1 boundary-resolution defect the Red run exposed — `stepToNextHeel` landed exactly on a vertex, which the resolver read as still inside the previous segment, so that method never registered a heel crossing at all
+- [x] Task: Heel feedback parity for stepping (49755e1)
+  - [x] Sub-task: Write tests asserting `onTurn` and `FeedbackController.triggerTurn` fire when stepping crosses a heel, matching pointer traversal (Red)
+  - [x] Sub-task: Fire `onTurn` and turn feedback from the stepping path (Green)
+  - [x] Sub-task: Assert one `onTurn` per heel when a single step spans more than one (Refactor) — and none when stepping backward across a heel
 - [ ] Task: Pointer invariance regression guard
   - [ ] Sub-task: Write tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are byte-for-byte unchanged under pointer-only operation (Red/Green)
 - [ ] Task: Phase 2 Verification & Checkpoint
