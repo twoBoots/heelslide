@@ -10,11 +10,13 @@ The docs app MUST render a functional `<Heelslide />` security gate component re
 - **THEN** progress MUST update continuously and trigger unlock state upon reaching the endpoint.
 
 ### Requirement: Dynamic Configuration Controls
-The app MUST provide interactive controls adjusting heel count, tolerance, dimensions, and seed.
+The app MUST provide interactive controls adjusting heel count, tolerance, dimensions, grid step, margin, and seed.
 
 - **GIVEN** the control panel
-- **WHEN** the user selects a different heel count (e.g., 1 to 4) or tolerance value
+- **WHEN** the user selects a different heel count, tolerance, width, height, grid step, or margin
 - **THEN** the track MUST regenerate immediately reflecting the chosen parameters.
+- **WHEN** the user adjusts the `gridStep` slider (e.g. 16 to 48px) or `margin` slider (e.g. 8 to 32px)
+- **THEN** the track geometry MUST regenerate to match the updated cell constraints.
 
 ### Requirement: Real-time Theme Customisation & Design Presets
 The app MUST allow adjusting expanded CSS custom properties via control inputs and selecting curated design presets with instant visual feedback.
@@ -31,6 +33,8 @@ The playground MUST provide granular sliders and color pickers for all expanded 
 - **THEN** the live simulator container and generated code snippets MUST reflect the corresponding `--heelslide-*` CSS custom properties in real time.
 - **WHEN** picking colors for handle border, heel border, target heel border, goal border, or heel text
 - **THEN** the live simulator container and generated code snippets MUST update with the selected colors.
+- **WHEN** adjusting border widths or state colors (`successColor`, `errorColor`)
+- **THEN** `--heelslide-handle-border-width`, `--heelslide-heel-border-width`, `--heelslide-target-heel-border-width`, `--heelslide-goal-border-width`, `--heelslide-success-color`, and `--heelslide-error-color` MUST update on the container and appear in code snippets.
 
 ### Requirement: Multi-Framework Code Snippets
 The app MUST generate and display copyable code examples matching the current playground parameters across Vanilla JS/TS, React, Vue, and Svelte, adhering to framework-specific style conventions.
@@ -41,6 +45,16 @@ The app MUST generate and display copyable code examples matching the current pl
 - **GIVEN** the Svelte framework tab selected in code snippet generator
 - **WHEN** the code snippet is rendered
 - **THEN** it MUST generate a Svelte 5 component with idiomatic `<style>` block encapsulation and lowercase event handlers (`onunlock`, `onreset`).
+- **GIVEN** any active framework tab (React, Vue, Svelte)
+- **WHEN** width and height are configured in the playground
+- **THEN** `--heelslide-width` and `--heelslide-height` MUST be output as live-updated CSS custom properties alongside other theme variables.
+
+### Requirement: On-Page Configuration & CSS Variables Reference
+The documentation application MUST render a comprehensive reference guide documenting all engine/component options and CSS custom properties directly on the page.
+
+- **GIVEN** the documentation page loaded in a browser
+- **WHEN** the user scrolls to the documentation reference section
+- **THEN** complete tables of component props, event callbacks, and `--heelslide-*` CSS custom properties MUST be visible with types, default values, and usage descriptions.
 
 ### Requirement: Documentation Header Version Badge
 The documentation header MUST dynamically display the active version of the Heelslide package suite.
