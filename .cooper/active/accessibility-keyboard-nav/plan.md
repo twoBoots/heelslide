@@ -110,7 +110,7 @@ free-ride on aggregate coverage.
 > All three adapters land together. `type-exports-parity` and `expand-css-variables` established
 > that adapters do not ship at different capability levels.
 
-- [ ] Task: Normalize the slider element across adapters
+- [~] Task: Normalize the slider element across adapters
   > Decided during Phase 0 after the baseline surfaced the divergence. Must land before handlers
   > are bound, since handlers belong on whichever element carries the role.
   - [ ] Sub-task: Write tests asserting exactly one `[role="slider"]` per adapter and that it is the container (Red)
