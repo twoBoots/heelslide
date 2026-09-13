@@ -17,10 +17,10 @@
   - [x] Sub-task: Run test suite and attach checkpoint notes
 
 ## Phase 3: On-Page API & CSS Reference Section (TDD)
-- [~] Task: DocsReference Component
-  - [ ] Sub-task: Write tests for `DocsReference.tsx` checking rendering of props table and CSS tokens table (Red)
-  - [ ] Sub-task: Implement `DocsReference.tsx` with comprehensive tables for all options and CSS custom properties (Green)
-  - [ ] Sub-task: Integrate into `App.tsx` and verify layout styling (Refactor)
+- [x] Task: DocsReference Component (4ee3d45)
+  - [x] Sub-task: Write tests for `DocsReference.tsx` checking rendering of props table and CSS tokens table (Red)
+  - [x] Sub-task: Implement `DocsReference.tsx` with comprehensive tables for all options and CSS custom properties (Green)
+  - [x] Sub-task: Integrate into `App.tsx` and verify layout styling (Refactor)
 - [ ] Task: Phase 3 Verification & Checkpoint
   - [ ] Sub-task: Build production bundle (`npm run build` in `apps/docs`) and verify static artifacts
 
