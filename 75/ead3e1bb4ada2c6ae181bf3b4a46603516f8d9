@@ -1,0 +1,22 @@
+Task: Announcement lifecycle
+Phase: 1 (Core Accessible Stepping & Semantics)
+Scope: packages/core/src/{accessibility.ts,machine.ts,engine.ts,types.ts,index.ts}, packages/core/tests/announcements.test.ts
+
+TDD: Red (17 failing) -> Green (18/20) -> corrected reset emission point -> 20/20.
+Core suite 156 passed. Full suite 345 passed, 5 failed - still only the Phase 0
+baseline specs.
+
+Coverage: accessibility.ts 100 stmts / 97.14 branch, machine.ts 96.22 / 83.67,
+engine.ts 100 / 96.96. tsc -b clean, oxlint clean.
+
+Finding during Green: engine.reset() maps to resetState, the silent programmatic
+reset, which does not fire onReset - only triggerReset does. The initial
+implementation announced from triggerReset and so missed the Home-key path.
+Moved to resetState: both paths now announce exactly once, and announcement
+semantics intentionally differ from onReset, which stays failure-path only.
+
+Deferred to Phase 2: 'checkpoint' emission is wired at the segmented transition
+but is only exercised by a unit test of the message builder, since stepping does
+not yet drive segmented transitions. Also noted - stepping does not fire onTurn,
+so keyboard users get no haptic or audio feedback at a heel where pointer users
+do. Raised as a Phase 2 parity item.
