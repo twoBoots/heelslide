@@ -1,0 +1,20 @@
+Task: Phase 4 - Documentation Playground
+Scope: apps/docs/src/{App,components/Playground,components/ConfigPanel,components/DocsReference,utils/snippets,styles.css}, README.md, + 1 new test file
+
+TDD: Red (10 failing) -> Green (478 full suite passing). tsc -b clean, oxlint
+clean, docs build clean.
+
+Spec delta reconciled before implementing: PR #23 added an on-page reference
+with a tab pattern while this track was in flight, so the key-binding
+documentation became a third tab there rather than the standalone section the
+delta originally described.
+
+Design note on the readout: it observes aria-valuetext on the real slider via
+MutationObserver rather than deriving the string independently. A second
+implementation of the same text would be free to drift from what the widget
+actually exposes, which would make the demo actively misleading - the failure
+mode the heel-numbering defect in Phase 1 already demonstrated once.
+
+Pre-existing spec loosened rather than worked around: DocsReference.test
+asserted an exact tab count that was setup, not subject. Left as-is it would
+break for any future tab; the spec now asserts its real intent.
