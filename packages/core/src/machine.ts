@@ -6,6 +6,7 @@ import type {
   AccessibleAnnouncementType,
   AccessibleOptions,
   GestureState,
+  InputModality,
   Point2D,
   TrackPath
 } from './types.js';
@@ -31,6 +32,8 @@ export interface GestureStateMachine {
   getState: () => GestureState;
   getProgress: () => number;
   getCurrentSegmentIndex: () => number;
+  /** Which input most recently drove progress. Governs the checkpoint inactivity timer. */
+  getInputModality: () => InputModality;
   start: (point: Point2D) => boolean;
   update: (point: Point2D) => void;
   end: () => void;
@@ -75,6 +78,7 @@ export function createGestureStateMachine(
   let hasTouchedHeelVertex = false;
   let turnFiredForSegment = false;
   let checkpointTimer: ReturnType<typeof setTimeout> | null = null;
+  let inputModality: InputModality = 'pointer';
 
   /**
    * Emits one accessibility milestone. Silent when accessibility is disabled or no consumer is
@@ -114,10 +118,25 @@ export function createGestureStateMachine(
 
   function startCheckpointTimer(): void {
     clearCheckpointTimer();
+    // A keyboard or switch-device user is never put on a clock: WCAG 2.2 SC 2.2.1. Pausing to
+    // hear a checkpoint announcement must not cost them the checkpoint.
+    if (inputModality === 'keyboard') return;
     if (segmented && checkpointTimeoutMs > 0) {
       checkpointTimer = setTimeout(() => {
         triggerReset();
       }, checkpointTimeoutMs);
+    }
+  }
+
+  /**
+   * Records which input is driving progress. Switching to keyboard disarms any running
+   * inactivity timer, so a timer armed by an earlier pointer checkpoint cannot fire mid-step.
+   */
+  function setModality(modality: InputModality): void {
+    if (inputModality === modality) return;
+    inputModality = modality;
+    if (modality === 'keyboard') {
+      clearCheckpointTimer();
     }
   }
 
@@ -136,6 +155,7 @@ export function createGestureStateMachine(
     hasReachedSegmentEnd = false;
     hasTouchedHeelVertex = false;
     turnFiredForSegment = false;
+    inputModality = 'pointer';
     onProgress?.(progress);
     setState('idle');
     // Announced here rather than in triggerReset so a programmatic reset — the Home key, for
@@ -222,12 +242,15 @@ export function createGestureStateMachine(
     if (state === 'unlocked') return progress;
     if (!Number.isFinite(deltaNormalized) || deltaNormalized === 0) return progress;
 
+    setModality('keyboard');
     return applyDistance(currentDistance() + deltaNormalized * track.totalLength);
   }
 
   function stepToNextHeel(): number {
     if (state === 'unlocked') return progress;
     if (track.totalLength <= 0 || track.segments.length === 0) return progress;
+
+    setModality('keyboard');
 
     // Strictly beyond the current position, so a call made while resting exactly on a vertex
     // advances to the following one rather than standing still.
@@ -247,6 +270,8 @@ export function createGestureStateMachine(
 
   function start(point: Point2D): boolean {
     if (track.points.length === 0) return false;
+
+    setModality('pointer');
 
     if (segmented && state === 'checkpoint') {
       const checkpointPoint = track.points[lastConfirmedCheckpointIndex + 1];
@@ -285,6 +310,8 @@ export function createGestureStateMachine(
 
   function update(point: Point2D): void {
     if (state !== 'active') return;
+
+    setModality('pointer');
 
     if (currentSegmentIndex >= track.segments.length) {
       return;
@@ -463,6 +490,7 @@ export function createGestureStateMachine(
     getState: () => state,
     getProgress: () => progress,
     getCurrentSegmentIndex: () => currentSegmentIndex,
+    getInputModality: () => inputModality,
     start,
     update,
     end,

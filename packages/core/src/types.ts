@@ -36,6 +36,12 @@ export interface TrackPath {
 
 export type GestureState = 'idle' | 'active' | 'unlocked' | 'reset' | 'checkpoint';
 
+/**
+ * Which input is currently driving progress. Governs whether the checkpoint inactivity timer
+ * applies: imposing a time limit on keyboard operation fails WCAG 2.2 SC 2.2.1.
+ */
+export type InputModality = 'pointer' | 'keyboard';
+
 /** Cardinal movement direction along a segment, resolved from its axis and sign. */
 export type StepDirection = 'right' | 'left' | 'down' | 'up';
 

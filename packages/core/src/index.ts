@@ -61,6 +61,7 @@ export type {
   HeelCountConfig,
   HapticOptions,
   HapticPatterns,
+  InputModality,
   IntersectOptions,
   Point2D,
   ProjectedPoint,

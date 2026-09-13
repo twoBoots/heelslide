@@ -5,6 +5,7 @@ import { createGestureStateMachine, type GestureStateMachine } from './machine.j
 import type {
   AccessibleStep,
   EngineOptions,
+  InputModality,
   FeedbackOptions,
   GeneratorOptions,
   GestureState,
@@ -99,6 +100,14 @@ export class HeelslideEngine {
 
   public reset(): void {
     this.machine.reset();
+  }
+
+  /**
+   * Which input most recently drove progress. Under `keyboard`, the segmented checkpoint
+   * inactivity timer is suspended, since timing keyboard operation fails WCAG 2.2 SC 2.2.1.
+   */
+  public getInputModality(): InputModality {
+    return this.machine.getInputModality();
   }
 
   /** Default fraction of total path length advanced per step. */
