@@ -148,9 +148,36 @@
   stroke-width: var(--heelslide-goal-border-width, 2px);
 }
 
+/*
+ * Removes content from view while leaving it in the accessibility tree. `display: none` and
+ * `visibility: hidden` would take it out of both.
+ */
+.heelslide-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+ * Focus lives on the container, which carries role="slider". Suppressing the outline here is now
+ * safe: prior to this track the handle was the only focusable element, so this rule left keyboard
+ * users with no visible focus at all — a WCAG 2.2 SC 2.4.7 failure.
+ */
 .heelslide-handle {
   cursor: var(--heelslide-cursor);
   outline: none;
+}
+
+.heelslide-container:focus-visible {
+  outline: var(--heelslide-focus-width, 3px) solid
+    var(--heelslide-focus-color, Highlight);
+  outline-offset: var(--heelslide-focus-offset, 2px);
 }
 
 .heelslide-handle:active,

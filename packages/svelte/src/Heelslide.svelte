@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onDestroy } from 'svelte';
-import type { Point2D } from '@heelslide/core';
+import { KEY_SHORTCUTS, getStepDirection, resolveKeyAction, type Point2D } from '@heelslide/core';
 import type { HeelslideProps } from './types.js';
 import { createHeelslide } from './createHeelslide.svelte.js';
 import './style.css';
@@ -35,8 +35,14 @@ let {
   onReset,
   onProgress,
   onStateChange,
+  onannouncement,
+  onAnnouncement,
+  accessibleFallback = 'stepped',
   children
 }: HeelslideProps = $props();
+
+const stepped = $derived(accessibleFallback === 'stepped');
+const descriptionId = `heelslide-desc-${Math.random().toString(36).slice(2, 10)}`;
 
 let containerRef: HTMLElement | null = $state(null);
 let capturedPointerId: number | null = $state(null);
@@ -83,8 +89,48 @@ const heelslide = createHeelslide({
   onStateChange: (s) => {
     onstatechange?.(s);
     onStateChange?.(s);
+  },
+  onAnnouncement: (a) => {
+    onannouncement?.(a);
+    onAnnouncement?.(a);
   }
 });
+
+const activeSegment = $derived(heelslide.track.segments[heelslide.currentSegmentIndex]);
+
+const valueText = $derived.by(() => {
+  const percent = Math.round(heelslide.progress * 100);
+  const segment = activeSegment;
+  if (!segment) return `${percent}% complete.`;
+  const direction = getStepDirection(segment.start, segment.end, segment.direction);
+  return `${percent}% complete. Move ${direction} to continue.`;
+});
+
+function handleKeyDown(event: KeyboardEvent): void {
+  if (disabled || !stepped) return;
+
+  const action = resolveKeyAction(event.key);
+  if (!action) return;
+
+  // Only claim keys we handle, so page scrolling and shortcuts survive elsewhere.
+  event.preventDefault();
+
+  switch (action) {
+    case 'forward':
+      heelslide.stepForward();
+      break;
+    case 'backward':
+      heelslide.stepBackward();
+      break;
+    case 'reset':
+    case 'cancel':
+      heelslide.reset();
+      break;
+    case 'confirm':
+      heelslide.endGesture();
+      break;
+  }
+}
 
 // Sync container element with composable
 $effect(() => {
@@ -199,6 +245,18 @@ export function getHeelslide() {
 <div
   bind:this={containerRef}
   class="heelslide-container {customClass} {disabled ? 'heelslide-disabled' : ''} {heelslide.isDragging ? 'heelslide-active' : ''} {heelslide.state === 'checkpoint' ? 'heelslide-checkpoint' : ''} {heelslide.state === 'unlocked' ? 'heelslide-unlocked' : ''}"
+  role="slider"
+  aria-label={ariaLabel}
+  aria-valuemin={0}
+  aria-valuemax={100}
+  aria-valuenow={Math.round(heelslide.progress * 100)}
+  aria-valuetext={valueText}
+  aria-orientation={activeSegment?.direction ?? 'horizontal'}
+  aria-disabled={disabled}
+  aria-describedby={descriptionId}
+  aria-keyshortcuts={stepped ? KEY_SHORTCUTS : undefined}
+  tabindex={disabled ? -1 : 0}
+  onkeydown={handleKeyDown}
   data-disabled={disabled}
   data-state={heelslide.state}
   data-heelslide-container
@@ -273,13 +331,7 @@ export function getHeelslide() {
     <!-- Draggable Handle -->
     <g
       class="heelslide-handle"
-      role="slider"
-      aria-label={ariaLabel}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={Math.round(heelslide.progress * 100)}
-      aria-disabled={disabled}
-      tabindex="0"
+      aria-hidden="true"
       onpointerdown={handlePointerDown}
       onpointermove={handlePointerMove}
       onpointerup={handlePointerUp}
@@ -295,4 +347,18 @@ export function getHeelslide() {
       {/if}
     </g>
   </svg>
+
+  <span id={descriptionId} class="heelslide-visually-hidden">{heelslide.description}</span>
+
+  {#if stepped}
+    <span
+      data-heelslide-live-region
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      class="heelslide-visually-hidden"
+    >
+      {heelslide.announcement?.message ?? ''}
+    </span>
+  {/if}
 </div>

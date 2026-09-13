@@ -1,6 +1,9 @@
 import {
   HeelslideEngine,
+  getAccessibleDescription,
+  getAccessibleSteps,
   projectPointOnSegment,
+  type AccessibleAnnouncement,
   type GeneratorOptions,
   type GestureState,
   type Point2D,
@@ -32,6 +35,7 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
   let state = $state<GestureState>('idle');
   let progress = $state<number>(0);
   let currentSegmentIndex = $state<number>(0);
+  let announcement = $state<AccessibleAnnouncement | null>(null);
   let container = $state<HTMLElement | null>(options.containerElement ?? null);
 
   const engine = new HeelslideEngine({
@@ -59,6 +63,10 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     onStateChange: (s) => {
       state = s;
       options.onStateChange?.(s);
+    },
+    onAnnouncement: (a) => {
+      announcement = a;
+      options.onAnnouncement?.(a);
     }
   });
 
@@ -176,6 +184,25 @@ export function createHeelslide(options: CreateHeelslideOptions = {}): CreateHee
     reset,
     regeneratePath,
     setContainerElement,
-    destroy
+    destroy,
+    stepForward(amount?: number) {
+      engine.stepForward(amount);
+    },
+    stepBackward(amount?: number) {
+      engine.stepBackward(amount);
+    },
+    stepToNextHeel() {
+      engine.stepToNextHeel();
+    },
+    // Derived from the reactive track, so a regenerated path updates both.
+    get steps() {
+      return getAccessibleSteps(track);
+    },
+    get description() {
+      return getAccessibleDescription(track);
+    },
+    get announcement() {
+      return announcement;
+    }
   };
 }
