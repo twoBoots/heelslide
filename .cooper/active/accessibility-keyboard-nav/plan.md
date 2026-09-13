@@ -63,16 +63,19 @@ free-ride on aggregate coverage.
 > The novel work of this track. PR #9 had no equivalent — segmented checkpoints did not exist
 > when it was written.
 
-- [ ] Task: Input modality tracking
-  - [ ] Sub-task: Write unit tests asserting modality is `pointer` after `startGesture`/`updateGesture` and `keyboard` after any step call (Red)
-  - [ ] Sub-task: Write a unit test asserting `reset()` returns modality to `pointer` (Red)
-  - [ ] Sub-task: Implement `InputModality` in the state machine with transitions on both entry paths (Green)
-- [ ] Task: Checkpoint inactivity suspension (WCAG 2.2 SC 2.2.1)
-  - [ ] Sub-task: Write a **fake-timer** test: with `segmented: true` and `checkpointTimeoutMs` set, reach a checkpoint by stepping, advance timers well past the timeout, assert progress is unchanged and no reset or snapback fired (Red)
-  - [ ] Sub-task: Write a fake-timer test: arm the timer under pointer control, transition to keyboard, assert the armed timer is cleared without firing (Red)
-  - [ ] Sub-task: Write a fake-timer test: step under keyboard, return to pointer, reach a further checkpoint, assert the timer arms for that checkpoint only (Red)
-  - [ ] Sub-task: Make `startCheckpointTimer()` a no-op under keyboard modality and clear on transition (Green)
-  - [ ] Sub-task: Verify no timer leaks — `destroy()` clears any armed timer under either modality (Refactor)
+- [x] Task: Input modality tracking (aceea28)
+  - [x] Sub-task: Write unit tests asserting modality is `pointer` after `startGesture`/`updateGesture` and `keyboard` after any step call (Red)
+  - [x] Sub-task: Write a unit test asserting `reset()` returns modality to `pointer` (Red)
+  - [x] Sub-task: Implement `InputModality` in the state machine with transitions on both entry paths (Green)
+- [x] Task: Checkpoint inactivity suspension (WCAG 2.2 SC 2.2.1) (aceea28)
+  > Landed with modality tracking: the two are one mechanism, and modality without the timer rule
+  > would have been dead state.
+  - [x] Sub-task: Fake-timer test — reach a checkpoint by stepping, advance well past the timeout, assert progress unchanged and no reset (Red)
+  - [x] Sub-task: Fake-timer test — arm under pointer, switch to keyboard, assert the armed timer is cleared without firing (Red)
+  - [x] Sub-task: Fake-timer test — step under keyboard, return to pointer, assert the timer arms for that checkpoint only (Red)
+  - [x] Sub-task: Make `startCheckpointTimer()` a no-op under keyboard modality and clear on transition (Green)
+  - [x] Sub-task: Verify no timer leaks — `destroy()` clears any armed timer under either modality (Refactor)
+  - [x] Sub-task (unplanned): Assert pointer abandonment still times out, so the fix does not disable the behaviour segmented mode exists to provide
 - [ ] Task: Stepping under segmented mode
   - [ ] Sub-task: Write unit tests asserting a stepped heel crossing sets `checkpoint` state and fires `onCheckpoint` identically to pointer traversal (Red)
   - [ ] Sub-task: Write unit tests asserting `stepBackward` floors at the confirmed checkpoint and cannot rewind into a confirmed segment (Red)
