@@ -155,22 +155,27 @@ free-ride on aggregate coverage.
 
 ## Phase 4: Documentation Playground
 
-- [ ] Task: Keyboard showcase and announcement inspector
-  - [ ] Sub-task: Write tests for the visible `aria-valuetext` / live-announcement readout (Red)
-  - [ ] Sub-task: Implement the showcase panel in `Playground.tsx` (Green)
-- [ ] Task: Accessible fallback mode control
-  - [ ] Sub-task: Write tests for the `accessibleFallback` control re-rendering the demo (Red)
-  - [ ] Sub-task: Implement the control in `ConfigPanel.tsx` (Green)
-- [ ] Task: Snippet generator parity
-  - [ ] Sub-task: Write tests asserting React, Vue, and Svelte snippets each emit the accessibility props idiomatically (Red)
-  - [ ] Sub-task: Implement in `utils/snippets.ts` (Green)
-- [ ] Task: Key binding documentation
-  - [ ] Sub-task: Document the full key table, including why `End` is unbound
-  - [ ] Sub-task: Update `README.md` with the accessibility section and WCAG conformance claims
-- [ ] Task: Phase 4 Verification & Checkpoint
-  - [ ] Sub-task: `git fetch origin main`
-  - [ ] Sub-task: `CI=true npm test -w docs` with coverage gate
-  - [ ] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Reconcile the spec delta with the living spec (4b6a244)
+  > PR #23 added an on-page reference with a tab pattern while this track was in flight. The
+  > key-binding docs land as a third tab there rather than as the standalone section originally
+  > specified.
+- [x] Task: Keyboard showcase and announcement inspector (ff030e5)
+  - [x] Sub-task: Write tests for the visible `aria-valuetext` / live-announcement readout (Red)
+  - [x] Sub-task: Implement the showcase panel in `Playground.tsx` (Green) — reads `aria-valuetext` off the real slider via `MutationObserver` rather than deriving it again, so the demo cannot drift from what the widget exposes
+- [x] Task: Accessible fallback mode control (ff030e5)
+  - [x] Sub-task: Write tests for the `accessibleFallback` control re-rendering the demo (Red)
+  - [x] Sub-task: Implement the control in `ConfigPanel.tsx` (Green)
+- [x] Task: Snippet generator parity (ff030e5)
+  - [x] Sub-task: Write tests asserting React, Vue, and Svelte snippets each emit the accessibility props idiomatically (Red) — and that the prop is omitted at the default
+  - [x] Sub-task: Implement in `utils/snippets.ts` (Green)
+- [x] Task: Key binding documentation (ff030e5)
+  - [x] Sub-task: Document the full key table, including why `End` is unbound — as a `Keyboard & Accessibility` tab in the existing reference
+  - [x] Sub-task: Update `README.md` with the accessibility section and WCAG conformance claims
+- [x] Task: Phase 4 Verification & Checkpoint [checkpoint: pending]
+  - [x] Sub-task: `git fetch origin main` — no upstream drift
+  - [x] Sub-task: `CI=true npm test` with coverage gate — 478 passed, 0 failed; docs files all above the per-file gate
+  - [x] Sub-task: `npm run docs:build` — clean
+  - [x] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
 
 ---
 
