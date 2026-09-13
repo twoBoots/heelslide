@@ -145,11 +145,11 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Verify type export parity across all three `types.ts` per the `type-exports-parity` norm — **gap found**: `AccessibleFallbackMode` shipped from Svelte only, since it wildcards its type exports while React and Vue enumerate
   - [x] Sub-task (unplanned): Resolve the `aria-hidden` asymmetry downward, not upward — the handle subtree carries author children in all three adapters
   - [x] Sub-task (unplanned): Mark the handle `role="presentation"`, fixing a Svelte compiler warning introduced by removing its slider role
-- [ ] Task: Phase 3 Verification & Checkpoint
-  - [ ] Sub-task: `git fetch origin main`
-  - [ ] Sub-task: `CI=true npm test` across all workspaces with coverage gate
-  - [ ] Sub-task: `npx oxlint` and `npx tsc -b`
-  - [ ] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Phase 3 Verification & Checkpoint [checkpoint: 53896b9]
+  - [x] Sub-task: `git fetch origin main` — no upstream drift
+  - [x] Sub-task: `CI=true npm test` across all workspaces with coverage gate — **468 passed, 0 failed**; every Phase 0 Red baseline spec now green
+  - [x] Sub-task: `npx oxlint` and `npx tsc -b` — both clean, no Svelte compiler warnings
+  - [x] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
 
 ---
 
