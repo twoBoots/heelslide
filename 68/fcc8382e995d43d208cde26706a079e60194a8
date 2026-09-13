@@ -1,0 +1,23 @@
+Task: Discrete stepping on the engine
+Phase: 1 (Core Accessible Stepping & Semantics)
+Scope: packages/core/src/{machine.ts,engine.ts,types.ts}, packages/core/tests/stepping.test.ts
+
+TDD: Red (stepForward is not a function) -> Green (24 passed) -> Refactor
+(7 edge-case specs added to clear the per-file branch gate; 31 total).
+
+Coverage: machine.ts 95.88 stmts / 82.35 branch, engine.ts 100 / 96.96,
+accessibility.ts 100 across the board. tsc -b clean, oxlint clean.
+
+Pointer invariance confirmed: all 279 pre-existing tests still pass. Full
+suite 325 passed, 5 failed - the five intentional Phase 0 baseline specs,
+unchanged in count and identity.
+
+Design note: unlock parity is enforced structurally rather than by
+assertion. applyDistance has no path to 'unlocked', so a future caller
+cannot accidentally grant unlock from a stepping entry point - the defect
+6c8c6fb closed for the pointer path.
+
+Deferred to Phase 2 by plan: segmented-mode stepping transitions
+(checkpoint state, snapback flooring) and input modality tracking. Stepping
+currently does not update lastConfirmedCheckpointIndex, which is unused
+outside segmented mode.
