@@ -85,8 +85,6 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write tests asserting `onTurn` and `FeedbackController.triggerTurn` fire when stepping crosses a heel, matching pointer traversal (Red)
   - [x] Sub-task: Fire `onTurn` and turn feedback from the stepping path (Green)
   - [x] Sub-task: Assert one `onTurn` per heel when a single step spans more than one (Refactor) — and none when stepping backward across a heel
-- [ ] Task: Pointer invariance regression guard
-  - [ ] Sub-task: Write tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are byte-for-byte unchanged under pointer-only operation (Red/Green)
 - [x] Task: Pointer invariance regression guard (e841c5d)
   - [x] Sub-task: Tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are unchanged under pointer-only operation (Red/Green) — all 10 pass unchanged, which is the point
   - [x] Sub-task (unplanned): Assert a pointer-only gesture never reports keyboard modality, the condition that would silently disable the pointer inactivity timeout
@@ -110,7 +108,7 @@ free-ride on aggregate coverage.
 > All three adapters land together. `type-exports-parity` and `expand-css-variables` established
 > that adapters do not ship at different capability levels.
 
-- [~] Task: Normalize the slider element across adapters
+- [x] Task: Normalize the slider element across adapters (3beac05, 40cf6c7)
   > Decided during Phase 0 after the baseline surfaced the divergence. Must land before handlers
   > are bound, since handlers belong on whichever element carries the role.
   - [ ] Sub-task: Write tests asserting exactly one `[role="slider"]` per adapter and that it is the container (Red)
@@ -118,34 +116,35 @@ free-ride on aggregate coverage.
   - [ ] Sub-task: Move `role`, `tabindex`, and `aria-*` from the SVG `<g>` handle to the container in Vue and Svelte (Green)
   - [ ] Sub-task: Add the missing `tabindex` to the React container (Green)
   - [ ] Sub-task: Confirm visual regression baselines are unaffected — `tabindex` and `role` paint nothing
-- [ ] Task: Visible focus indicator (WCAG SC 2.4.7)
-  > Second defect found in Phase 0: `style.css` sets `outline: none` on `.heelslide-handle`, which
-  > is currently the only focusable element in Vue and Svelte — so focusing it shows nothing.
-  - [ ] Sub-task: Write tests asserting a focus indicator is applied on container focus in all three adapters (Red)
-  - [ ] Sub-task: Implement a themeable `--heelslide-focus-*` indicator with a built-in fallback (Green)
-  - [ ] Sub-task: Verify the `.heelslide-handle { outline: none }` rule no longer suppresses the indicator (Refactor)
-- [ ] Task: React adapter keyboard and ARIA
-  - [ ] Sub-task: Write component tests for every key binding, including `End` as a no-op and `disabled` inertness (Red)
-  - [ ] Sub-task: Write tests for `tabindex`, `aria-valuetext`, `aria-orientation`, `aria-keyshortcuts`, `aria-describedby` at representative states (Red)
-  - [ ] Sub-task: Write tests for the polite live region and `onAnnouncement` prop (Red)
-  - [ ] Sub-task: Write tests for `accessibleFallback="custom"` binding no handlers and rendering no live region (Red)
-  - [ ] Sub-task: Write tests asserting `useHeelslide` stepping primitives have stable identities across renders (Red)
-  - [ ] Sub-task: Implement in `useHeelslide.ts`, `Heelslide.tsx`, `types.ts` (Green)
-  - [ ] Sub-task: Verify `react-hooks/rules-of-hooks` passes and coverage >80% per file (Refactor)
-- [ ] Task: Vue adapter keyboard and ARIA
-  - [ ] Sub-task: Write `@vue/test-utils` tests mirroring the React key-binding and ARIA matrix (Red)
-  - [ ] Sub-task: Write a test for the missing `aria-disabled` parity gap on this adapter (Red)
-  - [ ] Sub-task: Write tests for the `announcement` emit and for reactive `steps`/`description` updating on path regeneration (Red)
-  - [ ] Sub-task: Implement in `useHeelslide.ts`, `Heelslide.vue`, `types.ts` (Green)
-  - [ ] Sub-task: Refactor; verify coverage (Refactor)
-- [ ] Task: Svelte adapter keyboard and ARIA
-  - [ ] Sub-task: Write tests mirroring the same matrix using the existing `react-dom/client`-style harness for Svelte (Red)
-  - [ ] Sub-task: Write tests for `createHeelslide` exposing stepping primitives via runes, and derived `steps`/`description` updating on regeneration (Red)
-  - [ ] Sub-task: Implement in `Heelslide.svelte`, the rune composable, and `types.ts` (Green)
-  - [ ] Sub-task: Refactor; verify coverage (Refactor)
-- [ ] Task: Cross-adapter parity audit
-  - [ ] Sub-task: Diff the three adapters' ARIA output and key handling; assert no capability gaps
-  - [ ] Sub-task: Verify type export parity across all three `types.ts` per the `type-exports-parity` norm
+- [x] Task: Visible focus indicator (WCAG SC 2.4.7) (3beac05, 40cf6c7)
+  - [x] Sub-task: Implement a themeable `--heelslide-focus-*` indicator with a `Highlight` system-colour fallback, so it respects OS and user contrast settings (Green)
+  - [x] Sub-task: Verify the `.heelslide-handle { outline: none }` rule no longer suppresses the indicator (Refactor) — focus moved to the container, making the rule inert
+  - [x] Sub-task (adjusted): Defined outside `:where()` in React so it carries normal specificity and cannot be overridden into invisibility
+- [x] Task: React adapter keyboard and ARIA (3f56365)
+  - [x] Sub-task: Component tests for every key binding, including `End` as a no-op and `disabled` inertness (Red)
+  - [x] Sub-task: Tests for `tabindex`, `aria-valuetext`, `aria-orientation`, `aria-keyshortcuts`, `aria-describedby` (Red)
+  - [x] Sub-task: Tests for the polite live region and `onAnnouncement` prop (Red)
+  - [x] Sub-task: Tests for `accessibleFallback="custom"` binding no handlers and rendering no live region (Red)
+  - [x] Sub-task: Tests asserting `useHeelslide` stepping primitives have stable identities across renders (Red)
+  - [x] Sub-task: Implement in `useHeelslide.ts`, `Heelslide.tsx`, `types.ts` (Green)
+  - [x] Sub-task: Verify `react-hooks/rules-of-hooks` passes and coverage >80% per file (Refactor)
+  - [x] Sub-task (unplanned): Move the key map into `@heelslide/core` as `resolveKeyAction`, so the three adapters cannot drift
+- [x] Task: Vue adapter keyboard and ARIA (3beac05)
+  - [x] Sub-task: `@vue/test-utils` tests mirroring the React key-binding and ARIA matrix (Red)
+  - [x] Sub-task: Test for the missing `aria-disabled` parity gap on this adapter (Red)
+  - [x] Sub-task: Tests for the `announcement` emit and reactive `steps`/`description` (Red)
+  - [x] Sub-task: Implement in `useHeelslide.ts`, `Heelslide.vue`, `types.ts` (Green)
+  - [x] Sub-task: Refactor; verify coverage (Refactor)
+- [x] Task: Svelte adapter keyboard and ARIA (40cf6c7)
+  - [x] Sub-task: Tests mirroring the same matrix on the Svelte harness (Red)
+  - [x] Sub-task: Tests for `createHeelslide` exposing stepping primitives via runes, with derived `steps`/`description` (Red)
+  - [x] Sub-task: Implement in `Heelslide.svelte`, the rune composable, and `types.ts` (Green)
+  - [x] Sub-task: Refactor; verify coverage (Refactor)
+- [x] Task: Cross-adapter parity audit (46b5e9b, 4dfc239, 57c22e4)
+  - [x] Sub-task: Diff the three adapters' ARIA output and key handling; assert no capability gaps — 21 of 21 features present in all three
+  - [x] Sub-task: Verify type export parity across all three `types.ts` per the `type-exports-parity` norm — **gap found**: `AccessibleFallbackMode` shipped from Svelte only, since it wildcards its type exports while React and Vue enumerate
+  - [x] Sub-task (unplanned): Resolve the `aria-hidden` asymmetry downward, not upward — the handle subtree carries author children in all three adapters
+  - [x] Sub-task (unplanned): Mark the handle `role="presentation"`, fixing a Svelte compiler warning introduced by removing its slider role
 - [ ] Task: Phase 3 Verification & Checkpoint
   - [ ] Sub-task: `git fetch origin main`
   - [ ] Sub-task: `CI=true npm test` across all workspaces with coverage gate
