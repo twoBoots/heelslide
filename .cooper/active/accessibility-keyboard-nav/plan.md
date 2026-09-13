@@ -33,7 +33,7 @@ free-ride on aggregate coverage.
 
 ## Phase 1: Core Accessible Stepping & Semantics
 
-- [ ] Task: Accessible types and step generation
+- [~] Task: Accessible types and step generation
   - [ ] Sub-task: Write unit tests for `getAccessibleSteps()` — one entry per `track.segments` element, correct direction, endpoints, and `progressAtEnd` (Red)
   - [ ] Sub-task: Write unit tests for `getAccessibleDescription()` across 1-heel, 2-heel, and max-heel paths (Red)
   - [ ] Sub-task: Implement `AccessibleStep`, `AccessibleAnnouncement`, `AccessibleOptions`, `AnnouncementContext` in `types.ts` and the generators in `accessibility.ts` (Green)
