@@ -1,0 +1,3 @@
+Task: Snippet Generator CSS Variable Parity
+Scope: apps/docs/src/utils/snippets.ts, apps/docs/src/utils/generatorSnippet.test.ts
+Summary: Expanded ThemeConfig with border widths and state colors, and formatted container width/height and all matching CSS variables into React, Vue, and Svelte snippets.
