@@ -1,0 +1,3 @@
+Task: ConfigPanel Additional Controls
+Scope: apps/docs/src/components/ConfigPanel.tsx, apps/docs/src/components/Playground.tsx, apps/docs/src/App.tsx, apps/docs/src/components/coverage.test.tsx
+Summary: Added interactive sliders for gridStep, margin, and border widths (handle, heel, target heel, goal), added color pickers for success and error state colors, and wired CSS custom properties to Playground container styles.
