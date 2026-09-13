@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest';
 import {
   getAccessibleSteps,
   getAccessibleDescription,
-  getStepDirection
+  getStepDirection,
+  resolveKeyAction,
+  KEY_SHORTCUTS
 } from './accessibility.js';
 import type { TrackPath } from './types.js';
 
@@ -45,6 +47,47 @@ const straightTrack: TrackPath = {
 };
 
 const emptyTrack: TrackPath = { points: [], segments: [], totalLength: 0, heelCount: 0 };
+
+describe('resolveKeyAction', () => {
+  it('maps forward keys', () => {
+    expect(resolveKeyAction('ArrowRight')).toBe('forward');
+    expect(resolveKeyAction('ArrowDown')).toBe('forward');
+  });
+
+  it('maps backward keys', () => {
+    expect(resolveKeyAction('ArrowLeft')).toBe('backward');
+    expect(resolveKeyAction('ArrowUp')).toBe('backward');
+  });
+
+  it('maps Home to reset and Escape to cancel', () => {
+    expect(resolveKeyAction('Home')).toBe('reset');
+    expect(resolveKeyAction('Escape')).toBe('cancel');
+  });
+
+  it('maps Enter and Space to confirm', () => {
+    expect(resolveKeyAction('Enter')).toBe('confirm');
+    expect(resolveKeyAction(' ')).toBe('confirm');
+    expect(resolveKeyAction('Spacebar')).toBe('confirm');
+  });
+
+  it('leaves End unbound, so no single keypress bypasses traversal', () => {
+    expect(resolveKeyAction('End')).toBeNull();
+  });
+
+  it('leaves unrelated keys unbound', () => {
+    expect(resolveKeyAction('a')).toBeNull();
+    expect(resolveKeyAction('Tab')).toBeNull();
+    expect(resolveKeyAction('PageDown')).toBeNull();
+  });
+
+  it('publishes the bound keys for aria-keyshortcuts', () => {
+    expect(KEY_SHORTCUTS).toContain('ArrowRight');
+    expect(KEY_SHORTCUTS).toContain('ArrowLeft');
+    expect(KEY_SHORTCUTS).toContain('Home');
+    expect(KEY_SHORTCUTS).toContain('Escape');
+    expect(KEY_SHORTCUTS).not.toContain('End');
+  });
+});
 
 describe('getStepDirection', () => {
   it('resolves horizontal segments to right or left by sign', () => {

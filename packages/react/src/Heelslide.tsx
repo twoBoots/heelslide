@@ -1,6 +1,23 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useCallback, useId, useMemo } from 'react';
+import { KEY_SHORTCUTS, getStepDirection, resolveKeyAction } from '@heelslide/core';
 import type { HeelslideProps } from './types';
 import { useHeelslide } from './useHeelslide';
+
+/**
+ * Removes content from view while leaving it in the accessibility tree. `display: none` and
+ * `visibility: hidden` would take it out of both.
+ */
+const visuallyHidden: React.CSSProperties = {
+  position: 'absolute',
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+  border: 0
+};
 
 export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Heelslide(
   props,
@@ -33,6 +50,8 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     margin = 16,
     seed,
     ariaLabel = 'Intentional gesture security gate',
+    accessibleFallback = 'stepped',
+    onAnnouncement,
     children
   } = props;
 
@@ -58,7 +77,13 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     currentSegmentIndex,
     isDragging,
     getContainerProps,
-    getHandleProps
+    getHandleProps,
+    stepForward,
+    stepBackward,
+    confirm,
+    reset,
+    description,
+    announcement
   } = useHeelslide({
     tolerance,
     disabled,
@@ -75,11 +100,57 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
     onUnlock,
     onReset,
     onProgress,
-    onStateChange
+    onStateChange,
+    onAnnouncement
   });
 
   const containerProps = getContainerProps();
   const handleProps = getHandleProps();
+
+  const stepped = accessibleFallback === 'stepped';
+
+  // Stable per instance, so `aria-describedby` and the description node agree without a render
+  // cycle in between.
+  const descriptionId = useId();
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (disabled || !stepped) return;
+
+      const action = resolveKeyAction(event.key);
+      if (!action) return;
+
+      // Only claim keys we actually handle, so page scrolling and shortcuts survive elsewhere.
+      event.preventDefault();
+
+      switch (action) {
+        case 'forward':
+          stepForward();
+          break;
+        case 'backward':
+          stepBackward();
+          break;
+        case 'reset':
+        case 'cancel':
+          reset();
+          break;
+        case 'confirm':
+          confirm();
+          break;
+      }
+    },
+    [disabled, stepped, stepForward, stepBackward, reset, confirm]
+  );
+
+  const activeSegment = track.segments[currentSegmentIndex];
+  const percent = Math.round(progress * 100);
+  const valueText = activeSegment
+    ? `${percent}% complete. Move ${getStepDirection(
+        activeSegment.start,
+        activeSegment.end,
+        activeSegment.direction
+      )} to continue.`
+    : `${percent}% complete.`;
 
   const pathData = useMemo(() => {
     if (!track.points || track.points.length === 0) return '';
@@ -136,8 +207,14 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
       aria-label={ariaLabel}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuenow={Math.round(progress * 100)}
+      aria-valuenow={percent}
+      aria-valuetext={valueText}
+      aria-orientation={activeSegment?.direction ?? 'horizontal'}
       aria-disabled={disabled}
+      aria-describedby={descriptionId}
+      {...(stepped ? { 'aria-keyshortcuts': KEY_SHORTCUTS } : {})}
+      tabIndex={disabled ? -1 : 0}
+      onKeyDown={handleKeyDown}
       data-disabled={disabled}
       data-state={state}
       data-heelslide-container
@@ -352,6 +429,22 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
       >
         {children}
       </div>
+
+      <span id={descriptionId} style={visuallyHidden}>
+        {description}
+      </span>
+
+      {stepped ? (
+        <span
+          data-heelslide-live-region
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          style={visuallyHidden}
+        >
+          {announcement?.message ?? ''}
+        </span>
+      ) : null}
     </div>
   );
 });

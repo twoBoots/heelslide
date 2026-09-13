@@ -23,7 +23,10 @@ export {
   createDefaultAnnouncementMessage,
   getAccessibleDescription,
   getAccessibleSteps,
-  getStepDirection
+  getStepDirection,
+  resolveKeyAction,
+  KEY_SHORTCUTS,
+  type KeyAction
 } from './accessibility.js';
 
 // Geometry Utilities

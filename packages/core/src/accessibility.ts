@@ -86,6 +86,49 @@ export function getAccessibleDescription(track: TrackPath): string {
 }
 
 /**
+ * What a key press means to the gate. Defined in core rather than per adapter so React, Vue and
+ * Svelte cannot drift into three subtly different key maps.
+ */
+export type KeyAction = 'forward' | 'backward' | 'reset' | 'confirm' | 'cancel';
+
+/** Bound keys, in the form `aria-keyshortcuts` expects. */
+export const KEY_SHORTCUTS =
+  'ArrowRight ArrowLeft ArrowUp ArrowDown Home Enter Space Escape';
+
+/**
+ * Resolves a `KeyboardEvent.key` to its gate action, or null when the key is unbound.
+ *
+ * `End` is deliberately absent. Jumping straight to the destination would let a single keypress
+ * bypass path traversal, which is the whole point of the primitive.
+ *
+ * Both arrow axes map to the same direction rather than being filtered by the active segment's
+ * orientation: requiring the user to track which axis the current segment runs along, and press a
+ * different key accordingly, would make the widget markedly harder to operate for exactly the
+ * people it serves. `aria-valuetext` and the live region still narrate the true direction.
+ */
+export function resolveKeyAction(key: string): KeyAction | null {
+  switch (key) {
+    case 'ArrowRight':
+    case 'ArrowDown':
+      return 'forward';
+    case 'ArrowLeft':
+    case 'ArrowUp':
+      return 'backward';
+    case 'Home':
+      return 'reset';
+    case 'Enter':
+    case ' ':
+    // Legacy key name still reported by some assistive technology and older engines.
+    case 'Spacebar':
+      return 'confirm';
+    case 'Escape':
+      return 'cancel';
+    default:
+      return null;
+  }
+}
+
+/**
  * Default screen-reader wording for each announcement milestone. Consumers override individual
  * types through `AccessibleOptions.announceMessages`.
  */
