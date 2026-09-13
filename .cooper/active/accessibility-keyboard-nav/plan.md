@@ -87,10 +87,21 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Assert one `onTurn` per heel when a single step spans more than one (Refactor) — and none when stepping backward across a heel
 - [ ] Task: Pointer invariance regression guard
   - [ ] Sub-task: Write tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are byte-for-byte unchanged under pointer-only operation (Red/Green)
-- [ ] Task: Phase 2 Verification & Checkpoint
-  - [ ] Sub-task: `git fetch origin main`
-  - [ ] Sub-task: `CI=true npm test -w @heelslide/core` with coverage gate
-  - [ ] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Pointer invariance regression guard (e841c5d)
+  - [x] Sub-task: Tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are unchanged under pointer-only operation (Red/Green) — all 10 pass unchanged, which is the point
+  - [x] Sub-task (unplanned): Assert a pointer-only gesture never reports keyboard modality, the condition that would silently disable the pointer inactivity timeout
+- [x] Task: Phase 2 Verification & Checkpoint [checkpoint: 9c3dca8]
+  - [x] Sub-task: `git fetch origin main` — **drift found**, see sync task below
+  - [x] Sub-task: `CI=true npm test` with coverage gate — 383 passed, 5 intentional Red; `machine.ts` branches 88.39%
+  - [x] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Sync with `origin/main` at the phase boundary (fdbe381)
+  > The Phase 2 fetch found `.cooper/specs/docs-playground/spec.md` changed upstream. Two tracks had
+  > merged: `docs-config-css-parity` (PR #23) and `disable-npm-release`. Synced immediately rather
+  > than at Phase 4 — `apps/docs` was substantially rewritten, and Phase 4 touches the same files
+  > that left PR #9 unmergeable.
+  - [x] Sub-task: Merge `origin/main`; resolve the `tracks.md` conflict by combining both sides
+  - [x] Sub-task: Adopt the new colocated test convention — all packages moved `<pkg>/tests/` to `<pkg>/src/*.test.ts`; relocate this track's nine test files and rewrite their relative imports
+  - [x] Sub-task: Verify the same five Red specs still fail by identity, not merely by count — 392 passed, 5 failed; `tsc` and `oxlint` clean
 
 ---
 
