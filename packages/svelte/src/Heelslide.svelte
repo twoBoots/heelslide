@@ -331,7 +331,6 @@ export function getHeelslide() {
     <!-- Draggable Handle -->
     <g
       class="heelslide-handle"
-      aria-hidden="true"
       onpointerdown={handlePointerDown}
       onpointermove={handlePointerMove}
       onpointerup={handlePointerUp}

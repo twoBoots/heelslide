@@ -334,7 +334,6 @@ defineExpose({
       <g
         ref="handleRef"
         class="heelslide-handle"
-        aria-hidden="true"
         @pointerdown="handlePointerDown"
         @pointermove="handlePointerMove"
         @pointerup="handlePointerUp"
