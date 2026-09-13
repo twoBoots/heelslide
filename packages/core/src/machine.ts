@@ -203,33 +203,69 @@ export function createGestureStateMachine(
       return progress;
     }
 
-    const clamped = Math.min(track.totalLength, Math.max(0, distance));
-    const previousSegmentIndex = currentSegmentIndex;
+    const from = currentDistance();
+    // In segmented mode a confirmed checkpoint is a floor: it cannot be rewound past, by keyboard
+    // any more than by pointer.
+    const floor = segmented && lastConfirmedCheckpointIndex >= 0 ? lastConfirmedDistance : 0;
+    const clamped = Math.min(track.totalLength, Math.max(floor, distance));
 
-    let boundary = 0;
+    // Interior heel vertices, as cumulative distances.
+    const boundaries: number[] = [];
+    let running = 0;
+    for (let i = 0; i < track.segments.length - 1; i += 1) {
+      running += track.segments[i]!.length;
+      boundaries.push(running);
+    }
+
+    // A heel counts as negotiated on arrival at its vertex, matching how pointer traversal
+    // confirms a checkpoint on reaching a segment end rather than strictly past it.
+    const crossed: number[] = [];
+    for (let i = 0; i < boundaries.length; i += 1) {
+      const boundary = boundaries[i]!;
+      if (boundary > from && boundary <= clamped) crossed.push(i);
+    }
+
+    // Segment index stays conservative outside segmented mode: resting exactly on a vertex has
+    // not yet entered the following segment. That is what keeps the conjunctive unlock check
+    // honest on a track with a short trailing segment.
     let index = 0;
-    for (let i = 0; i < track.segments.length; i += 1) {
-      const length = track.segments[i]!.length;
-      const isLast = i === track.segments.length - 1;
-      if (clamped <= boundary + length || isLast) {
-        index = i;
-        break;
-      }
-      boundary += length;
+    for (let i = 0; i < boundaries.length; i += 1) {
+      const boundary = boundaries[i]!;
+      const entered = segmented ? clamped >= boundary : clamped > boundary;
+      if (entered) index = i + 1;
     }
 
     currentSegmentIndex = index;
-    accumulatedDistance = boundary;
+    accumulatedDistance = index > 0 ? boundaries[index - 1]! : 0;
     hasReachedSegmentEnd = false;
     hasTouchedHeelVertex = false;
     turnFiredForSegment = false;
     progress = clamped / track.totalLength;
 
-    setState(progress > 0 ? 'active' : 'idle');
+    const lastCrossed = crossed.at(-1);
+
+    if (segmented && lastCrossed !== undefined) {
+      lastConfirmedCheckpointIndex = lastCrossed;
+      lastConfirmedDistance = boundaries[lastCrossed]!;
+      setState('checkpoint');
+      // No-op while the keyboard is driving; present so a later pointer checkpoint is timed.
+      startCheckpointTimer();
+    } else {
+      setState(progress > 0 ? 'active' : 'idle');
+    }
+
     onProgress?.(progress);
 
-    if (index > previousSegmentIndex) {
-      announce('heel_reached');
+    // Heel feedback reaches keyboard users on the same terms as pointer users: one turn event
+    // per heel negotiated, even when a single step spans more than one.
+    for (const heelIndex of crossed) {
+      feedback?.triggerTurn();
+      onTurn?.(heelIndex);
+    }
+
+    if (lastCrossed !== undefined) {
+      announce(segmented ? 'checkpoint' : 'heel_reached');
+      if (segmented) onCheckpoint?.(lastCrossed, progress);
     } else {
       announce('step');
     }
