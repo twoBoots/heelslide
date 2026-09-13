@@ -1,0 +1,3 @@
+Task: Task 2: Vue Adapter CSS Custom Properties
+Scope: packages/vue/src/style.css, packages/vue/src/Heelslide.vue, packages/vue/tests/HeelslideRender.test.ts
+Summary: Added start marker at origin point, expanded CSS variables for track width, start/heel/end radiuses, heel padding, and slider bg/border properties.

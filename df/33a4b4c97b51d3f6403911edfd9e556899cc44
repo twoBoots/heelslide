@@ -1,0 +1,33 @@
+Phase 0 Checkpoint Verification - Harvest & Baseline
+
+Automated Tests: PASSED (282 passed, 5 intentional Red)
+  - All 279 pre-existing tests still pass
+  - 3 new baseline specs pass (each adapter declares exactly one slider)
+  - 5 new baseline specs fail by design, documenting real defects
+Typecheck (tsc -b): PASSED
+Lint (oxlint): PASSED
+Upstream drift (.cooper/definition, .cooper/specs): NONE
+
+Manual Verification: APPROVED by user - confirmed in browser that the widget
+declares role=slider and aria-valuenow yet does not respond to arrow keys.
+
+Deliverables:
+  - 4 harvested files quarantined as .ref with a full audit (23 of 36 assertions
+    kept, 1 rewritten, 3 discarded)
+  - 8 baseline specs across react, vue, svelte
+
+Design decisions taken this phase, both from evidence rather than plan:
+  1. Unlock parity - stepping advances progress only; confirm unlocks via the same
+     end() path as pointer release, under the same conjunctive final-segment
+     condition. Prevents keyboard users doing more work than pointer users and
+     avoids reintroducing the defect 6c8c6fb closed.
+  2. Slider normalisation - role=slider moves to the container div in all three
+     adapters. tabindex on an SVG <g> is not reliably focusable in WebKit, which
+     the CI matrix tests.
+
+New defect found, not in the original scope:
+  WCAG 2.4.7 Focus Visible - style.css sets outline: none on .heelslide-handle,
+  the only focusable element in Vue and Svelte, so focus is invisible. Added to
+  all three adapter deltas and Phase 3.
+
+Timestamp: Sat 12 Sep 2026 16:45:31 UTC
