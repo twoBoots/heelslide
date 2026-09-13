@@ -62,13 +62,17 @@ const fullTheme: PlaygroundConfig['theme'] = {
   targetHeelBorderColor: '#ffffff',
   goalBg: '#10b981',
   goalBorderColor: '#ffffff',
-  heelTextColor: '#475569',
-  targetHeelTextColor: '#ffffff',
   trackWidth: 12,
   handleSize: 32,
+  handleBorderWidth: 2,
   heelRadius: 4,
   heelPadding: 0,
-  targetHeelScale: 1.1
+  heelBorderWidth: 1,
+  targetHeelScale: 1.1,
+  targetHeelBorderWidth: 2,
+  goalBorderWidth: 1,
+  successColor: '#10b981',
+  errorColor: '#ef4444'
 };
 
 /** Only the required theme fields; every optional one omitted. */
@@ -116,6 +120,14 @@ describe('Playground theme variable mapping', () => {
     expect(stage.style.getPropertyValue('--heelslide-heel-padding')).toBe('0px');
     expect(stage.style.getPropertyValue('--heelslide-target-heel-scale')).toBe('1.1');
     expect(stage.style.getPropertyValue('--heelslide-goal-bg')).toBe('#10b981');
+    expect(stage.style.getPropertyValue('--heelslide-width')).toBe('320px');
+    expect(stage.style.getPropertyValue('--heelslide-height')).toBe('160px');
+    expect(stage.style.getPropertyValue('--heelslide-handle-border-width')).toBe('2px');
+    expect(stage.style.getPropertyValue('--heelslide-heel-border-width')).toBe('1px');
+    expect(stage.style.getPropertyValue('--heelslide-target-heel-border-width')).toBe('2px');
+    expect(stage.style.getPropertyValue('--heelslide-goal-border-width')).toBe('1px');
+    expect(stage.style.getPropertyValue('--heelslide-success-color')).toBe('#10b981');
+    expect(stage.style.getPropertyValue('--heelslide-error-color')).toBe('#ef4444');
   });
 
   it('should omit optional custom properties when their theme fields are absent', () => {
@@ -267,6 +279,25 @@ describe('ConfigPanel control wiring', () => {
     );
 
     expect(host.querySelectorAll('input').length).toBeGreaterThan(0);
+  });
+
+  it('should render inputs for gridStep, margin, border widths, and state colors', () => {
+    const host = render(
+      React.createElement(ConfigPanel, {
+        config: makeConfig(fullTheme),
+        onChange: vi.fn(),
+        onRegenerate: vi.fn()
+      })
+    );
+
+    expect(host.querySelector('#ctrl-grid-step')).not.toBeNull();
+    expect(host.querySelector('#ctrl-margin')).not.toBeNull();
+    expect(host.querySelector('#ctrl-handle-border-width')).not.toBeNull();
+    expect(host.querySelector('#ctrl-heel-border-width')).not.toBeNull();
+    expect(host.querySelector('#ctrl-target-heel-border-width')).not.toBeNull();
+    expect(host.querySelector('#ctrl-goal-border-width')).not.toBeNull();
+    expect(host.querySelector('#ctrl-success-color')).not.toBeNull();
+    expect(host.querySelector('#ctrl-error-color')).not.toBeNull();
   });
 });
 

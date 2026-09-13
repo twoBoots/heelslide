@@ -5,6 +5,7 @@ import { Playground } from './components/Playground.js';
 import { ConfigPanel } from './components/ConfigPanel.js';
 import { SimulationCard } from './components/SimulationCard.js';
 import { FrameworkTabs } from './components/FrameworkTabs.js';
+import { DocsReference } from './components/DocsReference.js';
 import { VisualFixture } from './fixtures/VisualFixture.js';
 import type { PlaygroundConfig } from './utils/snippets.js';
 import './styles.css';
@@ -54,7 +55,13 @@ function PlaygroundApp() {
       handleSize: 32,
       heelRadius: 4,
       heelPadding: 0,
-      targetHeelScale: 1.1
+      targetHeelScale: 1.1,
+      handleBorderWidth: 2,
+      heelBorderWidth: 0,
+      targetHeelBorderWidth: 2,
+      goalBorderWidth: 0,
+      successColor: '#10b981',
+      errorColor: '#ef4444'
     }
   });
 
@@ -112,6 +119,7 @@ function PlaygroundApp() {
       </div>
 
       <FrameworkTabs config={config} />
+      <DocsReference />
     </div>
   );
 }
