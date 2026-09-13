@@ -7,7 +7,7 @@ All active and completed Cooper tracks are registered below.
 ## Active Tracks
 - [x] **Track: Temporarily Disable npm Publishing in Release Workflow**
   - Worktree: `.worktrees/disable-npm-release`
-- [ ] **Track: Docs Demo Full Configuration & CSS Variable Parity**
+- [x] **Track: Docs Demo Full Configuration & CSS Variable Parity**
   - Worktree: `.worktrees/docs-config-css-parity`
   - Link: [.cooper/active/docs-config-css-parity/index.md](.cooper/active/docs-config-css-parity/index.md)
 - [ ] **Track: Whole-Project Audit Remediation**
