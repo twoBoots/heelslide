@@ -1,0 +1,23 @@
+Task: Vue adapter keyboard and ARIA + slider normalization + focus indicator
+Phase: 3 (Framework Adapter Parity)
+Scope: packages/vue/src/{Heelslide.vue,useHeelslide.ts,types.ts,style.css,HeelslideRender.test.ts} + 2 new test files
+
+TDD: Red (15 failing of 21) -> Green (52 package specs passing).
+tsc -b clean, oxlint clean.
+
+Three things landed together because they touch the same element: slider
+normalization, the ARIA completion, and the focus indicator. Splitting them
+would have meant three passes over the same lines with the widget in an
+inconsistent state between.
+
+The focus-indicator fix is the one worth remembering. outline: none on
+.heelslide-handle was harmless-looking, but the handle carried the only
+tabindex - so the sole focusable element had its focus ring suppressed. Nothing
+in the suite could have caught it, because nothing was focusable enough to
+test. Moving focus to the container made the rule inert and let a real
+indicator be added.
+
+Pre-existing spec updated rather than worked around: HeelslideRender asserted
+role="slider" on the handle. That is the divergence being fixed, so the
+assertion was retargeted at the container rather than the change being bent to
+preserve it.
