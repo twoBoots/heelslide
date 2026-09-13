@@ -50,11 +50,11 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write unit tests for `announceMessages` overrides and for `accessible.enabled: false` suppressing all announcements (Red)
   - [x] Sub-task: Implement announcement emission and override resolution (Green) — reset announces from `resetState`, not `triggerReset`, so the programmatic `Home` path is narrated too
   - [x] Sub-task: Export the new surface from `packages/core/src/index.ts` and verify `tsc -b` (Refactor)
-- [ ] Task: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: `git fetch origin main`
-  - [ ] Sub-task: `CI=true npm test -w @heelslide/core` with coverage gate
-  - [ ] Sub-task: `npx oxlint` and `npx tsc -b`
-  - [ ] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
+- [x] Task: Phase 1 Verification & Checkpoint [checkpoint: 3a3df93]
+  - [x] Sub-task: `git fetch origin main` — no upstream drift
+  - [x] Sub-task: `CI=true npm test` with coverage gate — 347 passed, 5 intentional Red; all core files above the per-file gate
+  - [x] Sub-task: `npx oxlint` and `npx tsc -b` — both clean
+  - [x] Sub-task: `git notes add -m` phase summary; `git push origin accessibility-keyboard-nav`
 
 ---
 
