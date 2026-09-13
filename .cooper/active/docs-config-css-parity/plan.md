@@ -1,10 +1,10 @@
 # Implementation Plan: Docs Demo Full Configuration & CSS Variable Parity
 
 ## Phase 1: Snippet Generator & Theme Models (TDD)
-- [~] Task: Snippet Generator CSS Variable Parity
-  - [ ] Sub-task: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` verifying `--heelslide-width`, `--heelslide-height`, border widths, and state colors are formatted into React, Vue, and Svelte snippets (Red)
-  - [ ] Sub-task: Update `ThemeConfig`, `formatReactStyles`, and `formatCssDeclarations` in `apps/docs/src/utils/snippets.ts` (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] Task: Snippet Generator CSS Variable Parity (297f569)
+  - [x] Sub-task: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` verifying `--heelslide-width`, `--heelslide-height`, border widths, and state colors are formatted into React, Vue, and Svelte snippets (Red)
+  - [x] Sub-task: Update `ThemeConfig`, `formatReactStyles`, and `formatCssDeclarations` in `apps/docs/src/utils/snippets.ts` (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 - [ ] Task: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Run unit tests and attach checkpoint notes
 
