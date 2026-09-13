@@ -1,0 +1,78 @@
+import type { AccessibleStep, Direction, Point2D, StepDirection, TrackPath } from './types.js';
+
+/**
+ * Resolves the cardinal movement direction for a segment from its axis and the sign of its
+ * displacement.
+ */
+export function getStepDirection(
+  start: Point2D,
+  end: Point2D,
+  direction: Direction
+): StepDirection {
+  if (direction === 'horizontal') {
+    return end.x >= start.x ? 'right' : 'left';
+  }
+  return end.y >= start.y ? 'down' : 'up';
+}
+
+/**
+ * Decomposes a rectilinear track into one accessible step per segment, each carrying a
+ * screen-reader instruction and the cumulative progress at that segment's end.
+ */
+export function getAccessibleSteps(track: TrackPath): AccessibleStep[] {
+  const totalSegments = track.segments.length;
+  if (totalSegments === 0) return [];
+
+  let cumulativeDistance = 0;
+
+  return track.segments.map((segment, index) => {
+    cumulativeDistance += segment.length;
+
+    const isLast = index === totalSegments - 1;
+    const isFirst = index === 0;
+    const stepDirection = getStepDirection(segment.start, segment.end, segment.direction);
+
+    let target: string;
+    if (isLast) {
+      target = 'unlock';
+    } else if (isFirst) {
+      target = 'the first turn';
+    } else {
+      target = 'the next turn';
+    }
+
+    // The final segment is pinned to 1 rather than computed, so accumulated floating-point
+    // error across segments can never leave a fully traversed track short of complete.
+    const progressAtEnd =
+      isLast || track.totalLength <= 0 ? 1 : cumulativeDistance / track.totalLength;
+
+    return {
+      segmentIndex: index,
+      direction: segment.direction,
+      startPoint: segment.start,
+      endPoint: segment.end,
+      instruction: `Step ${index + 1} of ${totalSegments}: move ${stepDirection} to ${target}`,
+      progressAtEnd
+    };
+  });
+}
+
+/**
+ * Produces a single-sentence summary of the path's shape, suitable for `aria-describedby` so a
+ * screen-reader user learns the route before attempting it.
+ */
+export function getAccessibleDescription(track: TrackPath): string {
+  const totalSegments = track.segments.length;
+  if (totalSegments === 0) {
+    return 'Security gate: no path configured.';
+  }
+
+  const directions = track.segments.map((segment) =>
+    getStepDirection(segment.start, segment.end, segment.direction)
+  );
+
+  const turns = totalSegments - 1;
+  const turnLabel = turns === 1 ? '1 turn' : `${turns} turns`;
+
+  return `Security gate with ${turnLabel}: move ${directions.join(', then ')} to unlock.`;
+}

@@ -36,6 +36,24 @@ export interface TrackPath {
 
 export type GestureState = 'idle' | 'active' | 'unlocked' | 'reset' | 'checkpoint';
 
+/** Cardinal movement direction along a segment, resolved from its axis and sign. */
+export type StepDirection = 'right' | 'left' | 'down' | 'up';
+
+/**
+ * One segment of the track, described for assistive technology. There is exactly one step per
+ * entry in `TrackPath.segments`.
+ */
+export interface AccessibleStep {
+  segmentIndex: number;
+  direction: Direction;
+  startPoint: Point2D;
+  endPoint: Point2D;
+  /** Screen-reader instruction, e.g. "Step 1 of 3: move right to the first turn". */
+  instruction: string;
+  /** Cumulative progress once this segment is fully traversed. */
+  progressAtEnd: number;
+}
+
 export interface ProjectedPoint {
   point: Point2D;
   distance: number;

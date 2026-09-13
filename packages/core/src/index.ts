@@ -18,6 +18,13 @@ export {
 // Generator
 export { generateDeterministicFallback, generateTrackPath } from './generator.js';
 
+// Accessibility: semantic path description
+export {
+  getAccessibleDescription,
+  getAccessibleSteps,
+  getStepDirection
+} from './accessibility.js';
+
 // Geometry Utilities
 export {
   distanceToSegment,
@@ -39,6 +46,7 @@ export {
 
 // Types & Interfaces
 export type {
+  AccessibleStep,
   Bounds,
   Direction,
   EngineOptions,
@@ -54,5 +62,6 @@ export type {
   Segment,
   SoundFrequencies,
   SoundOptions,
+  StepDirection,
   TrackPath
 } from './types.js';
