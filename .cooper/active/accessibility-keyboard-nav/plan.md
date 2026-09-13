@@ -45,11 +45,11 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write unit tests for `stepToNextHeel()` landing exactly on the terminating vertex (Red)
   - [x] Sub-task: Implement stepping against the existing `accumulatedDistance / totalLength` model, reusing the pointer progress path rather than duplicating it (Green) — position derives from `progress`, so there is no second source of truth
   - [x] Sub-task: Refactor shared distance arithmetic out of the pointer and stepping paths; verify per-file coverage >80% (Refactor) — `machine.ts` branches 82.35%, `engine.ts` 96.96%
-- [~] Task: Announcement lifecycle
-  - [ ] Sub-task: Write unit tests for `onAnnouncement` firing on start, step, heel_reached, checkpoint, unlock, reset, with correct type, progress, and timestamp (Red)
-  - [ ] Sub-task: Write unit tests for `announceMessages` overrides and for `accessible.enabled: false` suppressing all announcements (Red)
-  - [ ] Sub-task: Implement announcement emission and override resolution (Green)
-  - [ ] Sub-task: Export the new surface from `packages/core/src/index.ts` and verify `tsc -b` (Refactor)
+- [x] Task: Announcement lifecycle (75ead3e)
+  - [x] Sub-task: Write unit tests for `onAnnouncement` firing on start, step, heel_reached, unlock, reset, with correct type, progress, and timestamp (Red) — `checkpoint` emission deferred to Phase 2, where stepping drives segmented transitions; its message builder is unit-tested here
+  - [x] Sub-task: Write unit tests for `announceMessages` overrides and for `accessible.enabled: false` suppressing all announcements (Red)
+  - [x] Sub-task: Implement announcement emission and override resolution (Green) — reset announces from `resetState`, not `triggerReset`, so the programmatic `Home` path is narrated too
+  - [x] Sub-task: Export the new surface from `packages/core/src/index.ts` and verify `tsc -b` (Refactor)
 - [ ] Task: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: `git fetch origin main`
   - [ ] Sub-task: `CI=true npm test -w @heelslide/core` with coverage gate
@@ -77,6 +77,13 @@ free-ride on aggregate coverage.
   - [ ] Sub-task: Write unit tests asserting a stepped heel crossing sets `checkpoint` state and fires `onCheckpoint` identically to pointer traversal (Red)
   - [ ] Sub-task: Write unit tests asserting `stepBackward` floors at the confirmed checkpoint and cannot rewind into a confirmed segment (Red)
   - [ ] Sub-task: Implement segmented-aware stepping transitions (Green)
+- [ ] Task: Heel feedback parity for stepping
+  > Found in Phase 1: `applyDistance` does not fire `onTurn`, so a keyboard user crossing a heel
+  > gets no haptic or audio cue where a pointer user does. The announcement fires; the feedback
+  > controller never runs.
+  - [ ] Sub-task: Write tests asserting `onTurn` and `FeedbackController.triggerTurn` fire when stepping crosses a heel, matching pointer traversal (Red)
+  - [ ] Sub-task: Fire `onTurn` and turn feedback from the stepping path (Green)
+  - [ ] Sub-task: Assert no duplicate `onTurn` when a single step spans more than one heel (Refactor)
 - [ ] Task: Pointer invariance regression guard
   - [ ] Sub-task: Write tests asserting tolerance, snapback, checkpoint arming, unlock, and reset are byte-for-byte unchanged under pointer-only operation (Red/Green)
 - [ ] Task: Phase 2 Verification & Checkpoint
