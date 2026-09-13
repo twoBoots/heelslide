@@ -147,6 +147,8 @@ export interface PlaygroundConfig {
   sound: boolean;
   soundVolume: number;
   numberedHeels?: boolean;
+  /** Defaults to `stepped`; only emitted into snippets when changed. */
+  accessibleFallback?: 'stepped' | 'custom';
   theme: ThemeConfig;
 }
 
@@ -303,7 +305,10 @@ function formatCssDeclarations(theme: ThemeConfig, width?: number, height?: numb
 }
 
 export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundConfig): string {
-  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, segmented, checkpointTimeoutMs, haptics, sound, numberedHeels, theme } = config;
+  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, segmented, checkpointTimeoutMs, haptics, sound, numberedHeels, accessibleFallback, theme } = config;
+
+  // Emitted only when it differs from the default, so the common snippet stays uncluttered.
+  const isCustomFallback = accessibleFallback === 'custom';
 
   if (target === 'react') {
     const seedAttr = seed !== undefined ? `\n        seed={${seed}}` : '';
@@ -313,6 +318,7 @@ export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundC
     const hapticsAttr = haptics ? '\n        haptics={true}' : '';
     const soundAttr = sound ? '\n        sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n        numberedHeels={true}' : '';
+    const fallbackAttr = isCustomFallback ? '\n        accessibleFallback="custom"' : '';
     return `import { Heelslide } from '@heelslide/react';
 
 export function SecurityGate() {
@@ -332,7 +338,7 @@ ${formatReactStyles(theme, width, height)}
         width={${width}}
         height={${height}}
         gridStep={${gridStep}}
-        margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+        margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
         onUnlock={handleUnlock}
         onReset={() => console.log('Reset')}
       />
@@ -349,6 +355,7 @@ ${formatReactStyles(theme, width, height)}
     const hapticsAttr = haptics ? '\n      :haptics="true"' : '';
     const soundAttr = sound ? '\n      :sound="true"' : '';
     const numberedHeelsAttr = numberedHeels ? '\n      :numbered-heels="true"' : '';
+    const fallbackAttr = isCustomFallback ? '\n      accessible-fallback="custom"' : '';
     return `<script setup lang="ts">
 import { Heelslide } from '@heelslide/vue';
 import '@heelslide/vue/dist/style.css';
@@ -365,7 +372,7 @@ function onUnlock() {
       :tolerance="${tolerance}"
       :bounds="{ width: ${width}, height: ${height} }"
       :grid-step="${gridStep}"
-      :margin="${margin}"${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+      :margin="${margin}"${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
       @unlock="onUnlock"
       @reset="() => console.log('Reset')"
     />
@@ -387,6 +394,7 @@ ${formatCssDeclarations(theme, width, height)}
     const hapticsAttr = haptics ? '\n    haptics={true}' : '';
     const soundAttr = sound ? '\n    sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n    numberedHeels={true}' : '';
+    const fallbackAttr = isCustomFallback ? '\n    accessibleFallback="custom"' : '';
     return `<script lang="ts">
 import { Heelslide } from '@heelslide/svelte';
 import '@heelslide/svelte/dist/style.css';
@@ -402,7 +410,7 @@ function onUnlock() {
     tolerance={${tolerance}}
     bounds={{ width: ${width}, height: ${height} }}
     gridStep={${gridStep}}
-    margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}
+    margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
     onunlock={onUnlock}
     onreset={() => console.log('Reset')}
   />

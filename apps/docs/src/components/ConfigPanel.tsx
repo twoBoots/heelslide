@@ -179,6 +179,28 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </label>
       </div>
 
+      {/* Accessibility */}
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Accessibility</h3>
+
+      <div className="control-group">
+        <label htmlFor="ctrl-accessible-fallback">Keyboard fallback mode</label>
+        <select
+          id="ctrl-accessible-fallback"
+          data-config-accessible-fallback
+          value={config.accessibleFallback ?? 'stepped'}
+          onChange={(e) =>
+            updateField('accessibleFallback', e.target.value as 'stepped' | 'custom')
+          }
+        >
+          <option value="stepped">stepped — arrow keys drive the gate</option>
+          <option value="custom">custom — host renders its own flow</option>
+        </select>
+        <p className="control-hint">
+          In <code>custom</code> mode the component binds no keys and renders no live region,
+          handing the stepping primitives to the host instead.
+        </p>
+      </div>
+
       {/* Multi-Gesture & Checkpoint Controls */}
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Multi-Gesture & Checkpoints</h3>
 

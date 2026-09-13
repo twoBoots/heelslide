@@ -78,8 +78,25 @@ const CSS_DOCS: CssVarDoc[] = [
   { name: '--heelslide-cursor-active', default: 'grabbing', category: 'Interaction States', description: 'Active drag cursor style' }
 ];
 
+interface KeyDoc {
+  key: string;
+  action: string;
+}
+
+const KEY_DOCS: KeyDoc[] = [
+  { key: 'Tab', action: 'Move focus to the gate.' },
+  { key: 'ArrowRight', action: 'Advance along the path.' },
+  { key: 'ArrowDown', action: 'Advance along the path.' },
+  { key: 'ArrowLeft', action: 'Retreat along the path.' },
+  { key: 'ArrowUp', action: 'Retreat along the path.' },
+  { key: 'Home', action: 'Return to the start.' },
+  { key: 'Enter', action: 'Confirm. Unlocks if the destination has been reached.' },
+  { key: 'Space', action: 'Confirm. Unlocks if the destination has been reached.' },
+  { key: 'Escape', action: 'Cancel the gesture in progress. Focus is not trapped.' }
+];
+
 export function DocsReference() {
-  const [activeTab, setActiveTab] = useState<'props' | 'css'>('props');
+  const [activeTab, setActiveTab] = useState<'props' | 'css' | 'keyboard'>('props');
 
   return (
     <div className="docs-reference-container card" style={{ marginTop: '2.5rem' }}>
@@ -100,10 +117,59 @@ export function DocsReference() {
         >
           CSS Custom Properties
         </button>
+        <button
+          type="button"
+          className={`ref-tab-btn ${activeTab === 'keyboard' ? 'active' : ''}`}
+          onClick={() => setActiveTab('keyboard')}
+        >
+          Keyboard & Accessibility
+        </button>
       </div>
 
       <div style={{ overflowX: 'auto' }}>
-        {activeTab === 'props' ? (
+        {activeTab === 'keyboard' ? (
+          <>
+            <table className="ref-table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {KEY_DOCS.map((doc) => (
+                  <tr key={`${doc.key}-${doc.action}`}>
+                    <td>
+                      <code>{doc.key}</code>
+                    </td>
+                    <td>{doc.action}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>
+                    <code>End</code>
+                  </td>
+                  <td>
+                    <strong>Deliberately unbound.</strong> Jumping straight to the destination
+                    would let a single keypress bypass path traversal, which is the whole point
+                    of the gate.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p className="control-hint" style={{ marginTop: '1rem' }}>
+              Both arrow axes move in the same direction rather than being filtered by the
+              current segment&rsquo;s orientation — making someone track which axis they are on
+              before choosing a key would make the gate harder to operate for exactly the people
+              it serves. The direction is still narrated through <code>aria-valuetext</code> and
+              the live region.
+            </p>
+            <p className="control-hint">
+              Under keyboard control the segmented checkpoint inactivity timeout is suspended, so
+              pausing to listen to an announcement never costs progress.
+            </p>
+          </>
+        ) : activeTab === 'props' ? (
           <table className="ref-table">
             <thead>
               <tr>
