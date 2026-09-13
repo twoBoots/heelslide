@@ -1,0 +1,8 @@
+{
+  "trackId": "docs-config-css-parity",
+  "type": "feature",
+  "status": "new",
+  "createdAt": "2026-09-13T09:21:00Z",
+  "capability": "docs-playground",
+  "summary": "Document all configuration options and CSS custom properties in the demo, expand playground controls, and live-update matching CSS variables (including width/height and full token set) across code snippets."
+}
