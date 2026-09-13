@@ -1,0 +1,21 @@
+Task: React adapter keyboard and ARIA (part of Phase 3)
+Scope: packages/core/src/{accessibility.ts,index.ts}, packages/react/src/{Heelslide.tsx,useHeelslide.ts,types.ts}, + 2 new test files
+
+TDD: Red (12 failing of 22) -> Green (62 package specs passing).
+tsc -b clean, oxlint clean.
+
+Design decision: the key map moved into core (resolveKeyAction, KEY_SHORTCUTS,
+KeyAction) rather than being written per adapter. Parity across three adapters
+is then structural rather than maintained by hand, and the deliberate omission
+of End - which would let one keypress bypass path traversal - is enforced once.
+Also covers 'Spacebar', the legacy key name some assistive technology still
+reports.
+
+Local-only snag worth recording: adapters resolve core's types from dist, so a
+stale dist produced spurious errors in packages/svelte. Rebuilding core cleared
+it. Not a CI issue - tsconfig project references make tsc -b build core's
+declarations first, and CI starts from a clean checkout.
+
+Remaining in Phase 3: slider normalization for Vue and Svelte (their role sits
+on an SVG <g>), the visible focus indicator, and the two adapters' keyboard and
+ARIA work.
