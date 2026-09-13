@@ -115,6 +115,41 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         />
       </div>
 
+      {/* Grid Step & Margin */}
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-grid-step">Grid Step:</label>
+          <span className="control-value">{config.gridStep}px</span>
+        </div>
+        <input
+          id="ctrl-grid-step"
+          type="range"
+          min={16}
+          max={48}
+          step={4}
+          value={config.gridStep}
+          onChange={(e) => updateField('gridStep', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-margin">Margin:</label>
+          <span className="control-value">{config.margin}px</span>
+        </div>
+        <input
+          id="ctrl-margin"
+          type="range"
+          min={8}
+          max={32}
+          step={2}
+          value={config.margin}
+          onChange={(e) => updateField('margin', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
       {/* Disabled Switch, Numbered Heels & Regenerate */}
       <div className="control-group" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <button
@@ -370,6 +405,74 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         />
       </div>
 
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-handle-border-width">Handle Border Width:</label>
+          <span className="control-value">{config.theme.handleBorderWidth ?? 2}px</span>
+        </div>
+        <input
+          id="ctrl-handle-border-width"
+          type="range"
+          min={0}
+          max={8}
+          step={1}
+          value={config.theme.handleBorderWidth ?? 2}
+          onChange={(e) => updateTheme('handleBorderWidth', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-heel-border-width">Heel Border Width:</label>
+          <span className="control-value">{config.theme.heelBorderWidth ?? 0}px</span>
+        </div>
+        <input
+          id="ctrl-heel-border-width"
+          type="range"
+          min={0}
+          max={6}
+          step={1}
+          value={config.theme.heelBorderWidth ?? 0}
+          onChange={(e) => updateTheme('heelBorderWidth', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-target-heel-border-width">Target Heel Border Width:</label>
+          <span className="control-value">{config.theme.targetHeelBorderWidth ?? 2}px</span>
+        </div>
+        <input
+          id="ctrl-target-heel-border-width"
+          type="range"
+          min={0}
+          max={6}
+          step={1}
+          value={config.theme.targetHeelBorderWidth ?? 2}
+          onChange={(e) => updateTheme('targetHeelBorderWidth', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-goal-border-width">Goal Border Width:</label>
+          <span className="control-value">{config.theme.goalBorderWidth ?? 0}px</span>
+        </div>
+        <input
+          id="ctrl-goal-border-width"
+          type="range"
+          min={0}
+          max={6}
+          step={1}
+          value={config.theme.goalBorderWidth ?? 0}
+          onChange={(e) => updateTheme('goalBorderWidth', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
       <div className="color-pickers-row" style={{ marginTop: '1rem' }}>
         <div className="color-field">
           <input
@@ -511,6 +614,32 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
             aria-label="Target Heel Text Color"
           />
           <span className="color-text">Target Text</span>
+        </div>
+      </div>
+
+      <div className="color-pickers-row" style={{ marginTop: '0.75rem' }}>
+        <div className="color-field">
+          <input
+            id="ctrl-success-color"
+            type="color"
+            value={config.theme.successColor || '#10b981'}
+            onChange={(e) => updateTheme('successColor', e.target.value)}
+            className="color-input"
+            aria-label="Success Accent Color"
+          />
+          <span className="color-text">Success Color</span>
+        </div>
+
+        <div className="color-field">
+          <input
+            id="ctrl-error-color"
+            type="color"
+            value={config.theme.errorColor || '#ef4444'}
+            onChange={(e) => updateTheme('errorColor', e.target.value)}
+            className="color-input"
+            aria-label="Error Accent Color"
+          />
+          <span className="color-text">Error Color</span>
         </div>
       </div>
     </div>

@@ -54,7 +54,13 @@ function PlaygroundApp() {
       handleSize: 32,
       heelRadius: 4,
       heelPadding: 0,
-      targetHeelScale: 1.1
+      targetHeelScale: 1.1,
+      handleBorderWidth: 2,
+      heelBorderWidth: 0,
+      targetHeelBorderWidth: 2,
+      goalBorderWidth: 0,
+      successColor: '#10b981',
+      errorColor: '#ef4444'
     }
   });
 

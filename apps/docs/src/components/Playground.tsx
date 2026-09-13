@@ -12,6 +12,8 @@ interface PlaygroundProps {
 
 export function Playground({ config, onStateChange, onUnlock, onReset }: PlaygroundProps) {
   const containerStyle: CSSProperties = {
+    ...(config.width !== undefined ? { '--heelslide-width': `${config.width}px` } : {}),
+    ...(config.height !== undefined ? { '--heelslide-height': `${config.height}px` } : {}),
     '--heelslide-track-bg': config.theme.trackBg,
     '--heelslide-track-progress': config.theme.trackActive,
     '--heelslide-track-active': config.theme.trackActive,
@@ -22,19 +24,25 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
     ...(config.theme.trackWidth !== undefined ? { '--heelslide-track-width': `${config.theme.trackWidth}px` } : {}),
     ...(config.theme.handleSize !== undefined ? { '--heelslide-handle-size': `${config.theme.handleSize}px` } : {}),
     ...(config.theme.handleBorderColor ? { '--heelslide-handle-border-color': config.theme.handleBorderColor } : {}),
+    ...(config.theme.handleBorderWidth !== undefined ? { '--heelslide-handle-border-width': `${config.theme.handleBorderWidth}px` } : {}),
     ...(config.theme.heelRadius !== undefined ? {
       '--heelslide-track-heel-radius': `${config.theme.heelRadius}px`,
       '--heelslide-heel-radius': `${config.theme.heelRadius}px`
     } : {}),
     ...(config.theme.heelPadding !== undefined ? { '--heelslide-heel-padding': `${config.theme.heelPadding}px` } : {}),
     ...(config.theme.heelBorderColor ? { '--heelslide-heel-border-color': config.theme.heelBorderColor } : {}),
+    ...(config.theme.heelBorderWidth !== undefined ? { '--heelslide-heel-border-width': `${config.theme.heelBorderWidth}px` } : {}),
     ...(config.theme.targetHeelBg ? { '--heelslide-target-heel-bg': config.theme.targetHeelBg } : {}),
     ...(config.theme.targetHeelBorderColor ? { '--heelslide-target-heel-border-color': config.theme.targetHeelBorderColor } : {}),
+    ...(config.theme.targetHeelBorderWidth !== undefined ? { '--heelslide-target-heel-border-width': `${config.theme.targetHeelBorderWidth}px` } : {}),
     ...(config.theme.targetHeelScale !== undefined ? { '--heelslide-target-heel-scale': String(config.theme.targetHeelScale) } : {}),
     ...(config.theme.goalBg ? { '--heelslide-goal-bg': config.theme.goalBg } : {}),
     ...(config.theme.goalBorderColor ? { '--heelslide-goal-border-color': config.theme.goalBorderColor } : {}),
+    ...(config.theme.goalBorderWidth !== undefined ? { '--heelslide-goal-border-width': `${config.theme.goalBorderWidth}px` } : {}),
     ...(config.theme.heelTextColor ? { '--heelslide-heel-text-color': config.theme.heelTextColor } : {}),
-    ...(config.theme.targetHeelTextColor ? { '--heelslide-target-heel-text-color': config.theme.targetHeelTextColor } : {})
+    ...(config.theme.targetHeelTextColor ? { '--heelslide-target-heel-text-color': config.theme.targetHeelTextColor } : {}),
+    ...(config.theme.successColor ? { '--heelslide-success-color': config.theme.successColor } : {}),
+    ...(config.theme.errorColor ? { '--heelslide-error-color': config.theme.errorColor } : {})
   } as CSSProperties;
 
   return (
