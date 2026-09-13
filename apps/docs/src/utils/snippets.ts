@@ -6,16 +6,22 @@ export interface ThemeConfig {
   trackWidth?: number;
   handleSize?: number;
   handleBorderColor?: string;
+  handleBorderWidth?: number;
   heelRadius?: number;
   heelPadding?: number;
   heelBorderColor?: string;
+  heelBorderWidth?: number;
   targetHeelBg?: string;
   targetHeelBorderColor?: string;
+  targetHeelBorderWidth?: number;
   targetHeelScale?: number;
   goalBg?: string;
   goalBorderColor?: string;
+  goalBorderWidth?: number;
   heelTextColor?: string;
   targetHeelTextColor?: string;
+  successColor?: string;
+  errorColor?: string;
 }
 
 export type ThemePresetKey = 'clean-slate' | 'cyberpunk' | 'emerald-vault' | 'high-contrast';
@@ -146,13 +152,20 @@ export interface PlaygroundConfig {
 
 export type FrameworkTarget = 'react' | 'vue' | 'svelte' | 'core';
 
-function formatReactStyles(theme: ThemeConfig): string {
-  const styles: string[] = [
+function formatReactStyles(theme: ThemeConfig, width?: number, height?: number): string {
+  const styles: string[] = [];
+  if (width !== undefined) {
+    styles.push(`'--heelslide-width': '${width}px'`);
+  }
+  if (height !== undefined) {
+    styles.push(`'--heelslide-height': '${height}px'`);
+  }
+  styles.push(
     `'--heelslide-track-bg': '${theme.trackBg}'`,
     `'--heelslide-track-progress': '${theme.trackActive}'`,
     `'--heelslide-handle-bg': '${theme.handleColor}'`,
     `'--heelslide-heel-bg': '${theme.heelColor}'`
-  ];
+  );
   if (theme.trackWidth !== undefined) {
     styles.push(`'--heelslide-track-width': '${theme.trackWidth}px'`);
   }
@@ -161,6 +174,9 @@ function formatReactStyles(theme: ThemeConfig): string {
   }
   if (theme.handleBorderColor) {
     styles.push(`'--heelslide-handle-border-color': '${theme.handleBorderColor}'`);
+  }
+  if (theme.handleBorderWidth !== undefined) {
+    styles.push(`'--heelslide-handle-border-width': '${theme.handleBorderWidth}px'`);
   }
   if (theme.heelRadius !== undefined) {
     styles.push(`'--heelslide-track-heel-radius': '${theme.heelRadius}px'`);
@@ -172,11 +188,17 @@ function formatReactStyles(theme: ThemeConfig): string {
   if (theme.heelBorderColor) {
     styles.push(`'--heelslide-heel-border-color': '${theme.heelBorderColor}'`);
   }
+  if (theme.heelBorderWidth !== undefined) {
+    styles.push(`'--heelslide-heel-border-width': '${theme.heelBorderWidth}px'`);
+  }
   if (theme.targetHeelBg) {
     styles.push(`'--heelslide-target-heel-bg': '${theme.targetHeelBg}'`);
   }
   if (theme.targetHeelBorderColor) {
     styles.push(`'--heelslide-target-heel-border-color': '${theme.targetHeelBorderColor}'`);
+  }
+  if (theme.targetHeelBorderWidth !== undefined) {
+    styles.push(`'--heelslide-target-heel-border-width': '${theme.targetHeelBorderWidth}px'`);
   }
   if (theme.targetHeelScale !== undefined) {
     styles.push(`'--heelslide-target-heel-scale': '${theme.targetHeelScale}'`);
@@ -187,22 +209,38 @@ function formatReactStyles(theme: ThemeConfig): string {
   if (theme.goalBorderColor) {
     styles.push(`'--heelslide-goal-border-color': '${theme.goalBorderColor}'`);
   }
+  if (theme.goalBorderWidth !== undefined) {
+    styles.push(`'--heelslide-goal-border-width': '${theme.goalBorderWidth}px'`);
+  }
   if (theme.heelTextColor) {
     styles.push(`'--heelslide-heel-text-color': '${theme.heelTextColor}'`);
   }
   if (theme.targetHeelTextColor) {
     styles.push(`'--heelslide-target-heel-text-color': '${theme.targetHeelTextColor}'`);
   }
+  if (theme.successColor) {
+    styles.push(`'--heelslide-success-color': '${theme.successColor}'`);
+  }
+  if (theme.errorColor) {
+    styles.push(`'--heelslide-error-color': '${theme.errorColor}'`);
+  }
   return styles.map((s) => `        ${s},`).join('\n').replace(/,$/, '');
 }
 
-function formatCssDeclarations(theme: ThemeConfig): string {
-  const decls: string[] = [
+function formatCssDeclarations(theme: ThemeConfig, width?: number, height?: number): string {
+  const decls: string[] = [];
+  if (width !== undefined) {
+    decls.push(`  --heelslide-width: ${width}px;`);
+  }
+  if (height !== undefined) {
+    decls.push(`  --heelslide-height: ${height}px;`);
+  }
+  decls.push(
     `  --heelslide-track-bg: ${theme.trackBg};`,
     `  --heelslide-track-progress: ${theme.trackActive};`,
     `  --heelslide-handle-bg: ${theme.handleColor};`,
     `  --heelslide-heel-bg: ${theme.heelColor};`
-  ];
+  );
   if (theme.trackWidth !== undefined) {
     decls.push(`  --heelslide-track-width: ${theme.trackWidth}px;`);
   }
@@ -211,6 +249,9 @@ function formatCssDeclarations(theme: ThemeConfig): string {
   }
   if (theme.handleBorderColor) {
     decls.push(`  --heelslide-handle-border-color: ${theme.handleBorderColor};`);
+  }
+  if (theme.handleBorderWidth !== undefined) {
+    decls.push(`  --heelslide-handle-border-width: ${theme.handleBorderWidth}px;`);
   }
   if (theme.heelRadius !== undefined) {
     decls.push(`  --heelslide-track-heel-radius: ${theme.heelRadius}px;`);
@@ -222,11 +263,17 @@ function formatCssDeclarations(theme: ThemeConfig): string {
   if (theme.heelBorderColor) {
     decls.push(`  --heelslide-heel-border-color: ${theme.heelBorderColor};`);
   }
+  if (theme.heelBorderWidth !== undefined) {
+    decls.push(`  --heelslide-heel-border-width: ${theme.heelBorderWidth}px;`);
+  }
   if (theme.targetHeelBg) {
     decls.push(`  --heelslide-target-heel-bg: ${theme.targetHeelBg};`);
   }
   if (theme.targetHeelBorderColor) {
     decls.push(`  --heelslide-target-heel-border-color: ${theme.targetHeelBorderColor};`);
+  }
+  if (theme.targetHeelBorderWidth !== undefined) {
+    decls.push(`  --heelslide-target-heel-border-width: ${theme.targetHeelBorderWidth}px;`);
   }
   if (theme.targetHeelScale !== undefined) {
     decls.push(`  --heelslide-target-heel-scale: ${theme.targetHeelScale};`);
@@ -237,11 +284,20 @@ function formatCssDeclarations(theme: ThemeConfig): string {
   if (theme.goalBorderColor) {
     decls.push(`  --heelslide-goal-border-color: ${theme.goalBorderColor};`);
   }
+  if (theme.goalBorderWidth !== undefined) {
+    decls.push(`  --heelslide-goal-border-width: ${theme.goalBorderWidth}px;`);
+  }
   if (theme.heelTextColor) {
     decls.push(`  --heelslide-heel-text-color: ${theme.heelTextColor};`);
   }
   if (theme.targetHeelTextColor) {
     decls.push(`  --heelslide-target-heel-text-color: ${theme.targetHeelTextColor};`);
+  }
+  if (theme.successColor) {
+    decls.push(`  --heelslide-success-color: ${theme.successColor};`);
+  }
+  if (theme.errorColor) {
+    decls.push(`  --heelslide-error-color: ${theme.errorColor};`);
   }
   return decls.join('\n');
 }
@@ -267,7 +323,7 @@ export function SecurityGate() {
   return (
     <div
       style={{
-${formatReactStyles(theme)}
+${formatReactStyles(theme, width, height)}
       } as React.CSSProperties}
     >
       <Heelslide
@@ -318,7 +374,7 @@ function onUnlock() {
 
 <style scoped>
 .security-gate {
-${formatCssDeclarations(theme)}
+${formatCssDeclarations(theme, width, height)}
 }
 </style>`;
   }
@@ -354,7 +410,7 @@ function onUnlock() {
 
 <style>
 .security-gate {
-${formatCssDeclarations(theme)}
+${formatCssDeclarations(theme, width, height)}
 }
 </style>`;
   }

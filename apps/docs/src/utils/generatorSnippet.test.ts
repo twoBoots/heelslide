@@ -155,5 +155,52 @@ describe('Playground Code Snippet Generator', () => {
     expect(svelteSnippet).toContain('--heelslide-handle-size: 36px;');
     expect(svelteSnippet).toContain('--heelslide-handle-border-color: #3b82f6;');
   });
+
+  it('should format container dimensions, border widths, and state colors as live-updated CSS variables', () => {
+    const fullCssConfig: PlaygroundConfig = {
+      ...sampleConfig,
+      width: 360,
+      height: 180,
+      theme: {
+        ...sampleConfig.theme,
+        handleBorderWidth: 3,
+        heelBorderWidth: 2,
+        targetHeelBorderWidth: 4,
+        goalBorderWidth: 1,
+        successColor: '#059669',
+        errorColor: '#dc2626'
+      }
+    };
+
+    const reactSnippet = generateCodeSnippet('react', fullCssConfig);
+    expect(reactSnippet).toContain("'--heelslide-width': '360px'");
+    expect(reactSnippet).toContain("'--heelslide-height': '180px'");
+    expect(reactSnippet).toContain("'--heelslide-handle-border-width': '3px'");
+    expect(reactSnippet).toContain("'--heelslide-heel-border-width': '2px'");
+    expect(reactSnippet).toContain("'--heelslide-target-heel-border-width': '4px'");
+    expect(reactSnippet).toContain("'--heelslide-goal-border-width': '1px'");
+    expect(reactSnippet).toContain("'--heelslide-success-color': '#059669'");
+    expect(reactSnippet).toContain("'--heelslide-error-color': '#dc2626'");
+
+    const vueSnippet = generateCodeSnippet('vue', fullCssConfig);
+    expect(vueSnippet).toContain('--heelslide-width: 360px;');
+    expect(vueSnippet).toContain('--heelslide-height: 180px;');
+    expect(vueSnippet).toContain('--heelslide-handle-border-width: 3px;');
+    expect(vueSnippet).toContain('--heelslide-heel-border-width: 2px;');
+    expect(vueSnippet).toContain('--heelslide-target-heel-border-width: 4px;');
+    expect(vueSnippet).toContain('--heelslide-goal-border-width: 1px;');
+    expect(vueSnippet).toContain('--heelslide-success-color: #059669;');
+    expect(vueSnippet).toContain('--heelslide-error-color: #dc2626;');
+
+    const svelteSnippet = generateCodeSnippet('svelte', fullCssConfig);
+    expect(svelteSnippet).toContain('--heelslide-width: 360px;');
+    expect(svelteSnippet).toContain('--heelslide-height: 180px;');
+    expect(svelteSnippet).toContain('--heelslide-handle-border-width: 3px;');
+    expect(svelteSnippet).toContain('--heelslide-heel-border-width: 2px;');
+    expect(svelteSnippet).toContain('--heelslide-target-heel-border-width: 4px;');
+    expect(svelteSnippet).toContain('--heelslide-goal-border-width: 1px;');
+    expect(svelteSnippet).toContain('--heelslide-success-color: #059669;');
+    expect(svelteSnippet).toContain('--heelslide-error-color: #dc2626;');
+  });
 });
 
