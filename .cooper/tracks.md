@@ -19,6 +19,12 @@ All active and completed Cooper tracks are registered below.
   - Artifacts harvested into `accessibility-keyboard-nav`; branch retained for provenance only.
 
 ## Completed Archive
+- [x] **Track: Docs Demo Full Configuration & CSS Variable Parity**
+  - Completed: 2026-09-14 (PR #23)
+  - Archive: [.cooper/active/docs-config-css-parity/index.md](.cooper/active/docs-config-css-parity/index.md)
+- [x] **Track: Temporarily Disable npm Publishing in Release Workflow**
+  - Completed: 2026-09-14
+  - Worktree: `.worktrees/disable-npm-release`
 - [x] **Track: Whole-Project Audit Remediation**
   - Completed: 2026-09-12 (PR #17)
   - Archive: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)

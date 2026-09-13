@@ -18,7 +18,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['{packages,apps}/*/tests/**/*.test.{ts,tsx}', 'tests/**/*.test.ts'],
+    include: ['{packages,apps}/*/src/**/*.test.{ts,tsx}', 'tests/**/*.test.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -36,7 +36,10 @@ export default defineConfig({
         'packages/*/src/index.ts',
         'packages/*/src/types.ts',
         'apps/*/src/main.tsx',
-        '**/*.d.ts'
+        '**/*.d.ts',
+        // Tests are colocated with their sources, so they match the `include` glob above and
+        // would otherwise be measured as if they were production modules.
+        '**/*.test.{ts,tsx}'
       ]
     }
   }
