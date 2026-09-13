@@ -1,0 +1,22 @@
+Task: Svelte adapter keyboard and ARIA + normalization + focus indicator
+Phase: 3 (Framework Adapter Parity)
+Scope: packages/svelte/src/{Heelslide.svelte,createHeelslide.svelte.ts,types.ts,style.css,HeelslideRender.test.ts} + 2 new test files; packages/react/src/style.css
+
+TDD: Red (16 failing of 21) -> Green. Package suite 53 passing.
+Full suite 468 passed, 0 failed. tsc -b clean, oxlint clean.
+
+Milestone: every Phase 0 Red baseline spec now passes. The WCAG 2.1.1 defect
+that opened this track - role="slider" declared on all adapters with no
+keyboard handlers anywhere in packages/ - is closed across React, Vue and
+Svelte.
+
+Parity is structural rather than maintained by hand: all three adapters route
+key handling through resolveKeyAction in core, so none can drift on what a key
+does, and the deliberate omission of End is enforced in one place.
+
+The focus indicator is defined outside :where() in React so it carries normal
+specificity and cannot be overridden into invisibility by an unrelated
+container rule. It falls back to the Highlight system colour, so it respects OS
+and user contrast settings rather than hardcoding a brand colour.
+
+Remaining in Phase 3: cross-adapter parity audit and the phase checkpoint.
