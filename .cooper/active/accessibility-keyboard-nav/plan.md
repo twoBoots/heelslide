@@ -38,13 +38,13 @@ free-ride on aggregate coverage.
   - [x] Sub-task: Write unit tests for `getAccessibleDescription()` across 0-turn, 1-turn, and 2-turn paths (Red)
   - [x] Sub-task: Implement `AccessibleStep` and `StepDirection` in `types.ts` and the generators in `accessibility.ts` (Green) — announcement types deferred to Task 3 so they land with their own tests rather than ahead of them
   - [x] Sub-task: Export from `index.ts`; `tsc -b`, `oxlint` and coverage clean (Refactor) — 100% on `accessibility.ts`
-- [~] Task: Discrete stepping on the engine
-  - [ ] Sub-task: Write unit tests for `stepForward` / `stepBackward` — within-segment advance, crossing a heel vertex, multi-segment traversal, flooring at 0 (Red)
-  - [ ] Sub-task: Write unit tests asserting stepping NEVER unlocks on its own, and that confirm unlocks only via `end()` under the conjunctive final-segment condition — including the `[100,100,5]` regression case from audit commit `6c8c6fb` (Red)
-  - [ ] Sub-task: Write a unit test asserting no API exists to jump straight to the destination (Red)
-  - [ ] Sub-task: Write unit tests for `stepToNextHeel()` landing exactly on the terminating vertex (Red)
-  - [ ] Sub-task: Implement stepping against the existing `accumulatedDistance / totalLength` model, reusing the pointer progress path rather than duplicating it (Green)
-  - [ ] Sub-task: Refactor shared distance arithmetic out of the pointer and stepping paths; verify per-file coverage >80% (Refactor)
+- [x] Task: Discrete stepping on the engine (68fcc83)
+  - [x] Sub-task: Write unit tests for `stepForward` / `stepBackward` — within-segment advance, crossing a heel vertex, multi-segment traversal, flooring at 0 (Red)
+  - [x] Sub-task: Write unit tests asserting stepping NEVER unlocks on its own, and that confirm unlocks only via `end()` under the conjunctive final-segment condition — including the `[100,100,5]` regression case from audit commit `6c8c6fb` (Red)
+  - [x] Sub-task: Write a unit test asserting no API exists to jump straight to the destination (Red)
+  - [x] Sub-task: Write unit tests for `stepToNextHeel()` landing exactly on the terminating vertex (Red)
+  - [x] Sub-task: Implement stepping against the existing `accumulatedDistance / totalLength` model, reusing the pointer progress path rather than duplicating it (Green) — position derives from `progress`, so there is no second source of truth
+  - [x] Sub-task: Refactor shared distance arithmetic out of the pointer and stepping paths; verify per-file coverage >80% (Refactor) — `machine.ts` branches 82.35%, `engine.ts` 96.96%
 - [ ] Task: Announcement lifecycle
   - [ ] Sub-task: Write unit tests for `onAnnouncement` firing on start, step, heel_reached, checkpoint, unlock, reset, with correct type, progress, and timestamp (Red)
   - [ ] Sub-task: Write unit tests for `announceMessages` overrides and for `accessible.enabled: false` suppressing all announcements (Red)
