@@ -5,20 +5,22 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [ ] **Track: Accessibility & Keyboard Navigation**
-  - Worktree: `.worktrees/accessibility-keyboard-nav`
-  - Link: [.cooper/active/accessibility-keyboard-nav/index.md](.cooper/active/accessibility-keyboard-nav/index.md)
-  - Supersedes the abandoned `accessibility-fallback` track / PR [#9](https://github.com/twoBoots/heelslide/pull/9)
+
+_None._
 
 ## Superseded
 - [~] **Track: Accessibility & Keyboard Navigation Fallback**
   - Branch: `accessibility-fallback` (no worktree was provisioned)
-  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — to be closed unmerged
+  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — closed unmerged 2026-09-14
   - Assessed 2026-09-13 at 118 commits behind `main` and `CONFLICTING`, with all 22 touched source
     files drifted. Designed against a three-adapter, pre-segmented-checkpoint engine.
   - Artifacts harvested into `accessibility-keyboard-nav`; branch retained for provenance only.
 
 ## Completed Archive
+- [x] **Track: Accessibility & Keyboard Navigation**
+  - Completed: 2026-09-14
+  - Archive: [.cooper/archive/accessibility-keyboard-nav/index.md](.cooper/archive/accessibility-keyboard-nav/index.md)
+  - Supersedes the abandoned `accessibility-fallback` track / PR [#9](https://github.com/twoBoots/heelslide/pull/9)
 - [x] **Track: Docs Demo Full Configuration & CSS Variable Parity**
   - Completed: 2026-09-14 (PR #23)
   - Archive: [.cooper/active/docs-config-css-parity/index.md](.cooper/active/docs-config-css-parity/index.md)
