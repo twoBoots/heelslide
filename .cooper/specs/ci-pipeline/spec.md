@@ -82,3 +82,35 @@ be passed through the environment.
 - **WHEN** the step runs a shell command
 - **THEN** the value MUST be referenced via an `env:` binding rather than `${{ }}` interpolation
   inside `run:`.
+
+## Capability: Keyboard Accessibility Verification
+
+### Requirement: Real-Browser Keyboard End-to-End Gate
+CI MUST verify keyboard operability in real browsers, not only in simulated DOM.
+
+- **GIVEN** a pull request targeting `main`
+- **WHEN** the Playwright job runs
+- **THEN** it MUST execute keyboard navigation specs driving real key events across the Chromium, WebKit mobile, and Firefox matrix.
+- **GIVEN** the keyboard specs
+- **WHEN** they execute
+- **THEN** they MUST assert full traversal to unlock by keyboard alone, that a visible focus indicator appears on keyboard focus, that `Escape` releases focus without trapping it, and that `Tab` order reaches the component.
+- **GIVEN** the keyboard spec file is renamed, moved, or deleted
+- **WHEN** the Playwright gate runs
+- **THEN** the gate MUST fail rather than degrade into a passing skip, which requires the step to name the spec explicitly rather than rely on a suite-wide run that would still pass on the remaining specs.
+
+### Requirement: Test Runner Separation
+Playwright and Vitest suites MUST remain distinguishable as the test tree grows.
+
+- **GIVEN** Playwright's `testDir` covering directories that also hold Vitest suites
+- **WHEN** Playwright resolves its test files
+- **THEN** `testMatch` MUST remain restricted to `*.spec.ts`, since Vitest suites use `*.test.ts` and widening the match would hand them to Playwright.
+
+### Requirement: Visual Regression Baseline Stability
+Accessibility changes MUST NOT alter rendered output.
+
+- **GIVEN** accessibility changes that add focusability, ARIA attributes and visually hidden nodes
+- **WHEN** the Playwright visual regression suite runs
+- **THEN** existing baseline snapshots MUST pass unchanged.
+- **GIVEN** a baseline snapshot diff arising from such changes
+- **WHEN** it is observed
+- **THEN** it MUST be treated as a genuine visual regression rather than an expected baseline update.

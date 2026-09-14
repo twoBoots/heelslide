@@ -121,3 +121,99 @@ TypeScript styleguide's prohibition on `any` in public API surfaces.
 - **GIVEN** the exported `HeelslideProps` interface
 - **WHEN** type-checked
 - **THEN** `children` MUST be typed as an optional `Snippet` and MUST NOT be `any`.
+
+## Capability: Keyboard Operation & Accessible Semantics
+
+### Requirement: Slider Element Normalization
+The `role="slider"` contract MUST be carried by the container element, matching the React and Vue adapters.
+
+- **GIVEN** a rendered component
+- **WHEN** the accessibility tree is inspected
+- **THEN** exactly one element MUST carry `role="slider"`, and it MUST be the container carrying `data-heelslide-container`.
+- **GIVEN** the SVG handle group, which carried `role="slider"`, `tabindex="0"`, `aria-disabled` and the `aria-value*` attributes prior to this capability
+- **WHEN** the component is rendered
+- **THEN** the handle MUST be presentational, carrying `role="presentation"`, no `tabindex`, and no `aria-value*` attributes.
+
+### Requirement: Keyboard Navigation Bindings
+The component MUST be fully operable by keyboard, satisfying WCAG 2.2 SC 2.1.1 (Keyboard).
+
+- **GIVEN** a rendered, enabled component with `accessibleFallback="stepped"`
+- **WHEN** the container receives focus and `ArrowRight` or `ArrowDown` is pressed
+- **THEN** progress MUST advance.
+- **GIVEN** a focused component at intermediate progress
+- **WHEN** `ArrowLeft` or `ArrowUp` is pressed
+- **THEN** progress MUST decrement subject to engine flooring rules.
+- **GIVEN** a focused component at any progress
+- **WHEN** `Home` is pressed
+- **THEN** the engine MUST reset to `idle` at progress 0.
+- **GIVEN** a focused component at any progress
+- **WHEN** `End` is pressed
+- **THEN** no state change MUST occur.
+- **GIVEN** a focused component whose progress has reached the destination
+- **WHEN** `Enter` or `Space` is pressed
+- **THEN** the gate MUST unlock and `onunlock` / `onUnlock` MUST fire.
+- **GIVEN** a focused component with an in-progress keyboard gesture
+- **WHEN** `Escape` is pressed
+- **THEN** the gesture MUST cancel and focus MUST NOT be trapped, per SC 2.1.2.
+- **GIVEN** a component rendered with `disabled`
+- **WHEN** any bound key is pressed
+- **THEN** no engine method MUST be invoked.
+- **GIVEN** a focused, enabled component
+- **WHEN** a bound key is pressed
+- **THEN** `preventDefault()` MUST be called, and MUST NOT be called for unbound keys.
+
+### Requirement: Complete ARIA Slider Semantics
+The component MUST complete the `role="slider"` contract it declares, satisfying WCAG 2.2 SC 4.1.2.
+
+- **GIVEN** an enabled component
+- **WHEN** it is rendered
+- **THEN** the container MUST expose `tabindex="0"`, and `tabindex="-1"` when `disabled`.
+- **GIVEN** a component at any progress
+- **WHEN** progress changes
+- **THEN** `aria-valuetext` MUST update to a descriptive string stating percentage complete and the next required direction.
+- **GIVEN** a component on an active segment
+- **WHEN** the segment direction is `horizontal` or `vertical`
+- **THEN** `aria-orientation` MUST reflect that direction.
+- **GIVEN** an enabled component with `accessibleFallback="stepped"`
+- **WHEN** it is rendered
+- **THEN** `aria-keyshortcuts` MUST enumerate the bound keys and `aria-describedby` MUST reference a node containing the accessible path description.
+
+### Requirement: Visible Focus Indicator
+The slider MUST present a visible focus indicator when focused by keyboard, satisfying WCAG 2.2 SC 2.4.7.
+
+- **GIVEN** an enabled component
+- **WHEN** the slider receives keyboard focus
+- **THEN** a visible focus indicator MUST be rendered on the container, themeable via `--heelslide-focus-*` with a system-colour fallback.
+- **GIVEN** `style.css` sets `outline: none` on `.heelslide-handle`, which prior to this capability was the focusable element
+- **WHEN** a keyboard user focuses the component
+- **THEN** the indicator MUST be visible.
+
+### Requirement: Polite Live Region Announcements
+The component MUST announce progress without interrupting the user.
+
+- **GIVEN** a component with `accessibleFallback="stepped"`
+- **WHEN** it is rendered
+- **THEN** it MUST render a visually hidden node carrying `role="status"`, `aria-live="polite"`, and `aria-atomic="true"`.
+- **GIVEN** a consumer supplying `onannouncement` or `onAnnouncement`
+- **WHEN** the engine emits an announcement
+- **THEN** the callback MUST receive the `AccessibleAnnouncement`.
+
+### Requirement: Accessible Fallback Modes
+The adapter MUST support stepped and custom accessible fallback modes.
+
+- **GIVEN** `accessibleFallback` is unset or `"stepped"`
+- **WHEN** the component renders
+- **THEN** key bindings and the live region MUST be active.
+- **GIVEN** `accessibleFallback="custom"`
+- **WHEN** the component renders
+- **THEN** no key handlers MUST be bound and no live region MUST be rendered.
+
+### Requirement: Headless Stepping Primitives
+The `createHeelslide` rune composable MUST expose stepping primitives for host-rendered accessible flows.
+
+- **GIVEN** a consumer calling `createHeelslide`
+- **WHEN** the composable returns
+- **THEN** it MUST expose `stepForward`, `stepBackward`, `stepToNextHeel`, and reactive `steps`, `description` and `announcement`.
+- **GIVEN** a track whose path is regenerated
+- **WHEN** the new path is installed
+- **THEN** the derived `steps` and `description` values MUST update to describe the new path.

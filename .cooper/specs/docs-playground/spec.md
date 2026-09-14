@@ -101,3 +101,45 @@ The documentation playground MUST provide controls to toggle segmented multi-ges
 - **GIVEN** the interactive configurator in `apps/docs`
 - **WHEN** the user enables the "Segmented Mode" checkbox
 - **THEN** the live preview component MUST switch to segmented multi-gesture behavior and visually guide the user to lift and re-engage at heels.
+
+## Capability: Accessibility Demonstration & Verification
+
+### Requirement: Keyboard Navigation Showcase
+The playground MUST demonstrate keyboard operation of the gesture gate.
+
+- **GIVEN** a visitor on the playground
+- **WHEN** the live demo is focused via `Tab`
+- **THEN** a visible focus indicator MUST appear and the demo MUST be completable using only the documented key bindings.
+- **GIVEN** a visitor operating the demo by keyboard
+- **WHEN** progress advances
+- **THEN** the playground MUST surface the current `aria-valuetext` and the most recent live-region announcement as visible text, read from the rendered component rather than derived independently.
+
+### Requirement: Accessible Fallback Mode Control
+The configurator MUST expose the accessible fallback mode.
+
+- **GIVEN** the configuration panel
+- **WHEN** it is rendered
+- **THEN** it MUST offer an `accessibleFallback` control covering `stepped` and `custom`.
+- **GIVEN** a visitor selecting `custom`
+- **WHEN** the live demo re-renders
+- **THEN** the demo MUST bind no keys, and the generated code snippets MUST include the corresponding prop.
+
+### Requirement: Generated Snippet Accessibility Parity
+Generated snippets MUST reflect accessibility configuration across every supported framework.
+
+- **GIVEN** a non-default accessibility configuration
+- **WHEN** React, Vue, and Svelte snippets are generated
+- **THEN** each MUST include the accessibility props in that framework's idiomatic syntax.
+- **GIVEN** the default accessibility configuration
+- **WHEN** snippets are generated
+- **THEN** the prop MUST be omitted, so common snippets stay uncluttered.
+
+### Requirement: Documented Key Bindings
+The playground MUST document how to operate the component by keyboard, within the on-page reference.
+
+- **GIVEN** the Configuration & Styling Reference
+- **WHEN** it is rendered
+- **THEN** it MUST offer a keyboard tab alongside the props and CSS tabs.
+- **GIVEN** the keyboard reference tab
+- **WHEN** it is viewed
+- **THEN** it MUST tabulate every bound key and its action, and MUST state that `End` is intentionally unbound to prevent a single keypress bypassing intent validation.
