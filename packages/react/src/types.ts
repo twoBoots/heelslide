@@ -1,5 +1,7 @@
 import type React from 'react';
 import type {
+  AccessibleAnnouncement,
+  AccessibleStep,
   Bounds,
   EngineOptions,
   GeneratorOptions,
@@ -11,9 +13,21 @@ import type {
   TrackPath
 } from '@heelslide/core';
 
+/**
+ * How the component serves non-pointer users.
+ *
+ * - `stepped` binds the key map and renders a live region.
+ * - `custom` binds nothing and renders no live region, handing the host the stepping primitives
+ *   so it can build its own accessible flow.
+ *
+ * Written as a union so a third mode can be added without a breaking change.
+ */
+export type AccessibleFallbackMode = 'stepped' | 'custom';
+
 export interface UseHeelslideOptions extends EngineOptions {
   disabled?: boolean;
   track?: TrackPath;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
 }
 
 export interface ContainerProps {
@@ -39,6 +53,20 @@ export interface UseHeelslideReturn {
   reset: () => void;
   getContainerProps: () => ContainerProps;
   getHandleProps: () => HandleProps;
+  /** Advance along the path. Progress only — unlock requires `confirm`. */
+  stepForward: (amount?: number) => void;
+  /** Retreat along the path, floored at the start or the last confirmed checkpoint. */
+  stepBackward: (amount?: number) => void;
+  /** Advance to the next heel vertex. */
+  stepToNextHeel: () => void;
+  /** Attempt to complete the gesture, on the same terms as releasing a pointer. */
+  confirm: () => void;
+  /** One descriptor per segment of the active track. */
+  steps: AccessibleStep[];
+  /** Single-sentence summary of the path, for `aria-describedby`. */
+  description: string;
+  /** Most recent milestone, for rendering into a live region. */
+  announcement: AccessibleAnnouncement | null;
 }
 
 export interface HeelslideProps {
@@ -75,5 +103,8 @@ export interface HeelslideProps {
   margin?: number;
   seed?: number;
   ariaLabel?: string;
+  /** Defaults to `stepped`. */
+  accessibleFallback?: AccessibleFallbackMode;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
   children?: React.ReactNode;
 }

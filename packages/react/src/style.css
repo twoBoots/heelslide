@@ -1,3 +1,13 @@
+/*
+ * Focus lives on the container, which carries role="slider". Themeable via --heelslide-focus-*,
+ * falling back to the Highlight system colour so the indicator respects user and OS settings.
+ * Not wrapped in :where(), so it is not trivially overridden into invisibility.
+ */
+[data-heelslide-container]:focus-visible {
+  outline: var(--heelslide-focus-width, 3px) solid var(--heelslide-focus-color, Highlight);
+  outline-offset: var(--heelslide-focus-offset, 2px);
+}
+
 :where([data-heelslide-container]) {
   /*
    * Default `--heelslide-*` cascade for @heelslide/react.

@@ -57,14 +57,19 @@ describe('<Heelslide /> SVG Rendering & Styling', () => {
     expect(heelMarkers[0]!.attributes('cx')).toBe('100');
     expect(heelMarkers[0]!.attributes('cy')).toBe('20');
 
-    // Handle at origin
+    // Handle at origin. The slider contract moved to the container in the
+    // accessibility-keyboard-nav track, so the handle is now presentational and the ARIA
+    // assertions below target the container instead.
     const handle = wrapper.find('.heelslide-handle');
     expect(handle.exists()).toBe(true);
-    expect(handle.attributes('role')).toBe('slider');
-    expect(handle.attributes('aria-valuenow')).toBe('0');
-    expect(handle.attributes('aria-valuemin')).toBe('0');
-    expect(handle.attributes('aria-valuemax')).toBe('100');
-    expect(handle.attributes('aria-label')).toBe('Slide to unlock');
+    expect(handle.attributes('role')).toBe('presentation');
+
+    const slider = wrapper.find('[data-heelslide-container]');
+    expect(slider.attributes('role')).toBe('slider');
+    expect(slider.attributes('aria-valuenow')).toBe('0');
+    expect(slider.attributes('aria-valuemin')).toBe('0');
+    expect(slider.attributes('aria-valuemax')).toBe('100');
+    expect(slider.attributes('aria-label')).toBe('Slide to unlock');
 
     // Handle circle
     const handleCircle = handle.find('circle');

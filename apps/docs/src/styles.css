@@ -445,4 +445,64 @@ body {
   border-bottom-color: var(--accent-blue);
 }
 
+/* Explanatory copy under a control or reference table. */
+.control-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/*
+ * Mirrors the accessibility tree for sighted developers. The component's own live region is
+ * visually hidden by design, so without this there is no way to see what it announces.
+ */
+.a11y-readout {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--border-color, #d1d5db);
+  border-radius: 8px;
+  background: var(--bg-subtle, rgba(0, 0, 0, 0.02));
+}
+
+.a11y-readout-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.a11y-readout-hint {
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.8;
+}
+
+.a11y-readout-list {
+  display: grid;
+  grid-template-columns: minmax(6rem, auto) 1fr;
+  gap: 0.35rem 0.85rem;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.a11y-readout-list dt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.a11y-readout-list dd {
+  margin: 0;
+  color: var(--text-primary);
+}
+
 

@@ -5,20 +5,32 @@ All active and completed Cooper tracks are registered below.
 ---
 
 ## Active Tracks
-- [x] **Track: Temporarily Disable npm Publishing in Release Workflow**
-  - Worktree: `.worktrees/disable-npm-release`
-- [x] **Track: Docs Demo Full Configuration & CSS Variable Parity**
-  - Worktree: `.worktrees/docs-config-css-parity`
-  - Link: [.cooper/active/docs-config-css-parity/index.md](.cooper/active/docs-config-css-parity/index.md)
-- [ ] **Track: Whole-Project Audit Remediation**
-  - Worktree: `.worktrees/audit-remediation`
-  - Link: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)
-- [ ] **Track: Accessibility & Keyboard Navigation Fallback**
-  - Worktree: _(not provisioned; branch `accessibility-fallback` only)_
-  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — open, awaiting review
-  - Spec deltas live on the branch at `.cooper/active/accessibility-fallback/spec-deltas/`
+
+_None._
+
+## Superseded
+- [~] **Track: Accessibility & Keyboard Navigation Fallback**
+  - Branch: `accessibility-fallback` (no worktree was provisioned)
+  - PR: [#9](https://github.com/twoBoots/heelslide/pull/9) — closed unmerged 2026-09-14
+  - Assessed 2026-09-13 at 118 commits behind `main` and `CONFLICTING`, with all 22 touched source
+    files drifted. Designed against a three-adapter, pre-segmented-checkpoint engine.
+  - Artifacts harvested into `accessibility-keyboard-nav`; branch retained for provenance only.
 
 ## Completed Archive
+- [x] **Track: Accessibility & Keyboard Navigation**
+  - Completed: 2026-09-14
+  - Archive: [.cooper/archive/accessibility-keyboard-nav/index.md](.cooper/archive/accessibility-keyboard-nav/index.md)
+  - Supersedes the abandoned `accessibility-fallback` track / PR [#9](https://github.com/twoBoots/heelslide/pull/9)
+- [x] **Track: Docs Demo Full Configuration & CSS Variable Parity**
+  - Completed: 2026-09-14 (PR #23)
+  - Archive: [.cooper/active/docs-config-css-parity/index.md](.cooper/active/docs-config-css-parity/index.md)
+- [x] **Track: Temporarily Disable npm Publishing in Release Workflow**
+  - Completed: 2026-09-14
+  - Worktree: `.worktrees/disable-npm-release`
+- [x] **Track: Whole-Project Audit Remediation**
+  - Completed: 2026-09-12 (PR #17)
+  - Archive: [.cooper/active/audit-remediation/index.md](.cooper/active/audit-remediation/index.md)
+  - _Registry correction: this track remained listed as active after merging._
 - [x] **Track: Dynamic Documentation Version & Package Export Synchronization**
   - Completed: 2026-09-07 (PR #16)
   - Archive: [.cooper/archive/docs-version-sync/index.md](.cooper/archive/docs-version-sync/index.md)

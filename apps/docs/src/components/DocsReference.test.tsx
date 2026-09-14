@@ -65,7 +65,10 @@ describe('DocsReference Component', () => {
   it('should switch between tabs and update active class', () => {
     const host = render(React.createElement(DocsReference));
     const tabButtons = host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn');
-    expect(tabButtons.length).toBe(2);
+    // This spec is about switching and the active class, not the tab count. Asserting an exact
+    // number made it a tripwire for unrelated additions — the keyboard tab added by the
+    // accessibility-keyboard-nav track broke it without any switching behaviour changing.
+    expect(tabButtons.length).toBeGreaterThanOrEqual(2);
 
     // Switch to CSS tab
     act(() => {

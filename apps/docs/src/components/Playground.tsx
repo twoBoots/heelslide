@@ -1,6 +1,6 @@
 import { Heelslide } from '@heelslide/react';
-import type { GestureState } from '@heelslide/core';
-import type { CSSProperties } from 'react';
+import type { AccessibleAnnouncement, GestureState } from '@heelslide/core';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import type { PlaygroundConfig } from '../utils/snippets.js';
 
 interface PlaygroundProps {
@@ -11,6 +11,24 @@ interface PlaygroundProps {
 }
 
 export function Playground({ config, onStateChange, onUnlock, onReset }: PlaygroundProps) {
+  const [announcement, setAnnouncement] = useState<AccessibleAnnouncement | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [valueText, setValueText] = useState('');
+
+  // Read aria-valuetext off the rendered slider rather than recomputing it here, so the readout
+  // shows what the accessibility tree actually carries instead of a second opinion about it.
+  useEffect(() => {
+    const slider = stageRef.current?.querySelector('[data-heelslide-container]');
+    if (!slider) return;
+
+    const sync = () => setValueText(slider.getAttribute('aria-valuetext') ?? '');
+    sync();
+
+    const observer = new MutationObserver(sync);
+    observer.observe(slider, { attributes: true, attributeFilter: ['aria-valuetext'] });
+    return () => observer.disconnect();
+  }, [config.accessibleFallback, config.heels, config.seed, config.width, config.height]);
+
   const containerStyle: CSSProperties = {
     ...(config.width !== undefined ? { '--heelslide-width': `${config.width}px` } : {}),
     ...(config.height !== undefined ? { '--heelslide-height': `${config.height}px` } : {}),
@@ -48,7 +66,7 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
   return (
     <div className="card">
       <h3 className="panel-section-title">Live Gate Simulator</h3>
-      <div className="preview-stage">
+      <div className="preview-stage" ref={stageRef}>
         <div style={containerStyle}>
           <Heelslide
             heels={config.heels}
@@ -64,11 +82,31 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
             checkpointTimeoutMs={config.checkpointTimeoutMs}
             haptics={config.haptics}
             sound={config.sound ? { volume: config.soundVolume } : false}
+            accessibleFallback={config.accessibleFallback}
             onStateChange={onStateChange}
             onUnlock={onUnlock}
             onReset={onReset}
+            onAnnouncement={setAnnouncement}
           />
         </div>
+      </div>
+
+      {/*
+        Mirrors what assistive technology receives. The live region itself is visually hidden by
+        design, so without this a sighted developer has no way to see whether the component is
+        saying anything useful — or anything at all.
+      */}
+      <div className="a11y-readout">
+        <h4 className="a11y-readout-title">
+          Assistive technology view
+          <span className="a11y-readout-hint">Tab to the gate, then use the arrow keys</span>
+        </h4>
+        <dl className="a11y-readout-list">
+          <dt>aria-valuetext</dt>
+          <dd data-a11y-readout>{valueText || '—'}</dd>
+          <dt>Live region</dt>
+          <dd data-a11y-announcement>{announcement?.message ?? '—'}</dd>
+        </dl>
       </div>
     </div>
   );

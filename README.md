@@ -27,7 +27,83 @@ Heelslide acts as a security gate for destructive or sensitive operations (e.g. 
   - `@heelslide/react`: React 18/19 component wrapper (`<Heelslide />`) and `useHeelslide` hook.
   - `@heelslide/vue`: Vue 3 component wrapper (`<Heelslide />`) and `useHeelslide` composable.
   - `@heelslide/svelte`: Svelte 5 component wrapper (`<Heelslide />`) and `createHeelslide` rune composable.
+- **Keyboard & Assistive Technology**: Full keyboard operation, ARIA slider semantics, and live-region announcements across every adapter. See [Accessibility](#accessibility).
 - **Testing & Quality**: Strict >80% test coverage via Vitest, visual regression tests via Playwright, and linting/formatting via Oxc.
+
+---
+
+## Accessibility
+
+Heelslide is an intent-confirmation primitive, so it has to be operable by everyone the
+confirmation applies to — not only by people who can trace a path with a pointer.
+
+### Keyboard
+
+Every adapter binds the same key map, resolved by a single function in `@heelslide/core` so the
+frameworks cannot drift apart.
+
+| Key | Action |
+| :--- | :--- |
+| `Tab` | Move focus to the gate |
+| `ArrowRight` / `ArrowDown` | Advance along the path |
+| `ArrowLeft` / `ArrowUp` | Retreat along the path |
+| `Home` | Return to the start |
+| `Enter` / `Space` | Confirm — unlocks once the destination is reached |
+| `Escape` | Cancel the gesture in progress; focus is not trapped |
+| `End` | **Deliberately unbound** — see below |
+
+`End` has no binding on purpose. Jumping straight to the destination would let a single keypress
+bypass path traversal, which is the entire point of the gate.
+
+Both arrow axes move in the same direction rather than being filtered by the current segment's
+orientation. Making someone track which axis they are on before choosing a key would make the gate
+harder to operate for precisely the people it serves; the real direction is still narrated through
+`aria-valuetext` and the live region.
+
+### Announcements
+
+Configure `onAnnouncement` (or the `announcement` event in Vue) to observe milestones — gesture
+start, each step, heel arrivals, checkpoint confirmations, unlock and reset. Each adapter also
+renders a visually hidden `role="status"` region with `aria-live="polite"`, so announcements never
+interrupt a screen-reader user mid-sentence.
+
+Messages can be overridden per type via `accessible.announceMessages`, and disabled entirely with
+`accessible.enabled: false`.
+
+### Fallback modes
+
+```tsx
+<Heelslide accessibleFallback="stepped" />  {/* default: keys bound, live region rendered */}
+<Heelslide accessibleFallback="custom" />   {/* no keys, no live region — you build the flow */}
+```
+
+In `custom` mode the hook or composable hands you `stepForward`, `stepBackward`, `stepToNextHeel`,
+`steps` and `description` so a host application can render its own accessible confirmation.
+
+### Focus
+
+Focus lives on the container, which carries `role="slider"`. Style the indicator with
+`--heelslide-focus-color`, `--heelslide-focus-width` and `--heelslide-focus-offset`; it defaults to
+the `Highlight` system colour so it respects the viewer's OS and contrast settings.
+
+### Timing
+
+In segmented mode a checkpoint normally expires after `checkpointTimeoutMs`. Under keyboard
+control that timer is suspended entirely: pausing to listen to an announcement must never cost
+someone their progress.
+
+### Conformance
+
+Targets WCAG 2.2 Level AA for the following success criteria:
+
+| SC | Level | How |
+| :--- | :--- | :--- |
+| 2.1.1 Keyboard | A | Full key map on every adapter |
+| 2.1.2 No Keyboard Trap | A | `Escape` cancels without capturing focus |
+| 2.2.1 Timing Adjustable | A | Checkpoint timeout suspended under keyboard control |
+| 2.4.7 Focus Visible | AA | Themeable focus indicator on the container |
+| 2.5.1 Pointer Gestures | A | Stepping is a non-path alternative to the gesture |
+| 4.1.2 Name, Role, Value | A | Complete ARIA slider semantics, kept in sync with state |
 
 ---
 

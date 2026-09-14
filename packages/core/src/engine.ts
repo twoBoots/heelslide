@@ -1,8 +1,11 @@
+import { getAccessibleDescription, getAccessibleSteps } from './accessibility.js';
 import { createFeedbackController, type FeedbackController } from './feedback.js';
 import { generateTrackPath } from './generator.js';
 import { createGestureStateMachine, type GestureStateMachine } from './machine.js';
 import type {
+  AccessibleStep,
   EngineOptions,
+  InputModality,
   FeedbackOptions,
   GeneratorOptions,
   GestureState,
@@ -56,6 +59,8 @@ export class HeelslideEngine {
       onReset: this.options.onReset,
       onProgress: this.options.onProgress,
       onStateChange: this.options.onStateChange,
+      onAnnouncement: this.options.onAnnouncement,
+      accessible: this.options.accessible,
       feedback: this.feedback
     });
   }
@@ -95,6 +100,48 @@ export class HeelslideEngine {
 
   public reset(): void {
     this.machine.reset();
+  }
+
+  /**
+   * Which input most recently drove progress. Under `keyboard`, the segmented checkpoint
+   * inactivity timer is suspended, since timing keyboard operation fails WCAG 2.2 SC 2.2.1.
+   */
+  public getInputModality(): InputModality {
+    return this.machine.getInputModality();
+  }
+
+  /** Default fraction of total path length advanced per step. */
+  private get stepIncrement(): number {
+    const configured = this.options.accessible?.stepIncrement;
+    return typeof configured === 'number' && configured > 0 ? configured : 0.1;
+  }
+
+  /**
+   * Advances along the path by a fraction of total length. Progress only — unlock is reached
+   * through `endGesture()`, the same transition pointer release uses.
+   */
+  public stepForward(amount?: number): number {
+    return this.machine.step(amount ?? this.stepIncrement);
+  }
+
+  /** Retreats along the path, flooring at the start. */
+  public stepBackward(amount?: number): number {
+    return this.machine.step(-(amount ?? this.stepIncrement));
+  }
+
+  /** Advances to the next heel vertex, for efficient stepped navigation. */
+  public stepToNextHeel(): number {
+    return this.machine.stepToNextHeel();
+  }
+
+  /** One step descriptor per segment of the active track. */
+  public getAccessibleSteps(): AccessibleStep[] {
+    return getAccessibleSteps(this.track);
+  }
+
+  /** Single-sentence summary of the active track, suitable for `aria-describedby`. */
+  public getAccessibleDescription(): string {
+    return getAccessibleDescription(this.track);
   }
 
   public getFeedbackController(): FeedbackController {

@@ -13,6 +13,7 @@ export { useHeelslide, getPointAtProgress } from './useHeelslide';
 
 // Types & Interfaces
 export type {
+  AccessibleFallbackMode,
   ContainerProps,
   HandleProps,
   HeelslideProps,
@@ -22,6 +23,13 @@ export type {
 
 // Re-export key core types for convenience
 export type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  AccessibleStep,
+  AnnouncementContext,
+  InputModality,
+  StepDirection,
   Bounds,
   Direction,
   GestureState,

@@ -20,6 +20,7 @@
     "docs:dev": "npm run --prefix apps/docs dev --",
     "docs:build": "npm run --workspace=@heelslide/docs build",
     "test:visual": "playwright test",
+    "test:keyboard": "playwright test tests/e2e/keyboard.spec.ts",
     "test:visual:update": "playwright test --update-snapshots",
     "test:visual:report": "playwright show-report",
     "changeset": "changeset",

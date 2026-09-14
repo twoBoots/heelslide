@@ -18,6 +18,17 @@ export {
 // Generator
 export { generateDeterministicFallback, generateTrackPath } from './generator.js';
 
+// Accessibility: semantic path description
+export {
+  createDefaultAnnouncementMessage,
+  getAccessibleDescription,
+  getAccessibleSteps,
+  getStepDirection,
+  resolveKeyAction,
+  KEY_SHORTCUTS,
+  type KeyAction
+} from './accessibility.js';
+
 // Geometry Utilities
 export {
   distanceToSegment,
@@ -39,6 +50,11 @@ export {
 
 // Types & Interfaces
 export type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  AccessibleStep,
+  AnnouncementContext,
   Bounds,
   Direction,
   EngineOptions,
@@ -48,11 +64,13 @@ export type {
   HeelCountConfig,
   HapticOptions,
   HapticPatterns,
+  InputModality,
   IntersectOptions,
   Point2D,
   ProjectedPoint,
   Segment,
   SoundFrequencies,
   SoundOptions,
+  StepDirection,
   TrackPath
 } from './types.js';

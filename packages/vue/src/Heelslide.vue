@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onUnmounted } from 'vue';
-import type { Point2D } from '@heelslide/core';
+import { ref, computed, onUnmounted, useId } from 'vue';
+import { KEY_SHORTCUTS, getStepDirection, resolveKeyAction, type Point2D } from '@heelslide/core';
 import type { HeelslideProps, HeelslideEmits } from './types.js';
 import { useHeelslide } from './useHeelslide.js';
 import './style.css';
@@ -20,6 +20,9 @@ const props = withDefaults(defineProps<HeelslideProps>(), {
 
 const emit = defineEmits<HeelslideEmits>();
 
+const stepped = computed(() => (props.accessibleFallback ?? 'stepped') === 'stepped');
+const descriptionId = `heelslide-desc-${useId()}`;
+
 const containerRef = ref<HTMLElement | null>(null);
 const handleRef = ref<SVGGElement | null>(null);
 const capturedPointerId = ref<number | null>(null);
@@ -36,7 +39,11 @@ const {
   endGesture,
   cancelGesture,
   reset,
-  regeneratePath
+  regeneratePath,
+  stepForward,
+  stepBackward,
+  description,
+  announcement
 } = useHeelslide({
   track: props.track,
   tolerance: props.tolerance,
@@ -73,8 +80,47 @@ const {
   },
   onStateChange: (s) => {
     emit('stateChange', s);
+  },
+  onAnnouncement: (a) => {
+    emit('announcement', a);
   }
 });
+
+const activeSegment = computed(() => track.value.segments[currentSegmentIndex.value]);
+
+const valueText = computed(() => {
+  const percent = Math.round(progress.value * 100);
+  const segment = activeSegment.value;
+  if (!segment) return `${percent}% complete.`;
+  const direction = getStepDirection(segment.start, segment.end, segment.direction);
+  return `${percent}% complete. Move ${direction} to continue.`;
+});
+
+function handleKeyDown(event: KeyboardEvent): void {
+  if (props.disabled || !stepped.value) return;
+
+  const action = resolveKeyAction(event.key);
+  if (!action) return;
+
+  // Only claim keys we handle, so page scrolling and shortcuts survive elsewhere.
+  event.preventDefault();
+
+  switch (action) {
+    case 'forward':
+      stepForward();
+      break;
+    case 'backward':
+      stepBackward();
+      break;
+    case 'reset':
+    case 'cancel':
+      reset();
+      break;
+    case 'confirm':
+      endGesture();
+      break;
+  }
+}
 
 function pointsToSvgPath(points: readonly Point2D[]): string {
   if (points.length === 0) return '';
@@ -197,9 +243,21 @@ defineExpose({
       'heelslide-checkpoint': state === 'checkpoint',
       'heelslide-unlocked': state === 'unlocked'
     }"
+    role="slider"
+    :aria-label="ariaLabel"
+    :aria-valuemin="0"
+    :aria-valuemax="100"
+    :aria-valuenow="Math.round(progress * 100)"
+    :aria-valuetext="valueText"
+    :aria-orientation="activeSegment?.direction ?? 'horizontal'"
+    :aria-disabled="disabled"
+    :aria-describedby="descriptionId"
+    :aria-keyshortcuts="stepped ? KEY_SHORTCUTS : undefined"
+    :tabindex="disabled ? -1 : 0"
     :data-disabled="disabled"
     :data-state="state"
     data-heelslide-container
+    @keydown="handleKeyDown"
     :style="{
       '--heelslide-width': `${bounds.width}px`,
       '--heelslide-height': `${bounds.height}px`
@@ -273,15 +331,14 @@ defineExpose({
       </g>
 
       <!-- Draggable Handle -->
+      <!--
+        The handle is a pointer affordance only. Keyboard and assistive-technology users operate
+        the container, which carries role="slider", focus and the key bindings.
+      -->
       <g
         ref="handleRef"
         class="heelslide-handle"
-        role="slider"
-        :aria-label="ariaLabel"
-        :aria-valuemin="0"
-        :aria-valuemax="100"
-        :aria-valuenow="Math.round(progress * 100)"
-        tabindex="0"
+        role="presentation"
         @pointerdown="handlePointerDown"
         @pointermove="handlePointerMove"
         @pointerup="handlePointerUp"
@@ -300,5 +357,18 @@ defineExpose({
         />
       </g>
     </svg>
+
+    <span :id="descriptionId" class="heelslide-visually-hidden">{{ description }}</span>
+
+    <span
+      v-if="stepped"
+      data-heelslide-live-region
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      class="heelslide-visually-hidden"
+    >
+      <slot name="announcer" :announcement="announcement">{{ announcement?.message ?? '' }}</slot>
+    </span>
   </div>
 </template>

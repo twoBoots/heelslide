@@ -37,6 +37,7 @@ export { useHeelslide } from './useHeelslide.js';
 
 // Types
 export type {
+  AccessibleFallbackMode,
   HeelslideProps,
   HeelslideEmits,
   HeelslideEmitsOptions,
@@ -46,6 +47,13 @@ export type {
 
 // Re-export core types commonly needed by consumers
 export type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  AccessibleStep,
+  AnnouncementContext,
+  InputModality,
+  StepDirection,
   Bounds,
   Direction,
   EngineOptions,

@@ -1,11 +1,22 @@
+import { createDefaultAnnouncementMessage } from './accessibility.js';
 import { euclideanDistance, isNearVertex, projectPointOnSegment } from './geometry.js';
 import type { FeedbackController } from './feedback.js';
-import type { GestureState, Point2D, TrackPath } from './types.js';
+import type {
+  AccessibleAnnouncement,
+  AccessibleAnnouncementType,
+  AccessibleOptions,
+  GestureState,
+  InputModality,
+  Point2D,
+  TrackPath
+} from './types.js';
 
 export interface StateMachineOptions {
   tolerance?: number;
   segmented?: boolean;
   checkpointTimeoutMs?: number;
+  accessible?: AccessibleOptions;
+  onAnnouncement?: (announcement: AccessibleAnnouncement) => void;
   initialState?: GestureState;
   initialProgress?: number;
   onTurn?: (heelIndex: number) => void;
@@ -21,11 +32,20 @@ export interface GestureStateMachine {
   getState: () => GestureState;
   getProgress: () => number;
   getCurrentSegmentIndex: () => number;
+  /** Which input most recently drove progress. Governs the checkpoint inactivity timer. */
+  getInputModality: () => InputModality;
   start: (point: Point2D) => boolean;
   update: (point: Point2D) => void;
   end: () => void;
   cancel: () => void;
   reset: () => void;
+  /**
+   * Moves along the path by a signed fraction of total length. Advances progress only: unlock is
+   * reached exclusively through `end()`, so keyboard and pointer share one unlock condition.
+   */
+  step: (deltaNormalized: number) => number;
+  /** Advances to the first heel vertex strictly beyond the current position. */
+  stepToNextHeel: () => number;
   destroy?: () => void;
 }
 
@@ -43,6 +63,8 @@ export function createGestureStateMachine(
     onReset,
     onProgress,
     onStateChange,
+    onAnnouncement,
+    accessible,
     feedback
   } = options;
 
@@ -56,6 +78,29 @@ export function createGestureStateMachine(
   let hasTouchedHeelVertex = false;
   let turnFiredForSegment = false;
   let checkpointTimer: ReturnType<typeof setTimeout> | null = null;
+  let inputModality: InputModality = 'pointer';
+
+  /**
+   * Emits one accessibility milestone. Silent when accessibility is disabled or no consumer is
+   * listening, so the announcement path costs nothing for pointer-only integrations.
+   */
+  function announce(type: AccessibleAnnouncementType): void {
+    if (!onAnnouncement || accessible?.enabled === false) return;
+
+    const context = {
+      progress,
+      currentSegmentIndex,
+      totalSegments: track.segments.length
+    };
+    const override = accessible?.announceMessages?.[type];
+
+    onAnnouncement({
+      type,
+      message: override ? override(context) : createDefaultAnnouncementMessage(type, context),
+      progress,
+      timestamp: Date.now()
+    });
+  }
 
   function setState(newState: GestureState): void {
     if (state !== newState) {
@@ -73,10 +118,25 @@ export function createGestureStateMachine(
 
   function startCheckpointTimer(): void {
     clearCheckpointTimer();
+    // A keyboard or switch-device user is never put on a clock: WCAG 2.2 SC 2.2.1. Pausing to
+    // hear a checkpoint announcement must not cost them the checkpoint.
+    if (inputModality === 'keyboard') return;
     if (segmented && checkpointTimeoutMs > 0) {
       checkpointTimer = setTimeout(() => {
         triggerReset();
       }, checkpointTimeoutMs);
+    }
+  }
+
+  /**
+   * Records which input is driving progress. Switching to keyboard disarms any running
+   * inactivity timer, so a timer armed by an earlier pointer checkpoint cannot fire mid-step.
+   */
+  function setModality(modality: InputModality): void {
+    if (inputModality === modality) return;
+    inputModality = modality;
+    if (modality === 'keyboard') {
+      clearCheckpointTimer();
     }
   }
 
@@ -95,8 +155,12 @@ export function createGestureStateMachine(
     hasReachedSegmentEnd = false;
     hasTouchedHeelVertex = false;
     turnFiredForSegment = false;
+    inputModality = 'pointer';
     onProgress?.(progress);
     setState('idle');
+    // Announced here rather than in triggerReset so a programmatic reset — the Home key, for
+    // one — is narrated too, while triggerReset still yields exactly one announcement.
+    announce('reset');
   }
 
   function triggerReset(): void {
@@ -124,8 +188,126 @@ export function createGestureStateMachine(
     }
   }
 
+  /** Absolute distance travelled along the path, derived from progress rather than stored twice. */
+  function currentDistance(): number {
+    return track.totalLength > 0 ? progress * track.totalLength : 0;
+  }
+
+  /**
+   * Places the machine at an absolute distance along the path, resolving which segment contains
+   * it. Deliberately never sets 'unlocked': stepping advances position, and `end()` alone decides
+   * whether that position constitutes a completed gesture.
+   */
+  function applyDistance(distance: number): number {
+    if (track.totalLength <= 0 || track.segments.length === 0) {
+      return progress;
+    }
+
+    const from = currentDistance();
+    // In segmented mode a confirmed checkpoint is a floor: it cannot be rewound past, by keyboard
+    // any more than by pointer.
+    const floor = segmented && lastConfirmedCheckpointIndex >= 0 ? lastConfirmedDistance : 0;
+    const clamped = Math.min(track.totalLength, Math.max(floor, distance));
+
+    // Interior heel vertices, as cumulative distances.
+    const boundaries: number[] = [];
+    let running = 0;
+    for (let i = 0; i < track.segments.length - 1; i += 1) {
+      running += track.segments[i]!.length;
+      boundaries.push(running);
+    }
+
+    // A heel counts as negotiated on arrival at its vertex, matching how pointer traversal
+    // confirms a checkpoint on reaching a segment end rather than strictly past it.
+    const crossed: number[] = [];
+    for (let i = 0; i < boundaries.length; i += 1) {
+      const boundary = boundaries[i]!;
+      if (boundary > from && boundary <= clamped) crossed.push(i);
+    }
+
+    // Segment index stays conservative outside segmented mode: resting exactly on a vertex has
+    // not yet entered the following segment. That is what keeps the conjunctive unlock check
+    // honest on a track with a short trailing segment.
+    let index = 0;
+    for (let i = 0; i < boundaries.length; i += 1) {
+      const boundary = boundaries[i]!;
+      const entered = segmented ? clamped >= boundary : clamped > boundary;
+      if (entered) index = i + 1;
+    }
+
+    currentSegmentIndex = index;
+    accumulatedDistance = index > 0 ? boundaries[index - 1]! : 0;
+    hasReachedSegmentEnd = false;
+    hasTouchedHeelVertex = false;
+    turnFiredForSegment = false;
+    progress = clamped / track.totalLength;
+
+    const lastCrossed = crossed.at(-1);
+
+    if (segmented && lastCrossed !== undefined) {
+      lastConfirmedCheckpointIndex = lastCrossed;
+      lastConfirmedDistance = boundaries[lastCrossed]!;
+      setState('checkpoint');
+      // No-op while the keyboard is driving; present so a later pointer checkpoint is timed.
+      startCheckpointTimer();
+    } else {
+      setState(progress > 0 ? 'active' : 'idle');
+    }
+
+    onProgress?.(progress);
+
+    // Heel feedback reaches keyboard users on the same terms as pointer users: one turn event
+    // per heel negotiated, even when a single step spans more than one.
+    for (const heelIndex of crossed) {
+      feedback?.triggerTurn();
+      onTurn?.(heelIndex);
+    }
+
+    if (lastCrossed !== undefined) {
+      announce(segmented ? 'checkpoint' : 'heel_reached');
+      if (segmented) onCheckpoint?.(lastCrossed, progress);
+    } else {
+      announce('step');
+    }
+
+    return progress;
+  }
+
+  function step(deltaNormalized: number): number {
+    // A completed gesture is terminal; stepping must not reopen it.
+    if (state === 'unlocked') return progress;
+    if (!Number.isFinite(deltaNormalized) || deltaNormalized === 0) return progress;
+
+    setModality('keyboard');
+    return applyDistance(currentDistance() + deltaNormalized * track.totalLength);
+  }
+
+  function stepToNextHeel(): number {
+    if (state === 'unlocked') return progress;
+    if (track.totalLength <= 0 || track.segments.length === 0) return progress;
+
+    setModality('keyboard');
+
+    // Strictly beyond the current position, so a call made while resting exactly on a vertex
+    // advances to the following one rather than standing still.
+    const epsilon = 1e-9;
+    const from = currentDistance();
+    let boundary = 0;
+
+    for (const segment of track.segments) {
+      boundary += segment.length;
+      if (boundary > from + epsilon) {
+        return applyDistance(boundary);
+      }
+    }
+
+    return applyDistance(track.totalLength);
+  }
+
   function start(point: Point2D): boolean {
     if (track.points.length === 0) return false;
+
+    setModality('pointer');
 
     if (segmented && state === 'checkpoint') {
       const checkpointPoint = track.points[lastConfirmedCheckpointIndex + 1];
@@ -155,6 +337,7 @@ export function createGestureStateMachine(
       progress = 0;
       setState('active');
       onProgress?.(0);
+      announce('start');
       return true;
     }
 
@@ -163,6 +346,8 @@ export function createGestureStateMachine(
 
   function update(point: Point2D): void {
     if (state !== 'active') return;
+
+    setModality('pointer');
 
     if (currentSegmentIndex >= track.segments.length) {
       return;
@@ -293,6 +478,7 @@ export function createGestureStateMachine(
       onProgress?.(1.0);
       setState('unlocked');
       feedback?.triggerUnlock();
+      announce('unlock');
       onUnlock?.();
       return;
     }
@@ -312,6 +498,7 @@ export function createGestureStateMachine(
           progress = track.totalLength > 0 ? Math.min(1, Math.max(0, accumulatedDistance / track.totalLength)) : 0;
           setState('checkpoint');
           onProgress?.(progress);
+          announce('checkpoint');
           onCheckpoint?.(heelIndex, progress);
           startCheckpointTimer();
           return;
@@ -339,9 +526,12 @@ export function createGestureStateMachine(
     getState: () => state,
     getProgress: () => progress,
     getCurrentSegmentIndex: () => currentSegmentIndex,
+    getInputModality: () => inputModality,
     start,
     update,
     end,
+    step,
+    stepToNextHeel,
     cancel,
     reset: resetState,
     destroy: clearCheckpointTimer

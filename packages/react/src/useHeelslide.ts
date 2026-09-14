@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { HeelslideEngine, type Point2D, type TrackPath, type GestureState, type GeneratorOptions } from '@heelslide/core';
+import {
+  HeelslideEngine,
+  getAccessibleDescription,
+  getAccessibleSteps,
+  type AccessibleAnnouncement,
+  type Point2D,
+  type TrackPath,
+  type GestureState,
+  type GeneratorOptions
+} from '@heelslide/core';
 import type { ContainerProps, HandleProps, UseHeelslideOptions, UseHeelslideReturn } from './types';
 
 export function getPointAtProgress(track: TrackPath, progress: number): Point2D {
@@ -50,9 +59,36 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     onStateChange
   } = options;
 
-  const callbacksRef = useRef({ onTurn, onCheckpoint, onUnlock, onReset, onProgress, onStateChange });
+  const onAnnouncement = options.onAnnouncement;
+
+  const callbacksRef = useRef({
+    onTurn,
+    onCheckpoint,
+    onUnlock,
+    onReset,
+    onProgress,
+    onStateChange,
+    onAnnouncement
+  });
   useEffect(() => {
-    callbacksRef.current = { onTurn, onCheckpoint, onUnlock, onReset, onProgress, onStateChange };
+    callbacksRef.current = {
+      onTurn,
+      onCheckpoint,
+      onUnlock,
+      onReset,
+      onProgress,
+      onStateChange,
+      onAnnouncement
+    };
+  });
+
+  const [announcement, setAnnouncement] = useState<AccessibleAnnouncement | null>(null);
+
+  // Read through a ref so the keyboard primitives below can honour `disabled` without taking it
+  // as a dependency, which would change their identity every time it toggled.
+  const disabledRef = useRef(disabled);
+  useEffect(() => {
+    disabledRef.current = disabled;
   });
 
   const [state, setState] = useState<GestureState>(() => options.initialState ?? 'idle');
@@ -131,6 +167,10 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
       onStateChange: (s) => {
         setState(s);
         callbacksRef.current.onStateChange?.(s);
+      },
+      onAnnouncement: (a) => {
+        setAnnouncement(a);
+        callbacksRef.current.onAnnouncement?.(a);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on configSignature by design
@@ -291,6 +331,40 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     [handlePointerDown, handlePosition.x, handlePosition.y, disabled, isDragging]
   );
 
+  // Keyboard primitives. `disabled` is checked inside rather than baked into the identity, so
+  // these stay referentially stable across renders and consumers can put them in dependency
+  // arrays without re-subscribing.
+  const stepForward = useCallback(
+    (amount?: number) => {
+      if (disabledRef.current) return;
+      engine.stepForward(amount);
+    },
+    [engine]
+  );
+
+  const stepBackward = useCallback(
+    (amount?: number) => {
+      if (disabledRef.current) return;
+      engine.stepBackward(amount);
+    },
+    [engine]
+  );
+
+  const stepToNextHeel = useCallback(() => {
+    if (disabledRef.current) return;
+    engine.stepToNextHeel();
+  }, [engine]);
+
+  const confirm = useCallback(() => {
+    if (disabledRef.current) return;
+    engine.endGesture();
+  }, [engine]);
+
+  // Derived from the `track` state rather than the engine, so regeneration — which mutates the
+  // engine in place and so leaves its identity unchanged — still recomputes these.
+  const steps = useMemo(() => getAccessibleSteps(track), [track]);
+  const description = useMemo(() => getAccessibleDescription(track), [track]);
+
   return {
     state,
     progress,
@@ -301,6 +375,13 @@ export function useHeelslide(options: UseHeelslideOptions = {}): UseHeelslideRet
     regenerate,
     reset,
     getContainerProps,
-    getHandleProps
+    getHandleProps,
+    stepForward,
+    stepBackward,
+    stepToNextHeel,
+    confirm,
+    steps,
+    description,
+    announcement
   };
 }

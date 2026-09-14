@@ -76,13 +76,18 @@ describe('<Heelslide /> Svelte Component Rendering & Styling', () => {
     expect(heelMarkers[0]?.getAttribute('cx')).toBe('100');
     expect(heelMarkers[0]?.getAttribute('cy')).toBe('20');
 
-    // Handle at origin
+    // Handle at origin. The slider contract moved to the container in the
+    // accessibility-keyboard-nav track, so the handle is now presentational and the ARIA
+    // assertions below target the container instead.
     const handle = target.querySelector('.heelslide-handle');
     expect(handle).not.toBeNull();
-    expect(handle?.getAttribute('role')).toBe('slider');
-    expect(handle?.getAttribute('aria-valuenow')).toBe('0');
-    expect(handle?.getAttribute('aria-valuemin')).toBe('0');
-    expect(handle?.getAttribute('aria-valuemax')).toBe('100');
+    expect(handle?.getAttribute('role')).toBe('presentation');
+
+    const slider = target.querySelector('[data-heelslide-container]');
+    expect(slider?.getAttribute('role')).toBe('slider');
+    expect(slider?.getAttribute('aria-valuenow')).toBe('0');
+    expect(slider?.getAttribute('aria-valuemin')).toBe('0');
+    expect(slider?.getAttribute('aria-valuemax')).toBe('100');
 
     // Handle circle
     const handleCircle = handle?.querySelector('circle');
