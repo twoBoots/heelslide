@@ -1,0 +1,3 @@
+Task: Add Handle & Headless Guide Tab to DocsReference.tsx
+Scope: apps/docs/src/components/DocsReference.tsx, apps/docs/src/components/DocsReference.test.tsx
+Summary: Added dedicated 'Handle & Headless Guide' tab with multi-framework examples for custom handle icons, headless useHeelslide hook integration, and CSS selectors table.
