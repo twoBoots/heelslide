@@ -84,4 +84,25 @@ describe('DocsReference Component', () => {
     expect(tabButtons[0].className).toContain('active');
     expect(tabButtons[1].className).not.toContain('active');
   });
+
+  it('should document complete handle props, slots, and canonical CSS tokens', () => {
+    const host = render(React.createElement(DocsReference));
+
+    // Check props tab includes children and slot
+    expect(host.textContent).toContain('children');
+    expect(host.textContent).toContain('#handle (slot)');
+
+    // Switch to CSS tab
+    const cssTabBtn = host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn')[1];
+    act(() => {
+      cssTabBtn.click();
+    });
+
+    // Check canonical handle CSS custom properties
+    expect(host.textContent).toContain('--heelslide-handle-size');
+    expect(host.textContent).toContain('--heelslide-handle-radius');
+    expect(host.textContent).toContain('--heelslide-handle-shadow');
+    expect(host.textContent).toContain('--heelslide-handle-checkpoint-shadow');
+    expect(host.textContent).toContain('--heelslide-handle-checkpoint-border-color');
+  });
 });

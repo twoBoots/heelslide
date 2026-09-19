@@ -34,7 +34,9 @@ const PROPS_DOCS: PropDoc[] = [
   { name: 'onTurn', type: '(heelIndex: number) => void', default: 'undefined', description: 'Callback triggered when the pointer passes each 90-degree turn.' },
   { name: 'onCheckpoint', type: '(heelIndex: number, progress: number) => void', default: 'undefined', description: 'Callback triggered when entering a segmented checkpoint corridor.' },
   { name: 'onProgress', type: '(progress: number) => void', default: 'undefined', description: 'Continuous normalized gesture progress callback ([0..1]).' },
-  { name: 'onStateChange', type: '(state: GestureState) => void', default: 'undefined', description: "State transition listener ('idle' | 'active' | 'checkpoint' | 'unlocked' | 'reset')." }
+  { name: 'onStateChange', type: '(state: GestureState) => void', default: 'undefined', description: "State transition listener ('idle' | 'active' | 'checkpoint' | 'unlocked' | 'reset')." },
+  { name: 'children', type: 'React.ReactNode | Snippet', default: 'undefined', description: 'Custom icons, chevrons, or elements rendered inside the draggable handle (React & Svelte).' },
+  { name: '#handle (slot)', type: 'Slot<{ position, progress, state }>', default: 'undefined', description: 'Scoped slot to inject custom icons or markup inside the handle (Vue).' }
 ];
 
 const CSS_DOCS: CssVarDoc[] = [
@@ -47,10 +49,14 @@ const CSS_DOCS: CssVarDoc[] = [
   { name: '--heelslide-track-start-radius', default: '6px', category: 'Geometry & Track', description: 'Origin starting marker radius' },
   { name: '--heelslide-track-end-radius', default: '6px', category: 'Geometry & Track', description: 'Destination marker radius' },
   { name: '--heelslide-track-heel-radius', default: '4px', category: 'Geometry & Track', description: 'Turn corner vertex marker radius' },
-  { name: '--heelslide-handle-radius', default: '18px', category: 'Handle Tokens', description: 'Handle circle radius (alias: --heelslide-handle-size)' },
+  { name: '--heelslide-handle-size', default: '32px', category: 'Handle Tokens', description: 'Handle width and height dimensions in React DOM' },
+  { name: '--heelslide-handle-radius', default: '18px', category: 'Handle Tokens', description: 'Handle circle radius in SVG-based adapters (Vue, Svelte)' },
   { name: '--heelslide-handle-bg', default: '#ffffff', category: 'Handle Tokens', description: 'Handle fill color (aliases: --heelslide-slider-bg, --heelslide-handle-color)' },
   { name: '--heelslide-handle-border-color', default: '#3b82f6', category: 'Handle Tokens', description: 'Handle border stroke color' },
   { name: '--heelslide-handle-border-width', default: '2px', category: 'Handle Tokens', description: 'Handle border stroke width' },
+  { name: '--heelslide-handle-shadow', default: '0 2px 8px rgba(0, 0, 0, 0.15)', category: 'Handle Tokens', description: 'Idle and active drop-shadow on the draggable handle' },
+  { name: '--heelslide-handle-checkpoint-border-color', default: '#f59e0b', category: 'Handle Tokens', description: 'Border stroke color when holding at a segmented checkpoint' },
+  { name: '--heelslide-handle-checkpoint-shadow', default: '0 0 12px rgba(245, 158, 11, 0.6)', category: 'Handle Tokens', description: 'Glow elevation shadow when resting at a segmented checkpoint' },
   { name: '--heelslide-handle-active-scale', default: '1.05', category: 'Handle Tokens', description: 'Transform scale during active dragging' },
   { name: '--heelslide-handle-active-bg', default: 'var(--heelslide-handle-bg)', category: 'Handle Tokens', description: 'Handle fill color while actively dragging' },
   { name: '--heelslide-handle-checkpoint-bg', default: 'var(--heelslide-handle-active-bg)', category: 'Handle Tokens', description: 'Handle fill color when paused at a checkpoint' },
