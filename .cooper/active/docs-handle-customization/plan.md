@@ -5,8 +5,8 @@
   - [x] Sub-task: Write unit tests in `apps/docs/src/components/DocsReference.test.tsx` checking new CSS handle tokens (`--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, `--heelslide-handle-checkpoint-border-color`, `--heelslide-handle-size`) and props (`children`, `#handle` slot) (Red)
   - [x] Sub-task: Update `PROPS_DOCS` and `CSS_DOCS` in `DocsReference.tsx` (Green)
   - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
-- [ ] Task: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task: Run unit tests, sync main (`git fetch origin main`), and push checkpoint
+- [x] Task: Phase 1 Verification & Checkpoint [checkpoint: 04b1fcf]
+  - [x] Sub-task: Run unit tests, sync main (`git fetch origin main`), and push checkpoint
 
 ## Phase 2: Dedicated Handle Customization & Headless Guide
 - [ ] Task: Add Handle & Headless Guide Tab to `DocsReference.tsx`
