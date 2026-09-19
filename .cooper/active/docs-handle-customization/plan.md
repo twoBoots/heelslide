@@ -9,7 +9,7 @@
   - [x] Sub-task: Run unit tests, sync main (`git fetch origin main`), and push checkpoint
 
 ## Phase 2: Dedicated Handle Customization & Headless Guide
-- [ ] Task: Add Handle & Headless Guide Tab to `DocsReference.tsx`
+- [~] Task: Add Handle & Headless Guide Tab to `DocsReference.tsx`
   - [ ] Sub-task: Write unit tests in `DocsReference.test.tsx` verifying tab navigation to "Handle & Headless Guide", rendering copyable code blocks for custom handle content across React/Vue/Svelte, headless `useHeelslide` / `getHandleProps` examples, and CSS selectors table (Red)
   - [ ] Sub-task: Implement third tab in `DocsReference.tsx` with comprehensive code snippets, headless hook explanation, and selector reference (Green)
   - [ ] Sub-task: Refactor styling and verify responsive rendering in mobile and desktop viewports (Refactor)
