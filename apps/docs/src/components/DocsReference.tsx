@@ -102,7 +102,7 @@ const KEY_DOCS: KeyDoc[] = [
 ];
 
 export function DocsReference() {
-  const [activeTab, setActiveTab] = useState<'props' | 'css' | 'keyboard'>('props');
+  const [activeTab, setActiveTab] = useState<'props' | 'css' | 'keyboard' | 'handle'>('props');
 
   return (
     <div className="docs-reference-container card" style={{ marginTop: '2.5rem' }}>
@@ -125,6 +125,13 @@ export function DocsReference() {
         </button>
         <button
           type="button"
+          className={`ref-tab-btn ${activeTab === 'handle' ? 'active' : ''}`}
+          onClick={() => setActiveTab('handle')}
+        >
+          Handle & Headless Guide
+        </button>
+        <button
+          type="button"
           className={`ref-tab-btn ${activeTab === 'keyboard' ? 'active' : ''}`}
           onClick={() => setActiveTab('keyboard')}
         >
@@ -133,7 +140,79 @@ export function DocsReference() {
       </div>
 
       <div style={{ overflowX: 'auto' }}>
-        {activeTab === 'keyboard' ? (
+        {activeTab === 'handle' ? (
+          <div className="handle-guide-section" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>Custom Handle Icons & Content</h4>
+              <p className="control-hint" style={{ margin: '0 0 1rem 0' }}>
+                The draggable handle is designed to host nested children or slots such as lock icons, status chevrons, or directional arrows.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+                <div className="code-block-wrapper">
+                  <div className="code-block-header"><span>React (Children)</span></div>
+                  <pre className="code-pre" style={{ margin: 0, padding: '0.75rem' }}>
+                    <code>{`<Heelslide ariaLabel="Swipe to confirm">\n  <LockIcon size={18} />\n</Heelslide>`}</code>
+                  </pre>
+                </div>
+                <div className="code-block-wrapper">
+                  <div className="code-block-header"><span>Vue (#handle Slot)</span></div>
+                  <pre className="code-pre" style={{ margin: 0, padding: '0.75rem' }}>
+                    <code>{`<Heelslide aria-label="Swipe to confirm">\n  <template #handle="{ state }">\n    <LockIcon :unlocked="state === 'unlocked'" />\n  </template>\n</Heelslide>`}</code>
+                  </pre>
+                </div>
+                <div className="code-block-wrapper">
+                  <div className="code-block-header"><span>Svelte (Children)</span></div>
+                  <pre className="code-pre" style={{ margin: 0, padding: '0.75rem' }}>
+                    <code>{`<Heelslide ariaLabel="Swipe to confirm">\n  <LockIcon />\n</Heelslide>`}</code>
+                  </pre>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>Headless Architecture (useHeelslide)</h4>
+              <p className="control-hint" style={{ margin: '0 0 1rem 0' }}>
+                For non-standard UI paradigms (such as custom thumbsticks, 3D canvases, or tactile physical dials), bypass the default DOM handle with <code>getHandleProps()</code> and <code>handlePosition</code>.
+              </p>
+              <div className="code-block-wrapper">
+                <div className="code-block-header"><span>Headless React Implementation</span></div>
+                <pre className="code-pre" style={{ margin: 0, padding: '0.75rem' }}>
+                  <code>{`import { useHeelslide } from '@heelslide/react';\n\nexport function CustomSecurityGate() {\n  const { getContainerProps, getHandleProps, handlePosition, state } = useHeelslide({ tolerance: 24 });\n  const handleProps = getHandleProps();\n\n  return (\n    <div {...getContainerProps()} style={{ position: 'relative', width: 320, height: 160 }}>\n      {/* Custom track SVG here */}\n      <div\n        {...handleProps}\n        style={{\n          ...handleProps.style,\n          width: 36,\n          height: 36,\n          borderRadius: '50%',\n          backgroundColor: state === 'unlocked' ? '#10b981' : '#2563eb'\n        }}\n      >\n        {state === 'unlocked' ? '🔓' : '🔒'}\n      </div>\n    </div>\n  );\n}`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>CSS Selectors Reference</h4>
+              <table className="ref-table">
+                <thead>
+                  <tr>
+                    <th>Selector</th>
+                    <th>Target Element</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>[data-heelslide-handle]</code></td>
+                    <td>HTML <code>&lt;div&gt;</code> (React)</td>
+                    <td>Draggable handle wrapper. Positioned absolutely with centered flex layout and CSS variable fallbacks.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.heelslide-handle</code></td>
+                    <td>SVG <code>&lt;g&gt;</code> (Vue &amp; Svelte)</td>
+                    <td>Draggable handle group element. Coordinates pointer capture, role=&quot;slider&quot;, and focus outline.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.heelslide-handle-circle</code></td>
+                    <td>SVG <code>&lt;circle&gt;</code> (Vue &amp; Svelte)</td>
+                    <td>Handle circle geometry. Styled via SVG presentation attributes (r, fill, stroke, transform scale).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : activeTab === 'keyboard' ? (
           <>
             <table className="ref-table">
               <thead>

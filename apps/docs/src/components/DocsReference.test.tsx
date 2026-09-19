@@ -105,4 +105,25 @@ describe('DocsReference Component', () => {
     expect(host.textContent).toContain('--heelslide-handle-checkpoint-shadow');
     expect(host.textContent).toContain('--heelslide-handle-checkpoint-border-color');
   });
+
+  it('should render the Handle & Headless Guide tab with icons, headless hooks, and selectors', () => {
+    const host = render(React.createElement(DocsReference));
+    const handleTabBtn = Array.from(host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn')).find(
+      (btn) => btn.textContent?.includes('Handle')
+    );
+    expect(handleTabBtn).toBeDefined();
+
+    act(() => {
+      handleTabBtn!.click();
+    });
+
+    expect(handleTabBtn!.className).toContain('active');
+    expect(host.textContent).toContain('Custom Handle Icons & Content');
+    expect(host.textContent).toContain('Headless Architecture (useHeelslide)');
+    expect(host.textContent).toContain('CSS Selectors Reference');
+    expect(host.textContent).toContain('[data-heelslide-handle]');
+    expect(host.textContent).toContain('.heelslide-handle');
+    expect(host.textContent).toContain('.heelslide-handle-circle');
+    expect(host.textContent).toContain('getHandleProps()');
+  });
 });
