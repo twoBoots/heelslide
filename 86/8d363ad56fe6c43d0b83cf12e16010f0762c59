@@ -1,0 +1,3 @@
+Task: Playground Handle Icon & Framework Snippet Generation
+Scope: apps/docs/src/utils/snippets.ts, apps/docs/src/utils/generatorSnippet.test.ts, apps/docs/src/components/Playground.tsx, apps/docs/src/components/ConfigPanel.tsx, apps/docs/src/App.tsx
+Summary: Added customHandleIcon support to PlaygroundConfig, ConfigPanel toggle, lock icon rendering in Playground, and framework-specific snippet generation across React, Vue, and Svelte.
