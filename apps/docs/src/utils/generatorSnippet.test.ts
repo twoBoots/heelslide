@@ -202,5 +202,25 @@ describe('Playground Code Snippet Generator', () => {
     expect(svelteSnippet).toContain('--heelslide-success-color: #059669;');
     expect(svelteSnippet).toContain('--heelslide-error-color: #dc2626;');
   });
+
+  it('should generate custom handle children and slots when customHandleIcon is enabled', () => {
+    const iconConfig: PlaygroundConfig = {
+      ...sampleConfig,
+      customHandleIcon: true
+    };
+
+    const reactSnippet = generateCodeSnippet('react', iconConfig);
+    expect(reactSnippet).toContain('<LockIcon className="handle-icon" />');
+    expect(reactSnippet).toContain('</Heelslide>');
+
+    const vueSnippet = generateCodeSnippet('vue', iconConfig);
+    expect(vueSnippet).toContain('<template #handle="{ state }">');
+    expect(vueSnippet).toContain('<LockIcon :unlocked="state === \'unlocked\'" />');
+    expect(vueSnippet).toContain('</template>');
+
+    const svelteSnippet = generateCodeSnippet('svelte', iconConfig);
+    expect(svelteSnippet).toContain('<LockIcon />');
+    expect(svelteSnippet).toContain('</Heelslide>');
+  });
 });
 
