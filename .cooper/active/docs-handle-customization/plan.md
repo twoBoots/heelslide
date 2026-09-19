@@ -17,7 +17,7 @@
   - [x] Sub-task: Run test suite, sync main (`git fetch origin main`), and push checkpoint
 
 ## Phase 3: Interactive Handle Icon Customization & Snippet Generation
-- [ ] Task: Playground Handle Icon & Framework Snippet Generation
+- [~] Task: Playground Handle Icon & Framework Snippet Generation
   - [ ] Sub-task: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` verifying `customHandleIcon` outputs children in React snippet, `#handle` scoped slot in Vue snippet, and child snippet in Svelte (Red)
   - [ ] Sub-task: Implement `customHandleIcon` support in `snippets.ts`, add toggle in `ConfigPanel.tsx`, and pass child icon to `<Heelslide>` in `Playground.tsx` (Green)
   - [ ] Sub-task: Refactor and verify visual integration in playground (Refactor)
