@@ -25,7 +25,7 @@
   - [x] Sub-task: Run test suite, build docs bundle (`npm run docs:build`), and push checkpoint
 
 ## Phase 4: Track Finalization & Review
-- [ ] Task: Final Quality Audit
+- [~] Task: Final Quality Audit
   - [ ] Sub-task: Run full test suite (`npm test`), typecheck, and build
   - [ ] Sub-task: Sync capability spec `.cooper/specs/docs-playground/spec.md` with approved deltas
   - [ ] Sub-task: Push branch to remote
