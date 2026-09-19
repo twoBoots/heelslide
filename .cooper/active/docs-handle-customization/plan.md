@@ -1,10 +1,10 @@
 # Implementation Plan: Handle Customization & Headless API Documentation (`docs-handle-customization`)
 
 ## Phase 1: Reference Tables Expansion (Handle CSS Tokens & API Props/Slots)
-- [~] Task: Expand `DocsReference.tsx` CSS and Props Reference Tables
-  - [ ] Sub-task: Write unit tests in `apps/docs/src/components/DocsReference.test.tsx` checking new CSS handle tokens (`--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, `--heelslide-handle-checkpoint-border-color`, `--heelslide-handle-size`) and props (`children`, `#handle` slot) (Red)
-  - [ ] Sub-task: Update `PROPS_DOCS` and `CSS_DOCS` in `DocsReference.tsx` (Green)
-  - [ ] Sub-task: Refactor and verify test coverage >80% (Refactor)
+- [x] Task: Expand `DocsReference.tsx` CSS and Props Reference Tables (04799b3)
+  - [x] Sub-task: Write unit tests in `apps/docs/src/components/DocsReference.test.tsx` checking new CSS handle tokens (`--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, `--heelslide-handle-checkpoint-border-color`, `--heelslide-handle-size`) and props (`children`, `#handle` slot) (Red)
+  - [x] Sub-task: Update `PROPS_DOCS` and `CSS_DOCS` in `DocsReference.tsx` (Green)
+  - [x] Sub-task: Refactor and verify test coverage >80% (Refactor)
 - [ ] Task: Phase 1 Verification & Checkpoint
   - [ ] Sub-task: Run unit tests, sync main (`git fetch origin main`), and push checkpoint
 
