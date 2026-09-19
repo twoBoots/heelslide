@@ -6,7 +6,7 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
-- [ ] **Track: Documentation for Handle Customization & Headless API**
+- [x] **Track: Documentation for Handle Customization & Headless API**
   - Worktree: `.worktrees/docs-handle-customization`
   - Link: [.cooper/active/docs-handle-customization/index.md](.cooper/active/docs-handle-customization/index.md)
 

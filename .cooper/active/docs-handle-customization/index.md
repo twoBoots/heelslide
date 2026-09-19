@@ -1,6 +1,6 @@
 # Track: Documentation for Handle Customization & Headless API (`docs-handle-customization`)
 
-- **Status**: New / Planning
+- **Status**: Completed
 - **Metadata**: [metadata.json](metadata.json)
 - **Proposal**: [proposal.md](proposal.md)
 - **Design**: [design.md](design.md)

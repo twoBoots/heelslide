@@ -1,7 +1,7 @@
 {
   "trackId": "docs-handle-customization",
   "type": "feature",
-  "status": "new",
+  "status": "completed",
   "createdAt": "2026-09-19T04:39:00Z",
   "capability": "docs-playground",
   "summary": "Document complete handle customization in GitHub Pages docs: missing CSS tokens (shadows, checkpoint borders, size vs radius), children/slots, headless getHandleProps() guide, CSS selectors, and interactive handle icon playground toggle."
