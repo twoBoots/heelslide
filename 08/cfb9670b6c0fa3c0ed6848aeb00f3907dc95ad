@@ -1,0 +1,32 @@
+Phase 5 Checkpoint Verification - Browser Verification & Release
+
+Automated Tests: PASSED (478 vitest, 0 failed)
+Playwright keyboard E2E: PASSED (7 specs x 3 projects = 21)
+  chromium-desktop 7/7, webkit-mobile 7/7, firefox-desktop 7/7
+Playwright visual regression: PASSED (30/30, NO baseline updates)
+Typecheck (tsc -b): PASSED
+Lint (oxlint): PASSED
+Build (npm run build): PASSED
+
+Delivered:
+  - keyboard E2E specs across the full browser matrix
+  - test:keyboard CI gate that fails rather than skips if the spec goes missing
+  - visual regression confirmation that rendered output is unchanged
+  - changeset: minor across core, react, vue, svelte
+  - six living capability specs updated from the deltas
+  - PR #9 closed unmerged with a record of what was harvested
+  - track archived, registry updated
+
+Correction made this phase, and the reason it matters: when recommending that
+role=slider move onto the container, unreliable SVG tabindex focus in WebKit was
+cited as a reason. A probe committed as tests/e2e/svg-focus-probe.spec.ts finds
+<g tabindex="0"> focusable in all three engines. The claim was wrong, is now
+removed from the spec deltas, index and test commentary, and the probe stays in
+the suite so it cannot quietly become folklore again. The decision itself stands
+on reasons that survive.
+
+Not done, by design: axe-core CI integration and the dialog fallback mode remain
+deferred, both recorded as follow-ups. Manual VoiceOver verification is left to
+the reviewer - it cannot be automated here and should not be claimed as done.
+
+Timestamp: $(date -u)

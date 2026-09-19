@@ -1,0 +1,44 @@
+Phase 1 Checkpoint Verification - Core Accessible Stepping & Semantics
+
+Automated Tests: PASSED (347 passed, 5 intentional Red from Phase 0)
+Typecheck (tsc -b): PASSED
+Lint (oxlint): PASSED
+Coverage (per-file gate, all above 80%):
+  accessibility.ts  100 stmts / 97.14 branch / 100 funcs
+  engine.ts         100 stmts / 96.96 branch / 100 funcs
+  machine.ts      96.22 stmts / 83.67 branch / 100 funcs
+Upstream drift (.cooper/definition, .cooper/specs): NONE
+
+Manual Verification: APPROVED by user - built package exercised against a
+three-segment track, confirming path description, per-segment instructions,
+announcement stream, the no-unlock-from-stepping rule, withdrawal by stepping
+back, and unlock on explicit confirm.
+
+Delivered:
+  - getStepDirection, getAccessibleSteps, getAccessibleDescription
+  - stepForward, stepBackward, stepToNextHeel on the engine
+  - structured announcement lifecycle with per-type overrides and a disable switch
+  - AccessibleStep, AccessibleAnnouncement, AccessibleOptions, AnnouncementContext,
+    StepDirection, AccessibleAnnouncementType exported from the package root
+  - 63 new core specs (12 semantics, 31 stepping, 20 announcements)
+
+Defect found and fixed this phase:
+  Heel numbering was off by one - crossing the first heel announced 'Turn 2'.
+  Existing specs asserted only that an announcement fired with a non-empty
+  message, so none could catch it. Found by running the built package.
+
+Design property worth preserving: applyDistance has no code path to 'unlocked'.
+Unlock parity between modalities is therefore structural, not merely asserted -
+a future caller cannot grant unlock from a stepping entry point.
+
+Carried into Phase 2:
+  - segmented-mode stepping transitions and 'checkpoint' emission
+  - input modality tracking and inactivity-timer suspension
+  - heel feedback parity: stepping announces a heel but never fires onTurn, so
+    keyboard users get no haptic or audio cue where pointer users do
+
+Out-of-track finding: package-lock.json records workspace versions 0.1.0 while
+the manifests on main are 0.2.0. npm install corrects it; reverted to keep this
+branch clean. If CI runs npm ci, that mismatch may fail the install.
+
+Timestamp: Sun 13 Sep 2026 23:05:05 UTC

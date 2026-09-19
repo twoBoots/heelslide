@@ -1,0 +1,40 @@
+Phase 2 Checkpoint Verification - Input Modality & Timing Compliance
+
+Automated Tests: PASSED (383 passed, 5 intentional Red from Phase 0)
+Typecheck (tsc -b): PASSED
+Lint (oxlint): PASSED
+Coverage: machine.ts 97.36 stmts / 88.39 branch (from 75.2 at Phase 0 entry)
+          engine.ts 100 / 97.05, accessibility.ts 100 / 97.14
+Upstream drift: NONE
+
+Manual Verification: APPROVED by user - four scenarios exercised against the
+built package with real timers:
+  keyboard pause at checkpoint      -> progress held, no time limit
+  pointer abandonment               -> still times out and resets
+  pointer-armed timer, switch to key-> armed timer disarmed, did not fire
+  backward stepping at a checkpoint -> floored, no rewind past it
+
+Delivered:
+  - InputModality tracking with transitions on both entry paths
+  - checkpoint inactivity timer suspended under keyboard (WCAG 2.2 SC 2.2.1)
+  - segmented stepping: checkpoint confirmation, onCheckpoint, checkpoint
+    announcements, and confirmed-checkpoint flooring on backward steps
+  - heel feedback parity: onTurn and turn feedback from the stepping path
+  - 42 new core specs across modality, segmented stepping and pointer invariance
+
+Defect found and fixed this phase, inherited from Phase 1:
+  stepToNextHeel lands exactly on a vertex, which the Phase 1 resolver read as
+  still inside the previous segment. That method therefore never registered a
+  heel crossing - no onTurn, no announcement, no checkpoint. Phase 1 specs
+  passed because they asserted resulting progress only, never the events.
+
+  Fixed by separating heel crossing (arrival, from < b <= to) from segment
+  index (segmented >= boundary, non-segmented > boundary). The asymmetry
+  mirrors the two pointer paths it parallels, and the non-segmented
+  conservatism is load-bearing: on [100,100,5], resting exactly on the final
+  vertex reaches 97.56%, and treating that as having entered the final segment
+  would grant unlock with none of it traversed.
+
+The core engine is feature-complete for this track. Phase 3 consumes it.
+
+Timestamp: Sun 13 Sep 2026 23:22:49 UTC

@@ -1,0 +1,18 @@
+Task: Cross-adapter parity audit - follow-up correction
+Phase: 3 (Framework Adapter Parity)
+
+Caught by the Svelte compiler during the coverage run, not by any test:
+  Heelslide.svelte: <g> with a pointerdown/pointermove/pointerup/pointercancel
+  handler must have an ARIA role
+
+Self-inflicted: moving role="slider" off the handle left it an unlabelled
+element that still responds to pointer events. role="presentation" resolves it
+truthfully - the handle is decorative, and every non-pointer route into the
+widget goes through the container.
+
+Rejected alternatives: aria-hidden would silence the warning but hide author
+children (the reason it was removed a commit earlier); a svelte-ignore comment
+would suppress the symptom while leaving the element genuinely unlabelled.
+
+Two assertions expecting no role at all were updated to expect presentation.
+Full suite 468 passing, no compiler warnings, tsc and oxlint clean.

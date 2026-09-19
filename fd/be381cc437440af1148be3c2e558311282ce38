@@ -1,0 +1,24 @@
+Merge origin/main into accessibility-keyboard-nav
+Phase: 2 -> 3 boundary sync
+
+Triggered by the Phase 2 checkpoint fetch detecting drift in
+.cooper/specs/docs-playground/spec.md. Two tracks had merged since this branch
+was cut: docs-config-css-parity (PR #23) and disable-npm-release.
+
+Structural change adopted: all packages moved their tests from <pkg>/tests/ to
+colocated <pkg>/src/*.test.ts. Git flagged all nine of this branch's test files
+as file-location conflicts and relocated them; relative imports were rewritten
+from '../src/X.js' to './X.js'.
+
+tracks.md conflict resolved by merging both sides rather than taking either:
+this track's Active and Superseded entries kept, and the two newly merged
+tracks moved from main's Active list into Completed Archive where they belong.
+
+Post-merge: 392 passed, 5 failed - the same five Phase 0 baseline specs, by
+identity not just count. tsc -b clean, oxlint clean.
+
+Synced deliberately at a phase boundary rather than at Phase 4, when the docs
+work begins. apps/docs was substantially rewritten by PR #23, and this track's
+Phase 4 touches Playground.tsx, ConfigPanel.tsx and snippets.ts - the exact
+overlap that left PR #9 unmergeable. The docs-playground spec delta will be
+re-checked against the updated living spec when Phase 4 starts.

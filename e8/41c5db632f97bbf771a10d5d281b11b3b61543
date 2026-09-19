@@ -1,0 +1,20 @@
+Task: Pointer invariance regression guard
+Phase: 2 (Input Modality & Timing Compliance)
+Scope: packages/core/tests/pointerInvariance.test.ts
+
+10 specs, all passing on first run - expected for a regression guard, which
+asserts an existing invariant rather than driving new behaviour.
+
+Covers: engagement tolerance, out-of-tolerance reset, unlock on release after
+full traversal, onTurn during pointer traversal, segmented checkpoint on
+release, mid-segment snapback to last checkpoint, inactivity timer arming under
+pointer, and no timer when checkpointTimeoutMs is unset.
+
+The load-bearing one is modality: a pointer-only gesture must never report
+keyboard, because that is exactly the condition under which the inactivity
+timeout is suppressed. A leak from the stepping path into pointer traversal
+would silently disable the timeout that segmented mode exists to provide, with
+no other test failing.
+
+Full suite 383 passed, 5 failed - only the Phase 0 baseline specs.
+machine.ts 97.36 stmts / 88.39 branch. tsc -b clean, oxlint clean.

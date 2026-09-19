@@ -1,0 +1,45 @@
+Phase 3 Checkpoint Verification - Framework Adapter Parity
+
+Automated Tests: PASSED (468 passed, 0 failed)
+Typecheck (tsc -b): PASSED
+Lint (oxlint): PASSED, no Svelte compiler warnings
+Coverage (all above the 80% per-file gate):
+  accessibility.ts 100 stmts / 97.82 branch
+  engine.ts        100 / 100
+  machine.ts       97.36 / 91.84
+  Heelslide.tsx    99.73 / 91.39
+  useHeelslide.ts  97.52 / 80.00
+Upstream drift: NONE
+
+MILESTONE: every Phase 0 Red baseline spec now passes. The defect that opened
+this track - role="slider" declared on all adapters with no keyboard handler
+anywhere in packages/ - is closed across React, Vue and Svelte.
+
+Delivered:
+  - role=slider normalised onto the container in all three adapters; the handle
+    is now role="presentation"
+  - full ARIA: tabindex, aria-valuetext, aria-orientation, aria-keyshortcuts,
+    aria-describedby, plus aria-disabled for Vue which lacked it
+  - polite atomic live regions, accessibleFallback stepped/custom
+  - stepping primitives on all three hooks/composables
+  - visible focus indicator closing WCAG 2.2 SC 2.4.7
+  - 64 new adapter specs
+
+Design decision: the key map lives in @heelslide/core as resolveKeyAction, so
+parity is structural. Three adapters cannot drift on what a key does, and the
+deliberate omission of End is enforced once rather than three times.
+
+Parity audited empirically, not assumed: 21 accessibility features checked
+across all three adapters, all present. Two asymmetries found and fixed -
+aria-hidden (resolved downward, since the handle subtree carries author
+children) and AccessibleFallbackMode missing from React and Vue exports.
+
+Noted for a future track: Svelte wildcards its type exports while React and Vue
+enumerate, so the next new type will ship from one adapter and not the others
+unless someone remembers. Not changed here - converting the other two would
+widen their public surface beyond this track's remit.
+
+useHeelslide.ts sits at exactly 80.00% branch coverage, on the gate rather than
+comfortably above it.
+
+Timestamp: $(date -u)

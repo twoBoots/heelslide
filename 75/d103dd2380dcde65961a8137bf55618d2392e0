@@ -1,0 +1,13 @@
+Task: Accessible types and step generation
+Phase: 1 (Core Accessible Stepping & Semantics)
+Scope: packages/core/src/{accessibility.ts,types.ts,index.ts}, packages/core/tests/accessibility.test.ts
+
+TDD: Red (module absent) -> Green (12 passed) -> Refactor (exports, gates).
+Coverage: 100/100/100/100 on accessibility.ts. tsc -b clean. oxlint clean.
+
+Harvested from PR #9: getStepDirection, getAccessibleSteps,
+getAccessibleDescription kept with corrections - named StepDirection return type
+instead of an inline union, instruction wording tightened, and the final-segment
+progress pin documented. createDefaultAnnouncementMessage deliberately NOT
+carried over in this task; it needs the checkpoint announcement type and arrives
+with its own tests in Task 3.

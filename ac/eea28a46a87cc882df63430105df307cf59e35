@@ -1,0 +1,19 @@
+Task: Input modality tracking + Checkpoint inactivity suspension
+Phase: 2 (Input Modality & Timing Compliance)
+Scope: packages/core/src/{machine.ts,engine.ts,types.ts,index.ts}, packages/core/tests/modality.test.ts
+
+TDD: Red (getInputModality is not a function, 12 failing) -> Green (12 passed).
+Core suite 170 passed. tsc -b clean, oxlint clean.
+Coverage: machine.ts 96.37 stmts / 83.76 branch, engine.ts 100 / 97.05.
+
+Two plan tasks landed together because they are one mechanism: modality exists
+solely to govern the timer, and implementing it without the timer rule would
+have left dead state.
+
+Asymmetry worth noting: setModality clears the timer when switching TO keyboard,
+but switching back to pointer does not retroactively arm one. A checkpoint
+confirmed under keyboard control stays untimed; only a subsequent pointer
+checkpoint arms. Covered by the re-arm spec.
+
+Verified NOT broken: pointer abandonment still times out and resets, which is
+the behaviour segmented mode exists to provide.

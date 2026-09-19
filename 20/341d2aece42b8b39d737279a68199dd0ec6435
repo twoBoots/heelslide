@@ -1,0 +1,26 @@
+Task: Merge spec deltas into living specs + changeset
+Phase: 5 (Browser Verification & Release)
+Scope: .cooper/specs/{gesture-engine,react-adapter,vue-adapter,svelte-adapter,docs-playground,ci-pipeline}/spec.md, .changeset/accessibility-keyboard-nav.md
+
+Six capabilities updated. Requirements were promoted as built rather than as
+drafted, with three substantive differences from the original deltas:
+
+1. Unlock parity - the delta originally specified unlock on reaching
+   totalLength. The living spec records the conjunctive final-segment condition
+   actually implemented, shared with the pointer path.
+2. Focus rationale - the vue and svelte deltas cited unreliable SVG tabindex
+   focus in WebKit. Disproved by probe; the living spec states the requirement
+   without the false justification.
+3. Handle presentation - the deltas asked only that the handle drop role,
+   tabindex and aria-value*. The living spec records role=presentation, which is
+   what shipped after the Svelte compiler flagged an unlabelled element carrying
+   pointer handlers.
+
+New requirements not in any delta, added from what the work revealed:
+  - heel feedback parity for stepping (gesture-engine)
+  - shared keyboard action resolution in core (gesture-engine)
+  - heel numbering names the heel negotiated, not segments occupied
+  - Playwright testMatch must stay narrow now that testDir is wide (ci-pipeline)
+
+Changeset: minor across core, react, vue and svelte - additive, no breaking
+change, pointer behaviour and rendered output unchanged.

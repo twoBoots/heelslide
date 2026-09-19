@@ -1,0 +1,27 @@
+Task: Stepping under segmented mode + Heel feedback parity
+Phase: 2 (Input Modality & Timing Compliance)
+Scope: packages/core/src/machine.ts, packages/core/tests/segmentedStepping.test.ts
+
+TDD: Red (10 failing of 20) -> Green (20 passed). Core suite 184 passed.
+Full suite 373 passed, 5 failed - still only the Phase 0 baseline specs.
+Coverage: machine.ts 96.56 stmts / 86.51 branch (up from 83.76).
+
+The Red run exposed a boundary-semantics defect in the Phase 1 resolver:
+stepToNextHeel lands exactly ON a vertex, but the resolver treated that as
+still inside the previous segment, so no heel crossing was ever detected from
+that method - no onTurn, no announcement, no checkpoint.
+
+Resolved by separating two concerns the original code conflated:
+  - heel crossing: boundaries b with from < b <= to. Arrival counts.
+  - segment index: segmented uses >= boundary, non-segmented uses > boundary.
+
+The asymmetry is not arbitrary - it mirrors the two pointer paths. Segmented
+pointer confirms a checkpoint at projection.t >= 0.98 (arrival), while
+non-segmented pointer advances only at nextProj.t > 0 (strictly past). Keeping
+non-segmented conservative is load-bearing: on the [100,100,5] track, resting
+exactly on the final vertex reaches 97.56% progress, and treating that as
+having entered the final segment would grant unlock with none of it traversed
+- the defect 6c8c6fb closed, re-entering through the stepping door.
+
+onCheckpoint fires with the heel index and progress, matching the pointer
+signature. onTurn fires once per heel even when one step spans several.

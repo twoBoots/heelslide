@@ -1,0 +1,17 @@
+Task: Wire the keyboard gate into CI
+Phase: 5 (Browser Verification & Release)
+Scope: .github/workflows/ci.yml, package.json
+
+The suite-wide playwright run already picks the keyboard specs up now that
+testDir covers tests/, but that alone does not satisfy the ci-pipeline spec
+delta, which requires the gate to fail rather than degrade into a passing skip
+if the spec file goes missing.
+
+Named explicitly as its own step so deletion or a rename produces 'No tests
+found' and exit 1. Confirmed empirically against a nonexistent path rather than
+assumed - the first attempt to check this read the exit code of tail through a
+pipe and wrongly reported 0.
+
+Visual regression confirmed unaffected in the same phase: 30 of 30 pass with no
+baseline updates, satisfying the delta's requirement that accessibility changes
+leave rendered output unchanged.
