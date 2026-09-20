@@ -9,10 +9,10 @@
 
 ## Phase 1: Viewport Root, Fluid Layout & Responsive Spacing
 
-- [~] Task 1.1: Root Container & Viewport Overflow Protection
-  - [ ] Sub-task 1.1.1: Write unit tests asserting responsive layout classes and viewport root safety styles (Red)
-  - [ ] Sub-task 1.1.2: Implement root `overflow-x: clip`, fluid `.docs-container` and `.card` paddings, and fluid header typography (Green)
-  - [ ] Sub-task 1.1.3: Refactor and verify test coverage >80% (Refactor)
+- [x] Task 1.1: Root Container & Viewport Overflow Protection (e7df222)
+  - [x] Sub-task 1.1.1: Write unit tests asserting responsive layout classes and viewport root safety styles (Red)
+  - [x] Sub-task 1.1.2: Implement root `overflow-x: clip`, fluid `.docs-container` and `.card` paddings, and fluid header typography (Green)
+  - [x] Sub-task 1.1.3: Refactor and verify test coverage >80% (Refactor)
 
 - [ ] Task 1.2: Live Simulator Stage Responsive Containment
   - [ ] Sub-task 1.2.1: Write component tests for preview stage viewport containment and responsive wrapper (Red)
