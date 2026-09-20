@@ -1,0 +1,3 @@
+Task: Touch-Scrollable Framework & Reference Tab Bars
+Scope: apps/docs/src/styles.css, apps/docs/src/responsiveLayout.test.tsx
+Summary: Configured .tabs-nav with overflow-x: auto, flex-wrap: nowrap, hidden scrollbar, and flex-shrink: 0, white-space: nowrap on .tab-btn and .ref-tab-btn to eliminate horizontal page blowout on mobile viewports.
