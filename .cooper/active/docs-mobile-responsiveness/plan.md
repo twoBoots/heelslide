@@ -51,10 +51,10 @@
 
 ## Phase 3: Reference Tables, Code Previews & End-to-End Verification
 
-- [~] Task 3.1: Responsive Reference Tables & Code Previews
-  - [ ] Sub-task 3.1.1: Write tests for reference table scrolling wrapper and code header wrapping (Red)
-  - [ ] Sub-task 3.1.2: Implement `min-width` preservation for `.ref-table` and wrap handling in `FrameworkTabs.tsx` and `DocsReference.tsx` (Green)
-  - [ ] Sub-task 3.1.3: Refactor and verify test coverage >80% (Refactor)
+- [x] Task 3.1: Responsive Reference Tables & Code Previews (697a5af)
+  - [x] Sub-task 3.1.1: Write tests for reference table scrolling wrapper and code header wrapping (Red)
+  - [x] Sub-task 3.1.2: Implement `min-width` preservation for `.ref-table` and wrap handling in `FrameworkTabs.tsx` and `DocsReference.tsx` (Green)
+  - [x] Sub-task 3.1.3: Refactor and verify test coverage >80% (Refactor)
 
 - [ ] Task 3.2: Phase 3 Verification & Final Checkpoint
   - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
