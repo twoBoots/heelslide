@@ -67,7 +67,7 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
     <div className="card">
       <h3 className="panel-section-title">Live Gate Simulator</h3>
       <div className="preview-stage" ref={stageRef}>
-        <div style={containerStyle}>
+        <div className="preview-stage-viewport" style={containerStyle}>
           <Heelslide
             heels={config.heels}
             tolerance={config.tolerance}

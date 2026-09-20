@@ -240,7 +240,7 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
       {/* Feedback & Audio Settings */}
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Feedback & Sound FX</h3>
 
-      <div className="control-group" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+      <div className="control-group" style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
           <input
             id="ctrl-haptics"
