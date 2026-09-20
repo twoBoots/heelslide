@@ -14,7 +14,7 @@
   - [x] Sub-task 1.1.2: Implement root `overflow-x: clip`, fluid `.docs-container` and `.card` paddings, and fluid header typography (Green)
   - [x] Sub-task 1.1.3: Refactor and verify test coverage >80% (Refactor)
 
-- [ ] Task 1.2: Live Simulator Stage Responsive Containment
+- [~] Task 1.2: Live Simulator Stage Responsive Containment
   - [ ] Sub-task 1.2.1: Write component tests for preview stage viewport containment and responsive wrapper (Red)
   - [ ] Sub-task 1.2.2: Implement `.preview-stage` mobile padding and `.preview-stage-viewport` scrolling/containment wrapper in `Playground.tsx` (Green)
   - [ ] Sub-task 1.2.3: Refactor and verify test coverage >80% (Refactor)
