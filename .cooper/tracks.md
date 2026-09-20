@@ -6,7 +6,7 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
-- [ ] **Track: Mobile Responsiveness & Overflow Prevention for Documentation Site**
+- [x] **Track: Mobile Responsiveness & Overflow Prevention for Documentation Site**
   - Worktree: `.worktrees/docs-mobile-responsiveness`
   - Link: [.cooper/active/docs-mobile-responsiveness/index.md](.cooper/active/docs-mobile-responsiveness/index.md)
 - [x] **Track: Documentation for Handle Customization & Headless API**
