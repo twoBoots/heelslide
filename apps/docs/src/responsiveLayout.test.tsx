@@ -92,5 +92,25 @@ describe('Responsive Layout & Viewport Safety', () => {
     expect(cssContent).toMatch(/\.ref-tab-btn\s*\{[^}]*flex-shrink:\s*0/);
     expect(cssContent).toMatch(/\.ref-tab-btn\s*\{[^}]*white-space:\s*nowrap/);
   });
+
+  it('defines responsive grid reflow for .stats-grid at mobile breakpoints', () => {
+    expect(cssContent).toMatch(/@media\s*\(max-width:\s*640px\)[\s\S]*?\.stats-grid\s*\{[^}]*grid-template-columns:/);
+    expect(cssContent).toMatch(/@media\s*\(max-width:\s*480px\)[\s\S]*?\.stats-grid\s*\{[^}]*grid-template-columns:\s*1fr/);
+  });
+
+  it('stacks .color-pickers-row to single column on compact mobile screens', () => {
+    expect(cssContent).toMatch(/@media\s*\(max-width:\s*480px\)[\s\S]*?\.color-pickers-row\s*\{[^}]*grid-template-columns:\s*1fr/);
+  });
+
+  it('ensures feedback toggles and action buttons in ConfigPanel support flex-wrap', () => {
+    const { container, unmount } = renderApp();
+    const hapticsInput = container.querySelector('#ctrl-haptics');
+    const toggleParent = hapticsInput?.closest('.control-group') as HTMLElement;
+
+    expect(toggleParent).not.toBeNull();
+    expect(toggleParent.style.flexWrap).toBe('wrap');
+
+    unmount();
+  });
 });
 

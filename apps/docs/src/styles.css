@@ -144,11 +144,22 @@ body {
     flex: 1;
     justify-content: center;
   }
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
+  }
 }
 
 @media (max-width: 480px) {
   .header-tagline {
     font-size: 0.95rem;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .color-pickers-row {
+    grid-template-columns: 1fr;
   }
 }
 
