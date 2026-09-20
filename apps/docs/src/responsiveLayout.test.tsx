@@ -62,4 +62,22 @@ describe('Responsive Layout & Viewport Safety', () => {
 
     unmount();
   });
+
+  it('renders .preview-stage-viewport wrapper inside .preview-stage to ensure scrollable simulator containment', () => {
+    const { container, unmount } = renderApp();
+    const stage = container.querySelector('.preview-stage');
+    const viewport = stage?.querySelector('.preview-stage-viewport');
+
+    expect(stage).not.toBeNull();
+    expect(viewport).not.toBeNull();
+    expect(viewport?.querySelector('[data-heelslide-container]')).not.toBeNull();
+
+    unmount();
+  });
+
+  it('defines .preview-stage-viewport with overflow-x: auto and max-width: 100%', () => {
+    expect(cssContent).toMatch(/\.preview-stage-viewport\s*\{[^}]*overflow-x:\s*auto/);
+    expect(cssContent).toMatch(/\.preview-stage-viewport\s*\{[^}]*max-width:\s*100%/);
+  });
 });
+
