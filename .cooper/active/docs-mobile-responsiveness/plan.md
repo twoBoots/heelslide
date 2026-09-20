@@ -35,7 +35,7 @@
   - [x] Sub-task 2.1.2: Implement `.tabs-nav` horizontal scrolling, scrollbar masking, and non-shrinking tab buttons (Green)
   - [x] Sub-task 2.1.3: Refactor and verify test coverage >80% (Refactor)
 
-- [ ] Task 2.2: Responsive Gate Metrics & Configuration Panel Refinements
+- [~] Task 2.2: Responsive Gate Metrics & Configuration Panel Refinements
   - [ ] Sub-task 2.2.1: Write component tests for responsive metrics reflow and config button/color-picker wrapping (Red)
   - [ ] Sub-task 2.2.2: Implement responsive `.stats-grid` breakpoints and refactored mobile control layouts in `ConfigPanel.tsx` (Green)
   - [ ] Sub-task 2.2.3: Refactor and verify test coverage >80% (Refactor)
