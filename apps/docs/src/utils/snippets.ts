@@ -149,6 +149,7 @@ export interface PlaygroundConfig {
   numberedHeels?: boolean;
   /** Defaults to `stepped`; only emitted into snippets when changed. */
   accessibleFallback?: 'stepped' | 'custom';
+  customHandleIcon?: boolean;
   theme: ThemeConfig;
 }
 
@@ -305,7 +306,7 @@ function formatCssDeclarations(theme: ThemeConfig, width?: number, height?: numb
 }
 
 export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundConfig): string {
-  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, segmented, checkpointTimeoutMs, haptics, sound, numberedHeels, accessibleFallback, theme } = config;
+  const { heels, tolerance, width, height, gridStep, margin, seed, disabled, segmented, checkpointTimeoutMs, haptics, sound, numberedHeels, accessibleFallback, theme, customHandleIcon } = config;
 
   // Emitted only when it differs from the default, so the common snippet stays uncluttered.
   const isCustomFallback = accessibleFallback === 'custom';
@@ -319,6 +320,9 @@ export function generateCodeSnippet(target: FrameworkTarget, config: PlaygroundC
     const soundAttr = sound ? '\n        sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n        numberedHeels={true}' : '';
     const fallbackAttr = isCustomFallback ? '\n        accessibleFallback="custom"' : '';
+    const handleChildren = customHandleIcon
+      ? `>\n        <LockIcon className="handle-icon" />\n      </Heelslide>`
+      : '/>';
     return `import { Heelslide } from '@heelslide/react';
 
 export function SecurityGate() {
@@ -341,7 +345,7 @@ ${formatReactStyles(theme, width, height)}
         margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
         onUnlock={handleUnlock}
         onReset={() => console.log('Reset')}
-      />
+      ${handleChildren}
     </div>
   );
 }`;
@@ -356,6 +360,9 @@ ${formatReactStyles(theme, width, height)}
     const soundAttr = sound ? '\n      :sound="true"' : '';
     const numberedHeelsAttr = numberedHeels ? '\n      :numbered-heels="true"' : '';
     const fallbackAttr = isCustomFallback ? '\n      accessible-fallback="custom"' : '';
+    const handleSlot = customHandleIcon
+      ? `>\n      <template #handle="{ state }">\n        <LockIcon :unlocked="state === 'unlocked'" />\n      </template>\n    </Heelslide>`
+      : '/>';
     return `<script setup lang="ts">
 import { Heelslide } from '@heelslide/vue';
 import '@heelslide/vue/dist/style.css';
@@ -375,7 +382,7 @@ function onUnlock() {
       :margin="${margin}"${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
       @unlock="onUnlock"
       @reset="() => console.log('Reset')"
-    />
+    ${handleSlot}
   </div>
 </template>
 
@@ -395,6 +402,9 @@ ${formatCssDeclarations(theme, width, height)}
     const soundAttr = sound ? '\n    sound={true}' : '';
     const numberedHeelsAttr = numberedHeels ? '\n    numberedHeels={true}' : '';
     const fallbackAttr = isCustomFallback ? '\n    accessibleFallback="custom"' : '';
+    const handleChildren = customHandleIcon
+      ? `>\n    <LockIcon />\n  </Heelslide>`
+      : '/>';
     return `<script lang="ts">
 import { Heelslide } from '@heelslide/svelte';
 import '@heelslide/svelte/dist/style.css';
@@ -413,7 +423,7 @@ function onUnlock() {
     margin={${margin}}${seedAttr}${disabledAttr}${segmentedAttr}${timeoutAttr}${hapticsAttr}${soundAttr}${numberedHeelsAttr}${fallbackAttr}
     onunlock={onUnlock}
     onreset={() => console.log('Reset')}
-  />
+  ${handleChildren}
 </div>
 
 <style>

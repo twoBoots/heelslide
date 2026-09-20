@@ -84,4 +84,46 @@ describe('DocsReference Component', () => {
     expect(tabButtons[0].className).toContain('active');
     expect(tabButtons[1].className).not.toContain('active');
   });
+
+  it('should document complete handle props, slots, and canonical CSS tokens', () => {
+    const host = render(React.createElement(DocsReference));
+
+    // Check props tab includes children and slot
+    expect(host.textContent).toContain('children');
+    expect(host.textContent).toContain('#handle (slot)');
+
+    // Switch to CSS tab
+    const cssTabBtn = host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn')[1];
+    act(() => {
+      cssTabBtn.click();
+    });
+
+    // Check canonical handle CSS custom properties
+    expect(host.textContent).toContain('--heelslide-handle-size');
+    expect(host.textContent).toContain('--heelslide-handle-radius');
+    expect(host.textContent).toContain('--heelslide-handle-shadow');
+    expect(host.textContent).toContain('--heelslide-handle-checkpoint-shadow');
+    expect(host.textContent).toContain('--heelslide-handle-checkpoint-border-color');
+  });
+
+  it('should render the Handle & Headless Guide tab with icons, headless hooks, and selectors', () => {
+    const host = render(React.createElement(DocsReference));
+    const handleTabBtn = Array.from(host.querySelectorAll<HTMLButtonElement>('.ref-tab-btn')).find(
+      (btn) => btn.textContent?.includes('Handle')
+    );
+    expect(handleTabBtn).toBeDefined();
+
+    act(() => {
+      handleTabBtn!.click();
+    });
+
+    expect(handleTabBtn!.className).toContain('active');
+    expect(host.textContent).toContain('Custom Handle Icons & Content');
+    expect(host.textContent).toContain('Headless Architecture (useHeelslide)');
+    expect(host.textContent).toContain('CSS Selectors Reference');
+    expect(host.textContent).toContain('[data-heelslide-handle]');
+    expect(host.textContent).toContain('.heelslide-handle');
+    expect(host.textContent).toContain('.heelslide-handle-circle');
+    expect(host.textContent).toContain('getHandleProps()');
+  });
 });

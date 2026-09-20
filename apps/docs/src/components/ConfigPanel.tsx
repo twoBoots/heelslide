@@ -315,6 +315,20 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
         </div>
       </div>
 
+      {/* Handle Customization */}
+      <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>Handle Customization</h3>
+      <div className="control-group">
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer' }}>
+          <input
+            id="ctrl-custom-handle-icon"
+            type="checkbox"
+            checked={!!config.customHandleIcon}
+            onChange={(e) => updateField('customHandleIcon', e.target.checked)}
+          />
+          Custom Handle Icon (Children / Slot)
+        </label>
+      </div>
+
       <h3 className="panel-section-title" style={{ marginTop: '1.5rem' }}>CSS Custom Properties & Presets</h3>
 
       {/* Presets buttons */}
