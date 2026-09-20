@@ -1,0 +1,3 @@
+Task: Live Simulator Stage Responsive Containment
+Scope: apps/docs/src/components/Playground.tsx, apps/docs/src/styles.css, apps/docs/src/responsiveLayout.test.tsx
+Summary: Implemented .preview-stage-viewport with overflow-x: auto and max-width: 100% to ensure large slider dimensions remain accessible on mobile without page blowout, and made .preview-stage padding fluid.
