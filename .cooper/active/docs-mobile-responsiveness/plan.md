@@ -30,7 +30,7 @@
 
 ## Phase 2: Touch-Scrollable Navigation, Metrics Grid & Control Flow
 
-- [ ] Task 2.1: Touch-Scrollable Framework & Reference Tab Bars
+- [~] Task 2.1: Touch-Scrollable Framework & Reference Tab Bars
   - [ ] Sub-task 2.1.1: Write component tests for non-wrapping horizontal touch-scrollable tabs (`.tabs-nav`) (Red)
   - [ ] Sub-task 2.1.2: Implement `.tabs-nav` horizontal scrolling, scrollbar masking, and non-shrinking tab buttons (Green)
   - [ ] Sub-task 2.1.3: Refactor and verify test coverage >80% (Refactor)
