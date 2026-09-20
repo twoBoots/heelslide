@@ -139,7 +139,7 @@ export function DocsReference() {
         </button>
       </div>
 
-      <div style={{ overflowX: 'auto' }}>
+      <div className="ref-table-viewport" style={{ overflowX: 'auto' }}>
         {activeTab === 'handle' ? (
           <div className="handle-guide-section" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>

@@ -112,5 +112,26 @@ describe('Responsive Layout & Viewport Safety', () => {
 
     unmount();
   });
+
+  it('enforces min-width on .ref-table and defines .ref-table-viewport for smooth horizontal touch scrolling', () => {
+    expect(cssContent).toMatch(/\.ref-table\s*\{[^}]*min-width:\s*(5[0-9]{2}|600)px/);
+    expect(cssContent).toMatch(/\.ref-table-viewport\s*\{[^}]*overflow-x:\s*auto/);
+    expect(cssContent).toMatch(/\.ref-table-viewport\s*\{[^}]*max-width:\s*100%/);
+  });
+
+  it('applies flex-wrap and gap to .code-block-header to prevent title and copy button collision', () => {
+    expect(cssContent).toMatch(/\.code-block-header\s*\{[^}]*flex-wrap:\s*wrap/);
+    expect(cssContent).toMatch(/\.code-block-header\s*\{[^}]*gap:\s*0\.5rem/);
+  });
+
+  it('renders .ref-table-viewport in DocsReference', () => {
+    const { container, unmount } = renderApp();
+    const tableViewport = container.querySelector('.ref-table-viewport');
+
+    expect(tableViewport).not.toBeNull();
+    expect(tableViewport?.querySelector('.ref-table')).not.toBeNull();
+
+    unmount();
+  });
 });
 
