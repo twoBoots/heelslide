@@ -56,9 +56,9 @@
   - [x] Sub-task 3.1.2: Implement `min-width` preservation for `.ref-table` and wrap handling in `FrameworkTabs.tsx` and `DocsReference.tsx` (Green)
   - [x] Sub-task 3.1.3: Refactor and verify test coverage >80% (Refactor)
 
-- [ ] Task 3.2: Phase 3 Verification & Final Checkpoint
-  - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 3.2.2: Run full build and test suite (`npm run build` & `CI=true npm test`)
-  - [ ] Sub-task 3.2.3: Conduct comprehensive mobile viewport verification and obtain user approval via `ask_question`
-  - [ ] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
-  - [ ] Sub-task 3.2.5: Remote synchronization (`git push origin docs-mobile-responsiveness`)
+- [x] Task 3.2: Phase 3 Verification & Final Checkpoint [checkpoint: 16c184c]
+  - [x] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 3.2.2: Run full build and test suite (`npm run build` & `CI=true npm test`)
+  - [x] Sub-task 3.2.3: Conduct comprehensive mobile viewport verification and obtain user approval via `ask_question`
+  - [x] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
+  - [x] Sub-task 3.2.5: Remote synchronization (`git push origin docs-mobile-responsiveness`)
