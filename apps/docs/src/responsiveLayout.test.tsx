@@ -79,5 +79,18 @@ describe('Responsive Layout & Viewport Safety', () => {
     expect(cssContent).toMatch(/\.preview-stage-viewport\s*\{[^}]*overflow-x:\s*auto/);
     expect(cssContent).toMatch(/\.preview-stage-viewport\s*\{[^}]*max-width:\s*100%/);
   });
+
+  it('configures .tabs-nav with non-wrapping horizontal touch scrolling and masked scrollbars', () => {
+    expect(cssContent).toMatch(/\.tabs-nav\s*\{[^}]*overflow-x:\s*auto/);
+    expect(cssContent).toMatch(/\.tabs-nav\s*\{[^}]*flex-wrap:\s*nowrap/);
+    expect(cssContent).toMatch(/\.tabs-nav\s*\{[^}]*scrollbar-width:\s*none/);
+  });
+
+  it('ensures .tab-btn and .ref-tab-btn do not shrink or break words across lines', () => {
+    expect(cssContent).toMatch(/\.tab-btn\s*\{[^}]*flex-shrink:\s*0/);
+    expect(cssContent).toMatch(/\.tab-btn\s*\{[^}]*white-space:\s*nowrap/);
+    expect(cssContent).toMatch(/\.ref-tab-btn\s*\{[^}]*flex-shrink:\s*0/);
+    expect(cssContent).toMatch(/\.ref-tab-btn\s*\{[^}]*white-space:\s*nowrap/);
+  });
 });
 
