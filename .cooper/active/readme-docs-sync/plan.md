@@ -23,10 +23,10 @@
 
 ## Phase 2: Hero Callout, Installation & Multi-Framework Quick Start
 
-- [~] Task 2.1: Live Demo Hero Banner, Badges & Quick Start Integration
-  - [ ] Sub-task 2.1.1: Add live demo badge and prominent tip banner to top of `README.md`
-  - [ ] Sub-task 2.1.2: Add Quick Start & Installation section with copyable package manager commands and minimal starter snippets for React, Vue, and Svelte
-  - [ ] Sub-task 2.1.3: Update Core Capabilities list with mobile responsiveness, handle customization slots, and segmented gestures
+- [x] Task 2.1: Live Demo Hero Banner, Badges & Quick Start Integration (1b73140)
+  - [x] Sub-task 2.1.1: Add live demo badge and prominent tip banner to top of `README.md`
+  - [x] Sub-task 2.1.2: Add Quick Start & Installation section with copyable package manager commands and minimal starter snippets for React, Vue, and Svelte
+  - [x] Sub-task 2.1.3: Update Core Capabilities list with mobile responsiveness, handle customization slots, and segmented gestures
 
 - [ ] Task 2.2: Phase 2 Verification & Checkpoint
   - [ ] Sub-task 2.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
