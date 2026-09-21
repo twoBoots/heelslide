@@ -38,11 +38,11 @@
 
 ## Phase 3: Capability Showcases, CSS Tokens & Final Verification
 
-- [~] Task 3.1: Handle Slots, Segmented Mode & CSS Variables Reference Update
-  - [ ] Sub-task 3.1.1: Document Handle Customization section with React children, Vue `#handle` scoped slot, and Svelte slot
-  - [ ] Sub-task 3.1.2: Document Segmented Multi-Gesture Checkpoints mode with configuration and interaction explanation
-  - [ ] Sub-task 3.1.3: Add `--heelslide-handle-size`, `--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, and `--heelslide-handle-checkpoint-border-color` to CSS Custom Properties table
-  - [ ] Sub-task 3.1.4: Run README validation tests to confirm all assertions pass (Green & Refactor)
+- [x] Task 3.1: Handle Slots, Segmented Mode & CSS Variables Reference Update (f6b3101)
+  - [x] Sub-task 3.1.1: Document Handle Customization section with React children, Vue `#handle` scoped slot, and Svelte slot
+  - [x] Sub-task 3.1.2: Document Segmented Multi-Gesture Checkpoints mode with configuration and interaction explanation
+  - [x] Sub-task 3.1.3: Add `--heelslide-handle-size`, `--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, and `--heelslide-handle-checkpoint-border-color` to CSS Custom Properties table
+  - [x] Sub-task 3.1.4: Run README validation tests to confirm all assertions pass (Green & Refactor)
 
 - [ ] Task 3.2: Phase 3 Verification & Final Checkpoint
   - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
