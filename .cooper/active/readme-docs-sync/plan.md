@@ -38,7 +38,7 @@
 
 ## Phase 3: Capability Showcases, CSS Tokens & Final Verification
 
-- [ ] Task 3.1: Handle Slots, Segmented Mode & CSS Variables Reference Update
+- [~] Task 3.1: Handle Slots, Segmented Mode & CSS Variables Reference Update
   - [ ] Sub-task 3.1.1: Document Handle Customization section with React children, Vue `#handle` scoped slot, and Svelte slot
   - [ ] Sub-task 3.1.2: Document Segmented Multi-Gesture Checkpoints mode with configuration and interaction explanation
   - [ ] Sub-task 3.1.3: Add `--heelslide-handle-size`, `--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, and `--heelslide-handle-checkpoint-border-color` to CSS Custom Properties table
