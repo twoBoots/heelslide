@@ -3,9 +3,14 @@
 > Intentional-gesture security gate UI component for touchscreen web applications.
 
 [![CI](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml/badge.svg)](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?logo=github&style=flat-square)](https://twoboots.github.io/heelslide/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Cooper SDD](https://img.shields.io/badge/SDD-Cooper%20Framework-brightgreen)](.cooper/index.md)
 [![Troop Canopy](https://img.shields.io/badge/Worktrees-Troop-orange)](https://github.com/twoBoots/troop)
+
+> [!TIP]
+> **[🚀 Explore the Live Interactive Playground & Configurator →](https://twoboots.github.io/heelslide/)**
+> Test procedural 2D paths, experiment with design presets and CSS custom properties, try keyboard navigation, and export copy-paste code across React, Vue, and Svelte in real time.
 
 ---
 
@@ -17,10 +22,77 @@ Heelslide acts as a security gate for destructive or sensitive operations (e.g. 
 
 ---
 
+## Quick Start & Installation
+
+Install the package for your framework along with the core engine:
+
+```bash
+# React 18 / 19
+npm install @heelslide/react @heelslide/core
+
+# Vue 3
+npm install @heelslide/vue @heelslide/core
+
+# Svelte 5
+npm install @heelslide/svelte @heelslide/core
+
+# Vanilla JS / Core Engine
+npm install @heelslide/core
+```
+
+### Basic Usage
+
+#### React
+```tsx
+import { Heelslide } from '@heelslide/react';
+
+export function ConfirmPayment() {
+  return (
+    <Heelslide
+      heelCount={3}
+      onUnlock={() => console.log('Payment confirmed!')}
+    />
+  );
+}
+```
+
+#### Vue 3
+```vue
+<script setup lang="ts">
+import { Heelslide } from '@heelslide/vue';
+
+function handleUnlock() {
+  console.log('Action confirmed!');
+}
+</script>
+
+<template>
+  <Heelslide :heel-count="3" @unlock="handleUnlock" />
+</template>
+```
+
+#### Svelte 5
+```svelte
+<script lang="ts">
+  import { Heelslide } from '@heelslide/svelte';
+
+  function handleUnlock() {
+    console.log('Action confirmed!');
+  }
+</script>
+
+<Heelslide heelCount={3} onunlock={handleUnlock} />
+```
+
+---
+
 ## Core Capabilities
 
 - **Configurable Heels**: Set a fixed heel count or a `[min, max]` range for procedural track generation.
 - **Gesture Verification**: PointerEvents tracking that validates continuous movement along the generated path within tolerance bounds.
+- **Segmented Multi-Gesture Checkpoints**: Support for lift-and-resume authentication where users can lift their finger at turns and resume within an adjustable timeout window. See [Segmented Multi-Gesture Checkpoints](#segmented-multi-gesture-checkpoints).
+- **Custom Handle Icons & Slots**: Embed custom SVG icons, status spinners, or custom children directly inside the draggable handle across React, Vue, and Svelte. See [Handle Customization & Slots](#handle-customization--slots).
+- **Touchscreen & Mobile Responsiveness**: Fluid, adaptive layouts and viewport-safe bounding optimized for mobile phones and tablets.
 - **CSS Customisation**: Zero runtime CSS-in-JS. Visual styling is configured via namespaced CSS variables (`--heelslide-*`).
 - **Multi-Framework Adapters**:
   - `@heelslide/core`: Zero-dependency gesture engine, geometry validation, and path generator.
