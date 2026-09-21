@@ -44,9 +44,9 @@
   - [x] Sub-task 3.1.3: Add `--heelslide-handle-size`, `--heelslide-handle-shadow`, `--heelslide-handle-checkpoint-shadow`, and `--heelslide-handle-checkpoint-border-color` to CSS Custom Properties table
   - [x] Sub-task 3.1.4: Run README validation tests to confirm all assertions pass (Green & Refactor)
 
-- [ ] Task 3.2: Phase 3 Verification & Final Checkpoint
-  - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 3.2.2: Run full build, format checks, and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
-  - [ ] Sub-task 3.2.3: Conduct final verification and obtain user approval via `ask_question`
-  - [ ] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
-  - [ ] Sub-task 3.2.5: Remote synchronization (`git push origin readme-docs-sync`)
+- [x] Task 3.2: Phase 3 Verification & Final Checkpoint [checkpoint: 529232b]
+  - [x] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 3.2.2: Run full build, format checks, and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
+  - [x] Sub-task 3.2.3: Conduct final verification and obtain user approval via `ask_question`
+  - [x] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
+  - [x] Sub-task 3.2.5: Remote synchronization (`git push origin readme-docs-sync`)
