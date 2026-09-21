@@ -13,11 +13,11 @@
   - [x] Sub-task 1.1.1: Write automated tests in `apps/docs/src/__tests__/readme.test.ts` checking `README.md` for live demo link, framework quick start guides, handle slots, segmented mode, and handle CSS tokens (Red)
   - [x] Sub-task 1.1.2: Verify test fails against current README (Red verification)
 
-- [ ] Task 1.2: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 1.2.2: Run automated test suite (`CI=true npm test`)
-  - [ ] Sub-task 1.2.3: Conduct checkpoint review and record Git Note
-  - [ ] Sub-task 1.2.4: Remote synchronization (`git push origin readme-docs-sync`)
+- [x] Task 1.2: Phase 1 Verification & Checkpoint [checkpoint: aad24c0]
+  - [x] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 1.2.2: Run automated test suite (`CI=true npm test`)
+  - [x] Sub-task 1.2.3: Conduct checkpoint review and record Git Note
+  - [x] Sub-task 1.2.4: Remote synchronization (`git push origin readme-docs-sync`)
 
 ---
 
