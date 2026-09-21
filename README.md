@@ -104,6 +104,82 @@ function handleUnlock() {
 
 ---
 
+## Handle Customization & Slots
+
+Heelslide allows embedding arbitrary children or scoped template content directly inside the interactive slider handle (e.g. security lock icons, loading indicators, custom SVGs).
+
+### React
+Pass custom elements or icons as children to `<Heelslide />`:
+
+```tsx
+import { Heelslide } from '@heelslide/react';
+import { LockIcon } from './icons';
+
+export function LockedGate() {
+  return (
+    <Heelslide heelCount={3}>
+      <LockIcon className="handle-icon" />
+    </Heelslide>
+  );
+}
+```
+
+### Vue 3
+Use the `#handle` scoped slot to access interaction state:
+
+```vue
+<script setup lang="ts">
+import { Heelslide } from '@heelslide/vue';
+import LockIcon from './LockIcon.vue';
+</script>
+
+<template>
+  <Heelslide :heel-count="3">
+    <template #handle="{ state }">
+      <LockIcon :is-active="state.status === 'active'" />
+    </template>
+  </Heelslide>
+</template>
+```
+
+### Svelte 5
+Pass child elements directly inside `<Heelslide>`:
+
+```svelte
+<script lang="ts">
+  import { Heelslide } from '@heelslide/svelte';
+  import LockIcon from './LockIcon.svelte';
+</script>
+
+<Heelslide heelCount={3}>
+  <LockIcon />
+</Heelslide>
+```
+
+---
+
+## Segmented Multi-Gesture Checkpoints
+
+For complex verification paths with multiple turns, standard continuous gestures can strain user hand ergonomics. Segmented mode introduces checkpoint milestones at each heel, allowing the user to lift their finger and re-engage comfortably without losing progress.
+
+```tsx
+<Heelslide
+  mode="segmented"
+  checkpointTimeoutMs={4000}
+  onCheckpointReach={(checkpoint) => {
+    console.log(`Reached checkpoint ${checkpoint.index + 1} of ${checkpoint.total}`);
+  }}
+  onUnlock={() => console.log('Gesture completed!')}
+/>
+```
+
+### Checkpoint Mechanics
+- **Lift & Resume**: When reaching a turn checkpoint, the handle locks in place and waits for the next touch contact.
+- **Configurable Expiry**: If `checkpointTimeoutMs` expires without re-engagement, the gate resets back to start (default: no timeout / indefinite).
+- **Keyboard Exemption**: In accordance with WCAG 2.2 SC 2.2.1, checkpoint expiration timers are automatically suspended when operating via keyboard navigation.
+
+---
+
 ## Accessibility
 
 Heelslide is an intent-confirmation primitive, so it has to be operable by everyone the
@@ -215,13 +291,17 @@ All component styling is customized via standard, namespaced CSS custom properti
 | `--heelslide-track-end-radius` | `6px` | Track destination buffer radius |
 | `--heelslide-track-heel-radius` | `4px` | Turn corner vertex radius |
 | **Handle Tokens** | | |
+| `--heelslide-handle-size` | `36px` | Handle diameter width and height |
 | `--heelslide-handle-radius` | `18px` | Handle circle radius |
 | `--heelslide-handle-bg` | `#ffffff` | Handle fill color (aliases: `--heelslide-slider-bg`, `--heelslide-handle-color`) |
 | `--heelslide-handle-border-color` | `#3b82f6` | Handle border stroke color |
 | `--heelslide-handle-border-width` | `2px` | Handle border stroke width |
+| `--heelslide-handle-shadow` | `none` | Drop shadow applied to the handle container |
 | `--heelslide-handle-active-scale` | `1.05` | Transform scale during active pointer drag |
 | `--heelslide-handle-active-bg` | `--heelslide-handle-bg` | Handle fill color while actively dragging |
 | `--heelslide-handle-checkpoint-bg` | `--heelslide-handle-active-bg` | Handle fill color when paused at a checkpoint |
+| `--heelslide-handle-checkpoint-border-color` | `--heelslide-handle-border-color` | Handle border stroke color when paused at a checkpoint |
+| `--heelslide-handle-checkpoint-shadow` | `none` | Box/drop shadow when paused at a checkpoint |
 | **Heel Turn Markers** | | |
 | `--heelslide-heel-radius` | `4px` | Radius of turn corner marker circles |
 | `--heelslide-heel-bg` | `#94a3b8` | Heel turn marker fill color (alias: `--heelslide-heel-color`) |
