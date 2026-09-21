@@ -1,0 +1,3 @@
+Task: Task 3.1: Handle Slots, Segmented Mode & CSS Variables Reference Update
+Scope: README.md
+Summary: Documented Handle Customization & Slots for React, Vue (#handle), and Svelte; documented Segmented Multi-Gesture Checkpoints mode and lift-and-resume mechanics; updated CSS Custom Properties table with --heelslide-handle-size, --heelslide-handle-shadow, --heelslide-handle-checkpoint-shadow, and --heelslide-handle-checkpoint-border-color. Verified 100% tests pass in apps/docs/src/readme.test.ts.
