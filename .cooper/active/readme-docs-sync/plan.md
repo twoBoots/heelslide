@@ -9,9 +9,9 @@
 
 ## Phase 1: Test Suite & README Validation Harness
 
-- [~] Task 1.1: Automated README Verification Tests
-  - [ ] Sub-task 1.1.1: Write automated tests in `apps/docs/src/__tests__/readme.test.ts` checking `README.md` for live demo link, framework quick start guides, handle slots, segmented mode, and handle CSS tokens (Red)
-  - [ ] Sub-task 1.1.2: Verify test fails against current README (Red verification)
+- [x] Task 1.1: Automated README Verification Tests (9c652cc)
+  - [x] Sub-task 1.1.1: Write automated tests in `apps/docs/src/__tests__/readme.test.ts` checking `README.md` for live demo link, framework quick start guides, handle slots, segmented mode, and handle CSS tokens (Red)
+  - [x] Sub-task 1.1.2: Verify test fails against current README (Red verification)
 
 - [ ] Task 1.2: Phase 1 Verification & Checkpoint
   - [ ] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
