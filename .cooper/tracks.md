@@ -6,6 +6,9 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
+- [x] **Track: Repository README & GitHub Pages Synchronization**
+  - Worktree: `.worktrees/readme-docs-sync`
+  - Link: [.cooper/active/readme-docs-sync/index.md](.cooper/active/readme-docs-sync/index.md)
 - [x] **Track: Mobile Responsiveness & Overflow Prevention for Documentation Site**
   - Worktree: `.worktrees/docs-mobile-responsiveness`
   - Link: [.cooper/active/docs-mobile-responsiveness/index.md](.cooper/active/docs-mobile-responsiveness/index.md)

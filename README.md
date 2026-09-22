@@ -3,9 +3,14 @@
 > Intentional-gesture security gate UI component for touchscreen web applications.
 
 [![CI](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml/badge.svg)](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?logo=github&style=flat-square)](https://twoboots.github.io/heelslide/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Cooper SDD](https://img.shields.io/badge/SDD-Cooper%20Framework-brightgreen)](.cooper/index.md)
 [![Troop Canopy](https://img.shields.io/badge/Worktrees-Troop-orange)](https://github.com/twoBoots/troop)
+
+> [!TIP]
+> **[🚀 Explore the Live Interactive Playground & Configurator →](https://twoboots.github.io/heelslide/)**
+> Test procedural 2D paths, experiment with design presets and CSS custom properties, try keyboard navigation, and export copy-paste code across React, Vue, and Svelte in real time.
 
 ---
 
@@ -17,10 +22,77 @@ Heelslide acts as a security gate for destructive or sensitive operations (e.g. 
 
 ---
 
+## Quick Start & Installation
+
+Install the package for your framework along with the core engine:
+
+```bash
+# React 18 / 19
+npm install @heelslide/react @heelslide/core
+
+# Vue 3
+npm install @heelslide/vue @heelslide/core
+
+# Svelte 5
+npm install @heelslide/svelte @heelslide/core
+
+# Vanilla JS / Core Engine
+npm install @heelslide/core
+```
+
+### Basic Usage
+
+#### React
+```tsx
+import { Heelslide } from '@heelslide/react';
+
+export function ConfirmPayment() {
+  return (
+    <Heelslide
+      heelCount={3}
+      onUnlock={() => console.log('Payment confirmed!')}
+    />
+  );
+}
+```
+
+#### Vue 3
+```vue
+<script setup lang="ts">
+import { Heelslide } from '@heelslide/vue';
+
+function handleUnlock() {
+  console.log('Action confirmed!');
+}
+</script>
+
+<template>
+  <Heelslide :heel-count="3" @unlock="handleUnlock" />
+</template>
+```
+
+#### Svelte 5
+```svelte
+<script lang="ts">
+  import { Heelslide } from '@heelslide/svelte';
+
+  function handleUnlock() {
+    console.log('Action confirmed!');
+  }
+</script>
+
+<Heelslide heelCount={3} onunlock={handleUnlock} />
+```
+
+---
+
 ## Core Capabilities
 
 - **Configurable Heels**: Set a fixed heel count or a `[min, max]` range for procedural track generation.
 - **Gesture Verification**: PointerEvents tracking that validates continuous movement along the generated path within tolerance bounds.
+- **Segmented Multi-Gesture Checkpoints**: Support for lift-and-resume authentication where users can lift their finger at turns and resume within an adjustable timeout window. See [Segmented Multi-Gesture Checkpoints](#segmented-multi-gesture-checkpoints).
+- **Custom Handle Icons & Slots**: Embed custom SVG icons, status spinners, or custom children directly inside the draggable handle across React, Vue, and Svelte. See [Handle Customization & Slots](#handle-customization--slots).
+- **Touchscreen & Mobile Responsiveness**: Fluid, adaptive layouts and viewport-safe bounding optimized for mobile phones and tablets.
 - **CSS Customisation**: Zero runtime CSS-in-JS. Visual styling is configured via namespaced CSS variables (`--heelslide-*`).
 - **Multi-Framework Adapters**:
   - `@heelslide/core`: Zero-dependency gesture engine, geometry validation, and path generator.
@@ -29,6 +101,82 @@ Heelslide acts as a security gate for destructive or sensitive operations (e.g. 
   - `@heelslide/svelte`: Svelte 5 component wrapper (`<Heelslide />`) and `createHeelslide` rune composable.
 - **Keyboard & Assistive Technology**: Full keyboard operation, ARIA slider semantics, and live-region announcements across every adapter. See [Accessibility](#accessibility).
 - **Testing & Quality**: Strict >80% test coverage via Vitest, visual regression tests via Playwright, and linting/formatting via Oxc.
+
+---
+
+## Handle Customization & Slots
+
+Heelslide allows embedding arbitrary children or scoped template content directly inside the interactive slider handle (e.g. security lock icons, loading indicators, custom SVGs).
+
+### React
+Pass custom elements or icons as children to `<Heelslide />`:
+
+```tsx
+import { Heelslide } from '@heelslide/react';
+import { LockIcon } from './icons';
+
+export function LockedGate() {
+  return (
+    <Heelslide heelCount={3}>
+      <LockIcon className="handle-icon" />
+    </Heelslide>
+  );
+}
+```
+
+### Vue 3
+Use the `#handle` scoped slot to access interaction state:
+
+```vue
+<script setup lang="ts">
+import { Heelslide } from '@heelslide/vue';
+import LockIcon from './LockIcon.vue';
+</script>
+
+<template>
+  <Heelslide :heel-count="3">
+    <template #handle="{ state }">
+      <LockIcon :is-active="state.status === 'active'" />
+    </template>
+  </Heelslide>
+</template>
+```
+
+### Svelte 5
+Pass child elements directly inside `<Heelslide>`:
+
+```svelte
+<script lang="ts">
+  import { Heelslide } from '@heelslide/svelte';
+  import LockIcon from './LockIcon.svelte';
+</script>
+
+<Heelslide heelCount={3}>
+  <LockIcon />
+</Heelslide>
+```
+
+---
+
+## Segmented Multi-Gesture Checkpoints
+
+For complex verification paths with multiple turns, standard continuous gestures can strain user hand ergonomics. Segmented mode introduces checkpoint milestones at each heel, allowing the user to lift their finger and re-engage comfortably without losing progress.
+
+```tsx
+<Heelslide
+  mode="segmented"
+  checkpointTimeoutMs={4000}
+  onCheckpointReach={(checkpoint) => {
+    console.log(`Reached checkpoint ${checkpoint.index + 1} of ${checkpoint.total}`);
+  }}
+  onUnlock={() => console.log('Gesture completed!')}
+/>
+```
+
+### Checkpoint Mechanics
+- **Lift & Resume**: When reaching a turn checkpoint, the handle locks in place and waits for the next touch contact.
+- **Configurable Expiry**: If `checkpointTimeoutMs` expires without re-engagement, the gate resets back to start (default: no timeout / indefinite).
+- **Keyboard Exemption**: In accordance with WCAG 2.2 SC 2.2.1, checkpoint expiration timers are automatically suspended when operating via keyboard navigation.
 
 ---
 
@@ -143,13 +291,17 @@ All component styling is customized via standard, namespaced CSS custom properti
 | `--heelslide-track-end-radius` | `6px` | Track destination buffer radius |
 | `--heelslide-track-heel-radius` | `4px` | Turn corner vertex radius |
 | **Handle Tokens** | | |
+| `--heelslide-handle-size` | `36px` | Handle diameter width and height |
 | `--heelslide-handle-radius` | `18px` | Handle circle radius |
 | `--heelslide-handle-bg` | `#ffffff` | Handle fill color (aliases: `--heelslide-slider-bg`, `--heelslide-handle-color`) |
 | `--heelslide-handle-border-color` | `#3b82f6` | Handle border stroke color |
 | `--heelslide-handle-border-width` | `2px` | Handle border stroke width |
+| `--heelslide-handle-shadow` | `none` | Drop shadow applied to the handle container |
 | `--heelslide-handle-active-scale` | `1.05` | Transform scale during active pointer drag |
 | `--heelslide-handle-active-bg` | `--heelslide-handle-bg` | Handle fill color while actively dragging |
 | `--heelslide-handle-checkpoint-bg` | `--heelslide-handle-active-bg` | Handle fill color when paused at a checkpoint |
+| `--heelslide-handle-checkpoint-border-color` | `--heelslide-handle-border-color` | Handle border stroke color when paused at a checkpoint |
+| `--heelslide-handle-checkpoint-shadow` | `none` | Box/drop shadow when paused at a checkpoint |
 | **Heel Turn Markers** | | |
 | `--heelslide-heel-radius` | `4px` | Radius of turn corner marker circles |
 | `--heelslide-heel-bg` | `#94a3b8` | Heel turn marker fill color (alias: `--heelslide-heel-color`) |
