@@ -1,0 +1,3 @@
+Task: Responsive Reference Tables & Code Previews
+Scope: apps/docs/src/styles.css, apps/docs/src/components/DocsReference.tsx, apps/docs/src/responsiveLayout.test.tsx
+Summary: Added .ref-table-viewport with overflow-x: auto and min-width: 580px on .ref-table to maintain readable column structure, and added flex-wrap: wrap with 0.5rem gap to .code-block-header.

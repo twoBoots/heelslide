@@ -1,0 +1,1 @@
+Task 1.2 completed: Vue adapter handle updated to SVG rect with .heelslide-handle-shape and .heelslide-handle-circle classes, centered at handle coordinates, supporting --heelslide-handle-border-radius with default 8px rounded square. 8 test files (53 tests) passing.

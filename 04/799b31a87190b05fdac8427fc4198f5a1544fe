@@ -1,0 +1,3 @@
+Task: Expand DocsReference.tsx CSS and Props Reference Tables
+Scope: apps/docs/src/components/DocsReference.tsx, apps/docs/src/components/DocsReference.test.tsx
+Summary: Documented children, #handle slot, and canonical handle CSS tokens (--heelslide-handle-size, --heelslide-handle-shadow, --heelslide-handle-checkpoint-shadow, --heelslide-handle-checkpoint-border-color) with happy-dom unit test coverage.

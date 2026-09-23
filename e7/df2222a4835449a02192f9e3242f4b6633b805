@@ -1,0 +1,3 @@
+Task: Root Container & Viewport Overflow Protection
+Scope: apps/docs/src/styles.css, apps/docs/src/responsiveLayout.test.tsx
+Summary: Added overflow-x: clip on html/body, fluid clamp padding on .docs-container and .card, fluid header h1 clamp font size, and responsive media query breakpoints for 768px, 640px, and 480px.
