@@ -6,7 +6,7 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
-- [ ] **Track: Brand Tagline Integration**
+- [x] **Track: Brand Tagline Integration**
   - Worktree: `.worktrees/tagline-intuitive-friction`
   - Link: [.cooper/active/tagline-intuitive-friction/index.md](.cooper/active/tagline-intuitive-friction/index.md)
 - [x] **Track: Repository README & GitHub Pages Synchronization**
