@@ -342,10 +342,14 @@ export function getHeelslide() {
       onpointerup={handlePointerUp}
       onpointercancel={handlePointerCancel}
     >
-      <circle
-        class="heelslide-handle-circle"
-        cx={heelslide.handlePosition.x}
-        cy={heelslide.handlePosition.y}
+      <rect
+        class="heelslide-handle-shape heelslide-handle-circle"
+        x={heelslide.handlePosition.x - 16}
+        y={heelslide.handlePosition.y - 16}
+        width="32"
+        height="32"
+        rx="var(--heelslide-handle-border-radius, 8px)"
+        ry="var(--heelslide-handle-border-radius, 8px)"
       />
       {#if children}
         {@render children()}
