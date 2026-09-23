@@ -1,0 +1,3 @@
+Task: Task 2.1: README & Header Tagline Integration
+Scope: README.md, apps/docs/src/components/Header.tsx, apps/docs/src/styles.css
+Summary: Added brand tagline blockquote under # Heelslide in README.md, rendered .header-tagline in Header component, and added supporting styles
