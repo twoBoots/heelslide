@@ -19,12 +19,12 @@
   - [x] Sub-task 1.2.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.vue` and update `packages/vue/src/style.css` (Green)
   - [x] Sub-task 1.2.3: Refactor & verify test coverage >80% (Refactor)
 
-- [~] Task 1.3: Svelte Adapter Shape & Border Radius Support
-  - [ ] Sub-task 1.3.1: Write component tests in `packages/svelte/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` (Red)
-  - [ ] Sub-task 1.3.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.svelte` and update `packages/svelte/src/style.css` (Green)
-  - [ ] Sub-task 1.3.3: Refactor & verify test coverage >80% (Refactor)
+- [x] Task 1.3: Svelte Adapter Shape & Border Radius Support
+  - [x] Sub-task 1.3.1: Write component tests in `packages/svelte/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` (Red)
+  - [x] Sub-task 1.3.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.svelte` and update `packages/svelte/src/style.css` (Green)
+  - [x] Sub-task 1.3.3: Refactor & verify test coverage >80% (Refactor)
 
-- [ ] Task 1.4: Phase 1 Verification & Checkpoint
+- [~] Task 1.4: Phase 1 Verification & Checkpoint
   - [ ] Sub-task 1.4.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
   - [ ] Sub-task 1.4.2: Run automated test suite (`CI=true npm test`)
   - [ ] Sub-task 1.4.3: Conduct checkpoint review and record Git Note
