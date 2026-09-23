@@ -1,0 +1,3 @@
+Task: Task 1.1: Automated Tagline Tests in Documentation Test Suites
+Scope: apps/docs/src/readme.test.ts, apps/docs/src/App.test.tsx
+Summary: Added failing tests for brand tagline under # Heelslide in README.md and in Header component
