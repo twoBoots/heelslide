@@ -34,12 +34,12 @@
 
 ## Phase 2: Docs Playground, Configurator & Snippet Generation
 
-- [~] Task 2.1: Playground Handle Border Radius Controls & Snippets
-  - [ ] Sub-task 2.1.1: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` and `apps/docs/src/App.test.tsx` for `handleBorderRadius` prop and snippet output (Red)
-  - [ ] Sub-task 2.1.2: Implement `handleBorderRadius` theme control, preset updates, and snippet generation in `apps/docs` (Green)
-  - [ ] Sub-task 2.1.3: Refactor & verify test coverage >80% (Refactor)
+- [x] Task 2.1: Playground Handle Border Radius Controls & Snippets
+  - [x] Sub-task 2.1.1: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` and `apps/docs/src/App.test.tsx` for `handleBorderRadius` prop and snippet output (Red)
+  - [x] Sub-task 2.1.2: Implement `handleBorderRadius` theme control, preset updates, and snippet generation in `apps/docs` (Green)
+  - [x] Sub-task 2.1.3: Refactor & verify test coverage >80% (Refactor)
 
-- [ ] Task 2.2: Phase 2 Verification & Checkpoint
+- [~] Task 2.2: Phase 2 Verification & Checkpoint
   - [ ] Sub-task 2.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
   - [ ] Sub-task 2.2.2: Run automated test suite (`CI=true npm test`)
   - [ ] Sub-task 2.2.3: Conduct checkpoint review and record Git Note
