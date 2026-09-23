@@ -6,6 +6,9 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
+- [x] **Track: Brand Tagline Integration**
+  - Worktree: `.worktrees/tagline-intuitive-friction`
+  - Link: [.cooper/active/tagline-intuitive-friction/index.md](.cooper/active/tagline-intuitive-friction/index.md)
 - [ ] **Track: Custom Handle Border Radius & Geometric Shapes**
   - Worktree: `.worktrees/handle-border-radius`
   - Link: [.cooper/active/handle-border-radius/index.md](.cooper/active/handle-border-radius/index.md)

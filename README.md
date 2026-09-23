@@ -1,5 +1,7 @@
 # Heelslide
 
+> Intuitive friction, for interfaces with consequence.
+>
 > Intentional-gesture security gate UI component for touchscreen web applications.
 
 [![CI](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml/badge.svg)](https://github.com/twoBoots/heelslide/actions/workflows/ci.yml)
