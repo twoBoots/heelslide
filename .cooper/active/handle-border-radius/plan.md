@@ -24,17 +24,17 @@
   - [x] Sub-task 1.3.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.svelte` and update `packages/svelte/src/style.css` (Green)
   - [x] Sub-task 1.3.3: Refactor & verify test coverage >80% (Refactor)
 
-- [~] Task 1.4: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task 1.4.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 1.4.2: Run automated test suite (`CI=true npm test`)
-  - [ ] Sub-task 1.4.3: Conduct checkpoint review and record Git Note
-  - [ ] Sub-task 1.4.4: Remote synchronization (`git push origin handle-border-radius`)
+- [x] Task 1.4: Phase 1 Verification & Checkpoint
+  - [x] Sub-task 1.4.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 1.4.2: Run automated test suite (`CI=true npm test`)
+  - [x] Sub-task 1.4.3: Conduct checkpoint review and record Git Note
+  - [x] Sub-task 1.4.4: Remote synchronization (`git push origin handle-border-radius`)
 
 ---
 
 ## Phase 2: Docs Playground, Configurator & Snippet Generation
 
-- [ ] Task 2.1: Playground Handle Border Radius Controls & Snippets
+- [~] Task 2.1: Playground Handle Border Radius Controls & Snippets
   - [ ] Sub-task 2.1.1: Write unit tests in `apps/docs/src/utils/generatorSnippet.test.ts` and `apps/docs/src/App.test.tsx` for `handleBorderRadius` prop and snippet output (Red)
   - [ ] Sub-task 2.1.2: Implement `handleBorderRadius` theme control, preset updates, and snippet generation in `apps/docs` (Green)
   - [ ] Sub-task 2.1.3: Refactor & verify test coverage >80% (Refactor)
