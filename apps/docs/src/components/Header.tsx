@@ -9,6 +9,9 @@ export function Header() {
           <span className="header-badge">v{VERSION}</span>
         </h1>
         <p className="header-tagline">
+          Intuitive friction, for interfaces with consequence.
+        </p>
+        <p className="header-description">
           Intentional-gesture security gate component preventing in-pocket and accidental activations
           via procedurally generated 90-degree rectilinear heel tracks.
         </p>
