@@ -9,10 +9,10 @@
 
 ## Phase 1: React, Vue & Svelte Adapter Implementation
 
-- [~] Task 1.1: React Adapter `--heelslide-handle-border-radius` Support
-  - [ ] Sub-task 1.1.1: Write unit tests in `packages/react/src/Heelslide.test.tsx` asserting handle style applies `var(--heelslide-handle-border-radius, 8px)` (Red)
-  - [ ] Sub-task 1.1.2: Implement `borderRadius: 'var(--heelslide-handle-border-radius, 8px)'` in `packages/react/src/Heelslide.tsx` and update `packages/react/src/style.css` (Green)
-  - [ ] Sub-task 1.1.3: Refactor & verify test coverage >80% (Refactor)
+- [x] Task 1.1: React Adapter `--heelslide-handle-border-radius` Support (f7ea2be)
+  - [x] Sub-task 1.1.1: Write unit tests in `packages/react/src/Heelslide.test.tsx` asserting handle style applies `var(--heelslide-handle-border-radius, 8px)` (Red)
+  - [x] Sub-task 1.1.2: Implement `borderRadius: 'var(--heelslide-handle-border-radius, 8px)'` in `packages/react/src/Heelslide.tsx` and update `packages/react/src/style.css` (Green)
+  - [x] Sub-task 1.1.3: Refactor & verify test coverage >80% (Refactor)
 
 - [ ] Task 1.2: Vue Adapter Shape & Border Radius Support
   - [ ] Sub-task 1.2.1: Write component tests in `packages/vue/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` and renders centered shape (Red)
