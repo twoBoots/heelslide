@@ -35,6 +35,9 @@ describe('Docs Playground App Component', () => {
     // Check title
     expect(container.querySelector('h1')?.textContent).toContain('Heelslide');
     expect(container.querySelector('.header-badge')?.textContent).toBe(`v${VERSION}`);
+    expect(container.querySelector('.header-tagline')?.textContent).toContain(
+      'Intuitive friction, for interfaces with consequence.'
+    );
 
     // Check live simulator stage exists
     expect(container.querySelector('.preview-stage')).not.toBeNull();

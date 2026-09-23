@@ -16,6 +16,14 @@ describe('Repository README Documentation & Showcase', () => {
     expect(heroContent.toLowerCase()).toContain('live demo');
   });
 
+  it('contains the brand tagline directly under the Heelslide heading', () => {
+    const headingIndex = readmeContent.indexOf('# Heelslide');
+    expect(headingIndex).toBeGreaterThanOrEqual(0);
+    const overviewIndex = readmeContent.indexOf('## Overview');
+    const heroContent = readmeContent.slice(headingIndex, overviewIndex);
+    expect(heroContent).toContain('Intuitive friction, for interfaces with consequence.');
+  });
+
   it('contains Quick Start & Installation section for React, Vue, and Svelte', () => {
     expect(readmeContent).toMatch(/## (Quick Start|Installation)/i);
     expect(readmeContent).toContain('@heelslide/react');
