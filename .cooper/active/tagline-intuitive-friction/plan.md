@@ -24,11 +24,11 @@
 
 ## Phase 2: Implementation & Styling (Green)
 
-- [~] Task 2.1: README & Header Tagline Integration
-  - [ ] Sub-task 2.1.1: Update `README.md` with tagline blockquote directly under `# Heelslide` (Green)
-  - [ ] Sub-task 2.1.2: Update `apps/docs/src/components/Header.tsx` to render the tagline with `.header-tagline` (Green)
-  - [ ] Sub-task 2.1.3: Update `apps/docs/src/styles.css` with dedicated typography styles for `.header-tagline` and `.header-description` (Refactor)
-  - [ ] Sub-task 2.1.4: Run automated tests to verify all assertions pass (Green)
+- [x] Task 2.1: README & Header Tagline Integration (74bdc57)
+  - [x] Sub-task 2.1.1: Update `README.md` with tagline blockquote directly under `# Heelslide` (Green)
+  - [x] Sub-task 2.1.2: Update `apps/docs/src/components/Header.tsx` to render the tagline with `.header-tagline` (Green)
+  - [x] Sub-task 2.1.3: Update `apps/docs/src/styles.css` with dedicated typography styles for `.header-tagline` and `.header-description` (Refactor)
+  - [x] Sub-task 2.1.4: Run automated tests to verify all assertions pass (Green)
 
 - [ ] Task 2.2: Phase 2 Verification & Final Checkpoint
   - [ ] Sub-task 2.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
