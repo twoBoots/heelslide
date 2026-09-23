@@ -14,12 +14,12 @@
   - [x] Sub-task 1.1.2: Implement `borderRadius: 'var(--heelslide-handle-border-radius, 8px)'` in `packages/react/src/Heelslide.tsx` and update `packages/react/src/style.css` (Green)
   - [x] Sub-task 1.1.3: Refactor & verify test coverage >80% (Refactor)
 
-- [~] Task 1.2: Vue Adapter Shape & Border Radius Support
-  - [ ] Sub-task 1.2.1: Write component tests in `packages/vue/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` and renders centered shape (Red)
-  - [ ] Sub-task 1.2.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.vue` and update `packages/vue/src/style.css` (Green)
-  - [ ] Sub-task 1.2.3: Refactor & verify test coverage >80% (Refactor)
+- [x] Task 1.2: Vue Adapter Shape & Border Radius Support
+  - [x] Sub-task 1.2.1: Write component tests in `packages/vue/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` and renders centered shape (Red)
+  - [x] Sub-task 1.2.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.vue` and update `packages/vue/src/style.css` (Green)
+  - [x] Sub-task 1.2.3: Refactor & verify test coverage >80% (Refactor)
 
-- [ ] Task 1.3: Svelte Adapter Shape & Border Radius Support
+- [~] Task 1.3: Svelte Adapter Shape & Border Radius Support
   - [ ] Sub-task 1.3.1: Write component tests in `packages/svelte/src/` asserting handle shape applies `var(--heelslide-handle-border-radius, 8px)` (Red)
   - [ ] Sub-task 1.3.2: Implement SVG `<rect class="heelslide-handle-shape heelslide-handle-circle">` in `Heelslide.svelte` and update `packages/svelte/src/style.css` (Green)
   - [ ] Sub-task 1.3.3: Refactor & verify test coverage >80% (Refactor)
