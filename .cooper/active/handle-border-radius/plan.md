@@ -49,12 +49,12 @@
 
 ## Phase 3: Reference Documentation, README & Final Verification
 
-- [~] Task 3.1: CSS Reference Tables & README Documentation
-  - [ ] Sub-task 3.1.1: Write tests in `apps/docs/src/readme.test.ts` and `DocsReference.test.tsx` checking for `--heelslide-handle-border-radius` (Red)
-  - [ ] Sub-task 3.1.2: Update `DocsReference.tsx` and `README.md` CSS Custom Properties tables with `--heelslide-handle-border-radius: 8px` (Green)
-  - [ ] Sub-task 3.1.3: Run full build and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
+- [x] Task 3.1: CSS Reference Tables & README Documentation
+  - [x] Sub-task 3.1.1: Write tests in `apps/docs/src/readme.test.ts` and `DocsReference.test.tsx` checking for `--heelslide-handle-border-radius` (Red)
+  - [x] Sub-task 3.1.2: Update `DocsReference.tsx` and `README.md` CSS Custom Properties tables with `--heelslide-handle-border-radius: 8px` (Green)
+  - [x] Sub-task 3.1.3: Run full build and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
 
-- [ ] Task 3.2: Phase 3 Verification & Final Checkpoint
+- [~] Task 3.2: Phase 3 Verification & Final Checkpoint
   - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
   - [ ] Sub-task 3.2.2: Run full build, format checks, and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
   - [ ] Sub-task 3.2.3: Conduct final verification and obtain user approval via `ask_question`
