@@ -39,17 +39,17 @@
   - [x] Sub-task 2.1.2: Implement `handleBorderRadius` theme control, preset updates, and snippet generation in `apps/docs` (Green)
   - [x] Sub-task 2.1.3: Refactor & verify test coverage >80% (Refactor)
 
-- [~] Task 2.2: Phase 2 Verification & Checkpoint
-  - [ ] Sub-task 2.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 2.2.2: Run automated test suite (`CI=true npm test`)
-  - [ ] Sub-task 2.2.3: Conduct checkpoint review and record Git Note
-  - [ ] Sub-task 2.2.4: Remote synchronization (`git push origin handle-border-radius`)
+- [x] Task 2.2: Phase 2 Verification & Checkpoint
+  - [x] Sub-task 2.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 2.2.2: Run automated test suite (`CI=true npm test`)
+  - [x] Sub-task 2.2.3: Conduct checkpoint review and record Git Note
+  - [x] Sub-task 2.2.4: Remote synchronization (`git push origin handle-border-radius`)
 
 ---
 
 ## Phase 3: Reference Documentation, README & Final Verification
 
-- [ ] Task 3.1: CSS Reference Tables & README Documentation
+- [~] Task 3.1: CSS Reference Tables & README Documentation
   - [ ] Sub-task 3.1.1: Write tests in `apps/docs/src/readme.test.ts` and `DocsReference.test.tsx` checking for `--heelslide-handle-border-radius` (Red)
   - [ ] Sub-task 3.1.2: Update `DocsReference.tsx` and `README.md` CSS Custom Properties tables with `--heelslide-handle-border-radius: 8px` (Green)
   - [ ] Sub-task 3.1.3: Run full build and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
