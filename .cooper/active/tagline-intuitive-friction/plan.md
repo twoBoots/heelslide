@@ -9,10 +9,10 @@
 
 ## Phase 1: Test Suite Hardening (Red)
 
-- [~] Task 1.1: Automated Tagline Tests in Documentation Test Suites
-  - [ ] Sub-task 1.1.1: Add test assertion to `apps/docs/src/readme.test.ts` verifying presence of tagline under `# Heelslide` in `README.md` (Red)
-  - [ ] Sub-task 1.1.2: Add test assertion to `apps/docs/src/App.test.tsx` verifying tagline renders in docs header (Red)
-  - [ ] Sub-task 1.1.3: Verify test failures against unmodified files (Red confirmation)
+- [x] Task 1.1: Automated Tagline Tests in Documentation Test Suites (a6780fd)
+  - [x] Sub-task 1.1.1: Add test assertion to `apps/docs/src/readme.test.ts` verifying presence of tagline under `# Heelslide` in `README.md` (Red)
+  - [x] Sub-task 1.1.2: Add test assertion to `apps/docs/src/App.test.tsx` verifying tagline renders in docs header (Red)
+  - [x] Sub-task 1.1.3: Verify test failures against unmodified files (Red confirmation)
 
 - [ ] Task 1.2: Phase 1 Verification & Checkpoint
   - [ ] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
