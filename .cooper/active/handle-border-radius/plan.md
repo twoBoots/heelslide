@@ -54,9 +54,9 @@
   - [x] Sub-task 3.1.2: Update `DocsReference.tsx` and `README.md` CSS Custom Properties tables with `--heelslide-handle-border-radius: 8px` (Green)
   - [x] Sub-task 3.1.3: Run full build and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
 
-- [~] Task 3.2: Phase 3 Verification & Final Checkpoint
-  - [ ] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 3.2.2: Run full build, format checks, and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
-  - [ ] Sub-task 3.2.3: Conduct final verification and obtain user approval via `ask_question`
-  - [ ] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
-  - [ ] Sub-task 3.2.5: Remote synchronization (`git push origin handle-border-radius`)
+- [x] Task 3.2: Phase 3 Verification & Final Checkpoint
+  - [x] Sub-task 3.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 3.2.2: Run full build, format checks, and test suite (`npm run build`, `npm run lint`, `CI=true npm test`)
+  - [x] Sub-task 3.2.3: Conduct final verification and obtain user approval via `ask_question`
+  - [x] Sub-task 3.2.4: Record Git Note and commit Phase 3 checkpoint
+  - [x] Sub-task 3.2.5: Remote synchronization (`git push origin handle-border-radius`)
