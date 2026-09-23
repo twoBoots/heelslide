@@ -7,6 +7,7 @@ export interface ThemeConfig {
   handleSize?: number;
   handleBorderColor?: string;
   handleBorderWidth?: number;
+  handleBorderRadius?: number | string;
   heelRadius?: number;
   heelPadding?: number;
   heelBorderColor?: string;
@@ -52,6 +53,7 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       targetHeelTextColor: '#ffffff',
       trackWidth: 12,
       handleSize: 32,
+      handleBorderRadius: 8,
       heelRadius: 4,
       heelPadding: 0,
       targetHeelScale: 1.1
@@ -76,6 +78,7 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       targetHeelTextColor: '#ffffff',
       trackWidth: 14,
       handleSize: 34,
+      handleBorderRadius: 8,
       heelRadius: 5,
       heelPadding: 2,
       targetHeelScale: 1.25
@@ -100,6 +103,7 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       targetHeelTextColor: '#ffffff',
       trackWidth: 12,
       handleSize: 32,
+      handleBorderRadius: 8,
       heelRadius: 4,
       heelPadding: 2,
       targetHeelScale: 1.15
@@ -124,6 +128,7 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       targetHeelTextColor: '#000000',
       trackWidth: 16,
       handleSize: 36,
+      handleBorderRadius: 0,
       heelRadius: 6,
       heelPadding: 3,
       targetHeelScale: 1.2
@@ -180,6 +185,10 @@ function formatReactStyles(theme: ThemeConfig, width?: number, height?: number):
   }
   if (theme.handleBorderWidth !== undefined) {
     styles.push(`'--heelslide-handle-border-width': '${theme.handleBorderWidth}px'`);
+  }
+  if (theme.handleBorderRadius !== undefined) {
+    const val = typeof theme.handleBorderRadius === 'number' ? `${theme.handleBorderRadius}px` : theme.handleBorderRadius;
+    styles.push(`'--heelslide-handle-border-radius': '${val}'`);
   }
   if (theme.heelRadius !== undefined) {
     styles.push(`'--heelslide-track-heel-radius': '${theme.heelRadius}px'`);
@@ -255,6 +264,10 @@ function formatCssDeclarations(theme: ThemeConfig, width?: number, height?: numb
   }
   if (theme.handleBorderWidth !== undefined) {
     decls.push(`  --heelslide-handle-border-width: ${theme.handleBorderWidth}px;`);
+  }
+  if (theme.handleBorderRadius !== undefined) {
+    const val = typeof theme.handleBorderRadius === 'number' ? `${theme.handleBorderRadius}px` : theme.handleBorderRadius;
+    decls.push(`  --heelslide-handle-border-radius: ${val};`);
   }
   if (theme.heelRadius !== undefined) {
     decls.push(`  --heelslide-track-heel-radius: ${theme.heelRadius}px;`);

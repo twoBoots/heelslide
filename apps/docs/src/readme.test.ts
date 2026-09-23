@@ -48,6 +48,7 @@ describe('Repository README Documentation & Showcase', () => {
 
   it('documents expanded handle CSS custom properties in styling reference', () => {
     expect(readmeContent).toContain('--heelslide-handle-size');
+    expect(readmeContent).toContain('--heelslide-handle-border-radius');
     expect(readmeContent).toContain('--heelslide-handle-shadow');
     expect(readmeContent).toContain('--heelslide-handle-checkpoint-shadow');
     expect(readmeContent).toContain('--heelslide-handle-checkpoint-border-color');

@@ -101,6 +101,7 @@ describe('DocsReference Component', () => {
     // Check canonical handle CSS custom properties
     expect(host.textContent).toContain('--heelslide-handle-size');
     expect(host.textContent).toContain('--heelslide-handle-radius');
+    expect(host.textContent).toContain('--heelslide-handle-border-radius');
     expect(host.textContent).toContain('--heelslide-handle-shadow');
     expect(host.textContent).toContain('--heelslide-handle-checkpoint-shadow');
     expect(host.textContent).toContain('--heelslide-handle-checkpoint-border-color');
@@ -124,6 +125,7 @@ describe('DocsReference Component', () => {
     expect(host.textContent).toContain('[data-heelslide-handle]');
     expect(host.textContent).toContain('.heelslide-handle');
     expect(host.textContent).toContain('.heelslide-handle-circle');
+    expect(host.textContent).toContain('.heelslide-handle-shape');
     expect(host.textContent).toContain('getHandleProps()');
   });
 });

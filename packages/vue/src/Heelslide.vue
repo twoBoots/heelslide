@@ -344,10 +344,14 @@ defineExpose({
         @pointerup="handlePointerUp"
         @pointercancel="handlePointerCancel"
       >
-        <circle
-          class="heelslide-handle-circle"
-          :cx="handlePosition.x"
-          :cy="handlePosition.y"
+        <rect
+          class="heelslide-handle-shape heelslide-handle-circle"
+          :x="handlePosition.x - 16"
+          :y="handlePosition.y - 16"
+          width="32"
+          height="32"
+          rx="var(--heelslide-handle-border-radius, 8px)"
+          ry="var(--heelslide-handle-border-radius, 8px)"
         />
         <slot
           name="handle"

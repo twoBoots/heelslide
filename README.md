@@ -295,6 +295,7 @@ All component styling is customized via standard, namespaced CSS custom properti
 | **Handle Tokens** | | |
 | `--heelslide-handle-size` | `36px` | Handle diameter width and height |
 | `--heelslide-handle-radius` | `18px` | Handle circle radius |
+| `--heelslide-handle-border-radius` | `8px` | Handle corner border-radius (default `8px` rounded square, `0px` sharp square, `50%` circle) |
 | `--heelslide-handle-bg` | `#ffffff` | Handle fill color (aliases: `--heelslide-slider-bg`, `--heelslide-handle-color`) |
 | `--heelslide-handle-border-color` | `#3b82f6` | Handle border stroke color |
 | `--heelslide-handle-border-width` | `2px` | Handle border stroke width |

@@ -392,6 +392,23 @@ export function ConfigPanel({ config, onChange, onRegenerate }: ConfigPanelProps
 
       <div className="control-group">
         <div className="control-label-row">
+          <label className="control-label" htmlFor="ctrl-handle-border-radius">Handle Corner Radius:</label>
+          <span className="control-value">{config.theme.handleBorderRadius !== undefined ? (typeof config.theme.handleBorderRadius === 'number' ? `${config.theme.handleBorderRadius}px` : config.theme.handleBorderRadius) : '8px'}</span>
+        </div>
+        <input
+          id="ctrl-handle-border-radius"
+          type="range"
+          min={0}
+          max={20}
+          step={1}
+          value={typeof config.theme.handleBorderRadius === 'number' ? config.theme.handleBorderRadius : 8}
+          onChange={(e) => updateTheme('handleBorderRadius', Number(e.target.value))}
+          className="slider-input"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-label-row">
           <label className="control-label" htmlFor="ctrl-heel-radius">Heel Radius:</label>
           <span className="control-value">{config.theme.heelRadius ?? 4}px</span>
         </div>
