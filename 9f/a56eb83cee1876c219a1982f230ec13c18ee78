@@ -1,0 +1,1 @@
+Task 3.1 completed: Documented --heelslide-handle-border-radius (default 8px) in README.md and DocsReference.tsx CSS Custom Properties tables, and added .heelslide-handle-shape to CSS Selectors Reference table. Tests in readme.test.ts and DocsReference.test.tsx passing.
