@@ -14,11 +14,11 @@
   - [x] Sub-task 1.1.2: Add test assertion to `apps/docs/src/App.test.tsx` verifying tagline renders in docs header (Red)
   - [x] Sub-task 1.1.3: Verify test failures against unmodified files (Red confirmation)
 
-- [ ] Task 1.2: Phase 1 Verification & Checkpoint
-  - [ ] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
-  - [ ] Sub-task 1.2.2: Verify Red test failure states
-  - [ ] Sub-task 1.2.3: Record Git Note and commit Phase 1 checkpoint
-  - [ ] Sub-task 1.2.4: Remote synchronization (`git push origin tagline-intuitive-friction`)
+- [x] Task 1.2: Phase 1 Verification & Checkpoint [checkpoint: 463ec57]
+  - [x] Sub-task 1.2.1: Synchronize workflow rules and capability specs (`git fetch origin main`)
+  - [x] Sub-task 1.2.2: Verify Red test failure states
+  - [x] Sub-task 1.2.3: Record Git Note and commit Phase 1 checkpoint
+  - [x] Sub-task 1.2.4: Remote synchronization (`git push origin tagline-intuitive-friction`)
 
 ---
 
