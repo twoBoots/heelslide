@@ -24,7 +24,7 @@
 
 ## Phase 2: Implementation & Styling (Green)
 
-- [ ] Task 2.1: README & Header Tagline Integration
+- [~] Task 2.1: README & Header Tagline Integration
   - [ ] Sub-task 2.1.1: Update `README.md` with tagline blockquote directly under `# Heelslide` (Green)
   - [ ] Sub-task 2.1.2: Update `apps/docs/src/components/Header.tsx` to render the tagline with `.header-tagline` (Green)
   - [ ] Sub-task 2.1.3: Update `apps/docs/src/styles.css` with dedicated typography styles for `.header-tagline` and `.header-description` (Refactor)
