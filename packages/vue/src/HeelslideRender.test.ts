@@ -71,11 +71,24 @@ describe('<Heelslide /> SVG Rendering & Styling', () => {
     expect(slider.attributes('aria-valuemax')).toBe('100');
     expect(slider.attributes('aria-label')).toBe('Slide to unlock');
 
-    // Handle circle
-    const handleCircle = handle.find('circle');
-    expect(handleCircle.exists()).toBe(true);
-    expect(handleCircle.attributes('cx')).toBe('10');
-    expect(handleCircle.attributes('cy')).toBe('20');
+    // Handle shape
+    const handleShape = handle.find('.heelslide-handle-shape, .heelslide-handle-circle');
+    expect(handleShape.exists()).toBe(true);
+  });
+
+  it('renders handle as geometric shape supporting --heelslide-handle-border-radius', () => {
+    const wrapper = mount(Heelslide, {
+      props: { track: customTrack }
+    });
+
+    const handle = wrapper.find('.heelslide-handle');
+    expect(handle.exists()).toBe(true);
+
+    const handleShape = handle.find('.heelslide-handle-shape');
+    expect(handleShape.exists()).toBe(true);
+    expect(handleShape.attributes('width')).toBe('32');
+    expect(handleShape.attributes('height')).toBe('32');
+    expect(handleShape.attributes('rx')).toBe('var(--heelslide-handle-border-radius, 8px)');
   });
 
   it('renders slot content inside handle when provided', () => {
