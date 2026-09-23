@@ -51,6 +51,7 @@ const CSS_DOCS: CssVarDoc[] = [
   { name: '--heelslide-track-heel-radius', default: '4px', category: 'Geometry & Track', description: 'Turn corner vertex marker radius' },
   { name: '--heelslide-handle-size', default: '32px', category: 'Handle Tokens', description: 'Handle width and height dimensions in React DOM' },
   { name: '--heelslide-handle-radius', default: '18px', category: 'Handle Tokens', description: 'Handle circle radius in SVG-based adapters (Vue, Svelte)' },
+  { name: '--heelslide-handle-border-radius', default: '8px', category: 'Handle Tokens', description: 'Handle corner border-radius (default 8px rounded square, 0px sharp, 50% circle)' },
   { name: '--heelslide-handle-bg', default: '#ffffff', category: 'Handle Tokens', description: 'Handle fill color (aliases: --heelslide-slider-bg, --heelslide-handle-color)' },
   { name: '--heelslide-handle-border-color', default: '#3b82f6', category: 'Handle Tokens', description: 'Handle border stroke color' },
   { name: '--heelslide-handle-border-width', default: '2px', category: 'Handle Tokens', description: 'Handle border stroke width' },
@@ -204,9 +205,14 @@ export function DocsReference() {
                     <td>Draggable handle group element. Coordinates pointer capture, role=&quot;slider&quot;, and focus outline.</td>
                   </tr>
                   <tr>
+                    <td><code>.heelslide-handle-shape</code></td>
+                    <td>SVG <code>&lt;rect&gt;</code> (Vue &amp; Svelte)</td>
+                    <td>Geometric handle shape element supporting custom corner border-radius (rx, ry, fill, stroke, scale).</td>
+                  </tr>
+                  <tr>
                     <td><code>.heelslide-handle-circle</code></td>
-                    <td>SVG <code>&lt;circle&gt;</code> (Vue &amp; Svelte)</td>
-                    <td>Handle circle geometry. Styled via SVG presentation attributes (r, fill, stroke, transform scale).</td>
+                    <td>SVG <code>&lt;rect&gt;</code> (Vue &amp; Svelte)</td>
+                    <td>Backwards-compatible handle shape selector. Styled via SVG presentation attributes and CSS properties.</td>
                   </tr>
                 </tbody>
               </table>
