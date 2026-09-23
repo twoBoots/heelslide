@@ -1,0 +1,7 @@
+{
+  "track_id": "handle-border-radius",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-09-23T09:45:00Z",
+  "description": "Introduce --heelslide-handle-border-radius CSS custom property (defaulting to 8px rounded square) across React, Vue, Svelte adapters and docs playground configurator"
+}

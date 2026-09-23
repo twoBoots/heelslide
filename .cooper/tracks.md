@@ -6,6 +6,9 @@ All active and completed Cooper tracks are registered below.
 
 ## Active Tracks
 
+- [ ] **Track: Custom Handle Border Radius & Geometric Shapes**
+  - Worktree: `.worktrees/handle-border-radius`
+  - Link: [.cooper/active/handle-border-radius/index.md](.cooper/active/handle-border-radius/index.md)
 - [x] **Track: Repository README & GitHub Pages Synchronization**
   - Worktree: `.worktrees/readme-docs-sync`
   - Link: [.cooper/active/readme-docs-sync/index.md](.cooper/active/readme-docs-sync/index.md)
