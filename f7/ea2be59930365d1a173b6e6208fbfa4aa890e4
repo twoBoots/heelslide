@@ -1,0 +1,3 @@
+Task: Task 1.1: React Adapter --heelslide-handle-border-radius Support
+Scope: packages/react/src/Heelslide.tsx, packages/react/src/style.css, packages/react/src/Heelslide.test.tsx
+Summary: Replaced hardcoded borderRadius: '50%' with var(--heelslide-handle-border-radius, 8px) in React Heelslide.tsx, declared default --heelslide-handle-border-radius: 8px in style.css, and verified tests in Heelslide.test.tsx through Red -> Green cycle.
