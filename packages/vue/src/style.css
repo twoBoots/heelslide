@@ -11,6 +11,7 @@
   --heelslide-heel-radius: 4px;
   --heelslide-heel-padding: 0px;
   --heelslide-handle-radius: 18px;
+  --heelslide-handle-border-radius: 8px;
   --heelslide-handle-color: #ffffff;
   --heelslide-handle-border-color: #3b82f6;
   --heelslide-handle-border-width: 2px;
@@ -185,27 +186,33 @@
   cursor: var(--heelslide-cursor-active);
 }
 
-.heelslide-handle-circle {
-  r: var(--heelslide-handle-radius);
+.heelslide-handle-circle,
+.heelslide-handle-shape {
+  rx: var(--heelslide-handle-border-radius, 8px);
+  ry: var(--heelslide-handle-border-radius, 8px);
   fill: var(--heelslide-handle-bg);
   stroke: var(--heelslide-handle-border-color);
   stroke-width: var(--heelslide-handle-border-width);
   transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
 }
 
-.heelslide-container.heelslide-active .heelslide-handle-circle {
+.heelslide-container.heelslide-active .heelslide-handle-circle,
+.heelslide-container.heelslide-active .heelslide-handle-shape {
   fill: var(--heelslide-handle-active-bg);
   transform-origin: center;
   transform: scale(var(--heelslide-handle-active-scale));
 }
 
-.heelslide-container[data-state="checkpoint"] .heelslide-handle-circle {
+.heelslide-container[data-state="checkpoint"] .heelslide-handle-circle,
+.heelslide-container[data-state="checkpoint"] .heelslide-handle-shape {
   fill: var(--heelslide-handle-checkpoint-bg);
   filter: drop-shadow(0 0 6px var(--heelslide-track-progress));
 }
 
 .heelslide-container.heelslide-unlocked .heelslide-handle-circle,
-.heelslide-container[data-state="unlocked"] .heelslide-handle-circle {
+.heelslide-container.heelslide-unlocked .heelslide-handle-shape,
+.heelslide-container[data-state="unlocked"] .heelslide-handle-circle,
+.heelslide-container[data-state="unlocked"] .heelslide-handle-shape {
   fill: var(--heelslide-success-color);
   stroke: var(--heelslide-success-color);
 }

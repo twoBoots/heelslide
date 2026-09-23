@@ -89,11 +89,25 @@ describe('<Heelslide /> Svelte Component Rendering & Styling', () => {
     expect(slider?.getAttribute('aria-valuemin')).toBe('0');
     expect(slider?.getAttribute('aria-valuemax')).toBe('100');
 
-    // Handle circle
-    const handleCircle = handle?.querySelector('circle');
-    expect(handleCircle).not.toBeNull();
-    expect(handleCircle?.getAttribute('cx')).toBe('10');
-    expect(handleCircle?.getAttribute('cy')).toBe('20');
+    // Handle shape
+    const handleShape = handle?.querySelector('.heelslide-handle-shape, .heelslide-handle-circle');
+    expect(handleShape).not.toBeNull();
+  });
+
+  it('renders handle as geometric shape supporting --heelslide-handle-border-radius', () => {
+    component = mount(Heelslide, {
+      target,
+      props: { track: customTrack }
+    });
+
+    const handle = target.querySelector('.heelslide-handle');
+    expect(handle).not.toBeNull();
+
+    const handleShape = handle?.querySelector('.heelslide-handle-shape');
+    expect(handleShape).not.toBeNull();
+    expect(handleShape?.getAttribute('width')).toBe('32');
+    expect(handleShape?.getAttribute('height')).toBe('32');
+    expect(handleShape?.getAttribute('rx')).toBe('var(--heelslide-handle-border-radius, 8px)');
   });
 
   it('renders destination marker at track endpoint', () => {

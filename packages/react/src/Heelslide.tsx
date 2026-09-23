@@ -411,7 +411,7 @@ export const Heelslide = forwardRef<HTMLDivElement, HeelslideProps>(function Hee
               : state === 'checkpoint'
               ? 'var(--heelslide-handle-checkpoint-border-color, var(--heelslide-handle-border-color, #f59e0b))'
               : 'var(--heelslide-handle-border-color, var(--heelslide-slider-border-color, #ffffff))',
-          borderRadius: '50%',
+          borderRadius: 'var(--heelslide-handle-border-radius, 8px)',
           boxShadow:
             state === 'checkpoint'
               ? 'var(--heelslide-handle-checkpoint-shadow, 0 0 12px rgba(245, 158, 11, 0.6))'

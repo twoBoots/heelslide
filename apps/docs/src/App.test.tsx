@@ -239,12 +239,14 @@ describe('Docs Playground App Component', () => {
     // Check sliders exist
     const trackWidthInput = container.querySelector('#ctrl-track-width') as HTMLInputElement;
     const handleSizeInput = container.querySelector('#ctrl-handle-size') as HTMLInputElement;
+    const handleBorderRadiusInput = container.querySelector('#ctrl-handle-border-radius') as HTMLInputElement;
     const heelRadiusInput = container.querySelector('#ctrl-heel-radius') as HTMLInputElement;
     const heelPaddingInput = container.querySelector('#ctrl-heel-padding') as HTMLInputElement;
     const targetHeelScaleInput = container.querySelector('#ctrl-target-heel-scale') as HTMLInputElement;
 
     expect(trackWidthInput).not.toBeNull();
     expect(handleSizeInput).not.toBeNull();
+    expect(handleBorderRadiusInput).not.toBeNull();
     expect(heelRadiusInput).not.toBeNull();
     expect(heelPaddingInput).not.toBeNull();
     expect(targetHeelScaleInput).not.toBeNull();
@@ -266,9 +268,17 @@ describe('Docs Playground App Component', () => {
 
     expect(container.textContent).toContain('18px');
 
+    // Update handle border radius slider
+    act(() => {
+      valueSetter?.call(handleBorderRadiusInput, '16');
+      handleBorderRadiusInput.dispatchEvent(new Event('input', { bubbles: true }));
+      handleBorderRadiusInput.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
     // Verify code snippet updated
     const codePre = container.querySelector('.code-pre')?.textContent;
     expect(codePre).toContain("'--heelslide-track-width': '18px'");
+    expect(codePre).toContain("'--heelslide-handle-border-radius': '16px'");
 
     unmount();
   });

@@ -433,7 +433,23 @@ describe('<Heelslide /> Component', () => {
       );
       expect(handleStyle).toContain('var(--heelslide-handle-size, 32px)');
       expect(handleStyle).toContain('var(--heelslide-handle-shadow, 0 2px 8px rgba(0, 0, 0, 0.15))');
+      expect(handleStyle).toContain('var(--heelslide-handle-border-radius, 8px)');
 
+      unmount();
+    });
+
+    it('should apply custom handle border-radius via --heelslide-handle-border-radius', () => {
+      const { container, unmount } = renderComponent({
+        width: 300,
+        height: 150,
+        style: {
+          ['--heelslide-handle-border-radius' as any]: '4px'
+        }
+      });
+      const handle = container.querySelector('[data-heelslide-handle]') as HTMLElement;
+      expect(handle).not.toBeNull();
+      const handleStyle = handle.getAttribute('style') || '';
+      expect(handleStyle).toContain('var(--heelslide-handle-border-radius, 8px)');
       unmount();
     });
 

@@ -122,6 +122,7 @@ describe('Playground Code Snippet Generator', () => {
         ...sampleConfig.theme,
         trackWidth: 16,
         handleSize: 36,
+        handleBorderRadius: 10,
         handleBorderColor: '#3b82f6',
         heelRadius: 6,
         heelPadding: 4,
@@ -133,6 +134,7 @@ describe('Playground Code Snippet Generator', () => {
     const reactSnippet = generateCodeSnippet('react', expandedThemeConfig);
     expect(reactSnippet).toContain("'--heelslide-track-width': '16px'");
     expect(reactSnippet).toContain("'--heelslide-handle-size': '36px'");
+    expect(reactSnippet).toContain("'--heelslide-handle-border-radius': '10px'");
     expect(reactSnippet).toContain("'--heelslide-handle-border-color': '#3b82f6'");
     expect(reactSnippet).toContain("'--heelslide-track-heel-radius': '6px'");
     expect(reactSnippet).toContain("'--heelslide-heel-radius': '6px'");
@@ -143,6 +145,7 @@ describe('Playground Code Snippet Generator', () => {
     const vueSnippet = generateCodeSnippet('vue', expandedThemeConfig);
     expect(vueSnippet).toContain('--heelslide-track-width: 16px;');
     expect(vueSnippet).toContain('--heelslide-handle-size: 36px;');
+    expect(vueSnippet).toContain('--heelslide-handle-border-radius: 10px;');
     expect(vueSnippet).toContain('--heelslide-handle-border-color: #3b82f6;');
     expect(vueSnippet).toContain('--heelslide-track-heel-radius: 6px;');
     expect(vueSnippet).toContain('--heelslide-heel-radius: 6px;');
@@ -153,7 +156,21 @@ describe('Playground Code Snippet Generator', () => {
     const svelteSnippet = generateCodeSnippet('svelte', expandedThemeConfig);
     expect(svelteSnippet).toContain('--heelslide-track-width: 16px;');
     expect(svelteSnippet).toContain('--heelslide-handle-size: 36px;');
+    expect(svelteSnippet).toContain('--heelslide-handle-border-radius: 10px;');
     expect(svelteSnippet).toContain('--heelslide-handle-border-color: #3b82f6;');
+  });
+
+  it('should format string handleBorderRadius values like percentages directly into CSS variables', () => {
+    const circleConfig: PlaygroundConfig = {
+      ...sampleConfig,
+      theme: {
+        ...sampleConfig.theme,
+        handleBorderRadius: '50%'
+      }
+    };
+    expect(generateCodeSnippet('react', circleConfig)).toContain("'--heelslide-handle-border-radius': '50%'");
+    expect(generateCodeSnippet('vue', circleConfig)).toContain('--heelslide-handle-border-radius: 50%;');
+    expect(generateCodeSnippet('svelte', circleConfig)).toContain('--heelslide-handle-border-radius: 50%;');
   });
 
   it('should format container dimensions, border widths, and state colors as live-updated CSS variables', () => {
