@@ -58,6 +58,7 @@ function PlaygroundApp() {
       heelPadding: 0,
       targetHeelScale: 1.1,
       handleBorderWidth: 2,
+      handleBorderRadius: 8,
       heelBorderWidth: 0,
       targetHeelBorderWidth: 2,
       goalBorderWidth: 0,

@@ -43,6 +43,11 @@ export function Playground({ config, onStateChange, onUnlock, onReset }: Playgro
     ...(config.theme.handleSize !== undefined ? { '--heelslide-handle-size': `${config.theme.handleSize}px` } : {}),
     ...(config.theme.handleBorderColor ? { '--heelslide-handle-border-color': config.theme.handleBorderColor } : {}),
     ...(config.theme.handleBorderWidth !== undefined ? { '--heelslide-handle-border-width': `${config.theme.handleBorderWidth}px` } : {}),
+    ...(config.theme.handleBorderRadius !== undefined ? {
+      '--heelslide-handle-border-radius': typeof config.theme.handleBorderRadius === 'number'
+        ? `${config.theme.handleBorderRadius}px`
+        : config.theme.handleBorderRadius
+    } : {}),
     ...(config.theme.heelRadius !== undefined ? {
       '--heelslide-track-heel-radius': `${config.theme.heelRadius}px`,
       '--heelslide-heel-radius': `${config.theme.heelRadius}px`
